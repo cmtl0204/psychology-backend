@@ -38,7 +38,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            $this->mapApiRoutes();
+            $this->mapApiRoutesPrivates();
+            $this->mapApiRoutesPublic();
 
             Route::middleware('web')
                 ->namespace($this->namespace)
@@ -46,20 +47,44 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
-    protected function mapApiRoutes()
+    protected function mapApiRoutesPrivates()
     {
-        $version = 'v1';
-        Route::prefix("api/${version}")
-            ->middleware('api')
-            ->group(base_path("routes/api/${version}/public.php"));
+        $prefix = "api/v1";
+        $path = "routes/$prefix/private";
 
-        Route::prefix("api/${version}")
-            ->middleware(['api', 'auth:sanctum','verify_user_blocked'])
-            ->group(base_path("routes/api/${version}/private.php"));
-
-        Route::prefix("api/${version}")
+        Route::prefix($prefix)
             ->middleware(['api', 'auth:sanctum'])
-            ->group(base_path("routes/api/${version}/authentication.php"));
+            ->group(base_path("${path}/authentication.php"));
+
+        Route::prefix($prefix)
+            ->middleware(['api', 'auth:sanctum'])
+            ->group(base_path("${path}/core.php"));
+
+        Route::prefix($prefix)
+            ->middleware(['api', 'auth:sanctum'])
+            ->group(base_path("${path}/uic.php"));
+    }
+
+    protected function mapApiRoutesPublic()
+    {
+        $prefix = "api/v1";
+        $path = "routes/$prefix/public";
+
+        Route::prefix($prefix)
+            ->middleware('api')
+            ->group(base_path("${path}/init.php"));
+        
+        Route::prefix($prefix)
+            ->middleware('api')
+            ->group(base_path("${path}/authentication.php"));
+
+        Route::prefix($prefix)
+            ->middleware('api')
+            ->group(base_path("${path}/core.php"));
+
+        Route::prefix($prefix)
+            ->middleware('api')
+            ->group(base_path("${path}/uic.php"));
     }
 
     /**

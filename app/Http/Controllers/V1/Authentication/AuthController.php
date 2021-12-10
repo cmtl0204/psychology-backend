@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\V1\Authentication;
 
+use App\Http\Resources\V1\Authentication\PersonalAccessTokenResource;
+use App\Models\Authentication\PersonalAccessToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -9,14 +11,14 @@ use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Core\Authentications\ChangePasswordAuthRequest;
-use App\Http\Requests\V1\Core\Authentications\GenerateTransactionalCodeAuthRequest;
-use App\Http\Requests\V1\Core\Authentications\RequestPasswordResetRequest;
-use App\Http\Requests\V1\Core\Authentications\ResetPasswordAuthRequest;
-use App\Http\Requests\V1\Core\Authentications\UnlockAuthRequest;
-use App\Http\Requests\V1\Core\Authentications\UserUnlockAuthRequest;
-use App\Http\Requests\V1\Core\Authentications\LoginAuthRequest;
-use App\Http\Requests\V1\Core\Authentications\VerifyTransactionalCodeAuthRequest;
+use App\Http\Requests\V1\Authentication\ChangePasswordAuthRequest;
+use App\Http\Requests\V1\Authentication\GenerateTransactionalCodeAuthRequest;
+use App\Http\Requests\V1\Authentication\RequestPasswordResetRequest;
+use App\Http\Requests\V1\Authentication\ResetPasswordAuthRequest;
+use App\Http\Requests\V1\Authentication\UnlockAuthRequest;
+use App\Http\Requests\V1\Authentication\UserUnlockAuthRequest;
+use App\Http\Requests\V1\Authentication\LoginAuthRequest;
+use App\Http\Requests\V1\Authentication\VerifyTransactionalCodeAuthRequest;
 use App\Http\Resources\V1\Authentication\AuthResource;
 use App\Http\Resources\V1\Core\Users\UserResource;
 use App\Mail\Authentication\RequestPasswordResetMailable;
@@ -46,7 +48,7 @@ class AuthController extends Controller
 
         return (new AuthResource($user))
             ->additional([
-                'token' => $user->createToken($request->getClientIp())->plainTextToken,
+                'token' => $user->createToken($request->header('User-Agent'))->plainTextToken,
                 'msg' => [
                     'summary' => 'Acceso correcto',
                     'detail' => 'Bienvenido',
@@ -67,12 +69,12 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function logutAll()
+    public function logoutAll()
     {
         auth()->user()->tokens()->delete();
         return response()->json([
             'msg' => [
-                'summary' => 'logoutAll',
+                'summary' => 'Se ha cerrado sesión en todos sus dispositivos',
                 'detail' => '',
                 'code' => '200'
             ]

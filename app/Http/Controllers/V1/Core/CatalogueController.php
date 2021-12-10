@@ -11,20 +11,11 @@ class CatalogueController extends Controller
 {
     public function __construct()
     {
-//        $this->middleware('role:admin')->only(['destroyTrashed']);
-//
-//        $this->middleware('permission:download-files')->only(['download']);
-//        $this->middleware('permission:upload-files')->only(['upload']);
-//        $this->middleware('permission:view-files')->only(['index', 'show']);
-//        $this->middleware('permission:update-files')->only(['update']);
-//        $this->middleware('permission:delete-files')->only(['destroy', 'destroys']);
+        $this->middleware('permission:store-catalogues')->only(['store']);
+        $this->middleware('permission:update-catalogues')->only(['update']);
+        $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return CatalogueCollection
-     */
     public function index(IndexCatalogueRequest $request)
     {
         $sorts = explode(',', $request->sort);
@@ -47,7 +38,6 @@ class CatalogueController extends Controller
     {
         $catalogues = Catalogue::orderBy('name')
             ->type($request->input('type'))
-//            ->paginate();
             ->paginate($request->input('per_page'));
 
         return (new CatalogueCollection($catalogues))

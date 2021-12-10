@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\V1\Core;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Core\Images\DownloadImageRequest;
-use App\Http\Requests\V1\Core\Images\IndexImageRequest;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as InterventionImage;
+use App\Http\Requests\V1\Core\Images\IndexImageRequest;
 use App\Http\Requests\V1\Core\Images\UpdateImageRequest;
 use App\Http\Requests\V1\Core\Images\UploadImageRequest;
 use App\Models\Core\Image;
@@ -18,12 +17,14 @@ class ImageController extends Controller
     public function __construct()
     {
         $this->storagePath = storage_path('app\private\images\\');
+        $this->middleware('permission:store-images')->only(['store']);
+        $this->middleware('permission:update-images')->only(['update']);
+        $this->middleware('permission:delete-images')->only(['destroy', 'destroys']);
     }
 
-    public function download(DownloadImageRequest $request)
+    public function download(Image $image)
     {
-        $path = $request->input('full_path');
-        if (!Storage::exists($path)) {
+        if (!Storage::exists($image->full_path)) {
             return response()->json([
                 'data' => null,
                 'msg' => [
@@ -33,7 +34,7 @@ class ImageController extends Controller
                 ]], 404);
         }
 
-        return Storage::download($path);
+        return Storage::download($image->full_path);
     }
 
     public function upload(UploadImageRequest $request, $model)

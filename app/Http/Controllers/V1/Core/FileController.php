@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\V1\Core;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
-use App\Http\Resources\V1\Core\Authentications\FileCollection;
-use App\Http\Resources\V1\Core\Authentications\FileResource;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
+use App\Http\Resources\V1\Core\FileCollection;
+use App\Http\Resources\V1\Core\FileResource;
 use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
 use App\Models\Core\File;
 

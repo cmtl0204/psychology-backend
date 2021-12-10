@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\V1\Core;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
 use App\Http\Requests\V1\Core\Files\IndexFileRequest;
 use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
@@ -18,8 +20,6 @@ use App\Http\Resources\V1\Core\Users\UserResource;
 use App\Models\Core\Catalogue;
 use App\Models\Core\File;
 use App\Models\Authentication\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -32,11 +32,6 @@ class UserController extends Controller
         $this->middleware('permission:delete-users')->only(['destroy', 'destroys']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return UserCollection
-     */
     public function index(IndexUserRequest $request)
     {
         $sorts = explode(',', $request->sort);
@@ -56,12 +51,6 @@ class UserController extends Controller
             ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return UserResource
-     */
     public function store(StoreUserRequest $request)
     {
         $user = User::where('username', $request->input('username'))
@@ -119,12 +108,6 @@ class UserController extends Controller
             ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\User $user
-     * @return UserResource
-     */
     public function show(User $user)
     {
         return (new UserResource($user))
@@ -137,13 +120,6 @@ class UserController extends Controller
             ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User $user
-     * @return UserResource
-     */
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->identificationType()->associate(Catalogue::find($request->input('identificationType.id')));
@@ -173,12 +149,6 @@ class UserController extends Controller
             ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\User $user
-     * @return UserResource|\Illuminate\Http\JsonResponse
-     */
     public function destroy(Request $request, User $user)
     {
         if ($request->user()->id === $user->id) {

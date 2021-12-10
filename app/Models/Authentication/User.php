@@ -81,24 +81,14 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
 
     // Relationships
 
-    public function files()
+    public function bloodType()
     {
-        return $this->morphMany(File::class, 'fileable');
+        return $this->belongsTo(Catalogue::class);
     }
 
-    public function images()
+    public function civilStatus()
     {
-        return $this->morphMany(Image::class, 'imageable');
-    }
-
-    public function professional()
-    {
-        return $this->hasOne(Professional::class);
-    }
-
-    public function phones()
-    {
-        return $this->morphMany(Phone::class, 'phoneable');
+        return $this->belongsTo(Catalogue::class);
     }
 
     public function emails()
@@ -106,14 +96,14 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         return $this->morphMany(Email::class, 'emailable');
     }
 
-    public function identificationType()
+    public function ethnicOrigin()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function sex()
+    public function files()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->morphMany(File::class, 'fileable');
     }
 
     public function gender()
@@ -121,17 +111,22 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function bloodType()
+    public function identificationType()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function ethnicOrigin()
+    public function images()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function civilStatus()
+    public function phones()
+    {
+        return $this->morphMany(Phone::class, 'phoneable');
+    }
+
+    public function sex()
     {
         return $this->belongsTo(Catalogue::class);
     }

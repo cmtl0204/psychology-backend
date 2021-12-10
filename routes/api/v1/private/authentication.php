@@ -10,7 +10,7 @@ Route::apiResource('menus', MenuController::class);
 
 Route::prefix('auth')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
-    Route::post('logout-all', [AuthController::class, 'logoutAll']);
+    Route::get('logout-all', [AuthController::class, 'logoutAll']);
     Route::post('unlock-user', [AuthController::class, 'unlockUser']);
     Route::post('change-password', [AuthController::class, 'changePassword']);
     Route::post('mark-email-verified', [AuthController::class, 'markEmailAsVerified']);
