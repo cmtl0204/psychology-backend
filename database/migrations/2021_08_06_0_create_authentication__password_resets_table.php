@@ -16,6 +16,7 @@ class CreateAuthenticationPasswordResetsTable extends Migration
         Schema::connection(env('DB_CONNECTION'))->create('password_resets', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->string('token');
 

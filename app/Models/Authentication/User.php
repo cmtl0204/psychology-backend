@@ -7,7 +7,6 @@ use App\Models\Core\Email;
 use App\Models\Core\File;
 use App\Models\Core\Image;
 use App\Models\Core\Phone;
-use App\Models\JobBoard\Professional;
 use App\Traits\EmailTrait;
 use App\Traits\FileTrait;
 use App\Traits\ImageTrait;
@@ -218,6 +217,48 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
 
     public function setPasswordAttribute($value)
     {
-        $this->attributes['password'] = Hash::make($value);
+        $this->attributes['password'] = Hash::make(trim($value));
+    }
+
+    // Functions
+    public function reducePasswordAttempts()
+    {
+        $this->max_attempts = $this->max_attempts - 1;
+        $this->save();
+
+        if ($this->max_attempts <= 0) {
+            $this->max_attempts = 0;
+            $this->save();
+
+            return response()->json([
+                'data' => null,
+                'msg' => [
+                    'summary' => 'Oops! Su usuario ha sido bloqueado!',
+                    'detail' => 'Demasiados intentos de inicio de sesión',
+                    'code' => '429'
+                ]], 429);
+        }
+
+        return response()->json([
+            'data' => $this->attempts,
+            'msg' => [
+                'summary' => 'Contrasaña incorrecta',
+                'detail' => "Oops! le quedan {$this->max_attempts} intentos",
+                'code' => '401',
+            ]], 401);
+    }
+
+    public function resetMaxAttempts()
+    {
+        $this->max_attempts = User::MAX_ATTEMPTS;
+        $this->save();
+
+        return response()->json([
+            'data' => $this->attempts,
+            'msg' => [
+                'summary' => 'success',
+                'detail' => '',
+                'code' => '201',
+            ]], 201);
     }
 }

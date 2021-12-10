@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Resources\V1\Core\Authentications;
+namespace App\Http\Resources\V1\Authentication;
 
 use App\Http\Resources\V1\Core\Users\UserResource;
-use App\Http\Resources\V1\JobBoard\ProfessionalResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthResource extends JsonResource

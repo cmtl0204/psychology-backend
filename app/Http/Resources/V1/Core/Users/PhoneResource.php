@@ -18,7 +18,6 @@ class PhoneResource extends JsonResource
         return [
             'id' => $this->id,
             'number' => $this->number,
-            'main' => $this->main,
             'operator' => CatalogueResource::make($this->operator),
             'location' => LocationResource::make($this->location),
         ];

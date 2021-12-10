@@ -11,6 +11,7 @@ class CreateAuthenticationTransactionalCodesTable extends Migration
         Schema::connection(env('DB_CONNECTION'))->create('transactional_codes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->string('token')
                 ->index();

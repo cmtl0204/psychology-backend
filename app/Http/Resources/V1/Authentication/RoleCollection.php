@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1\Core\Authentications;
+namespace App\Http\Resources\V1\Authentication;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 

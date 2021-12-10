@@ -90,13 +90,6 @@ add  in composer.json/require => "ext-json": "*",
 - config/app.php => providers => Intervention\Image\ImageServiceProvider::class,
 - config/app.php => aliases => 'Image' => Intervention\Image\Facades\Image::class,
 
-## Laravel Sanctum
-- **[laravel/sanctum](https://laravel.com/docs/8.x/sanctum#installation)**
-- composer require laravel/sanctum
-- php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
-- php artisan migrate
-- app/Http/Kernel.php => api =>  \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-
 ## Laravel Socialitie
 - **[laravel/socialite](https://laravel.com/docs/8.x/socialite#installation)**
 - composer require laravel/socialite
@@ -115,13 +108,15 @@ add  in composer.json/require => "ext-json": "*",
 ## Laravel Spanish
 - **[laraveles/spanish](https://github.com/Laraveles/spanish)** 
 - composer require laraveles/spanish
-- - config/app.php => providers => Laraveles\Spanish\SpanishServiceProvider::class,
+- config/app.php => providers => Laraveles\Spanish\SpanishServiceProvider::class,
+- php artisan vendor:publish --tag=lang
 
 ## Laravel Auditing
 - **[owen-it/laravel-auditing](http://www.laravel-auditing.com/docs/9.0/installation)**
 - composer require owen-it/laravel-auditing
 - config/app.php => providers => OwenIt\Auditing\AuditingServiceProvider::class,
 - php artisan vendor:publish --provider "OwenIt\Auditing\AuditingServiceProvider" --tag="migrations"
+- php artisan vendor:publish --provider "OwenIt\Auditing\AuditingServiceProvider" --tag="config"
 
 ## SimpleSoftware QR
 - **[simplesoftwareio/simple-qrcode](https://www.simplesoftware.io/#/docs/simple-qrcode)**
@@ -137,3 +132,25 @@ add  in composer.json/require => "ext-json": "*",
 - php artisan optimize:clear
 - php artisan config:clear
 - php artisan migrate
+
+## Laravel Sanctum (for 7 or less)
+- **[laravel/sanctum](https://laravel.com/docs/8.x/sanctum#installation)**
+- composer require laravel/sanctum
+- php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+- php artisan migrate
+- app/Http/Kernel.php => api =>  \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+- (Optional) for User model in other directory
+
+config/auth.php => providers => 'model' => App\Models\Authentication\User::class,
+
+# Other Configurations
+
+## File Systems
+- Create a private directory
+
+'private' => [
+'driver' => 'local',
+'root' => storage_path('app/private'),
+],
+
+- Add in .env FILESYSTEM_DRIVER='private'

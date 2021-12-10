@@ -13,13 +13,16 @@ class ChangePasswordAuthRequest extends FormRequest
 
     public function rules()
     {
-       return   [
+        return [
+            'currentPassword' => [
+                'required'
+            ],
             'password' => [
                 'required',
-                'min:6',
-                'max:30'
+                'min:8',
+                'max:16'
             ],
-            'password_confirmation' => [
+            'passwordConfirmation' => [
                 'required',
                 'same:password'
             ]
@@ -29,10 +32,10 @@ class ChangePasswordAuthRequest extends FormRequest
 
     public function attributes()
     {
-       return  [
-            'password_old' => 'Password Old',
-            'password' => 'Password',
-            'password_confirmation' => 'Password Confirmation',
+        return [
+            'currentPassword' => 'contraseña actual',
+            'password' => 'contraseña',
+            'passwordConfirmation' => 'confirmación de contraseña',
 
         ];
 

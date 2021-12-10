@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Develop;
 
 use App\Models\Authentication\System;
 use App\Models\Core\Catalogue;
@@ -58,8 +58,7 @@ class AuthenticationSeeder extends Seeder
             'name' => 'Sistema de Gestión Académico - Administrativo',
             'acronym' => 'IGNUG',
             'version' => '2.2.3',
-//            'redirect' => 'http://localhost:4200',
-            'redirect' => 'https://bolsa-empleo.yavirac.edu.ec/#/',
+            'redirect' => 'http://localhost:4200',
             'date' => '2021-03-10',
             'state' => true
         ]);

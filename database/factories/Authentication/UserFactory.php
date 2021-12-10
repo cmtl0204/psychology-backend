@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'birthdate' => $this->faker->date(),
             'email_verified_at' => now(),
-            'password' => '123456',
+            'password' => '12345678',
         ];
     }
 

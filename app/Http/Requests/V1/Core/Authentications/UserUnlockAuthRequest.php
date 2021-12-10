@@ -21,7 +21,7 @@ class UserUnlockAuthRequest extends FormRequest
     public function attributes()
     {
        return  [
-            'username' => 'usuario'
+            'username' => 'nombr de usuario'
         ];
 
     }

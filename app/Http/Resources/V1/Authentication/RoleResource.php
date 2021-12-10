@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\V1\Core\Authentications;
+namespace App\Http\Resources\V1\Authentication;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FileResource extends JsonResource
+class RoleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,7 @@ class FileResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'description' => $this->description,
-            'extension' => $this->extension,
-            'fullName' => "{$this->name}.{$this->extension}",
-            'fullPath' => "files/{$this->id}.{$this->extension}",
+            'permissions' => PermissionResource::collection($this->permissions),
         ];
     }
 }

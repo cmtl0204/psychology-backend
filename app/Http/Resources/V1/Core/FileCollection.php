@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1\Core\Authentications;
+namespace App\Http\Resources\V1\Core;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -12,6 +12,7 @@ class FileCollection extends ResourceCollection
      * @param \Illuminate\Http\Request $request
      * @return array
      */
+
     public function toArray($request)
     {
         return [

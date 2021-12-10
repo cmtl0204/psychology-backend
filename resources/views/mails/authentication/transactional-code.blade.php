@@ -4,7 +4,7 @@
         <div class="col-12 text-muted">
             <h3 class="text-center">Información código de seguridad</h3>
             <br>
-            <p>El código de seguridad para realizar su solicitud es: <b>{{$token}}</b></p>
+            <p>El código de seguridad para realizar su solicitud es: <b>{{$data->token}}</b></p>
             <br>
             <p>Este código de seguridad tiene tiempo de duración de
                 <b>2 min.</b>

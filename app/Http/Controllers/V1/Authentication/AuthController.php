@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\V1\Authentication;
 
-use App\Exceptions\ModelNotFound;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Core\Authentications\ChangePasswordAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\GenerateTransactionalCodeAuthRequest;
@@ -12,18 +17,13 @@ use App\Http\Requests\V1\Core\Authentications\UnlockAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\UserUnlockAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\LoginAuthRequest;
 use App\Http\Requests\V1\Core\Authentications\VerifyTransactionalCodeAuthRequest;
-use App\Http\Resources\V1\Core\Authentications\AuthResource;
+use App\Http\Resources\V1\Authentication\AuthResource;
 use App\Http\Resources\V1\Core\Users\UserResource;
 use App\Mail\Authentication\RequestPasswordResetMailable;
+use App\Mail\Authentication\TransactionalCodeMailable;
 use App\Models\Authentication\TransactionalCode;
 use App\Models\Authentication\PasswordReset;
 use App\Models\Authentication\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
-use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -33,38 +33,31 @@ class AuthController extends Controller
 
     public function login(LoginAuthRequest $request)
     {
-        $user = User::firstWhere('username', $request->username);
+        $user = $this->validateUser($request->input('username'));
+        if (!isset($user->id)) {
+            return $user;
+        }
 
-        if (!$user) {
-            return response()->json([
-                'data' => null,
+        if (!Hash::check($request->input('password'), $user->password)) {
+            return $user->reducePasswordAttempts();
+        }
+
+        $user->resetMaxAttempts();
+
+        return (new AuthResource($user))
+            ->additional([
+                'token' => $user->createToken($request->getClientIp())->plainTextToken,
                 'msg' => [
-                    'summary' => 'No se encontró el registro',
-                    'detail' => '',
-                    'code' => '404',
+                    'summary' => 'Acceso correcto',
+                    'detail' => 'Bienvenido',
+                    'code' => '200'
                 ]
-            ], 404);
-        }
-
-        if (!Hash::check($request->password, $user->password)) {
-            return $this->reducePasswordAttempts($user);
-        }
-
-        $this->resetMaxAttempts($user);
-
-        return (new AuthResource($user))->additional([
-            'token' => $user->createToken($request->getClientIp())->plainTextToken,
-            'msg' => [
-                'summary' => 'Acceso correcto',
-                'detail' => 'Bienvenido',
-                'code' => '200'
-            ]
-        ]);
+            ]);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        $request->user()->currentAccessToken()->delete();
+        auth()->user()->currentAccessToken()->delete();
         return response()->json([
             'msg' => [
                 'summary' => 'Su sesión ha sido cerrada correctamente',
@@ -74,9 +67,9 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function logoutAll(Request $request)
+    public function logutAll()
     {
-        $request->user()->tokens()->delete();
+        auth()->user()->tokens()->delete();
         return response()->json([
             'msg' => [
                 'summary' => 'logoutAll',
@@ -86,7 +79,7 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function handleProviderCallback($driver)
+    public function handleProviderCallback($driver): \Illuminate\Http\RedirectResponse
     {
         $userSocialite = Socialite::driver($driver)->stateless()->user();
         $user = User::firstWhere('email', $userSocialite->getEmail());
@@ -115,11 +108,11 @@ class AuthController extends Controller
     public function registerSocialiteUser(Request $request)
     {
         $user = new User();
-        $user->username = $request->username;
-        $user->name = $request->name;
-        $user->lastname = $request->lastname;
-        $user->email = $request->email;
-        $user->password = $request->password;
+        $user->username = $request->input('username');
+        $user->name = $request->input('name');
+        $user->lastname = $request->input('lastname');
+        $user->email = $request->input('email');
+        $user->password = $request->input('password');
         $user->save();
 
         $token = $user->createToken($user->email)->accessToken;
@@ -146,67 +139,30 @@ class AuthController extends Controller
             ]], 201);
     }
 
-    private function reducePasswordAttempts($user)
-    {
-        $user->max_attempts = $user->max_attempts - 1;
-        $user->save();
-
-        if ($user->max_attempts <= 0) {
-            $user->max_attempts = 0;
-            $user->save();
-
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Oops! Su usuario ha sido bloqueado!',
-                    'detail' => 'Demasiados intentos de inicio de sesión',
-                    'code' => '429'
-                ]], 429);
-        }
-
-        return response()->json([
-            'data' => $user->attempts,
-            'msg' => [
-                'summary' => 'Contrasaña incorrecta',
-                'detail' => "Oops! le quedan {$user->max_attempts} intentos",
-                'code' => '401',
-            ]], 401);
-    }
-
-    public function resetMaxAttempts($user)
-    {
-        $user->max_attempts = User::MAX_ATTEMPTS;
-        $user->save();
-
-        return response()->json([
-            'data' => $user->attempts,
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '201',
-            ]], 201);
-    }
-
     public function changePassword(changePasswordAuthRequest $request)
     {
-        $user = $request->user();
+        $user = $this->validateUser($request->user()->username);
 
-        if (!$user) {
+        if (!isset($user->id)) {
+            return $user;
+        }
+
+        if (!Hash::check($request->input('currentPassword'), $user->password)) {
             return response()->json([
                 'data' => null,
                 'msg' => [
-                    'summary' => 'Usuario no encontrando',
+                    'summary' => 'La contrseña actual no es válida',
                     'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]], 404);
+                    'code' => '403'
+                ]], 403);
         }
 
-        $user->password = trim($request->input('password'));
+        $user->password = $request->input('password');
         $user->password_changed = true;
         $user->save();
 
-        if ($request->logoutAll == true) {
-            $request->user()->tokens()->delete();
+        if ($request->input('logoutAll') === true) {
+            $user->tokens()->delete();
         }
 
         return response()->json([
@@ -220,18 +176,10 @@ class AuthController extends Controller
 
     public function requestPasswordReset(RequestPasswordResetRequest $request)
     {
-        $user = User::where('username', $request->input('username'))
-            ->orWhere('email', $request->input('username'))
-            ->first();
+        $user = $this->validateUser($request->user()->username);
 
-        if (!$user) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Usuario no encontrando',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]], 404);
+        if (!isset($user->id)) {
+            return $user;
         }
 
         $token = Str::random(70);
@@ -258,9 +206,9 @@ class AuthController extends Controller
 
     public function resetPassword(ResetPasswordAuthRequest $request)
     {
-        $passworReset = PasswordReset::firstWhere('token', $request->token);
+        $passwordReset = PasswordReset::firstWhere('token', $request->input('token'));
 
-        if (!$passworReset) {
+        if (!isset($passwordReset->token)) {
             return response()->json([
                 'data' => null,
                 'msg' => [
@@ -270,29 +218,29 @@ class AuthController extends Controller
                 ]], 400);
         }
 
-        if ($passworReset->used) {
+        if ($passwordReset->used) {
             return response()->json([
                 'data' => null,
                 'msg' => [
                     'summary' => 'Token no válido',
-                    'detail' => 'El token ya fue usado',
+                    'detail' => 'El token ya fue utilizado',
                     'code' => '403'
                 ]], 403);
         }
 
-        if ((new Carbon($passworReset->created_at))->addMinutes(User::DECAY_MINUTES_PASSWORD_FORGOT) <= Carbon::now()) {
+        if ((new Carbon($passwordReset->created_at))->addMinutes(User::DECAY_MINUTES_PASSWORD_FORGOT) <= Carbon::now()) {
             return response()->json([
                 'data' => null,
                 'msg' => [
-                    'summary' => 'Token no valido',
+                    'summary' => 'Token no válido',
                     'detail' => 'El token ha expirado',
                     'code' => '403'
                 ]], 403);
         }
 
-        $user = User::firstWhere('username', $passworReset->username);
+        $user = User::firstWhere('username', $passwordReset->username);
 
-        if (!$user) {
+        if (!isset($user->id)) {
             return response()->json([
                 'data' => null,
                 'msg' => [
@@ -302,10 +250,12 @@ class AuthController extends Controller
                 ]], 404);
         }
 
-        $user->password = trim($request->password);
+        $user->password = $request->input('password');
         $user->max_attempts = 3;// esto es temporal
         $user->save();
-        $passworReset->update(['used' => true]);
+
+        $passwordReset->update(['used' => true]);
+
         return response()->json([
             'data' => null,
             'msg' => [
@@ -317,18 +267,10 @@ class AuthController extends Controller
 
     public function requestUserUnlock(UserUnlockAuthRequest $request)
     {
-        $user = User::where('username', $request->input('username'))
-            ->orWhere('email', $request->input('username'))
-            ->first();
+        $user = $this->validateUser($request->user()->username);
 
-        if (!$user) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Usuario no encontrando',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]], 404);
+        if (!isset($user->id)) {
+            return $user;
         }
 
         $token = Str::random(70);
@@ -357,41 +299,41 @@ class AuthController extends Controller
 
     public function unlockUser(UnlockAuthRequest $request)
     {
-        $passworReset = PasswordReset::firstWhere('token', $request->token);
+        $passwordReset = PasswordReset::firstWhere('token', $request->input('token'));
 
-        if (!$passworReset) {
+        if (!isset($passwordReset->token)) {
             return response()->json([
                 'data' => null,
                 'msg' => [
                     'summary' => 'Token no válido',
                     'detail' => 'El token no fue encontrado',
-                    'code' => '400'
-                ]], 400);
+                    'code' => '404'
+                ]], 404);
         }
 
-        if ($passworReset->used) {
+        if ($passwordReset->used) {
             return response()->json([
                 'data' => null,
                 'msg' => [
                     'summary' => 'Token no válido',
-                    'detail' => 'El token ya fue usado',
+                    'detail' => 'El token ya fue utilizado',
                     'code' => '403'
                 ]], 403);
         }
 
-        if ((new Carbon($passworReset->created_at))->addMinutes(User::DECAY_MINUTES_PASSWORD_FORGOT) <= Carbon::now()) {
+        if ((new Carbon($passwordReset->created_at))->addMinutes(User::DECAY_MINUTES_PASSWORD_FORGOT) <= Carbon::now()) {
             return response()->json([
                 'data' => null,
                 'msg' => [
-                    'summary' => 'Token no valido',
+                    'summary' => 'Token no válido',
                     'detail' => 'El token ha expirado',
                     'code' => '403'
                 ]], 403);
         }
 
-        $user = User::firstWhere('username', $passworReset->username);
+        $user = User::firstWhere('username', $passwordReset->username);
 
-        if (!$user) {
+        if (!isset($user->id)) {
             return response()->json([
                 'data' => null,
                 'msg' => [
@@ -403,7 +345,8 @@ class AuthController extends Controller
 
         $user->max_attempts = User::MAX_ATTEMPTS;
         $user->save();
-        $passworReset->update(['used' => true]);
+
+        $passwordReset->update(['used' => true]);
 
         return response()->json([
             'data' => null,
@@ -414,70 +357,35 @@ class AuthController extends Controller
             ]], 201);
     }
 
-    public function emailVerified($email)
-    {
-        $user = User::firstWhere('email', $email);
-
-        if (!$user) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Usuario no encontrando',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]], 404);
-        }
-
-//        Mail::to($user->email)
-//            ->send(new EmailVerifiedMailable(
-//                'Verificación de Correo Electrónico',
-//                json_encode(['user' => $user]),
-//                null,
-//                $request->input('system')
-//            ));
-
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Correo enviado',
-                'detail' => $user->hiddenStringEmail($user->email),
-                'code' => '201'
-            ]], 201);
-    }
-
+    // funcion pendiende de revisar
     public function markEmailAsVerified(User $user)
     {
         $user->markEmailAsVerified();
 
-        return view('pages.authentication.verify-email')
+        return view('mails.authentication.mark-email-verified')
             ->with(['user' => $user]);;
     }
 
     public function generateTransactionalCode(GenerateTransactionalCodeAuthRequest $request)
     {
-        $user = $request->user();
+        $user = $this->validateUser($request->user()->username);
 
-        if (!$user) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Usuario no encontrando',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]], 404);
+        if (!isset($user->id)) {
+            return $user;
         }
 
         $token = mt_rand(100000, 999999);
+
         TransactionalCode::create([
             'username' => $user->username,
             'token' => $token
         ]);
 
-//        Mail::to($user->email)
-//            ->send(new EmailMailable(
-//                'Información Código de Seguridad',
-//                json_encode(['user' => $user])
-//            ));
+        Mail::to($user->email)
+            ->send(new TransactionalCodeMailable(
+                'Información Código de Seguridad',
+                json_encode(['user' => $user, 'token' => $token])
+            ));
 
         return response()->json([
             'data' => $token,
@@ -490,26 +398,28 @@ class AuthController extends Controller
 
     public function verifyTransactionalCode(VerifyTransactionalCodeAuthRequest $request)
     {
-        $transactionalCode = TransactionalCode::firstWhere('token', $request->token);
+        $transactionalCode = TransactionalCode::firstWhere('token', $request->input('token'));
 
-        if (!$transactionalCode) {
+        if (!isset($transactionalCode->token)) {
             return response()->json([
                 'data' => null,
                 'msg' => [
-                    'summary' => 'Código no encontrado',
+                    'summary' => 'Código no válido',
                     'detail' => 'Intente de nuevo',
                     'code' => '400'
                 ]], 400);
         }
+
         if ($transactionalCode->used) {
             return response()->json([
                 'data' => null,
                 'msg' => [
-                    'summary' => 'Código no valido',
-                    'detail' => 'El código ya fue usado',
+                    'summary' => 'Código no válido',
+                    'detail' => 'El código ya fue utilizado',
                     'code' => '403'
                 ]], 403);
         }
+
         if ((new Carbon($transactionalCode->created_at))->addMinutes(User::DECAY_MINUTES_TRANSACTIONAL_CODE) <= Carbon::now()) {
             return response()->json([
                 'data' => null,
@@ -521,7 +431,7 @@ class AuthController extends Controller
         }
         $user = User::firstWhere('username', $transactionalCode->username);
 
-        if (!$user) {
+        if (!isset($user->id)) {
             return response()->json([
                 'data' => null,
                 'msg' => [
@@ -532,20 +442,40 @@ class AuthController extends Controller
         }
 
         $transactionalCode->update(['used' => true]);
+
         return response()->json([
             'data' => true,
             'msg' => [
                 'summary' => 'success',
                 'detail' => '',
                 'code' => '201'
-            ]], 201);
+            ]], 200);
     }
 
+    public function validateUser($username)
+    {
+        $user = User::firstWhere('username', $username);
+
+        if (isset($user->id)) {
+            return $user;
+        }
+
+        return response()->json([
+            'data' => null,
+            'msg' => [
+                'summary' => 'Usuario no encontrado',
+                'detail' => 'Intente de nuevo',
+                'code' => '404'
+            ]], 404);
+
+    }
+
+    // Para validacion asincronica desde el cliente y saber si el nombre de usuario existe o no
     public function verifyUser($username)
     {
         $user = User::firstWhere('username', $username);
 
-        if ($user) {
+        if (isset($user->id)) {
             return (new UserResource($user))
                 ->additional([
                     'msg' => [
@@ -566,6 +496,7 @@ class AuthController extends Controller
 
     }
 
+    // Para validacion asincronica desde el cliente y saber si el email existe o no
     public function verifyEmail($email)
     {
         $user = User::firstWhere('email', $email);
@@ -590,6 +521,7 @@ class AuthController extends Controller
             ]], 200);
     }
 
+    // Para validacion asincronica desde el cliente y saber si el telefono existe o no
     public function verifyPhone($phone)
     {
         $user = User::firstWhere('phone', $phone);
@@ -608,7 +540,7 @@ class AuthController extends Controller
         return response()->json([
             'data' => null,
             'msg' => [
-                'summary' => 'Teléfono disponible',
+                'summary' => 'Número de teléfono disponible',
                 'detail' => '',
                 'code' => '200'
             ]], 200);
