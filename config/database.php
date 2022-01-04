@@ -93,7 +93,7 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'pgsql-uic' => [
+        'pgsql-cecy' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -104,7 +104,7 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'schema' => env('DB_SCHEMA_UIC', 'public'),
+            'schema' => env('DB_SCHEMA_CECY', 'public'),
             'sslmode' => 'prefer',
         ],
 
