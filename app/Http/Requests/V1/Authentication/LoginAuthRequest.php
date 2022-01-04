@@ -27,7 +27,6 @@ class LoginAuthRequest extends FormRequest
         return [
             'username' => 'required',
             'password' => ['required'],
-            'deviceName' => ['required', 'max:100'],
         ];
     }
 
@@ -36,7 +35,6 @@ class LoginAuthRequest extends FormRequest
        return [
             'username' => 'nombre de usuario',
             'password' => 'contraseña',
-            'deviceName' => 'nombre del dispositivo',
         ];
     }
 }
