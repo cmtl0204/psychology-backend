@@ -8,7 +8,7 @@ class CreateCoreInstitutionsTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_CORE'))->create('Institutions', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CORE'))->create('institutions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -52,6 +52,6 @@ class CreateCoreInstitutionsTable extends Migration
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_CORE'))->dropIfExists('Institutions');
+        Schema::connection(env('DB_CONNECTION_CORE'))->dropIfExists('institutions');
     }
 }

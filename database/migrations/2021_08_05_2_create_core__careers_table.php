@@ -14,7 +14,7 @@ class CreateCoreCareersTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('institution_id')
-                ->constrained('core.Institutions');
+                ->constrained('core.institutions');
 
             $table->foreignId('modality_id')
                 ->nullable()

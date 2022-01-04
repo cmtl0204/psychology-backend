@@ -9,7 +9,7 @@ class Institution extends Model
 {
     use HasFactory;
 
-    protected $table = 'core.Institutions';
+    protected $table = 'core.institutions';
 
     protected $fillable = [
         'acronym',

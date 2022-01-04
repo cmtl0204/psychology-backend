@@ -30,7 +30,6 @@ class CreateCorePhonesTable extends Migration
                 ->comment('CNT, MOVISTAR, CLARO')
                 ->constrained('core.catalogues');
 
-
             $table->foreignId('type_id')
                 ->nullable()
                 ->comment('Celular, convencional, fax')
