@@ -18,25 +18,39 @@ class CreateCecyAdditionalInformationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('level_instruction_id')
-                ->comment('id_nivel de instruccion')
-                ->constrained('cecy.catalogues');
-
             $table->boolean('worked')
                 ->comment('el participante trabaja?');
 
             $table->string('company_name')
                 ->comment('nombre de empresa');
 
-            $table->string('company_activity')->comment('actividad de la empresa');
-            $table->string('company_address')->comment('direccion fisica de empresa');
-            $table->string('company_phone')->comment('telefono de empresa');
-            $table->string('company_email')->comment('correo de empresa');
-            $table->boolean('company_sponsor')->comment('la empresa patrocina el curso (auspiciada)');
-            $table->string('contact_name')->comment('nombre de contacto que patrocina');
-            $table->string('level_instruction')->comment('Nivel de instrucción del participante');
-            $table->json('know_course')->comment('como se entero del curso? Array');
-            $table->json('course_follow')->nullable()->comment('cursos que te gustaria seguir? Array');
+            $table->string('company_activity')
+                ->comment('actividad de la empresa');
+
+            $table->string('company_address')
+                ->comment('direccion fisica de empresa');
+
+            $table->string('company_phone')
+                ->comment('telefono de empresa');
+
+            $table->string('company_email')
+                ->comment('correo de empresa');
+
+            $table->boolean('company_sponsor')
+                ->comment('la empresa patrocina el curso (auspiciada)');
+
+            $table->string('contact_name')
+                ->comment('nombre de contacto que patrocina');
+
+            $table->string('level_instruction')
+                ->comment('Nivel de instrucción del participante');
+
+            $table->json('know_course')
+                ->comment('como se entero del curso? Array');
+
+            $table->json('course_follow')
+                ->nullable()
+                ->comment('cursos que te gustaria seguir? Array');
 
         });
     }
