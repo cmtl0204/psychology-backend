@@ -22,11 +22,6 @@ class CreateCecyPrerequisitesTable extends Migration
                 ->comment('Un prerquisito puede tener prerquisitos hijos')
                 ->constrained('cecy.prerequisites');
 
-            $table->foreignId('state_id')
-                ->nullable()
-                ->comment('Un catalogo puede tener catalogos hijos')
-                ->constrained('cecy.catalogues');
-
         });
     }
 

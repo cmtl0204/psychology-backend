@@ -21,20 +21,20 @@ class CreateCecyAdditionalInformationsTable extends Migration
             $table->boolean('worked')
                 ->comment('el participante trabaja?');
 
-            $table->string('company_name')
-                ->comment('nombre de empresa');
-
             $table->string('company_activity')
                 ->comment('actividad de la empresa');
-
+            
             $table->string('company_address')
                 ->comment('direccion fisica de empresa');
 
-            $table->string('company_phone')
-                ->comment('telefono de empresa');
-
             $table->string('company_email')
                 ->comment('correo de empresa');
+                
+            $table->string('company_name')
+                ->comment('nombre de empresa');
+
+            $table->string('company_phone')
+                ->comment('telefono de empresa');
 
             $table->boolean('company_sponsor')
                 ->comment('la empresa patrocina el curso (auspiciada)');
@@ -42,7 +42,7 @@ class CreateCecyAdditionalInformationsTable extends Migration
             $table->string('contact_name')
                 ->comment('nombre de contacto que patrocina');
 
-            $table->string('level_instruction')
+            $table->integer('level_instruction')
                 ->comment('Nivel de instrucción del participante');
 
             $table->json('know_course')

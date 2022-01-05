@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCecyInstitutionsTable extends Migration
 {
-    public function up()
-    {
-        Schema::connection(env('DB_CONNECTION_CECY'))->create('institutions', function (Blueprint $table) {
+   public function up()
+   {
+      Schema::connection(env('DB_CONNECTION_CECY'))->create('institutions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -24,14 +24,11 @@ class CreateCecyInstitutionsTable extends Migration
 
             $table->text('slogan')
                ->comment('Slogan del instituto');
+      });
+   }
 
-            $table->string('state_id')
-               ->nullable();
-        });
-    }
-
-    public function down()
-    {
-        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('cecy_institutions');
-    }
+   public function down()
+   {
+      Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('cecy_institutions');
+   }
 }
