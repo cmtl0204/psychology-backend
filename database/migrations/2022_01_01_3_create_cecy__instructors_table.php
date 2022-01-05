@@ -17,17 +17,17 @@ class CreateCecyInstructorsTable extends Migration
                 ->nullable()
                 ->comment('usuario de autenticación')
                 ->constrained('authentication.users');
-            
+
             $table->foreignId('state_id')
-                ->nullable()          
-                ->comment('estado de autoridad')
+                ->nullable()
+                ->comment('estado de autoridad ej. ')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('status_id')
-                ->nullable() 
-                ->comment('datos como suspension en proceso')
+                ->nullable()
+                ->comment('datos como suspension, en proceso')
                 ->constrained('cecy.catalogues');
-            
+
             $table->foreignId('type_id')
                 ->nullable()
                 ->comment('Un instructor puede ser de la setec o docente de la senescyt')

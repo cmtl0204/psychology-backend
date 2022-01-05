@@ -8,7 +8,7 @@ class CreateCecyProfileInstructorCoursesTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_CECY'))->create('profile instructor courses', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CECY'))->create('profile_instructor_courses', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -16,32 +16,32 @@ class CreateCecyProfileInstructorCoursesTable extends Migration
             $table->foreignId('course_id')
                 ->nullable()
                 ->comment('')
-                ->constrained('cecy.course');
+                ->constrained('cecy.courses');
 
             $table->timestamp('created_at')
                 ->comment('');
 
-            $table->text('required_experience')
+            $table->text('require_experience')
                 ->comment('');
 
-            $table->text('required_knowledge')
+            $table->text('require_knowledge')
                 ->comment('');
 
-            $table->text('required_skills')
+            $table->text('require_skill')
             ->comment('');
 
             $table->boolean('stated_id')
                 ->comment('');
-            
+
             $table->timestamp('updated_at')
             ->comment('');
 
-        
+
         });
     }
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('profile instructor courses');
+        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('profile_instructor_courses');
     }
 }

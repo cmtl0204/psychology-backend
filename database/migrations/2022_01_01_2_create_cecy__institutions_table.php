@@ -8,14 +8,14 @@ class CreateCecyInstitutionsTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_CECY'))->create('cecy_institutions', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CECY'))->create('institutions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
 
             $table->string('code')
                ->nullable();
-              
+
             $table->string('logo')
                ->comment('Logo de insitutcion');
 
