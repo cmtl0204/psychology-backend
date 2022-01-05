@@ -13,7 +13,7 @@ class AdditionalInformation extends Model
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.additional_information';
+    protected $table = 'cecy.additional_informations';
 
     protected $fillable = [
         'company_activity',
