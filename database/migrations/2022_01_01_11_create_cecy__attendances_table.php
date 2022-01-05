@@ -18,7 +18,7 @@ class CreateCecyAttendancesTable extends Migration
 
             $table->string('created_at');
 
-            $table->date('date')
+            $table->date('registered_at')
             ->comment('Fecha de la asistencia la cual sera guardada ');
 
             $table->string('duration')
