@@ -13,9 +13,9 @@ class CreateCecyParticipantsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('aditional_information_id')
+            $table->foreignId('additional_information_id')
                 ->comment('Obtiene informacion adicional de un participante')
-                ->constrained('cecy.aditional_informations');
+                ->constrained('cecy.additional_informations');
 
             $table->foreignId('person_type_id')
                 ->comment('Obtiene el tipo de persona')
@@ -27,13 +27,12 @@ class CreateCecyParticipantsTable extends Migration
 
             $table->foreignId('user_id')
                 ->comment('Obtiene la informacion de un usuario')
-                ->constrained('cecy.users');
-
+                ->constrained('authentication.users');
         });
     }
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('catalogues');
+        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('participants');
     }
 }

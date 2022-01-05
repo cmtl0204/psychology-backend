@@ -17,7 +17,7 @@ class CreateCecyTopicsTable extends Migration
                 ->nullable()
                 ->constrained('cecy.courses');
 
-            $table->foreignId('parent_code_id')
+            $table->foreignId('parent_id')
                 ->nullable()
                 ->comment('Id del tema principal')
                 ->constrained('cecy.topics');
@@ -31,7 +31,7 @@ class CreateCecyTopicsTable extends Migration
                 ->nullable()
                 ->constrained('cecy.catalogues');
 
-            $table->string('description')
+            $table->text('description')
                 ->nullable()
                 ->comment('Descripción del tema');
         });

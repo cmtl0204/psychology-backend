@@ -22,7 +22,6 @@ class CreateCecyDetailInstructorTable extends Migration
                 ->nullable()
                 ->comment('trae la informacion del detail_planification')
                 ->constrained('cecy.detail_planifications');
-
         });
     }
 

@@ -18,55 +18,49 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->comment('')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('status_id')
-                ->nullable()
-                ->comment('Estado')
-                ->constrained('cecy.catalogues');
-                
             $table->foreignId('classroom_id')
                 ->nullable()
                 ->comment('Id aula')
                 ->constrained('cecy.catalogues');
-                
+
             $table->foreignId('day_id')
                 ->nullable()
                 ->comment('Id día')
-                ->constrained('cecy.catalogues'); 
-                
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('start_time_id')
                 ->nullable()
                 ->comment('Id hora de inicio')
                 ->constrained('cecy.catalogues');
-                
+
             $table->foreignId('end_time_id')
                 ->nullable()
                 ->comment('Id hora final')
-                ->constrained('cecy.catalogues');    
+                ->constrained('cecy.catalogues');
 
             $table->string('code_certified')
                 ->comment('Código del certificado');
-            
-            $table->date('date_start_at')
+
+            $table->date('started_at')
                 ->comment('Fecha inicio');
 
-            $table->date('date_end_at')
+            $table->date('ended_at')
                 ->comment('Fecha final');
 
-            $table->integer('nro_day')
-                ->comment('Número de día');    
-                
-            $table->date('planned_end_date_at')
+            $table->integer('day')
+                ->comment('Número de día');
+
+            $table->date('plan_ended_at')
                 ->comment('');
 
-            $table->integer('paralel')
+            $table->integer('parallel')
                 ->comment('Paralelo');
-                
+
             $table->string('state_certified')
-                ->comment('Estado del certificado');     
-                
+                ->comment('Estado del certificado');
+
             $table->integer('workday')
                 ->comment('Días trabajados');
-       
         });
     }
 

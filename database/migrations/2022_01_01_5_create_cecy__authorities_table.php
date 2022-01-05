@@ -26,24 +26,15 @@ class CreateCecyAuthoritiesTable extends Migration
                 ->comment('estado de una autoridad')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('status_id')
-                ->comment('datos como suspendido o retirado')
-                ->constrained('cecy.catalogues');
-
-
             $table->foreignId('position_id')
                 ->comment('cargo en el cecy')
                 ->constrained('cecy.catalogues');
 
-            $table->date('start_position')
+            $table->date('position_started_at')
                 ->comment('fecha de inicio de la gestion');
 
-            $table->date('end_position')
+            $table->date('position_ended_at')
                 ->comment('fecha final de la gestion');
-
-            $table->foreignId('responsable_siganture_id')
-                ->comment('')
-                ->constrained('core.files');
         });
     }
 

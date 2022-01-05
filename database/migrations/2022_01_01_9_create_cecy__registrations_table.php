@@ -28,9 +28,8 @@ class CreateCecyRegistrationsTable extends Migration
                 ->comment('')
                 ->constrained('cecy.catalogues');
 
-            $table->number('number')
-                ->comment('')
-                ->default('#9c9c9c');
+            $table->string('number')
+                ->comment('');
 
             $table->date('registered_at')
                 ->comment('');
