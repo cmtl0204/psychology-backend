@@ -36,14 +36,31 @@ class AdditionalInformation extends Model
     }
 
     // Mutators
-    public function setCodeAttribute($value)
+    public function setCompanyActivityAttribute($value)
     {
-        $this->attributes['code'] = strtoupper($value);
+        $this->attributes['company_activity'] = strtoupper($value);
     }
 
-    public function setNameAttribute($value)
+    public function setCompanyAddressAttribute($value)
     {
-        $this->attributes['name'] = strtoupper($value);
+        $this->attributes['company_address'] = strtoupper($value);
+    }
+
+    public function setCompanyEmailAttribute($value)
+    {
+        $this->attributes['company_email'] = strtoupper($value);
+    }
+    public function setCompanyNameAttribute($value)
+    {
+        $this->attributes['company_name'] = strtoupper($value);
+    }
+    public function setCompanyPhoneAttribute($value)
+    {
+        $this->attributes['company_phone'] = strtoupper($value);
+    }
+    public function setContactNameAttribute($value)
+    {
+        $this->attributes['contact_name'] = strtoupper($value);
     }
 
     // Scopes
