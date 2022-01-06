@@ -9,6 +9,7 @@ class CreateCecyRegistrationsTable extends Migration
     public function up()
     {
         Schema::connection(env('DB_CONNECTION_CECY'))->create('registrations', function (Blueprint $table) {
+
             $table->id();
             $table->timestamps();
             $table->softDeletes();
