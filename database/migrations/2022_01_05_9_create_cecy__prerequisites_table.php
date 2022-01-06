@@ -22,6 +22,10 @@ class CreateCecyPrerequisitesTable extends Migration
                 ->comment('Un prerquisito puede tener prerquisitos hijos')
                 ->constrained('cecy.prerequisites');
 
+            $table->text('description')
+                ->nullable()
+                ->comment('Descripción del prerequisito');
+
         });
     }
 

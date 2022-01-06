@@ -2,41 +2,50 @@
 
 namespace App\Models\Cecy;
 
-use App\Models\Authentication\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Participant extends Model implements Auditable
+class Topic extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.participants';
+    protected $table = 'cecy.topics';
 
+    protected $fillable = [
+        'description',
+    ];
 
     // Relationships
-    public function user()
+    public function parent()
     {
-        return $this->belongsTo(User::class,  'user_id','authentication.users');
+        return $this->belongsTo(Topic::class);
     }
-    
-    public function additional_information()
+    public function course()
     {
-        return $this->belongsTo(AdditionalInformation::class,  'additional_information_id','cecy.additional_informations');
+        return $this->belongsTo(Course::class);
     }
-    
-    public function person_type()
+    public function type()
     {
-        return $this->belongsTo(Catalogue::class,  'person_type_id','cecy.catalogues');
+        return $this->belongsTo(Catalogue::class,  'type_id','core.catalogues');
     }
 
-    public function registration()
+    // Mutators
+    public function setDescriptionAttribute($value)
     {
-        return $this->hasMany(Registrations::class);
+        $this->attributes['description'] = strtoupper($value);
+    }
+
+    // Scopes
+    public function scopeDescription($query, $description)
+    {
+        if ($description) {
+            return $query->where('description', $description);
+        }
     }
 
     public function scopeCustomOrderBy($query, $sorts)
