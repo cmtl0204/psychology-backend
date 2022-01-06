@@ -13,140 +13,159 @@ class CreateCecyCoursesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('catalogue_id')
-                ->nullable()
-                ->comment('Catálogo')
-                ->constrained('cecy.catalogues');
 
-            // Pendiente
-            $table->foreignId('profile_instructor_id')
-                ->nullable()
-                ->comment('Perfil del instructor')
-                ->constrained('cecy.profiles_instructor');
-
-            $table->foreignId('planification_id')
-                ->nullable()
-                ->comment('Planificación')
-                ->constrained('cecy.planifications');
+            $table->foreignId('authority_id')
+                ->constrained('cecy.authorities');
 
             $table->foreignId('career_id')
-                ->comment('ID de las carreras')
-                ->nullable()
                 ->constrained('core.careers');
 
+            $table->foreignId('area_id')
+                ->constrained('cecy.catalogues');
+
+            $table->foreignId('level_id')
+                ->constrained('cecy.catalogues');
+
+            $table->foreignId('modality_id')
+                ->constrained('cecy.catalogues');
+
+            $table->foreignId('participant_type_id') //¿Qué es?
+                ->constrained('cecy.catalogues');
+
+            $table->foreignId('schedules_id')
+                ->constrained('cecy.catalogues');
+
+            $table->foreignId('course_type_id')
+                ->constrained('cecy.catalogues');
+
+            $table->foreignId('academic_period_id')
+                ->constrained('cecy.catalogues');
+
+            $table->foreignId('certified_type_id')
+                ->constrained('cecy.catalogues');
+
+            $table->foreignId('speciality_id')
+                ->constrained('cecy.catalogues');
+
             $table->string('code')
+                ->comment('Código del curso')
                 ->nullable();
 
             $table->string('name')
                 ->comment('Nombre del curso')
                 ->nullable();
 
-            $table->double('cost')
-                ->comment('Costo del curso')
-                ->nullable();
-
-            $table->text('photo')
-                ->commnent('Foto')
-                ->nullable();
-
             $table->string('summary')
-                ->comment('Resumen')
+                ->comment('Resumen del curso')
                 ->nullable();
-
-            $table->boolean('free')
-                ->comment('Gratuidad')
-                ->nullable();
-
-            $table->integer('duration')
-                ->commnet('Duración')
-                ->nullable();
-
-            $table->foreignId('modality_id')
-                ->comment('Modalidad')
-                ->nullable()
-                ->constrained('cecy.catalogues');
 
             $table->string('observation')
-                ->comment('observación')
+                ->comment('Observación de curso')
                 ->nullable();
 
             $table->string('objective')
-                ->comment('Objetivos')
-                ->nullable();
-
-            $table->string('needs')
-                ->comment('Necesidades')
-                ->nullable();
-
-            $table->string('target_group')
-                ->commnent('Tarjeta de grupo')
-                ->nullable();
-
-            $table->string('facilities')
-                ->comment('instalaciones')
-                ->nullable();
-
-            $table->string('theoretical_phase')
-                ->comment('Fase teórica')
-                ->nullable();
-
-            $table->string('practical_phase')
-                ->comment('Fase práctica')
+                ->comment('Objetivo del curso')
                 ->nullable();
 
             $table->string('requiered_installing_sources')
                 ->commnent('Fuentes de instación necesaria')
                 ->nullable();
 
-            $table->string('cross_cutting_topics')
-                ->commnent('Temas transversales')
-                ->nullable();
-
-            $table->string('bibliographys')
-                ->commnent('Bibliografías')
-                ->nullable();
-
-            $table->string('requirements')
-                ->comments('Requerimientos')
-                ->nullable();
-
-            $table->foreignId('participant_type_id')
-                ->comment('Id tipo participantes ')
-                ->nullable()
-                ->constrained('cecy.catalogues');
-
-            $table->foreignId('level_id')
-                ->nullable()
-                ->comment('Nivel')
-                ->constrained('cecy.catalogues');
-
-            $table->integer('practice_hours')
-                ->commnent('Horas de práctica')
-                ->nullable();
-
-            $table->integer('theory_hours')
-                ->commnent('Horas teóricas')
-                ->nullable();
-
             $table->string('practice_requiered_resources')
-                ->commnent('Práctica recursos requeridos')
+                ->commnent('Recursos para aprendizaje práctico')
                 ->nullable();
 
             $table->string('aimtheory_required_resources')
-                ->comment('')
+                ->comment('Recursos para aprendizaje teórico')
+                ->nullable();
+
+            $table->string('nro_record')
+                ->comment('Número de record')
                 ->nullable();
 
             $table->string('learning_teaching_strategy')
                 ->comment('Aprendizaje estrategia de enseñanza')
                 ->nullable();
 
-            $table->string('nro_record')
-                ->comment('N record')
+            $table->string('local_proposal')
+                ->comment('Propuesta local')
                 ->nullable();
 
-            $table->string('person_proposal_id')
-                ->comment('ID de propuesta de persona')
+            $table->string('project')
+                ->comment('Proyect')
                 ->nullable();
+
+            $table->string('setec_name')
+                ->comment('Nombre del setec')
+                ->nullable();
+
+            $table->string('abbreviation')
+                ->comment('Abreviación')
+                ->nullable();
+
+            $table->string('categoria')
+                ->comment('Abreviación')
+                ->nullable();
+
+            $table->boolean('free')
+                ->comment('Gratuidad')
+                ->nullable();
+
+            $table->integer('attached')
+                ->nullable();
+
+            $table->double('cost')
+                ->comment('Costo del curso')
+                ->nullable();
+
+            $table->integer('duration')
+                ->commnet('Duración')
+                ->nullable();
+
+            $table->integer('theory_hours')
+                ->commnet('Duración')
+                ->nullable();
+
+            $table->integer('practice_hours')
+                ->nullable();
+
+            $table->json('needs')
+                ->comment('Necesidades')
+                ->nullable();
+
+            $table->json('target_group')
+                ->commnent('Tarjeta de grupo')
+                ->nullable();
+
+            $table->json('facilities')
+                ->comment('instalaciones')
+                ->nullable();
+
+            $table->json('theoretical_phase')
+                ->comment('Fase teórica')
+                ->nullable();
+
+            $table->json('practical_phase')
+                ->comment('Fase práctica')
+                ->nullable();
+
+            $table->json('cross_cutting_topics')
+                ->commnent('Temas transversales')
+                ->nullable();
+
+            $table->json('bibliographys')
+                ->commnent('Bibliografías')
+                ->nullable();
+
+            $table->json('requirements')
+                ->comments('Requerimientos')
+                ->nullable();
+
+            $table->json('teaching_strategies')
+                ->comments('Estrategias de enseñanza')
+                ->nullable();
+
+
 
             $table->date('proposed_date')
                 ->comment('Fecha propuesta')
@@ -167,10 +186,6 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Fecha de autorización')
                 ->nullable();
 
-            $table->string('local_proposal')
-                ->comment('Propuesta local')
-                ->nullable();
-
             $table->integer('schedules_id')
                 ->nullable()
                 ->comment('')
@@ -183,26 +198,6 @@ class CreateCecyCoursesTable extends Migration
             $table->integer('capacity')
                 ->comment('Capacidad')
                 ->nullable();
-
-            $table->foreignId('classroom_id')
-                ->nullable()
-                ->comment('')
-                ->constrained('cecy.catalogues');
-
-            $table->foreignId('course_type_id')
-                ->nullable()
-                ->comment('')
-                ->constrained('cecy.catalogues');
-
-            $table->foreignId('speciality_id')
-                ->nullable()
-                ->comment('')
-                ->constrained('cecy.catalogues');
-
-            $table->foreignId('academic_period_id')
-                ->nullable()
-                ->comment('')
-                ->constrained('cecy.catalogues');
         });
     }
 
