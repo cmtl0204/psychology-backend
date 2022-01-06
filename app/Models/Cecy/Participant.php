@@ -31,12 +31,12 @@ class Participant extends Model implements Auditable
     
     public function person_type()
     {
-        return $this->belongsTo(Catalogue::class,  'user_id','cecy.catalogues');
+        return $this->belongsTo(Catalogue::class,  'person_type_id','cecy.catalogues');
     }
 
     public function registration()
     {
-        return $this->hasMany(Registrations::class, 'participant_id','cecy.participants');
+        return $this->hasMany(Registrations::class);
     }
 
     public function scopeCustomOrderBy($query, $sorts)
