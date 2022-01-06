@@ -14,7 +14,8 @@ class CreateCecyInstitutionsTable extends Migration
             $table->softDeletes();
 
             $table->string('code')
-               ->nullable();
+               ->nullable()
+               ->comment('codigo de institucion');
 
             $table->string('logo')
                ->comment('Logo de insitutcion');
@@ -29,6 +30,6 @@ class CreateCecyInstitutionsTable extends Migration
 
    public function down()
    {
-      Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('cecy_institutions');
+      Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('institutions');
    }
 }
