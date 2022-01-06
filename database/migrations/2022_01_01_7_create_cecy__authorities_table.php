@@ -35,6 +35,9 @@ class CreateCecyAuthoritiesTable extends Migration
 
             $table->date('position_ended_at')
                 ->comment('Fecha final de la gestion');
+
+            $table->string('firm')
+                ->comment('Código de la firma electrónica');
         });
     }
 
