@@ -35,39 +35,12 @@ class ProfileInstructionCourse extends Model implements Auditable
 
     // Mutators
 
-    public function setRequiredSkillsAttribute($value)
-    {
-        $this->attributes['required_skills'] = strtoupper($value);
-    }
-    public function setRequiredExperienceAttribute($value)
-    {
-        $this->attributes['required_experience'] = strtoupper($value);
-    }
-    public function setRequiredKnowledgeAttribute($value)
-    {
-        $this->attributes['required_knowledge'] = strtoupper($value);
-    }
+    //Mis campos son de tipo JSON
 
     // Scopes
-    public function scopeRequireSkills($query, $RequireSkills)
-    {
-        if ($RequireSkills) {
-            return $query->where('RequireSkills', $RequireSkills);
-        }
-    }
-
-    public function scopeRequireExperience($query, $RequireExperience)
-    {
-        if ($RequireExperience) {
-            return $query->where('RequireExperience', $RequireExperience);
-        }
-    }
-    public function scopeRequireKnowledge($query, $RequireKnowledge)
-    {
-        if ($RequireKnowledge) {
-            return $query->where('Knowledge', $RequireKnowledge);
-        }
-    }
+    
+    // Mis campos son de  tipo JSON 
+    
 
     public function scopeCustomOrderBy($query, $sorts)
     {
