@@ -13,41 +13,37 @@ class CreateCecySchoolPeriodsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('state_id')
-                ->nullable()
-                ->constrained('cecy.catalogues'); 
-
             $table->string('code')->unique()
                 ->comment('codigo unico de periodos lectivos');
             
-            $table->date('end_date')
+            $table->date('end_date_at')
                 ->nullable()
                 ->comment('dia final del perido lectivo');
 
-            $table->date('especial_end_date')
+            $table->date('especial_end_date_at')
                 ->nullable()
                 ->comment('');
 
-            $table->date('especial_start_date')
+            $table->date('especial_start_date_at')
                 ->nullable()
                 ->comment('');
 
-            $table->date('extraordinary_end_date')
+            $table->date('extraordinary_end_date_at')
                 ->nullable()
                 ->comment('Para obtener el codido de pais');
 
-            $table->date('extraordinary_start_date')
+            $table->date('extraordinary_start_date_at')
                 ->nullable()
                 ->comment('Para obtener el codido de pais');
 
             $table->string('name')
                 ->comment('nombre del periodo lectivo');
 
-            $table->date('ordinary_end_date')
+            $table->date('ordinary_end_date_at')
                 ->nullable()
                 ->comment('fin del periodo lectivo');
 
-            $table->date('ordinary_state_date')
+            $table->date('ordinary_state_date_at')
                 ->nullable()
                 ->comment('');
 

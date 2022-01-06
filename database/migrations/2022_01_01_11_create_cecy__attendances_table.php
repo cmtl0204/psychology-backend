@@ -16,19 +16,17 @@ class CreateCecyAttendancesTable extends Migration
             $table->foreignId('detail_registration_id')
                 ->constrained('cecy.detail_registration');
 
-            $table->string('created_at');
-
             $table->date('registered_at')
             ->comment('Fecha de la asistencia la cual sera guardada ');
 
             $table->string('duration')
             ->comment('Duracion de la asistencia en el curso');
 
-            $table->boolean('state_id');
+            $table->foreignId('type_id')
+            ->nullable()
+            ->comment('')
+            ->constrained('cecy.catalogues');
 
-            $table->time('type_id');
-
-            $table->string('updated_at');
         });
     }
 

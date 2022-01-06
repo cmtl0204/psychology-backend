@@ -19,22 +19,22 @@ class CreateCecyAuthoritiesTable extends Migration
                 ->constrained('core.institutions');
 
             $table->foreignId('user_id')
-                ->comment('informacion del usuario')
+                ->comment('Informacion del usuario')
                 ->constrained('authentication.users');
 
             $table->foreignId('state_id')
-                ->comment('estado de una autoridad')
+                ->comment('Estado de una autoridad')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('position_id')
-                ->comment('cargo en el cecy')
+                ->comment('Cargo en el cecy')
                 ->constrained('cecy.catalogues');
 
             $table->date('position_started_at')
-                ->comment('fecha de inicio de la gestion');
+                ->comment('Fecha de inicio de la gestion');
 
             $table->date('position_ended_at')
-                ->comment('fecha final de la gestion');
+                ->comment('Fecha final de la gestion');
         });
     }
 

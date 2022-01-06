@@ -23,17 +23,13 @@ class CreateCecyDetailRegistrationsTable extends Migration
 
             $table->foreignId('state_id')
                 ->nullable()
-                ->comment('id del estado')
+                ->comment('Estado del registro')
                 ->constrained('cecy.catalogues');
-
-            $table->foreignId('status_id')
-                ->comment('Datos del proceso')
-                ->constrained('app.status');
 
             $table->foreignId('status_certificate_id')
                 ->nullable()
                 ->comment('Estado del Certificado')
-                ->constrained('app.status');
+                ->constrained('cecy.catalogues');
 
             $table->string('final_grade')
                 ->nullable()
@@ -47,15 +43,15 @@ class CreateCecyDetailRegistrationsTable extends Migration
             $table->json('observations')
                 ->comment('Observacion del estudiante');
 
-            $table->string('nota1')
+            $table->string('grade1')
                 ->nullable()
                 ->comment('Nota del primer parcial');
 
-            $table->string('nota2')
+            $table->string('grade2')
                 ->nullable()
                 ->comment('Nota del segundo parcial');
 
-            $table->string('nota3')
+            $table->string('grade3')
                 ->nullable()
                 ->comment('Nota del tercer parcial');
         });

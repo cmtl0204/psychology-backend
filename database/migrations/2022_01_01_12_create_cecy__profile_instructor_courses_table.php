@@ -18,9 +18,6 @@ class CreateCecyProfileInstructorCoursesTable extends Migration
                 ->comment('')
                 ->constrained('cecy.courses');
 
-            $table->timestamp('created_at')
-                ->comment('');
-
             $table->text('require_experience')
                 ->comment('');
 
@@ -29,13 +26,6 @@ class CreateCecyProfileInstructorCoursesTable extends Migration
 
             $table->text('require_skill')
             ->comment('');
-
-            $table->boolean('stated_id')
-                ->comment('');
-
-            $table->timestamp('updated_at')
-            ->comment('');
-
 
         });
     }

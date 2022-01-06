@@ -19,11 +19,7 @@ class CreateCecyParticipantsTable extends Migration
 
             $table->foreignId('person_type_id')
                 ->comment('Obtiene el tipo de persona')
-                ->constrained('cecy.person_types');
-
-            $table->foreignId('state_id')
-                ->comment('Obtiene el estado de un participante')
-                ->constrained('core.states');
+                ->constrained('cecy.catalogues');
 
             $table->foreignId('user_id')
                 ->comment('Obtiene la informacion de un usuario')

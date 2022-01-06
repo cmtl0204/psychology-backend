@@ -18,11 +18,6 @@ class CreateCecyRegistrationsTable extends Migration
                 ->comment('')
                 ->constrained('cecy.participants');
 
-            $table->foreignId('state_id')
-                ->nullable()
-                ->comment('')
-                ->constrained('cecy.catalogues');
-
             $table->foreignId('type_id')
                 ->nullable()
                 ->comment('')

@@ -20,12 +20,7 @@ class CreateCecyInstructorsTable extends Migration
 
             $table->foreignId('state_id')
                 ->nullable()
-                ->comment('estado de autoridad ej. ')
-                ->constrained('cecy.catalogues');
-
-            $table->foreignId('status_id')
-                ->nullable()
-                ->comment('datos como suspension, en proceso')
+                ->comment('Estado de autoridad ej. ')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('type_id')

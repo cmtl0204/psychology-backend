@@ -22,13 +22,9 @@ class CreateCecyTopicsTable extends Migration
                 ->comment('Id del tema principal')
                 ->constrained('cecy.topics');
 
-            $table->foreignId('state_id')
-                ->nullable()
-                ->comment('Un catalogo puede tener catalogos hijos')
-                ->constrained('cecy.catalogues');
-
             $table->foreignId('type_id')
                 ->nullable()
+                ->comment('')
                 ->constrained('cecy.catalogues');
 
             $table->text('description')

@@ -28,7 +28,7 @@ class CreateCecyPlanificationsTable extends Migration
                 ->constrained('cecy.school_periods');
 
             $table->foreignId('state_id')
-                ->constrained('cecy.states');
+                ->constrained('cecy.catalogues');
 
             $table->text('area')
                 ->nullable();
