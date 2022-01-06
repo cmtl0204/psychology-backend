@@ -53,4 +53,5 @@ class Registration extends Model implements Auditable
             return $query;
         }
     }
+
 }

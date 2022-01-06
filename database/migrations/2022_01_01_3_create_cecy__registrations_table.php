@@ -9,7 +9,6 @@ class CreateCecyRegistrationsTable extends Migration
     public function up()
     {
         Schema::connection(env('DB_CONNECTION_CECY'))->create('registrations', function (Blueprint $table) {
-
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -23,16 +22,16 @@ class CreateCecyRegistrationsTable extends Migration
                 ->nullable()
                 ->comment('Estado de la matrícula. Inscrito, en revisión, matriculado, anulado')
                 ->constrained('cecy.catalogues');
-                
+
                 $table->foreignId('type_id')
                 ->nullable()
                 ->comment('')
                 ->constrained('cecy.catalogues');
-                
+
                 $table->string('number')
                 ->nullable()
                 ->comment('Número de identificación de la matrícula');
-                
+
                 $table->date('registered_at')
                 ->nullable()
                 ->comment('Fecha de matrícula del participante');
