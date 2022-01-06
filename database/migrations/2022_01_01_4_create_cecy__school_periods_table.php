@@ -16,40 +16,35 @@ class CreateCecySchoolPeriodsTable extends Migration
             $table->string('code')->unique()
                 ->comment('codigo unico de periodos lectivos');
             
-            $table->date('end_date_at')
-                ->nullable()
-                ->comment('dia final del perido lectivo');
+            $table->date('ended_at')
+                ->comment('Fecha de finalización del perido lectivo');
 
-            $table->date('especial_end_date_at')
+            $table->date('especial_ended_at')
                 ->nullable()
-                ->comment('');
+                ->comment('fecha de finalización periodo especial');
 
-            $table->date('especial_start_date_at')
+            $table->date('especial_started_at')
                 ->nullable()
-                ->comment('');
+                ->comment('fecha de inicio periodo especial');
 
-            $table->date('extraordinary_end_date_at')
-                ->nullable()
-                ->comment('Para obtener el codido de pais');
+            $table->date('extraordinary_ended_at')
+                ->comment('fecha de finalización periodo extraordinario');
 
-            $table->date('extraordinary_start_date_at')
-                ->nullable()
-                ->comment('Para obtener el codido de pais');
+            $table->date('extraordinary_started_at')
+                ->comment('fecha de inicio periodo extraordinario');
 
             $table->string('name')
                 ->comment('nombre del periodo lectivo');
 
-            $table->date('ordinary_end_date_at')
-                ->nullable()
-                ->comment('fin del periodo lectivo');
+            $table->date('ordinary_ended_at')
+                ->comment('fin del periodo ordinario');
 
-            $table->date('ordinary_state_date_at')
+            $table->date('ordinary_stated_at')
                 ->nullable()
                 ->comment('');
 
-            $table->date('start_date')
-                ->nullable()
-                ->comment('');
+            $table->date('started_at')
+                ->comment('Fecha de inicio del perido lectivo');
 
             
         });

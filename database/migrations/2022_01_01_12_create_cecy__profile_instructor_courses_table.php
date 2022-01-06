@@ -18,13 +18,13 @@ class CreateCecyProfileInstructorCoursesTable extends Migration
                 ->comment('')
                 ->constrained('cecy.courses');
 
-            $table->text('require_experience')
+            $table->json('require_experience')
                 ->comment('');
 
-            $table->text('require_knowledge')
+            $table->json('require_knowledge')
                 ->comment('');
 
-            $table->text('require_skill')
+            $table->json('require_skills')
             ->comment('');
 
         });
