@@ -23,19 +23,16 @@ class CecyInstitution extends Model implements Auditable
         'slogan'
     ];
 
-
     // Mutators
     public function setCodeAttribute($value)
     {
         $this->attributes['code'] = strtoupper($value);
     }
 
-    
     public function setLogoAttribute($value)
     {
         $this->attributes['logo'] = strtoupper($value);
     }
-
 
     public function setNameAttribute($value)
     {
@@ -48,8 +45,6 @@ class CecyInstitution extends Model implements Auditable
     }
 
     //scopes
-
-
     public function scopeCode($query, $code)
     {
         if ($code) {
@@ -74,10 +69,8 @@ class CecyInstitution extends Model implements Auditable
     {
         if ($logo) {
             return $query->where('logo', $logo);
-        }    
-    }    
-
-
+        }
+    }
 
     public function scopeCustomOrderBy($query, $sorts)
     {

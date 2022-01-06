@@ -17,18 +17,17 @@ class Participant extends Model implements Auditable
 
     protected $table = 'cecy.participants';
 
-
     // Relationships
     public function user()
     {
         return $this->belongsTo(User::class,  'user_id','authentication.users');
     }
-    
-    public function additional_information()
+
+    public function additionalInformation()
     {
-        return $this->belongsTo(AdditionalInformation::class,  'additional_information_id','cecy.additional_informations');
+        return $this->belongsTo(AdditionalInformation::class);
     }
-    
+
     public function person_type()
     {
         return $this->belongsTo(Catalogue::class,  'person_type_id','cecy.catalogues');
@@ -36,7 +35,7 @@ class Participant extends Model implements Auditable
 
     public function registration()
     {
-        return $this->hasMany(Registrations::class);
+        return $this->hasMany(Registration::class);
     }
 
     public function scopeCustomOrderBy($query, $sorts)

@@ -39,13 +39,6 @@ class Registration extends Model implements Auditable
     }
 
     // Scopes
-    public function scopeType($query, $number)
-    {
-        if ($number) {
-            return $query->where('number', $number);
-        }
-    }
-
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {

@@ -8,13 +8,13 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProfileInstructionCourse extends Model implements Auditable
+class ProfileInstructorCourse extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.profile_instruction_courses';
+    protected $table = 'cecy.profile_instructor_courses';
 
     protected $fillable = [
         'require_experience',
@@ -27,12 +27,7 @@ class ProfileInstructionCourse extends Model implements Auditable
     {
         return $this->belongsTo(Course::class);
     }
-
-    public function children()
-    {
-        return $this->hasMany(Catalogue::class, 'parent_id','core.catalogues');
-    }
-
+    
     // Mutators
 
     //Mis campos son de tipo JSON

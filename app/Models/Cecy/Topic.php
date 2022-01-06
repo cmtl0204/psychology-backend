@@ -25,10 +25,12 @@ class Topic extends Model implements Auditable
     {
         return $this->belongsTo(Topic::class);
     }
+
     public function course()
     {
         return $this->belongsTo(Course::class);
     }
+
     public function type()
     {
         return $this->belongsTo(Catalogue::class,  'type_id','core.catalogues');

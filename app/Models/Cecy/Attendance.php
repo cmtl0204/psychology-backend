@@ -16,38 +16,17 @@ class Attendance extends Model
     protected $table = 'cecy.attendances';
 
     protected $fillable = [
-
         'duration',
         'registered_at',
-
     ];
+
     // Relationships
 
-    public function parent()
-    {
-        return $this->hasMany(Attendance::class,  'detail_registration_id','cecy.detail_registration');
-    }
 
-    public function children()
-    {
-        return $this->belongsTo(Attendance::class, 'type_id','cecy.catalogues');
-    }
-
-    
     // Mutators
-    public function setDurationAttribute($value)
-    {
-        $this->attributes['duration'] = strtoupper($value);
-    }
+
 
     // Scopes
-    public function scopeDuration($query, $company_activity)
-    {
-        if ($company_activity) {
-            return $query->where('duration', $company_activity);
-        }
-    }
-
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {

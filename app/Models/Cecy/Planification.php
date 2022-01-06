@@ -60,14 +60,14 @@ class Planification extends Model implements Auditable
     public function scopeArea($query, $area)
     {
         if ($area) {
-            return $query->orWhere('area', $area);
+            return $query->where('area', $area);
         }
     }
 
     public function scopeSector($query, $sector)
     {
         if ($sector) {
-            return $query->where('sector', $sector);
+            return $query->orWhere('sector', $sector);
         }
     }
 

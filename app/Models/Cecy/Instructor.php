@@ -17,7 +17,7 @@ class Instructor extends Model implements Auditable
     protected $table = 'cecy.instructors';
 
     protected $fillable = [
-        
+
     ];
 
     // Relationships
@@ -36,16 +36,9 @@ class Instructor extends Model implements Auditable
         return $this->belongsTo(Type::class);
     }
 
-    public function children()
-    {
-        return $this->hasMany(Instructor::class, 'parent_id','core.catalogues');
-    }
-
     // Mutators
-    
-    // Scopes
-   
 
+    // Scopes
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {

@@ -24,16 +24,14 @@ class AdditionalInformation extends Model
         'company_sponsor',
         'contact_name',
         'level_instruction',
-        'know_course',
+        'course_know',
         "course_follow",
         'worked',
     ];
+
     // Relationships
 
-    public function children()
-    {
-        return $this->hasMany(Catalogue::class, 'parent_id','core.catalogues');
-    }
+
 
     // Mutators
     public function setCompanyActivityAttribute($value)

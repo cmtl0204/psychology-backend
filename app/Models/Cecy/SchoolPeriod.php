@@ -27,11 +27,10 @@ class SchoolPeriod extends Model implements Auditable
         'ordinary_ended_at',
         'ordinary_stated_at',
         'started_at',
-
     ];
 
     // Relationships
-    
+
 
     // Mutators
     public function setCodeAttribute($value)
