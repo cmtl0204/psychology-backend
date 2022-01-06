@@ -14,15 +14,15 @@ class CreateCecyParticipantsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('additional_information_id')
-                ->comment('Obtiene informacion adicional de un participante')
+                ->comment('Informacion adicional que se relaciona con un participante.')
                 ->constrained('cecy.additional_informations');
 
             $table->foreignId('person_type_id')
-                ->comment('Obtiene el tipo de persona')
+                ->comment('Obtiene el tipo de participante que se inscribe a un curso. ejemplo: participante externo, participante interno')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('user_id')
-                ->comment('Obtiene la informacion de un usuario')
+                ->comment('Información de un usuario que se relaciona a un participante de un curso')
                 ->constrained('authentication.users');
         });
     }

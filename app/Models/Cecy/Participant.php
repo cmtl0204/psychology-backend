@@ -2,12 +2,12 @@
 
 namespace App\Models\Cecy;
 
-use App\Models\Authentication\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Authentication\User;
 
 class Participant extends Model implements Auditable
 {
@@ -17,6 +17,7 @@ class Participant extends Model implements Auditable
 
     protected $table = 'cecy.participants';
 
+    protected $fillable = [];
 
     // Relationships
     public function user()
@@ -24,19 +25,19 @@ class Participant extends Model implements Auditable
         return $this->belongsTo(User::class,  'user_id','authentication.users');
     }
     
-    public function additional_information()
+    public function additionalInformation()
     {
-        return $this->belongsTo(AdditionalInformation::class,  'additional_information_id','cecy.additional_informations');
+        return $this->belongsTo(AdditionalInformation::class);
     }
     
-    public function person_type()
+    public function personType()
     {
-        return $this->belongsTo(Catalogue::class,  'person_type_id','cecy.catalogues');
+        return $this->belongsTo(Catalogue::class);
     }
 
     public function registration()
     {
-        return $this->hasMany(Registrations::class);
+        return $this->hasMany(Registration::class);
     }
 
     public function scopeCustomOrderBy($query, $sorts)
