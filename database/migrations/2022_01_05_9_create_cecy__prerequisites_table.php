@@ -14,12 +14,12 @@ class CreateCecyPrerequisitesTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('course_id')
-                ->nullable()
+                ->comment('Id del curso que es prerequisito')
                 ->constrained('cecy.courses');
 
             $table->foreignId('parent_id')
                 ->nullable()
-                ->comment('Un prerquisito puede tener prerquisitos hijos')
+                ->comment('Id del curso al que pertenece prerequisito académico')
                 ->constrained('cecy.prerequisites');
         });
     }

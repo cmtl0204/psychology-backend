@@ -8,41 +8,43 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Prerequisite extends Model implements Auditable
+class Instructor extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.prerequisites';
+    protected $table = 'cecy.instructors';
 
-    // protected $fillable = [
-    //     'description',
-    // ];
+    protected $fillable = [
+        
+    ];
 
     // Relationships
-    public function parent()
+    public function user()
     {
-        return $this->belongsTo(Prerequisite::class);
+        return $this->belongsTo(User::class);
     }
-    public function course()
+
+    public function state()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(State::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Instructor::class, 'parent_id','core.catalogues');
     }
 
     // Mutators
-    // public function setDescriptionAttribute($value)
-    // {
-    //     $this->attributes['description'] = strtoupper($value);
-    // }
-
+    
     // Scopes
-    // public function scopeDescription($query, $description)
-    // {
-    //     if ($description) {
-    //         return $query->where('description', $description);
-    //     }
-    // }
+   
 
     public function scopeCustomOrderBy($query, $sorts)
     {
