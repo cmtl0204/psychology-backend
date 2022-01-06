@@ -40,9 +40,6 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->comment('Id hora final')
                 ->constrained('cecy.catalogues');
 
-            $table->string('code_certified')
-                ->comment('Código del certificado');
-
             $table->date('started_at')
                 ->comment('Fecha inicio');
 
@@ -58,10 +55,6 @@ class CreateCecyDetailPlanificationsTable extends Migration
 
             $table->integer('parallel')
                 ->comment('Paralelo');
-
-            // Pendiente de revisar
-            $table->string('state_certified')
-                ->comment('Estado del certificado');
 
             // Pendinte de revisar con day
             $table->integer('workday')

@@ -20,6 +20,12 @@ class CreateCecyDetailPlanificationInstructorTable extends Migration
                 ->nullable()
                 ->comment('trae la informacion del detail_planification')
                 ->constrained('cecy.detail_planifications');
+
+            $table->string('state_certified')
+                ->comment('Estado del certificado');
+
+            $table->string('code_certified')
+                ->comment('Código del certificado');
         });
     }
 

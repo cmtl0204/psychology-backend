@@ -165,38 +165,27 @@ class CreateCecyCoursesTable extends Migration
                 ->comments('Estrategias de enseñanza')
                 ->nullable();
 
-
-
-            $table->date('proposed_date')
-                ->comment('Fecha propuesta')
+            $table->json('evaluation_mechanims')
+                ->comments('Mecanismos de evaluación')
                 ->nullable();
 
-            $table->date('approval_date')
-                ->comment('Fecha de aprobación')
+            $table->date('proposed_at')
+                ->comment('Fecha en que se propuso el curso')
                 ->nullable();
 
-            $table->date('need_date_at')
+            $table->date('approved_at')
+                ->comment('Fecha en que se aprobo el curso')
                 ->nullable();
 
-            $table->date('expiration_date')
-                ->commnent('Fecha de espiración')
+            $table->date('needed_at')
                 ->nullable();
 
-            $table->date('autorization_date')
-                ->comment('Fecha de autorización')
+            $table->date('expired_at')
+                ->commnent('Fecha de expiración del curso')
                 ->nullable();
 
-            $table->integer('schedules_id')
-                ->nullable()
-                ->comment('')
-                ->constrained('cecy.catalogues');
-
-            $table->string('project')
-                ->comment('Proyecto')
-                ->nullable();
-
-            $table->integer('capacity')
-                ->comment('Capacidad')
+            $table->date('authorized_at')
+                ->comment('Fecha en que se autorizo el curso')
                 ->nullable();
         });
     }
