@@ -16,9 +16,9 @@ class Prerequisite extends Model implements Auditable
 
     protected $table = 'cecy.prerequisites';
 
-    protected $fillable = [
-        'description',
-    ];
+    // protected $fillable = [
+    //     'description',
+    // ];
 
     // Relationships
     public function parent()
@@ -31,18 +31,18 @@ class Prerequisite extends Model implements Auditable
     }
 
     // Mutators
-    public function setDescriptionAttribute($value)
-    {
-        $this->attributes['description'] = strtoupper($value);
-    }
+    // public function setDescriptionAttribute($value)
+    // {
+    //     $this->attributes['description'] = strtoupper($value);
+    // }
 
     // Scopes
-    public function scopeDescription($query, $description)
-    {
-        if ($description) {
-            return $query->where('description', $description);
-        }
-    }
+    // public function scopeDescription($query, $description)
+    // {
+    //     if ($description) {
+    //         return $query->where('description', $description);
+    //     }
+    // }
 
     public function scopeCustomOrderBy($query, $sorts)
     {
