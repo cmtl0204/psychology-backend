@@ -15,6 +15,9 @@ class CreateCecyPlanificationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreignId('area_id')
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('course_id')
                 ->constrained('cecy.courses');
 
@@ -28,14 +31,10 @@ class CreateCecyPlanificationsTable extends Migration
                 ->constrained('cecy.school_periods');
 
             $table->foreignId('state_id')
-                ->constrained('cecy.catalogues');
+                ->constrained('cecy.c');
 
             $table->text('sector_id')
                 ->constrained('cecy.catalogues');
-
-            // pendiente de cambiar a foreign key
-            $table->text('area')
-                ->nullable();
 
             $table->json('needs')
                 ->comment('Necesidades');
