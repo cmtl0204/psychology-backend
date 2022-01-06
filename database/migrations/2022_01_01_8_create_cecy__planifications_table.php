@@ -33,6 +33,7 @@ class CreateCecyPlanificationsTable extends Migration
             $table->text('sector_id')
                 ->constrained('cecy.catalogues');
 
+            // pendiente de cambiar a foreign key
             $table->text('area')
                 ->nullable();
 

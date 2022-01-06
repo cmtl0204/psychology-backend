@@ -26,34 +26,25 @@ class CreateCecyDetailRegistrationsTable extends Migration
                 ->comment('Estado del registro')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('status_certificate_id')
+            $table->foreignId('state_certificate_id')
                 ->nullable()
                 ->comment('Estado del Certificado')
                 ->constrained('cecy.catalogues');
 
-            $table->string('final_grade')
+            $table->unsignedFloat('final_grade')
                 ->nullable()
                 ->comment('nota final');
 
-            $table->foreignId('certificate_withdrawn')
-                ->nullable()
-                ->comment('Retirar Certificado')
-                ->constrained('core.files');
-
-            $table->json('observations')
-                ->comment('Observacion del estudiante');
-
-            $table->string('grade1')
+            $table->unsignedFloat('grade1')
                 ->nullable()
                 ->comment('Nota del primer parcial');
 
-            $table->string('grade2')
+            $table->unsignedFloat('grade2')
                 ->nullable()
                 ->comment('Nota del segundo parcial');
 
-            $table->string('grade3')
-                ->nullable()
-                ->comment('Nota del tercer parcial');
+            $table->json('observations')
+                ->comment('Observacion del estudiante');
         });
     }
 

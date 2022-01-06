@@ -18,30 +18,16 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Catálogo')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('topic_id')
-                ->nullable()
-                ->comment('Temas')
-                ->constrained('cecy.topics');
-
+            // Pendiente
             $table->foreignId('profile_instructor_id')
                 ->nullable()
                 ->comment('Perfil del instructor')
                 ->constrained('cecy.profiles_instructor');
 
-            $table->foreignId('planifications')
+            $table->foreignId('planification_id')
                 ->nullable()
                 ->comment('Planificación')
                 ->constrained('cecy.planifications');
-
-            $table->foreignId('prerequisite_id')
-                ->nullable()
-                ->commnent('Prerequisitos')
-                ->constrained('cecy.prerequisites');
-
-            $table->foreignId('participant_id')
-                ->nullable()
-                ->comment('Participantes')
-                ->constrained('cecy.participants');
 
             $table->foreignId('career_id')
                 ->comment('ID de las carreras')

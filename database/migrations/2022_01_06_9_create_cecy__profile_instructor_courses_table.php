@@ -13,6 +13,7 @@ class CreateCecyProfileInstructorCoursesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            // Pendiente
             $table->foreignId('course_id')
                 ->nullable()
                 ->comment('')
@@ -26,7 +27,6 @@ class CreateCecyProfileInstructorCoursesTable extends Migration
 
             $table->json('require_skills')
             ->comment('');
-
         });
     }
 
