@@ -14,6 +14,7 @@ Route::get('init', function () {
     DB::select('drop schema if exists core cascade;');
     DB::select('drop schema if exists cecy cascade;');
 
+
     DB::select('create schema authentication;');
     DB::select('create schema core;');
     DB::select('create schema cecy;');

@@ -2,45 +2,51 @@
 
 namespace App\Models\Cecy;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as Auditing;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as Auditing;
 
-class ProfileInstructionCourse extends Model implements Auditable
+class Attendance extends Model
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.profile_instruction_courses';
+    protected $table = 'cecy.attendances';
 
     protected $fillable = [
-        'require_experience',
-        'require_knowledge',
-        'require_skills',
-    ];
 
+        'duration',
+        'registered_at',
+
+    ];
     // Relationships
-    public function course()
+
+    public function parent()
     {
-        return $this->belongsTo(Course::class);
+        return $this->hasMany(Attendance::class,  'detail_registration_id','cecy.detail_registration');
     }
 
     public function children()
     {
-        return $this->hasMany(Catalogue::class, 'parent_id','core.catalogues');
+        return $this->belongsTo(Attendance::class, 'type_id','cecy.catalogues');
     }
 
+    
     // Mutators
-
-    //Mis campos son de tipo JSON
+    public function setDurationAttribute($value)
+    {
+        $this->attributes['duration'] = strtoupper($value);
+    }
 
     // Scopes
-    
-    // Mis campos son de  tipo JSON 
-    
+    public function scopeDuration($query, $company_activity)
+    {
+        if ($company_activity) {
+            return $query->where('duration', $company_activity);
+        }
+    }
 
     public function scopeCustomOrderBy($query, $sorts)
     {

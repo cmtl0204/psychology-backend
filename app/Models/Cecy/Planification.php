@@ -8,18 +8,20 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProfileInstructionCourse extends Model implements Auditable
+class Planification extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.profile_instruction_courses';
+    protected $table = 'cecy.planifications';
 
     protected $fillable = [
-        'require_experience',
-        'require_knowledge',
-        'require_skills',
+        'area',
+        'needs',
+        'sector',
+        'started_at',
+        'ended_at',
     ];
 
     // Relationships
@@ -28,19 +30,46 @@ class ProfileInstructionCourse extends Model implements Auditable
         return $this->belongsTo(Course::class);
     }
 
-    public function children()
+    public function schoolPeriod()
     {
-        return $this->hasMany(Catalogue::class, 'parent_id','core.catalogues');
+        return $this->belongsTo(SchoolPeriod::class);
+    }
+
+    public function responsibleCourse()
+    {
+        return $this->belongsTo(Authoritie::class);
+    }
+
+    public function responsibleCecy()
+    {
+        return $this->belongsTo(Authoritie::class);
     }
 
     // Mutators
+    public function setAreaAttribute($value)
+    {
+        $this->attributes['area'] = strtoupper($value);
+    }
 
-    //Mis campos son de tipo JSON
+    public function setSectorAttribute($value)
+    {
+        $this->attributes['sector'] = strtoupper($value);
+    }
 
     // Scopes
-    
-    // Mis campos son de  tipo JSON 
-    
+    public function scopeArea($query, $area)
+    {
+        if ($area) {
+            return $query->orWhere('area', $area);
+        }
+    }
+
+    public function scopeSector($query, $sector)
+    {
+        if ($sector) {
+            return $query->where('sector', $sector);
+        }
+    }
 
     public function scopeCustomOrderBy($query, $sorts)
     {
