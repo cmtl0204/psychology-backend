@@ -21,6 +21,7 @@ class Authority extends Model
     protected $fillable = [
         'position_started_at',
         'position_ended_at',
+        'firm'
     ];
 
     // Relationships
@@ -31,17 +32,17 @@ class Authority extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class, 'user_id', 'authentication.users');
+        return $this->belongsTo(User::class);
     }
 
     public function state()
     {
-        return $this->hasMany(State::class, 'state_id', 'cecy.catalogues');
+        return $this->belongsTo(State::class);
     }
 
     public function position()
     {
-        return $this->hasMany(State::class, 'position_id', 'cecy.catalogues');
+        return $this->belongsTo(State::class);
     }
 
     // Mutators
@@ -55,10 +56,16 @@ class Authority extends Model
         }
     }
 
-    public function scopePositionEndedAt($query, $position_ended_at)
+    public function scopePositionEndedAt($query, $positionEndedAt)
     {
-        if ($position_ended_at) {
-            return $query->where('position_ended_at', $position_ended_at);
+        if ($positionEndedAt) {
+            return $query->where('position_ended_at', $positionEndedAt);
+        }
+    }
+    public function scopeFirm($query, $firm)
+    {
+        if ($firm) {
+            return $query->where('firm', $firm);
         }
     }
 
