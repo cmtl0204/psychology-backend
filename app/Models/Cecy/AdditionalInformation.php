@@ -24,15 +24,15 @@ class AdditionalInformation extends Model
         'company_sponsor',
         'contact_name',
         'level_instruction',
-        'know_course',
+        'course_know',
         "course_follow",
         'worked',
     ];
-    // Relationships
 
-    public function children()
+    // Relationships
+    public function AdditionalInformations()
     {
-        return $this->hasMany(Catalogue::class, 'parent_id','core.catalogues');
+        return $this->hasMany(Participant::class);
     }
 
     // Mutators
@@ -64,51 +64,51 @@ class AdditionalInformation extends Model
     }
 
     // Scopes
-    public function scopeCompanyActivity($query, $company_activity)
+    public function scopeCompanyActivity($query, $companyActivity)
     {
-        if ($company_activity) {
-            return $query->where('company_activity', $company_activity);
+        if ($companyActivity) {
+            return $query->where('company_activity', $companyActivity);
         }
     }
 
-    public function scopeCompanyAddress($query, $company_address)
+    public function scopeCompanyAddress($query, $companyAddress)
     {
-        if ($company_address) {
-            return $query->where('company_address', $company_address);
+        if ($companyAddress) {
+            return $query->orWhere('company_address', $companyAddress);
         }
     }
 
-    public function scopeCompanyEmail($query, $company_email)
+    public function scopeCompanyEmail($query, $companyEmail)
     {
-        if ($company_email) {
-            return $query->where('company_email', $company_email);
+        if ($companyEmail) {
+            return $query->orWhere('company_email', $companyEmail);
         }
     }
 
-    public function scopeCompanyName($query, $company_name)
+    public function scopeCompanyName($query, $companyName)
     {
-        if ($company_name) {
-            return $query->where('company_name', $company_name);
+        if ($companyName) {
+            return $query->orWhere('company_name', $companyName);
         }
     }
 
-    public function scopeCompanyPhone($query, $company_phone)
+    public function scopeCompanyPhone($query, $companyPhone)
     {
-        if ($company_phone) {
-            return $query->where('company_phone', $company_phone);
+        if ($companyPhone) {
+            return $query->orWhere('company_phone', $companyPhone);
         }
     }
 
-    public function scopeContactName($query, $contact_name)
+    public function scopeContactName($query, $contactName)
     {
-        if ($contact_name) {
-            return $query->where('contact_name', $contact_name);
+        if ($contactName) {
+            return $query->orWhere('contact_name', $contactName);
         }
     }
-    public function scopeLevelInstruction($query, $level_instruction)
+    public function scopeLevelInstruction($query, $levelInstruction)
     {
-        if ($level_instruction) {
-            return $query->where('level_instruction', $level_instruction);
+        if ($levelInstruction) {
+            return $query->orWhere('level_instruction', $levelInstruction);
         }
     }
     public function scopeCustomOrderBy($query, $sorts)

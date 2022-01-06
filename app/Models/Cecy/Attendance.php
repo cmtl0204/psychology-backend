@@ -2,41 +2,29 @@
 
 namespace App\Models\Cecy;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as Auditing;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as Auditing;
 
-class Registration extends Model implements Auditable
+class Attendance extends Model
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.registrations';
+    protected $table = 'cecy.attendances';
 
     protected $fillable = [
-        'number',
+        'duration',
         'registered_at',
     ];
 
     // Relationships
-    public function participant()
-    {
-        return $this->belongsTo(Participant::class);
-    }
 
-    public function type()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
 
     // Mutators
-    public function setNumberAttribute($value)
-    {
-        $this->attributes['number'] = strtoupper($value);
-    }
+
 
     // Scopes
     public function scopeCustomOrderBy($query, $sorts)
@@ -53,5 +41,4 @@ class Registration extends Model implements Auditable
             return $query;
         }
     }
-
 }

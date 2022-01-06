@@ -8,37 +8,35 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Registration extends Model implements Auditable
+class ProfileInstructorCourse extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.registrations';
+    protected $table = 'cecy.profile_instructor_courses';
 
     protected $fillable = [
-        'number',
-        'registered_at',
+        'require_experience',
+        'require_knowledge',
+        'require_skills',
     ];
 
     // Relationships
-    public function participant()
+    public function course()
     {
-        return $this->belongsTo(Participant::class);
+        return $this->belongsTo(Course::class);
     }
-
-    public function type()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
-
+    
     // Mutators
-    public function setNumberAttribute($value)
-    {
-        $this->attributes['number'] = strtoupper($value);
-    }
+
+    //Mis campos son de tipo JSON
 
     // Scopes
+    
+    // Mis campos son de  tipo JSON 
+    
+
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {
@@ -53,5 +51,4 @@ class Registration extends Model implements Auditable
             return $query;
         }
     }
-
 }

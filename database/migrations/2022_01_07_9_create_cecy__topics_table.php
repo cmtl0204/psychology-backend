@@ -14,7 +14,7 @@ class CreateCecyTopicsTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('course_id')
-                ->nullable()
+                ->comment('Id del curso al que pertenece')
                 ->constrained('cecy.courses');
 
             $table->foreignId('parent_id')
@@ -24,12 +24,12 @@ class CreateCecyTopicsTable extends Migration
 
             $table->foreignId('type_id')
                 ->nullable()
-                ->comment('')
+                ->comment('Tipo de contenido EJ: Tema, Subtema')
                 ->constrained('cecy.catalogues');
 
             $table->text('description')
                 ->nullable()
-                ->comment('Descripción del tema');
+                ->comment('Descripción del tema o subtema');
         });
     }
 

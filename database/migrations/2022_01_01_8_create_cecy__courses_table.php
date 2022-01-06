@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCoursesTable extends Migration
+class CreateCecyCoursesTable extends Migration
 {
     public function up()
     {
@@ -18,30 +18,16 @@ class CreateCoursesTable extends Migration
                 ->comment('Catálogo')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('topic_id')
-                ->nullable()
-                ->comment('Temas')
-                ->constrained('cecy.topics');
-
+            // Pendiente
             $table->foreignId('profile_instructor_id')
                 ->nullable()
                 ->comment('Perfil del instructor')
                 ->constrained('cecy.profiles_instructor');
 
-            $table->foreignId('planifications')
+            $table->foreignId('planification_id')
                 ->nullable()
                 ->comment('Planificación')
                 ->constrained('cecy.planifications');
-
-            $table->foreignId('prerequisite_id')
-                ->nullable()
-                ->commnent('Prerequisitos')
-                ->constrained('cecy.prerequisites'); 
-            
-            $table->foreignId('participant_id')
-                ->nullable()
-                ->comment('Participantes')
-                ->constrained('cecy.participants');
 
             $table->foreignId('career_id')
                 ->comment('ID de las carreras')
@@ -50,44 +36,44 @@ class CreateCoursesTable extends Migration
 
             $table->string('code')
                 ->nullable();
-            
-            $table->name('name')
+
+            $table->string('name')
                 ->comment('Nombre del curso')
                 ->nullable();
-            
-            $table->doubleval('cost')
+
+            $table->double('cost')
                 ->comment('Costo del curso')
-                ->nullable(); 
-            
+                ->nullable();
+
             $table->text('photo')
                 ->commnent('Foto')
                 ->nullable();
-            
+
             $table->string('summary')
                 ->comment('Resumen')
                 ->nullable();
-            
-            $table->boolval('free')
+
+            $table->boolean('free')
                 ->comment('Gratuidad')
                 ->nullable();
-            
-            $table->int('duration')
+
+            $table->integer('duration')
                 ->commnet('Duración')
-                ->nullable(); 
-            
+                ->nullable();
+
             $table->foreignId('modality_id')
                 ->comment('Modalidad')
                 ->nullable()
                 ->constrained('cecy.catalogues');
-            
+
             $table->string('observation')
                 ->comment('observación')
                 ->nullable();
-            
+
             $table->string('objective')
                 ->comment('Objetivos')
                 ->nullable();
-            
+
             $table->string('needs')
                 ->comment('Necesidades')
                 ->nullable();
@@ -95,11 +81,11 @@ class CreateCoursesTable extends Migration
             $table->string('target_group')
                 ->commnent('Tarjeta de grupo')
                 ->nullable();
-            
+
             $table->string('facilities')
                 ->comment('instalaciones')
                 ->nullable();
-            
+
             $table->string('theoretical_phase')
                 ->comment('Fase teórica')
                 ->nullable();
@@ -107,53 +93,53 @@ class CreateCoursesTable extends Migration
             $table->string('practical_phase')
                 ->comment('Fase práctica')
                 ->nullable();
-            
+
             $table->string('requiered_installing_sources')
                 ->commnent('Fuentes de instación necesaria')
                 ->nullable();
-            
+
             $table->string('cross_cutting_topics')
                 ->commnent('Temas transversales')
                 ->nullable();
-            
+
             $table->string('bibliographys')
                 ->commnent('Bibliografías')
                 ->nullable();
-            
+
             $table->string('requirements')
                 ->comments('Requerimientos')
                 ->nullable();
-            
+
             $table->foreignId('participant_type_id')
                 ->comment('Id tipo participantes ')
                 ->nullable()
                 ->constrained('cecy.catalogues');
-            
+
             $table->foreignId('level_id')
                 ->nullable()
                 ->comment('Nivel')
                 ->constrained('cecy.catalogues');
-            
-            $table->int('practice_hours')
+
+            $table->integer('practice_hours')
                 ->commnent('Horas de práctica')
                 ->nullable();
 
-            $table->int('theory_hours')
+            $table->integer('theory_hours')
                 ->commnent('Horas teóricas')
                 ->nullable();
 
             $table->string('practice_requiered_resources')
-                -> commnent('Práctica recursos requeridos')
+                ->commnent('Práctica recursos requeridos')
                 ->nullable();
 
             $table->string('aimtheory_required_resources')
                 ->comment('')
                 ->nullable();
-            
+
             $table->string('learning_teaching_strategy')
                 ->comment('Aprendizaje estrategia de enseñanza')
                 ->nullable();
-            
+
             $table->string('nro_record')
                 ->comment('N record')
                 ->nullable();
@@ -165,11 +151,11 @@ class CreateCoursesTable extends Migration
             $table->date('proposed_date')
                 ->comment('Fecha propuesta')
                 ->nullable();
-            
+
             $table->date('approval_date')
                 ->comment('Fecha de aprobación')
                 ->nullable();
-            
+
             $table->date('need_date_at')
                 ->nullable();
 
@@ -185,7 +171,7 @@ class CreateCoursesTable extends Migration
                 ->comment('Propuesta local')
                 ->nullable();
 
-            $table->int('schedules_id')
+            $table->integer('schedules_id')
                 ->nullable()
                 ->comment('')
                 ->constrained('cecy.catalogues');
@@ -194,7 +180,7 @@ class CreateCoursesTable extends Migration
                 ->comment('Proyecto')
                 ->nullable();
 
-            $table->int('capacity')
+            $table->integer('capacity')
                 ->comment('Capacidad')
                 ->nullable();
 

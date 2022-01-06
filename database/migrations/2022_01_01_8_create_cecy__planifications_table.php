@@ -30,20 +30,21 @@ class CreateCecyPlanificationsTable extends Migration
             $table->foreignId('state_id')
                 ->constrained('cecy.catalogues');
 
+            $table->text('sector_id')
+                ->constrained('cecy.catalogues');
+
+            // pendiente de cambiar a foreign key
             $table->text('area')
                 ->nullable();
+
+            $table->json('needs')
+                ->comment('Necesidades');
 
             $table->date('started_at')
                 ->comment('Fecha en que inicia la planificación');
 
             $table->date('ended_at')
                 ->comment('Fecha en la que se espera terminar la planificación');
-
-            $table->json('needs')
-                ->comment('Necesidades');
-
-            $table->text('sector')
-                ->nullable();
         });
     }
 

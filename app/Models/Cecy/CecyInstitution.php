@@ -8,29 +8,20 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SchoolPeriod extends Model implements Auditable
+class CecyInstitution extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.school_periods';
+    protected $table = 'cecy.institutions';
 
     protected $fillable = [
         'code',
-        'ended_at',
-        'especial_ended_at',
-        'especial_started_at',
-        'extraordinary_ended_at',
-        'extraordinary_started_at',
+        'logo',
         'name',
-        'ordinary_ended_at',
-        'ordinary_stated_at',
-        'started_at',
+        'slogan'
     ];
-
-    // Relationships
-
 
     // Mutators
     public function setCodeAttribute($value)
@@ -38,12 +29,22 @@ class SchoolPeriod extends Model implements Auditable
         $this->attributes['code'] = strtoupper($value);
     }
 
+    public function setLogoAttribute($value)
+    {
+        $this->attributes['logo'] = strtoupper($value);
+    }
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper($value);
     }
 
-    // Scopes
+    public function setSloganAttribute($value)
+    {
+        $this->attributes['slogan'] = strtoupper($value);
+    }
+
+    //scopes
     public function scopeCode($query, $code)
     {
         if ($code) {
@@ -54,6 +55,20 @@ class SchoolPeriod extends Model implements Auditable
     {
         if ($name) {
             return $query->where('name', $name);
+        }
+    }
+
+    public function scopeSlogan($query, $slogan)
+    {
+        if ($slogan) {
+            return $query->where('slogan', $slogan);
+        }
+    }
+
+    public function scopeLogo($query, $logo)
+    {
+        if ($logo) {
+            return $query->where('logo', $logo);
         }
     }
 

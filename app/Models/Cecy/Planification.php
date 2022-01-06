@@ -8,52 +8,66 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SchoolPeriod extends Model implements Auditable
+class Planification extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.school_periods';
+    protected $table = 'cecy.planifications';
 
     protected $fillable = [
-        'code',
-        'ended_at',
-        'especial_ended_at',
-        'especial_started_at',
-        'extraordinary_ended_at',
-        'extraordinary_started_at',
-        'name',
-        'ordinary_ended_at',
-        'ordinary_stated_at',
+        'area',
+        'needs',
+        'sector',
         'started_at',
+        'ended_at',
     ];
 
     // Relationships
-
-
-    // Mutators
-    public function setCodeAttribute($value)
+    public function course()
     {
-        $this->attributes['code'] = strtoupper($value);
+        return $this->belongsTo(Course::class);
     }
 
-    public function setNameAttribute($value)
+    public function schoolPeriod()
     {
-        $this->attributes['name'] = strtoupper($value);
+        return $this->belongsTo(SchoolPeriod::class);
+    }
+
+    public function responsibleCourse()
+    {
+        return $this->belongsTo(Authoritie::class);
+    }
+
+    public function responsibleCecy()
+    {
+        return $this->belongsTo(Authoritie::class);
+    }
+
+    // Mutators
+    public function setAreaAttribute($value)
+    {
+        $this->attributes['area'] = strtoupper($value);
+    }
+
+    public function setSectorAttribute($value)
+    {
+        $this->attributes['sector'] = strtoupper($value);
     }
 
     // Scopes
-    public function scopeCode($query, $code)
+    public function scopeArea($query, $area)
     {
-        if ($code) {
-            return $query->where('code', $code);
+        if ($area) {
+            return $query->where('area', $area);
         }
     }
-    public function scopeName($query, $name)
+
+    public function scopeSector($query, $sector)
     {
-        if ($name) {
-            return $query->where('name', $name);
+        if ($sector) {
+            return $query->orWhere('sector', $sector);
         }
     }
 
