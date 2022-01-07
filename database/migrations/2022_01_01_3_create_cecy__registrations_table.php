@@ -15,7 +15,7 @@ class CreateCecyRegistrationsTable extends Migration
 
             $table->foreignId('participant_id')
                 ->nullable()
-                ->comment('FK de tabla cecy.participants')
+                ->comment('Participante que se matricula')
                 ->constrained('cecy.participants');
 
             $table->foreignId('state_id')
@@ -25,7 +25,7 @@ class CreateCecyRegistrationsTable extends Migration
 
                 $table->foreignId('type_id')
                 ->nullable()
-                ->comment('')
+                ->comment('Tipo de matrícula: Ordinaria, extraordinaria, o especial')
                 ->constrained('cecy.catalogues');
 
                 $table->string('number')
