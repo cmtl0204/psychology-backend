@@ -17,11 +17,15 @@ class Planification extends Model implements Auditable
     protected $table = 'cecy.planifications';
 
     protected $fillable = [
-        'area',
-        'needs',
-        'sector',
-        'started_at',
         'ended_at',
+        'especial_ended_date_at',
+        'especial_started_date_at',
+        'extraordinary_inscription_ended_at',
+        'extraordinary_inscription_started_at',
+        'needs',
+        'ordinary_inscription_ended_at',
+        'ordinary_inscription_started_at',
+        'started_at'
     ];
 
     // Relationships
@@ -45,31 +49,6 @@ class Planification extends Model implements Auditable
         return $this->belongsTo(Authoritie::class);
     }
 
-    // Mutators
-    public function setAreaAttribute($value)
-    {
-        $this->attributes['area'] = strtoupper($value);
-    }
-
-    public function setSectorAttribute($value)
-    {
-        $this->attributes['sector'] = strtoupper($value);
-    }
-
-    // Scopes
-    public function scopeArea($query, $area)
-    {
-        if ($area) {
-            return $query->where('area', $area);
-        }
-    }
-
-    public function scopeSector($query, $sector)
-    {
-        if ($sector) {
-            return $query->orWhere('sector', $sector);
-        }
-    }
 
     public function scopeCustomOrderBy($query, $sorts)
     {

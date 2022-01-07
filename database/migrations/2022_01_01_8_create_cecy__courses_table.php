@@ -41,7 +41,7 @@ class CreateCecyCoursesTable extends Migration
             $table->foreignId('participant_type_id') //¿Qué es?
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('schedules_id')
+            $table->foreignId('schedul_id')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('speciality_id')
@@ -70,8 +70,8 @@ class CreateCecyCoursesTable extends Migration
                 ->commnent('Bibliografías')
                 ->nullable();
 
-            $table->string('categoria')
-                ->comment('Abreviación')
+            $table->string('category')
+                ->comment('Categoría a la cual pertenece el curso')
                 ->nullable();
 
             $table->string('code')
@@ -137,7 +137,6 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Observación de curso')
                 ->nullable();
 
-
             $table->json('practical_phase')
                 ->comment('Fase práctica')
                 ->nullable();
@@ -146,7 +145,7 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Número de horas prácticas del curso')
                 ->nullable();
 
-            $table->string('practice_requiered_resources')
+            $table->string('practice_required_resources')
                 ->commnent('Recursos para aprendizaje práctico')
                 ->nullable();
 
@@ -162,8 +161,7 @@ class CreateCecyCoursesTable extends Migration
                 ->comments('Requerimientos')
                 ->nullable();
 
-
-            $table->string('requiered_installing_sources')
+            $table->string('required_installing_sources')
                 ->commnent('Fuentes de instación necesaria')
                 ->nullable();
 

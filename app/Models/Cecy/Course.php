@@ -2,6 +2,7 @@
 
 namespace App\Models\Cecy;
 
+use App\Models\Core\Career;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -17,67 +18,71 @@ class Course extends Model implements Auditable
     protected $table = 'cecy.courses';
 
     protected $fillable = [
-        'career',
-        'code',
-        'name',
-        'cost',
-        'photo',
-        'summary',
-        'free',
-        'duration',
-        'observation',
-        'objetive',
-        'needs',
-        'target_group',
-        'facilities',
-        'theoretical_phase',
-        'required_installing_source',
-        'cross_cutting_topics',
-        'bibliographys',
-        'requirements',
-        'teaching_strategies',
-        'practice_hours',
-        'practics_required_resources',
-        'aimtheory_required_resorces',
-        'learning_teaching_strategy',
-        'number_record',
-        'proposed_date',
-        'approved_date',
-        'need_date',
-        'expiration_date',
-        'local_proposal',
-        'project',
-        'setec_name',
-        'attached',
         'abbreviation',
-        'techniques_requisites',
+        'aimtheory_required_resources',
+        'approved_at',
+        'attached',
+        'authorized_at',
+        'bibliographys',
+        'category',
+        'code',
+        'cost',
+        'cross_cutting_topics',
+        'duration',
         'evaluation_mechanims',
-        'category'
-       
+        'expired_at',
+        'facilities',
+        'free',
+        'name',
+        'needs',
+        'needed_at',
+        'nro_record',
+        'learning_teaching_strategy',
+        'local_proposal',
+        'objective',
+        'observation',
+        'practical_phase',
+        'practice_hours',
+        'practice_required_resources',
+        'proposed_at',
+        'project',
+        'requirements',
+        'required_installing_sources',
+        'setec_name',
+        'summary',
+        'target_group',
+        'teaching_strategies',
+        'theoretical_phase',
+        'theory_hours'
     ];
 
     // Relationships
-    public function career()
+    public function academicPeriod()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function modality()
+    public function authority()
     {
-        return $this->belongsTo(Catalogue::class);
-    }
-
-    public function state()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
-
-    public function participant_type()
-    {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Authority::class);
     }
 
     public function area()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function career()
+    {
+        return $this->belongsTo(Career::class);
+    }
+
+    public function certifiedType()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function courseType()
     {
         return $this->belongsTo(Catalogue::class);
     }
@@ -87,17 +92,22 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function person_proposal()
+    public function modality()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function schedules()
+    public function participantType()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function course_type()
+    public function personProposal() //¿Qué es?
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function schedul()
     {
         return $this->belongsTo(Catalogue::class);
     }
@@ -107,190 +117,186 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function academy_period()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
-
-    public function certified_type()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
-
-    function topics()
-    {
-        return $this->hasMany(Topic::class);
-    }
-    public function profileInstructorCourses()
-    {
-        return $this->hasMany(ProfileInstructor::class);
-    }
-    public function planifications()
-    {
-        return $this->hasMany(Planification::class);
-    }
-    public function prerequisites()
-    {
-        return $this->hasMany(Prerequisite::class);
-    }
-
-    public function children()
-    {
-        return $this->hasMany(Catalogue::class, 'parent_id','core.catalogues');
-    }
-
     // Mutators
-    public function setCareerAttribute($value)
+    public function setAbbreviationAttribute($value)
     {
-        $this->attributes['career'] = strtoupper($value);
+        $this->attributes['abbreviation'] = strtoupper($value);
+    }
+
+    public function setAimtheoryRequiredResourcesAttribute($value)
+    {
+        $this->attributes['aimtheory_required_resources'] = strtoupper($value);
+    }
+
+    public function setCategoryAttribute($value)
+    {
+        $this->attributes['category'] = strtoupper($value);
     }
 
     public function setCodeAttribute($value)
     {
         $this->attributes['code'] = strtoupper($value);
     }
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper($value);
     }
-    public function setCostAttribute($value)
+
+    public function setNroRecordAttribute($value)
     {
-        $this->attributes['cost'] = strtoupper($value);
+        $this->attributes['nro_record'] = strtoupper($value);
     }
-    public function setPhotoAttribute($value)
-    {
-        $this->attributes['photo'] = strtoupper($value);
-    }
-    public function setSummaryAttribute($value)
-    {
-        $this->attributes['summary'] = strtoupper($value);
-    }
-    public function setFreeAttribute($value)
-    {
-        $this->attributes['free'] = strtoupper($value);
-    }
-    public function setDurationAttribute($value)
-    {
-        $this->attributes['duration'] = strtoupper($value);
-    }
-    public function setObservationAttribute($value)
-    {
-        $this->attributes['observation'] = strtoupper($value);
-    }
-    public function setObjetiveAttribute($value)
-    {
-        $this->attributes['objetive'] = strtoupper($value);
-    }
-    public function setNeedsAttribute($value)
-    {
-        $this->attributes['needs'] = strtoupper($value);
-    }
-    public function setTargetGroupAttribute($value)
-    {
-        $this->attributes['target_group'] = strtoupper($value);
-    }
-    public function setFacilitiesAttribute($value)
-    {
-        $this->attributes['facilities'] = strtoupper($value);
-    }
-    public function setTheoreticalPhaseAttribute($value)
-    {
-        $this->attributes['theoretical_phase'] = strtoupper($value);
-    }
-    public function setRequiredInstallingSourceAttribute($value)
-    {
-        $this->attributes['required_installing_source'] = strtoupper($value);
-    }
-    public function setCrossCuttingTopicsAttribute($value)
-    {
-        $this->attributes['cross_cutting_topics'] = strtoupper($value);
-    }
-    public function setBibliographysAttribute($value)
-    {
-        $this->attributes['bibliographys'] = strtoupper($value);
-    }
-    public function setRequirementsAttribute($value)
-    {
-        $this->attributes['requirements'] = strtoupper($value);
-    }
-    public function setTeachingStrategiesAttribute($value)
-    {
-        $this->attributes['teaching_strategies'] = strtoupper($value);
-    }
-    public function setPracticeHoursAttribute($value)
-    {
-        $this->attributes['practice_hours'] = strtoupper($value);
-    }
-    public function setPracticsRequiredResourcesAttribute($value)
-    {
-        $this->attributes['practics_required_resources'] = strtoupper($value);
-    }
-    public function setAimtheoryRequiredResorcesAttribute($value)
-    {
-        $this->attributes['aimtheory_required_resorces'] = strtoupper($value);
-    }
+
     public function setLearningTeachingStrategyAttribute($value)
     {
         $this->attributes['learning_teaching_strategy'] = strtoupper($value);
     }
-    public function setNumberRecordAttribute($value)
-    {
-        $this->attributes['number_record'] = strtoupper($value);
-    }
-    public function setProposedDateAttribute($value)
-    {
-        $this->attributes['proposed_date'] = strtoupper($value);
-    }
-    public function setApprovedDateAttribute($value)
-    {
-        $this->attributes['approved_date'] = strtoupper($value);
-    }
-    public function setNeedDateAttribute($value)
-    {
-        $this->attributes['need_date'] = strtoupper($value);
-    }
-    public function setExpirationDateAttribute($value)
-    {
-        $this->attributes['expiration_date'] = strtoupper($value);
-    }
+
     public function setLocalProposalAttribute($value)
     {
         $this->attributes['local_proposal'] = strtoupper($value);
     }
+
+    public function setObjectiveAttribute($value)
+    {
+        $this->attributes['objective'] = strtoupper($value);
+    }
+
+    public function setObservationAttribute($value)
+    {
+        $this->attributes['observation'] = strtoupper($value);
+    }
+
+    public function setPracticeRequiredResourcesAttribute($value)
+    {
+        $this->attributes['practice_required_resources'] = strtoupper($value);
+    }
+
     public function setProjectAttribute($value)
     {
         $this->attributes['project'] = strtoupper($value);
     }
+
+    public function setRequiredInstallingSourcesAttribute($value)
+    {
+        $this->attributes['required_installing_sources'] = strtoupper($value);
+    }
+
     public function setSetecNameAttribute($value)
     {
         $this->attributes['setec_name'] = strtoupper($value);
     }
-    public function setAttachedAttribute($value)
+
+    public function setSummaryAttribute($value)
     {
-        $this->attributes['attached'] = strtoupper($value);
-    }
-    public function setAbbreviationAttribute($value)
-    {
-        $this->attributes['abbreviation'] = strtoupper($value);
-    }
-    public function setTechniquesRequisitesAttribute($value)
-    {
-        $this->attributes['techniques_requisites'] = strtoupper($value);
-    }
-    public function setEvaluationMechanimsAttribute($value)
-    {
-        $this->attributes['evaluation_mechanims'] = strtoupper($value);
-    }
-    public function setCategoryAttribute($value)
-    {
-        $this->attributes['category'] = strtoupper($value);
+        $this->attributes['summary'] = strtoupper($value);
     }
 
     // Scopes
-    public function scopeType($query, $type)
+
+    public function scopeAbbreviation($query, $abbreviation)
     {
-        if ($type) {
-            return $query->where('type', $type);
+        if ($abbreviation) {
+            return $query->where('abbreviation', $abbreviation);
+        }
+    }
+
+    public function scopeAimtheoryRequiredResource($query, $aimtheory_required_resources)
+    {
+        if ($aimtheory_required_resources) {
+            return $query->orWhere('aimtheory_required_resources', $aimtheory_required_resources);
+        }
+    }
+
+    public function scopeCategory($query, $category)
+    {
+        if ($category) {
+            return $query->orWhere('category', $category);
+        }
+    }
+
+    public function scopeCode($query, $code)
+    {
+        if ($code) {
+            return $query->orWhere('category', $code);
+        }
+    }
+
+    public function scopeName($query, $name)
+    {
+        if ($name) {
+            return $query->orWhere('name', $name);
+        }
+    }
+
+    public function scopeNroRecord($query, $nro_record)
+    {
+        if ($nro_record) {
+            return $query->orWhere('nro_record', $nro_record);
+        }
+    }
+
+    public function scopeLearningTeachingStrategy($query, $learning_teaching_strategy)
+    {
+        if ($learning_teaching_strategy) {
+            return $query->orWhere('learning_teaching_strategy', $learning_teaching_strategy);
+        }
+    }
+
+    public function scopeLocalProposal($query, $local_proposal)
+    {
+        if ($local_proposal) {
+            return $query->orWhere('local_proposal', $local_proposal);
+        }
+    }
+
+    public function scopeObjective($query, $objective)
+    {
+        if ($objective) {
+            return $query->orWhere('objective', $objective);
+        }
+    }
+
+    public function scopeObservation($query, $observation)
+    {
+        if ($observation) {
+            return $query->orWhere('observation', $observation);
+        }
+    }
+
+    public function scopePracticeRequiredResources($query, $practice_required_resources)
+    {
+        if ($practice_required_resources) {
+            return $query->orWhere('practice_required_resources', $practice_required_resources);
+        }
+    }
+
+    public function scopeProject($query, $project)
+    {
+        if ($project) {
+            return $query->orWhere('project', $project);
+        }
+    }
+
+    public function scopeRequiredInstallingSources($query, $required_installing_sources)
+    {
+        if ($required_installing_sources) {
+            return $query->orWhere('required_installing_sources', $required_installing_sources);
+        }
+    }
+
+    public function scopeSetecName($query, $setec_name)
+    {
+        if ($setec_name) {
+            return $query->orWhere('setec_name', $setec_name);
+        }
+    }
+
+    public function scopeSummary($query, $summary)
+    {
+        if ($summary) {
+            return $query->orWhere('summary', $summary);
         }
     }
 
@@ -308,155 +314,4 @@ class Course extends Model implements Auditable
             return $query;
         }
     }
-    
-
-    public function scopeCode($query, $code)
-    {
-        if($code){
-            return $query->where('code', $code);
-        }
-    }
-
-    public function scopePhoto($query, $photo)
-    {
-        if($photo){
-            return $query->where('photo', $photo);
-        }
-    }
-
-    public function scopeSummary($query, $summary)
-    {
-        if($summary){
-            return $query->where('summary', $summary);
-        }
-    }
-
-    public function scopeObservation($query, $observation)
-    {
-        if($observation){
-            return $query->where('observation', $observation);
-        }
-    }
-
-    public function scopeObjective($query, $objective)
-    {
-        if($objective){
-            return $query->where('objective', $objective);
-        }
-    }
-
-    public function scopeNeeds($query, $needs)
-    {
-        if($needs){
-            return $query->where('needs', $needs);
-        }
-    }
-    
-    public function scopeTarget_group($query, $target_group)
-    {
-        if($target_group){
-            return $query->where('target_group', $target_group);
-        }
-    }
-
-    public function scopeFacilities($query, $facilities)
-    {
-        if($facilities){
-            return $query->where('facilities', $facilities);
-        }
-    }
-
-    public function scopeTheoretical_phase($query, $theoretical_phase)
-    {
-        if($theoretical_phase){
-            return $query->where('theoretical_phase', $theoretical_phase);
-        }
-    }
-
-    public function scopePractical_phase($query, $practical_phase)
-    {
-        if($practical_phase){
-            return $query->where('practical_phase', $practical_phase);
-        }
-    }
-
-    public function scopeRequiered_installing_sources($query, $practical_phase)
-    {
-        if($practical_phase){
-            return $query->where('practical_phase', $practical_phase);
-        }
-    }
-
-    public function scopeCross_cutting_topics($query, $cross_cutting_topics)
-    {
-        if($cross_cutting_topics){
-            return $query->where('cross_cutting_topics', $cross_cutting_topics);
-        }
-    }
-
-
-    public function scopeBibliographys($query, $bibliographys)
-    {
-        if($bibliographys){
-            return $query->where('bibliographys', $bibliographys);
-        }
-    }
-
-    public function scopeRequirements($query, $requirements)
-    {
-        if($requirements){
-            return $query->where('requirements', $requirements);
-        }
-    }
-
-    public function scopePractice_requiered_resources($query, $practice_requiered_resources)
-    {
-        if($practice_requiered_resources){
-            return $query->where('practice_requiered_resources', $practice_requiered_resources);
-        }
-    }
-
-    public function scopeAimtheory_required_resources($query, $aimtheory_required_resources)
-    {
-        if($aimtheory_required_resources){
-            return $query->where('aimtheory_required_resources', $aimtheory_required_resources);
-        }
-    }
-
-    public function scopeLearning_teaching_strategy($query, $learning_teaching_strategy)
-    {
-        if($learning_teaching_strategy){
-            return $query->where('learning_teaching_strategy', $learning_teaching_strategy);
-        }
-    }
-
-    public function scopeNro_record($query, $nro_record)
-    {
-        if($nro_record){
-            return $query->where('nro_record', $nro_record);
-        }
-    }
-
-    public function scopePerson_proposal_id($query, $person_proposal_id)
-    {
-        if($person_proposal_id){
-            return $query->where('person_proposal_id', $person_proposal_id);
-        }
-    }
-
-    public function scopeLocal_proposal($query, $local_proposal)
-    {
-        if($local_proposal){
-            return $query->where('local_proposal', $local_proposal);
-        }
-    }
-
-    public function scopeProject($query, $project)
-    {
-        if($project){
-            return $query->where('project', $project);
-        }
-    }
-
-    
 }

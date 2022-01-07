@@ -30,38 +30,39 @@ class CreateCecyPlanificationsTable extends Migration
             $table->foreignId('school_period_id')
                 ->constrained('cecy.school_periods');
 
+            $table->foreignId('sector_id')
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('state_id')
                 ->constrained('cecy.catalogues');
 
-            $table->text('sector_id')
-                ->constrained('cecy.catalogues');
 
-            $table->json('needs')
-                ->comment('Necesidades');
-
-            $table->date('started_at')
-                ->comment('Fecha en que inicia la planificación');
-
-            $table->date('ordinary_inscription_started_at')
-                ->comment('Fecha en que inicia la matriculación ordinaria');
-
-            $table->date('ordinary_inscription_ended_at')
-                ->comment('Fecha en que termina la matriculación ordinaria');
-
-            $table->date('extraordinary_inscription_started_at')
-                ->comment('Fecha en que inicia la matriculación extraordinaria');
-
-            $table->date('extraordinary_inscription_ended_at')
-                ->comment('Fecha en que termina la matriculación extraordinaria');
-
-            $table->date('especial_started_date_at')
-                ->comment('Fecha en que inicia la matriculación especial');
+            $table->date('ended_at')
+                ->comment('Fecha en la que se espera terminar la planificación');
 
             $table->date('especial_ended_date_at')
                 ->comment('Fecha en que termina la matriculación especial');
 
-            $table->date('ended_at')
-                ->comment('Fecha en la que se espera terminar la planificación');
+            $table->date('especial_started_date_at')
+                ->comment('Fecha en que inicia la matriculación especial');
+
+            $table->date('extraordinary_inscription_ended_at')
+                ->comment('Fecha en que termina la matriculación extraordinaria');
+
+            $table->date('extraordinary_inscription_started_at')
+                ->comment('Fecha en que inicia la matriculación extraordinaria');
+
+            $table->json('needs')
+                ->comment('Necesidades');
+
+            $table->date('ordinary_inscription_ended_at')
+                ->comment('Fecha en que termina la matriculación ordinaria');
+
+            $table->date('ordinary_inscription_started_at')
+                ->comment('Fecha en que inicia la matriculación ordinaria');
+
+            $table->date('started_at')
+                ->comment('Fecha en que inicia la planificación');
         });
     }
 
