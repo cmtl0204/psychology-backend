@@ -8,7 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CecyInstitution extends Model implements Auditable
+class Institution extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
@@ -51,6 +51,7 @@ class CecyInstitution extends Model implements Auditable
             return $query->where('code', $code);
         }
     }
+
     public function scopeName($query, $name)
     {
         if ($name) {
@@ -64,13 +65,13 @@ class CecyInstitution extends Model implements Auditable
             return $query->where('logo', $logo);
         }
     }
+
     public function scopeSlogan($query, $slogan)
     {
         if ($slogan) {
             return $query->where('slogan', $slogan);
         }
     }
-
 
     public function scopeCustomOrderBy($query, $sorts)
     {
