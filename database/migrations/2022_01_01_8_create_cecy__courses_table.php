@@ -14,13 +14,22 @@ class CreateCecyCoursesTable extends Migration
             $table->softDeletes();
 
 
+            $table->foreignId('academic_period_id')
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('authority_id')
                 ->constrained('cecy.authorities');
+
+            $table->foreignId('area_id')
+                ->constrained('cecy.catalogues');
 
             $table->foreignId('career_id')
                 ->constrained('core.careers');
 
-            $table->foreignId('area_id')
+            $table->foreignId('certified_type_id')
+                ->constrained('cecy.catalogues');
+
+            $table->foreignId('course_type_id')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('level_id')
@@ -35,48 +44,77 @@ class CreateCecyCoursesTable extends Migration
             $table->foreignId('schedules_id')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('course_type_id')
-                ->constrained('cecy.catalogues');
-
-            $table->foreignId('academic_period_id')
-                ->constrained('cecy.catalogues');
-
-            $table->foreignId('certified_type_id')
-                ->constrained('cecy.catalogues');
-
             $table->foreignId('speciality_id')
                 ->constrained('cecy.catalogues');
 
+            $table->string('abbreviation')
+                ->comment('Abreviación')
+                ->nullable();
+
+            $table->string('aimtheory_required_resources')
+                ->comment('Recursos para aprendizaje teórico')
+                ->nullable();
+
+            $table->date('approved_at')
+                ->comment('Fecha en que se aprobo el curso')
+                ->nullable();
+
+            $table->integer('attached')
+                ->nullable();
+
+            $table->date('authorized_at')
+                ->comment('Fecha en que se autorizo el curso')
+                ->nullable();
+
+            $table->json('bibliographys')
+                ->commnent('Bibliografías')
+                ->nullable();
+
+            $table->string('categoria')
+                ->comment('Abreviación')
+                ->nullable();
+
             $table->string('code')
                 ->comment('Código del curso')
+                ->nullable();
+
+            $table->double('cost')
+                ->comment('Costo del curso')
+                ->nullable();
+
+            $table->json('cross_cutting_topics')
+                ->commnent('Temas transversales')
+                ->nullable();
+
+            $table->integer('duration')
+                ->commnet('Duración')
+                ->nullable();
+
+            $table->json('evaluation_mechanims')
+                ->comments('Mecanismos de evaluación')
+                ->nullable();
+
+            $table->date('expired_at')
+                ->commnent('Fecha de expiración del curso')
+                ->nullable();
+
+            $table->json('facilities')
+                ->comment('instalaciones')
+                ->nullable();
+
+            $table->boolean('free')
+                ->comment('Gratuidad')
                 ->nullable();
 
             $table->string('name')
                 ->comment('Nombre del curso')
                 ->nullable();
 
-            $table->string('summary')
-                ->comment('Resumen del curso')
+            $table->json('needs')
+                ->comment('Necesidades')
                 ->nullable();
 
-            $table->string('observation')
-                ->comment('Observación de curso')
-                ->nullable();
-
-            $table->string('objective')
-                ->comment('Objetivo del curso')
-                ->nullable();
-
-            $table->string('requiered_installing_sources')
-                ->commnent('Fuentes de instación necesaria')
-                ->nullable();
-
-            $table->string('practice_requiered_resources')
-                ->commnent('Recursos para aprendizaje práctico')
-                ->nullable();
-
-            $table->string('aimtheory_required_resources')
-                ->comment('Recursos para aprendizaje teórico')
+            $table->date('needed_at')
                 ->nullable();
 
             $table->string('nro_record')
@@ -91,101 +129,66 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Propuesta local')
                 ->nullable();
 
-            $table->string('project')
-                ->comment('Proyect')
+            $table->string('objective')
+                ->comment('Objetivo del curso')
                 ->nullable();
 
-            $table->string('setec_name')
-                ->comment('Nombre del setec')
+            $table->string('observation')
+                ->comment('Observación de curso')
                 ->nullable();
 
-            $table->string('abbreviation')
-                ->comment('Abreviación')
-                ->nullable();
-
-            $table->string('categoria')
-                ->comment('Abreviación')
-                ->nullable();
-
-            $table->boolean('free')
-                ->comment('Gratuidad')
-                ->nullable();
-
-            $table->integer('attached')
-                ->nullable();
-
-            $table->double('cost')
-                ->comment('Costo del curso')
-                ->nullable();
-
-            $table->integer('duration')
-                ->commnet('Duración')
-                ->nullable();
-
-            $table->integer('theory_hours')
-                ->commnet('Duración')
-                ->nullable();
-
-            $table->integer('practice_hours')
-                ->nullable();
-
-            $table->json('needs')
-                ->comment('Necesidades')
-                ->nullable();
-
-            $table->json('target_group')
-                ->commnent('Tarjeta de grupo')
-                ->nullable();
-
-            $table->json('facilities')
-                ->comment('instalaciones')
-                ->nullable();
-
-            $table->json('theoretical_phase')
-                ->comment('Fase teórica')
-                ->nullable();
 
             $table->json('practical_phase')
                 ->comment('Fase práctica')
                 ->nullable();
 
-            $table->json('cross_cutting_topics')
-                ->commnent('Temas transversales')
+            $table->integer('practice_hours')
+                ->comment('Número de horas prácticas del curso')
                 ->nullable();
 
-            $table->json('bibliographys')
-                ->commnent('Bibliografías')
-                ->nullable();
-
-            $table->json('requirements')
-                ->comments('Requerimientos')
-                ->nullable();
-
-            $table->json('teaching_strategies')
-                ->comments('Estrategias de enseñanza')
-                ->nullable();
-
-            $table->json('evaluation_mechanims')
-                ->comments('Mecanismos de evaluación')
+            $table->string('practice_requiered_resources')
+                ->commnent('Recursos para aprendizaje práctico')
                 ->nullable();
 
             $table->date('proposed_at')
                 ->comment('Fecha en que se propuso el curso')
                 ->nullable();
 
-            $table->date('approved_at')
-                ->comment('Fecha en que se aprobo el curso')
+            $table->string('project')
+                ->comment('Proyect')
                 ->nullable();
 
-            $table->date('needed_at')
+            $table->json('requirements')
+                ->comments('Requerimientos')
                 ->nullable();
 
-            $table->date('expired_at')
-                ->commnent('Fecha de expiración del curso')
+
+            $table->string('requiered_installing_sources')
+                ->commnent('Fuentes de instación necesaria')
                 ->nullable();
 
-            $table->date('authorized_at')
-                ->comment('Fecha en que se autorizo el curso')
+            $table->string('setec_name')
+                ->comment('Nombre del setec')
+                ->nullable();
+
+            $table->string('summary')
+                ->comment('Resumen del curso')
+                ->nullable();
+
+            $table->json('target_group')
+                ->commnent('Tarjeta de grupo')
+                ->nullable();
+
+            $table->json('teaching_strategies')
+                ->comments('Estrategias de enseñanza')
+                ->nullable();
+
+            $table->json('theoretical_phase')
+                ->comment('Fase teórica')
+                ->nullable();
+
+            $table->integer('theory_hours')
+                ->commnet('Duración')
                 ->nullable();
         });
     }
