@@ -14,17 +14,18 @@ class CreateCecyDetailPlanificationsTable extends Migration
             $table->softDeletes();
 
             // hay que crear tabla classrooms en cecy: cod, nombre, desc, capacidad, estado.
+            /*
             $table->foreignId('classroom_id')
                 ->nullable()
                 ->comment('Id aula')
                 ->constrained('cecy.classrooms');
-
+*/
             // Pendiente de revisar, para mejor crear una tabla de horarios
             $table->foreignId('day_id')
                 ->nullable()
                 ->comment('Id día')
                 ->constrained('cecy.catalogues');
-                
+
             $table->foreignId('end_time_id')
                 ->nullable()
                 ->comment('Id hora final')
@@ -33,8 +34,8 @@ class CreateCecyDetailPlanificationsTable extends Migration
             $table->foreignId('planification_id')
                 ->nullable()
                 ->comment('Id planificación')
-                ->constrained('cecy.planifications');    
-    
+                ->constrained('cecy.planifications');
+
             $table->foreignId('start_time_id')
                 ->nullable()
                 ->comment('Id hora de inicio')
@@ -47,16 +48,16 @@ class CreateCecyDetailPlanificationsTable extends Migration
 
             // Pendinte de revisar con workday
             $table->integer('day')
-                ->comment('Número de día');    
+                ->comment('Número de día');
 
             $table->date('ended_at')
                 ->comment('Fecha final');
-                
+
             $table->integer('parallel')
                 ->comment('Paralelo');
-                
+
             $table->date('plan_ended_at')
-                ->comment('Fecha final de la planificación');    
+                ->comment('Fecha final de la planificación');
 
             $table->date('started_at')
                 ->comment('Fecha inicio');

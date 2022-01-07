@@ -24,7 +24,7 @@ class Course extends Model implements Auditable
         'approved_at',
         'attached',
         'authorized_at',
-        'bibliographys',
+        'bibliographies',
         'category',
         'code',
         'cost',
@@ -108,7 +108,7 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function schedul()
+    public function schedule()
     {
         return $this->belongsTo(Catalogue::class);
     }
@@ -146,7 +146,7 @@ class Course extends Model implements Auditable
 
     public function setNroRecordAttribute($value)
     {
-        $this->attributes['nro_record'] = strtoupper($value);
+        $this->attributes['record_number'] = strtoupper($value);
     }
 
     public function setLearningTeachingStrategyAttribute($value)

@@ -13,7 +13,11 @@ class CreateCecyNotificationTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('user_id')
+            $table->foreignId('user_receive_id')
+            ->comment('Informacion del usuario')
+            ->constrained('authentication.users');
+
+            $table->foreignId('user_send_id')
             ->comment('Informacion del usuario')
             ->constrained('authentication.users');
 
@@ -28,12 +32,12 @@ class CreateCecyNotificationTable extends Migration
                 
             $table->date('notification_date')
                 ->nullable()
-                ->comment('Descripción del tema o subtema');
+                ->comment('Fecha de la notificación');
         });
     }
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('topics');
+        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('notification');
     }
 }
