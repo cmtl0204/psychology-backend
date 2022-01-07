@@ -13,7 +13,7 @@ class CreateCecyPrerequisitesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('pre_requisito_id')
+            $table->foreignId('prerequisite_id')
                 ->comment('Id del curso que es prerequisito')
                 ->constrained('cecy.courses');
 

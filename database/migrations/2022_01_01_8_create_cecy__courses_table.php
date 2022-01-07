@@ -13,7 +13,6 @@ class CreateCecyCoursesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-
             $table->foreignId('academic_period_id')
                 ->constrained('cecy.catalogues');
 
@@ -41,7 +40,7 @@ class CreateCecyCoursesTable extends Migration
             $table->foreignId('participant_type_id') //¿Qué es?
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('schedul_id')
+            $table->foreignId('schedule_id')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('speciality_id')
@@ -49,10 +48,6 @@ class CreateCecyCoursesTable extends Migration
 
             $table->string('abbreviation')
                 ->comment('Abreviación')
-                ->nullable();
-
-            $table->string('aimtheory_required_resources')
-                ->comment('Recursos para aprendizaje teórico')
                 ->nullable();
 
             $table->string('alignment')
@@ -63,6 +58,7 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Fecha en que se aprobo el curso')
                 ->nullable();
 
+            // revisar campo
             $table->integer('attached')
                 ->nullable();
 
@@ -70,10 +66,11 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Fecha en que se autorizo el curso')
                 ->nullable();
 
-            $table->json('bibliographys')
-                ->commnent('Bibliografías')
+            $table->json('bibliographies')
+                ->comment('Bibliografías')
                 ->nullable();
 
+            // revisar
             $table->string('category')
                 ->comment('Categoría a la cual pertenece el curso')
                 ->nullable();
@@ -82,24 +79,25 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Código del curso')
                 ->nullable();
 
+            // revisar si se deja cost o se pone price
             $table->double('cost')
                 ->comment('Costo del curso')
                 ->nullable();
 
             $table->json('cross_cutting_topics')
-                ->commnent('Temas transversales')
+                ->comment('Temas transversales')
                 ->nullable();
 
             $table->integer('duration')
-                ->commnet('Duración')
+                ->comment('Duración medida en horas')
                 ->nullable();
 
-            $table->json('evaluation_mechanism')
-                ->comments('Mecanismos de evaluación')
+            $table->json('evaluation_mechanisms')
+                ->comment('Mecanismos de evaluación')
                 ->nullable();
 
             $table->date('expired_at')
-                ->commnent('Fecha de expiración del curso')
+                ->comment('Fecha de expiración del curso')
                 ->nullable();
 
             $table->json('facilities')
@@ -107,7 +105,7 @@ class CreateCecyCoursesTable extends Migration
                 ->nullable();
 
             $table->boolean('free')
-                ->comment('Gratuidad')
+                ->comment('Si el curso es gratuito es true y si no es false')
                 ->nullable();
 
             $table->string('name')
@@ -121,11 +119,11 @@ class CreateCecyCoursesTable extends Migration
             $table->date('needed_at')
                 ->nullable();
 
-            $table->string('nro_record')
+            $table->string('record_number')
                 ->comment('Número de record')
                 ->nullable();
 
-            $table->json('learning_environment')
+            $table->json('learning_environments')
                 ->comment('Entorno de aprendizaje')
                 ->nullable();
 
@@ -141,7 +139,8 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Observación de curso')
                 ->nullable();
 
-            $table->json('practical_phase')
+            // revisar
+            $table->json('practical_phases')
                 ->comment('Fase práctica')
                 ->nullable();
 
@@ -149,20 +148,17 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Número de horas prácticas del curso')
                 ->nullable();
 
-            $table->string('practice_required_resources')
-                ->commnent('Recursos para aprendizaje práctico')
-                ->nullable();
-
             $table->date('proposed_at')
                 ->comment('Fecha en que se propuso el curso')
                 ->nullable();
 
+            // revisar para que sirve este campo
             $table->string('project')
                 ->comment('Proyect')
                 ->nullable();
 
             $table->string('required_installing_sources')
-                ->commnent('Fuentes de instación necesaria')
+                ->comment('Fuentes de instación necesaria')
                 ->nullable();
 
             $table->string('setec_name')
@@ -173,24 +169,25 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Resumen del curso')
                 ->nullable();
 
-            $table->json('target_group')
-                ->commnent('Tarjeta de grupo')
+            $table->json('target_groups')
+                ->comment('Tarjeta de grupo')
                 ->nullable();
 
             $table->json('teaching_strategies')
-                ->comments('Estrategias de enseñanza')
+                ->comment('Estrategias de enseñanza')
                 ->nullable();
 
             $table->json('techniques_requisites')
-                ->comments('Requisitos técnicos y generales del curso')
+                ->comment('Requisitos técnicos y generales del curso')
                 ->nullable();
 
-            $table->json('theoretical_phase')
+            $table->json('theoretical_phases')
                 ->comment('Fase teórica')
                 ->nullable();
 
+            // revisar
             $table->integer('theory_hours')
-                ->commnet('Duración')
+                ->comment('Duración horas teoricas')
                 ->nullable();
         });
     }
