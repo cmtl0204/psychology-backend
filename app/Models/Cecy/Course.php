@@ -20,6 +20,7 @@ class Course extends Model implements Auditable
     protected $fillable = [
         'abbreviation',
         'aimtheory_required_resources',
+        'alignment',
         'approved_at',
         'attached',
         'authorized_at',
@@ -29,7 +30,7 @@ class Course extends Model implements Auditable
         'cost',
         'cross_cutting_topics',
         'duration',
-        'evaluation_mechanims',
+        'evaluation_mechanism',
         'expired_at',
         'facilities',
         'free',
@@ -37,7 +38,7 @@ class Course extends Model implements Auditable
         'needs',
         'needed_at',
         'nro_record',
-        'learning_teaching_strategy',
+        'learning_environment',
         'local_proposal',
         'objective',
         'observation',
@@ -209,6 +210,13 @@ class Course extends Model implements Auditable
         }
     }
 
+    public function scopeAlignment($query, $alignment)
+    {
+        if ($alignment) {
+            return $query->orWhere('alignment', $alignment);
+        }
+    }
+
     public function scopeCategory($query, $category)
     {
         if ($category) {
@@ -234,13 +242,6 @@ class Course extends Model implements Auditable
     {
         if ($nro_record) {
             return $query->orWhere('nro_record', $nro_record);
-        }
-    }
-
-    public function scopeLearningTeachingStrategy($query, $learning_teaching_strategy)
-    {
-        if ($learning_teaching_strategy) {
-            return $query->orWhere('learning_teaching_strategy', $learning_teaching_strategy);
         }
     }
 

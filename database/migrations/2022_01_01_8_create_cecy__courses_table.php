@@ -55,6 +55,10 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Recursos para aprendizaje teórico')
                 ->nullable();
 
+            $table->string('alignment')
+                ->comment('Alineación del curso')
+                ->nullable();
+
             $table->date('approved_at')
                 ->comment('Fecha en que se aprobo el curso')
                 ->nullable();
@@ -90,7 +94,7 @@ class CreateCecyCoursesTable extends Migration
                 ->commnet('Duración')
                 ->nullable();
 
-            $table->json('evaluation_mechanims')
+            $table->json('evaluation_mechanism')
                 ->comments('Mecanismos de evaluación')
                 ->nullable();
 
@@ -121,8 +125,8 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Número de record')
                 ->nullable();
 
-            $table->string('learning_teaching_strategy')
-                ->comment('Aprendizaje estrategia de enseñanza')
+            $table->string('learning_environment')
+                ->comment('Entorno de aprendizaje')
                 ->nullable();
 
             $table->string('local_proposal')
