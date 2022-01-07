@@ -14,7 +14,7 @@ class CreateCecySchoolPeriodsTable extends Migration
             $table->softDeletes();
 
             $table->string('code')->unique()
-                ->comment('codigo unico de periodos lectivos');
+                ->comment('codigo unico de periodos lectivos ej: 2021-2022');
             
             $table->date('ended_at')
                 ->comment('Fecha de finalización del perido lectivo');
@@ -39,9 +39,9 @@ class CreateCecySchoolPeriodsTable extends Migration
             $table->date('ordinary_ended_at')
                 ->comment('fin del periodo ordinario');
 
-            $table->date('ordinary_stated_at')
+            $table->date('ordinary_started_at')
                 ->nullable()
-                ->comment('');
+                ->comment('Inicio del periodo ordinario');
 
             $table->date('started_at')
                 ->comment('Fecha de inicio del perido lectivo');

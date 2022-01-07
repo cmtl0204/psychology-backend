@@ -25,7 +25,7 @@ class SchoolPeriod extends Model implements Auditable
         'extraordinary_started_at',
         'name',
         'ordinary_ended_at',
-        'ordinary_stated_at',
+        'ordinary_started_at',
         'started_at',
     ];
 
