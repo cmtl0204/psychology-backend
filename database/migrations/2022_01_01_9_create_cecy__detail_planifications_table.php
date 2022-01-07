@@ -22,7 +22,7 @@ class CreateCecyDetailPlanificationsTable extends Migration
             $table->foreignId('classroom_id')
                 ->nullable()
                 ->comment('Id aula')
-                ->constrained('cecy.classrooms');
+                ->constrained('cecy.catalogues');
 
             // Pendiente de revisar, para mejor crear una tabla de horarios
             $table->foreignId('day_id')
