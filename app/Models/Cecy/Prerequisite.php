@@ -16,33 +16,17 @@ class Prerequisite extends Model implements Auditable
 
     protected $table = 'cecy.prerequisites';
 
-    // protected $fillable = [
-    //     'description',
-    // ];
+    protected $fillable = [];
 
     // Relationships
-    public function parent()
+    public function pre_requisito()
     {
-        return $this->belongsTo(Prerequisite::class);
+        return $this->belongsTo(Course::class);
     }
     public function course()
     {
         return $this->belongsTo(Course::class);
     }
-
-    // Mutators
-    // public function setDescriptionAttribute($value)
-    // {
-    //     $this->attributes['description'] = strtoupper($value);
-    // }
-
-    // Scopes
-    // public function scopeDescription($query, $description)
-    // {
-    //     if ($description) {
-    //         return $query->where('description', $description);
-    //     }
-    // }
 
     public function scopeCustomOrderBy($query, $sorts)
     {

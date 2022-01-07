@@ -21,19 +21,20 @@ class Topic extends Model implements Auditable
     ];
 
     // Relationships
-    public function parent()
-    {
-        return $this->belongsTo(Topic::class);
-    }
-
     public function course()
     {
         return $this->belongsTo(Course::class);
     }
 
-    public function type()
+    public function nivel()
     {
-        return $this->belongsTo(Catalogue::class,  'type_id','core.catalogues');
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    // Recursividad
+    public function children()
+    {
+        return $this->hasMany(Catalogue::class, 'parent_id','core.catalogues');
     }
 
     // Mutators
