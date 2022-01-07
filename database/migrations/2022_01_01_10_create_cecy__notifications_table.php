@@ -22,17 +22,15 @@ class CreateCecyNotificationsTable extends Migration
             ->constrained('authentication.users');
 
             $table->foreignId('state_id')
-                ->nullable()
                 ->comment('Id del tema principal')
                 ->constrained('cecy.catalogues');
 
-            $table->string('activity_name')
-                ->nullable()
-                ->comment('Descripción del tema de la notificacion');
+            $table->string('title')
+                ->comment('Titulo del tema de la notificacion');
 
-            $table->date('registered_at')
+            $table->text('description')
                 ->nullable()
-                ->comment('Fecha de la notificación');
+                ->comment('Descripcion');
         });
     }
 
