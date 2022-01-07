@@ -47,8 +47,8 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->constrained('cecy.catalogues');
 
             // Pendinte de revisar con workday
-            $table->integer('day')
-                ->comment('Número de día');
+            $table->integer('days_number')
+                ->comment('Número de días de duración del curso');
 
             $table->date('ended_at')
                 ->comment('Fecha final');
@@ -61,10 +61,6 @@ class CreateCecyDetailPlanificationsTable extends Migration
 
             $table->date('started_at')
                 ->comment('Fecha inicio');
-
-            // Pendinte de revisar con day
-            $table->integer('workday')
-                ->comment('Días trabajados');
         });
     }
 
