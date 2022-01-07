@@ -59,13 +59,13 @@ class Authority extends Model
     public function scopePositionEndedAt($query, $positionEndedAt)
     {
         if ($positionEndedAt) {
-            return $query->where('position_ended_at', $positionEndedAt);
+            return $query->orWhere('position_ended_at', $positionEndedAt);
         }
     }
     public function scopeFirm($query, $firm)
     {
         if ($firm) {
-            return $query->where('firm', $firm);
+            return $query->orWhere('firm', $firm);
         }
     }
 
