@@ -125,7 +125,7 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Número de record')
                 ->nullable();
 
-            $table->string('learning_environment')
+            $table->json('learning_environment')
                 ->comment('Entorno de aprendizaje')
                 ->nullable();
 
@@ -161,10 +161,6 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Proyect')
                 ->nullable();
 
-            $table->json('requirements')
-                ->comments('Requerimientos')
-                ->nullable();
-
             $table->string('required_installing_sources')
                 ->commnent('Fuentes de instación necesaria')
                 ->nullable();
@@ -183,6 +179,10 @@ class CreateCecyCoursesTable extends Migration
 
             $table->json('teaching_strategies')
                 ->comments('Estrategias de enseñanza')
+                ->nullable();
+
+            $table->json('techniques_requisites')
+                ->comments('Requisitos técnicos y generales del curso')
                 ->nullable();
 
             $table->json('theoretical_phase')

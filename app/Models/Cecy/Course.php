@@ -47,12 +47,12 @@ class Course extends Model implements Auditable
         'practice_required_resources',
         'proposed_at',
         'project',
-        'requirements',
         'required_installing_sources',
         'setec_name',
         'summary',
         'target_group',
         'teaching_strategies',
+        'techniques_requisites',
         'theoretical_phase',
         'theory_hours'
     ];
