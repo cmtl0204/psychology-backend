@@ -58,6 +58,12 @@ class CecyInstitution extends Model implements Auditable
         }
     }
 
+    public function scopeLogo($query, $logo)
+    {
+        if ($logo) {
+            return $query->where('logo', $logo);
+        }
+    }
     public function scopeSlogan($query, $slogan)
     {
         if ($slogan) {
@@ -65,12 +71,6 @@ class CecyInstitution extends Model implements Auditable
         }
     }
 
-    public function scopeLogo($query, $logo)
-    {
-        if ($logo) {
-            return $query->where('logo', $logo);
-        }
-    }
 
     public function scopeCustomOrderBy($query, $sorts)
     {
