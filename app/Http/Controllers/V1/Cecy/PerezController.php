@@ -3,44 +3,35 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Core\Catalogues\IndexCatalogueRequest;
-use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
-use App\Http\Requests\V1\Core\Files\IndexFileRequest;
-use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
-use App\Http\Requests\V1\Core\Files\UploadFileRequest;
-use App\Http\Resources\V1\Core\Catalogues\CatalogueCollection;
+use App\Http\Resources\V1\Cecy\DetailPlanifications\ResponsibleCourseDetailPlanificationResource;
+use App\Http\Resources\V1\Cecy\DetailsPlanifications\ResponsibleCourseDetailPlanificationCollection;
 use App\Models\Cecy\Authority;
-use App\Models\Cecy\Catalogue as CecyCatalogue;
 use App\Models\Cecy\Course;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Planification;
 use App\Models\Cecy\SchoolPeriod;
 use App\Models\Core\Catalogue;
-use App\Models\Core\File;
+use App\Http\Resources\V1\Cecy\Planifications\ResponsibleCoursePlanificationResource;
+use App\Http\Resources\V1\Cecy\Planifications\ResponsibleCoursePlanificationCollection;
 
 class PerezController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:store-catalogues')->only(['store']);
-        $this->middleware('permission:update-catalogues')->only(['update']);
-        $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
+        // $this->middleware('permission:store-catalogues')->only(['store']);
+        // $this->middleware('permission:update-catalogues')->only(['update']);
+        // $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
     }
 
-    /**
-     * Planificacions
-     */
-
-    public function getPlanifications($request, Authority $responsibleCourse)
+    public function getPlanifications($request)
     {
-        /**
-         * get course, school period, responsable, state,  start and end dates 
-         * participant type
-         */
+        $responsibleCourse = Authority::find($request->input('responsibleCourse.id'));
+        $schoolPeriod = SchoolPeriod::find($request->input('schoolPeriod.id'));
+
         $planifications = $responsibleCourse->planifications()
             ->paginate();
 
-        return (new PlanificationCollection($planifications))
+        return (new ResponsibleCoursePlanificationCollection($planifications))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -52,7 +43,7 @@ class PerezController extends Controller
 
     public function showPlanification(Planification $planification)
     {
-        return (new PlanificactionResource($planification))
+        return (new ResponsibleCoursePlanificationResource($planification))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -65,7 +56,6 @@ class PerezController extends Controller
 
     public function storePlanification($request)
     {
-        $state = CecyCatalogue::find($request->input('state.id'));
         $course = Course::find($request->input('course.id'));
         $schoolPeriod = SchoolPeriod::find($request->input('schoolPeriod.id'));
         $responsibleCourse = Authority::find($request->input('responsibleCourse.id'));
@@ -75,14 +65,13 @@ class PerezController extends Controller
         $planification->course()->associate($course);
         $planification->schoolPeriod()->associate($schoolPeriod);
         $planification->responsibleCourse()->associate($responsibleCourse);
-        $planification->state()->associate($state);
 
         $planification->started_at = $request->input('started_at');
         $planification->ended_at = $request->input('ended_at');
 
         $planification->save();
 
-        return (new PlanificationResource($planification))
+        return (new ResponsibleCoursePlanificationResource($planification))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Creado',
@@ -111,35 +100,42 @@ class PerezController extends Controller
 
     public function getAll($request)
     {
-        /**
-         * get planification, classroom, workday, days, time, instructores
-         */
+        $planification = Planification::find($request->input('planification.id'));
+
+        $detailplanifications = $planification->detailPlanifications()
+            ->paginate();
+
+        return (new ResponsibleCourseDetailPlanificationCollection($detailplanifications))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
     public function storePlanificationDetail($request)
     {
-        /**
-         * 
-         */
         $planification = Planification::find($request->input('planification.id'));
         $classroom = Classroom::find($request->input('classroom.id'));
-        $days = CecyCatalogue::find($request->input('day.id'));
-        $workday = CecyCatalogue::find($request->input('workday.id'));
+        $days = Catalogue::find($request->input('day.id'));
+        $workday = Catalogue::find($request->input('workday.id'));
 
-        $detailplanification = new DetailPlanification();
+        $detailPlanification = new DetailPlanification();
 
-        $detailplanification->planification()->associate($planification);
-        $detailplanification->classroom()->associate($classroom);
-        $detailplanification->day()->associate($days);
+        $detailPlanification->planification()->associate($planification);
+        $detailPlanification->classroom()->associate($classroom);
+        $detailPlanification->day()->associate($days);
 
-        $detailplanification->started_at = $request->input('started_at');
-        $detailplanification->ended_at = $request->input('ended_at');
-        $detailplanification->plan_ended_at = $request->input('plan_ended_at');
+        $detailPlanification->started_at = $request->input('started_at');
+        $detailPlanification->ended_at = $request->input('ended_at');
+        $detailPlanification->plan_ended_at = $request->input('plan_ended_at');
 
 
-        $detailplanification->save();
+        $detailPlanification->save();
 
-        return (new DetailPlanificationResource($detailPlanification))
+        return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Creado',
@@ -172,118 +168,5 @@ class PerezController extends Controller
         /**
          * 
          */
-    }
-    /**
-     * Catalogues
-     */
-    public function allCataloguesTypes(IndexCatalogueRequest $request)
-    {
-        $catalogues = Catalogue::orderBy('name')
-            ->type($request->query('type'))
-            ->paginate();
-
-        return (new CecyCatalogueCollection($catalogues))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public function index(IndexCatalogueRequest $request)
-    {
-        $sorts = explode(',', $request->sort);
-
-        $catalogues = Catalogue::customOrderBy($sorts)
-            ->type($request->input('type'))
-            ->paginate();
-
-        return (new CatalogueCollection($catalogues))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-
-    public function all(IndexCatalogueRequest $request)
-    {
-        $catalogues = Catalogue::orderBy('name')
-            ->type($request->input('type'))
-            ->paginate($request->input('per_page'));
-
-        return (new CatalogueCollection($catalogues))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-
-    // Files
-    public function indexFiles(IndexFileRequest $request, Catalogue $catalogue)
-    {
-        return $catalogue->indexFiles($request);
-    }
-
-    public function uploadFile(UploadFileRequest $request, Catalogue $catalogue)
-    {
-        return $catalogue->uploadFile($request);
-    }
-
-    public function downloadFile(Catalogue $catalogue, File $file)
-    {
-        return $catalogue->downloadFile($file);
-    }
-
-    public function showFile(Catalogue $catalogue, File $file)
-    {
-        return $catalogue->showFile($file);
-    }
-
-    public function updateFile(UpdateFileRequest $request, Catalogue $catalogue, File $file)
-    {
-        return $catalogue->updateFile($request, $file);
-    }
-
-    public function destroyFile(Catalogue $catalogue, File $file)
-    {
-        return $catalogue->destroyFile($file);
-    }
-
-    public function destroyFiles(Catalogue $catalogue, DestroysFileRequest $request)
-    {
-        return $catalogue->destroyFiles($request);
     }
 }
