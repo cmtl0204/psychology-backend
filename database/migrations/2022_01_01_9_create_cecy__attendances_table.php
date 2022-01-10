@@ -18,7 +18,7 @@ class CreateCecyAttendancesTable extends Migration
 
             $table->foreignId('type_id')
                 ->nullable()
-                ->comment('')
+                ->comment('para saber si esta presente,inasistente o atrasado ')
                 ->constrained('cecy.catalogues');
 
             $table->date('registered_at')
