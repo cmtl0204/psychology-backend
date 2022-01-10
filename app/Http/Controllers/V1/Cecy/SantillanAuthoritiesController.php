@@ -32,6 +32,7 @@ class SantillanAuthoritiesController extends Controller
                 ]
             ]);
     }
+
     public function store(Request $request)
     {
         $authority = new Authority();

@@ -84,13 +84,14 @@ class PerezController extends Controller
     public function updatePlanification($request)
     {
         /**
-         * 
+         *
          */
     }
+
     public function deletePlanification($request)
     {
         /**
-         * 
+         *
          */
     }
 
@@ -160,13 +161,14 @@ class PerezController extends Controller
     public function updatePlanificationDetail($request)
     {
         /**
-         * 
+         *
          */
     }
+
     public function deletePlanificationDetail($request)
     {
         /**
-         * 
+         *
          */
     }
 }
