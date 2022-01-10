@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Cecy\Course;    
 use Illuminate\Http\Request;
 use App\Models\Cecy\Catalogue;    
-use App\Http\Resources\V1\Cecy\DetailInstructor\DetailInstructorResource;
-use App\Http\Resources\V1\Cecy\DetailInstructor\DetailInstructorCollection;
+use App\Http\Resources\V1\Cecy\DetailInstructors\DetailInstructorResource;
+use App\Http\Resources\V1\Cecy\DetailInstructors\DetailInstructorCollection;
 use App\Models\Cecy\DetailInstructor;
 
 
