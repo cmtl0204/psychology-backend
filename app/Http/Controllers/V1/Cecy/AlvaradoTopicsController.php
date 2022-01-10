@@ -12,14 +12,14 @@ use App\Http\Resources\V1\Cecy\Topics\TopicCollection;
 
 class AlvaradoTopicsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('permission:store-catalogues')->only(['store']);
-        $this->middleware('permission:update-catalogues')->only(['update']);
-        $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
-    }
-
-    public function index(Course $course)
+    // public function __construct()
+    // {
+    //     $this->middleware('permission:store-catalogues')->only(['store']);
+    //     $this->middleware('permission:update-catalogues')->only(['update']);
+    //     $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
+    // }
+    
+    public function index()
     {
         $topics = $course->topics()->get();
         return (new TopicCollection($topics))
@@ -91,5 +91,41 @@ class AlvaradoTopicsController extends Controller
                     'code' => '200'
                 ]
             ]);
+    }
+
+    public function editarInformacionCurso()
+    {
+        return (new TopicCollection($topic))
+        ->additional([
+            'msg' => [
+                'summary' => 'success',
+                'detail' => '',
+                'code' => '200'
+            ]
+        ]);
+    }
+
+    public function CrearPrerequisitos()
+    {
+        return (new TopicCollection($topic))
+        ->additional([
+            'msg' => [
+                'summary' => 'success',
+                'detail' => '',
+                'code' => '200'
+            ]
+        ]);
+    }
+
+    public function DeletePrerequisitos()
+    {
+        return (new TopicCollection($topic))
+        ->additional([
+            'msg' => [
+                'summary' => 'success',
+                'detail' => '',
+                'code' => '200'
+            ]
+        ]);
     }
 }
