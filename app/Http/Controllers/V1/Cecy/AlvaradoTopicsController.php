@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\V1\Cecy;
 
-use App\Models\Cecy\Topic;    
-use App\Models\Cecy\Course;    
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Cecy\Catalogue;    
+use App\Models\Cecy\Topic;
+use App\Models\Cecy\Course;
+use App\Models\Cecy\Catalogue;
 use App\Http\Resources\V1\Cecy\Topics\TopicResource;
 use App\Http\Resources\V1\Cecy\Topics\TopicCollection;
-
-
 
 class AlvaradoTopicsController extends Controller
 {
@@ -19,10 +18,11 @@ class AlvaradoTopicsController extends Controller
         $this->middleware('permission:update-catalogues')->only(['update']);
         $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
     }
-    
-    public function index()
+
+    public function index(Course $course)
     {
-        return (new TopicCollection($topic))
+        $topics = $course->topics()->get();
+        return (new TopicCollection($topics))
         ->additional([
             'msg' => [
                 'summary' => 'success',

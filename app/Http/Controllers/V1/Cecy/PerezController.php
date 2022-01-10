@@ -34,7 +34,7 @@ class PerezController extends Controller
     public function getPlanifications($request, Authority $responsibleCourse)
     {
         /**
-         * get course, school period, responsable, state,  start and end dates 
+         * get course, school period, responsable, state,  start and end dates
          * participant type
          */
         $planifications = $responsibleCourse->planifications()
@@ -95,13 +95,14 @@ class PerezController extends Controller
     public function updatePlanification($request)
     {
         /**
-         * 
+         *
          */
     }
+
     public function deletePlanification($request)
     {
         /**
-         * 
+         *
          */
     }
 
@@ -119,7 +120,7 @@ class PerezController extends Controller
     public function storePlanificationDetail($request)
     {
         /**
-         * 
+         *
          */
         $planification = Planification::find($request->input('planification.id'));
         $classroom = Classroom::find($request->input('classroom.id'));
@@ -164,15 +165,17 @@ class PerezController extends Controller
     public function updatePlanificationDetail($request)
     {
         /**
-         * 
+         *
          */
     }
+
     public function deletePlanificationDetail($request)
     {
         /**
-         * 
+         *
          */
     }
+
     /**
      * Catalogues
      */
@@ -191,30 +194,6 @@ class PerezController extends Controller
                 ]
             ]);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public function index(IndexCatalogueRequest $request)
