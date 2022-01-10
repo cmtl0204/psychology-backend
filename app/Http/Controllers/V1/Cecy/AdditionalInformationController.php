@@ -13,6 +13,13 @@ use Illuminate\Http\Request;
 
 class AdditionalInformationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:store-additionalInformations')->only(['store']);
+        $this->middleware('permission:update-additionalInformations')->only(['update']);
+        $this->middleware('permission:delete-additionalInformations')->only(['destroy', 'destroys']);
+    }
+
     public function index(IndexAdditionalInformationRequest $request)
     {
 
