@@ -8,7 +8,7 @@ use App\Models\Cecy\Authority;
 use App\Models\Cecy\SchoolPeriod;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DetailPlanificationResource extends JsonResource
+class ResponsibleCourseDetailPlanificationResource extends JsonResource
 {
     public function toArray($request)
     {
