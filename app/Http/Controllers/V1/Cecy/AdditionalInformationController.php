@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
+use App\Http\Requests\V1\Core\Files\IndexFileRequest;
+use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
+use App\Http\Requests\V1\Core\Files\UploadFileRequest;
 use App\Models\Cecy\AdditionalInformation;
+use App\Models\Core\File;
 use Illuminate\Http\Request;
 
 class AdditionalInformationController extends Controller
@@ -157,5 +162,41 @@ class AdditionalInformationController extends Controller
                     'code' => '201'
                 ]
             ]);
+    }
+
+    // Files
+    public function indexFiles(IndexFileRequest $request, AdditionalInformation $additionalInformation)
+    {
+        return $additionalInformation->indexFiles($request);
+    }
+
+    public function uploadFile(UploadFileRequest $request, AdditionalInformation $additionalInformation)
+    {
+        return $additionalInformation->uploadFile($request);
+    }
+
+    public function downloadFile(AdditionalInformation $additionalInformation, File $file)
+    {
+        return $additionalInformation->downloadFile($file);
+    }
+
+    public function showFile(AdditionalInformation $additionalInformation, File $file)
+    {
+        return $additionalInformation->showFile($file);
+    }
+
+    public function updateFile(UpdateFileRequest $request, AdditionalInformation $additionalInformation, File $file)
+    {
+        return $additionalInformation->updateFile($request, $file);
+    }
+
+    public function destroyFile(AdditionalInformation $additionalInformation, File $file)
+    {
+        return $additionalInformation->destroyFile($file);
+    }
+
+    public function destroyFiles(AdditionalInformation $additionalInformation, DestroysFileRequest $request)
+    {
+        return $additionalInformation->destroyFiles($request);
     }
 }
