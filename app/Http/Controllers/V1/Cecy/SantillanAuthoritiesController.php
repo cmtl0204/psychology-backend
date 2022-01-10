@@ -12,7 +12,7 @@ use App\Models\Cecy\Institution;
 use App\Models\Core\State;
 use Illuminate\Http\Client\Request;
 
-class AuthorityController extends Controller
+class SantillanAuthoritiesController extends Controller
 {
     public function __construct()
     {
