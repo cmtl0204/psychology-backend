@@ -13,20 +13,20 @@ class CreateCecyClassroomsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('code_id')
-                ->comment('Id del código')
-                ->constrained('cecy.classrooms');
-
             $table->foreignId('state_id')
                 ->nullable()
                 ->comment('Estado si esta disponible o no disponible')
-                ->constrained('cecy.classrooms');
+                ->constrained('cecy.catalogues');
 
             $table->integer('capacity')
                 ->nullable()
-                ->comment('Capacidad del aula a recibir');     
+                ->comment('Capacidad del aula a recibir'); 
+                
+            $table->string('code')
+                ->nullable()
+                ->comment('Código del aula');    
 
-            $table->string('description')
+            $table->text('description')
                 ->nullable()
                 ->comment('Descripción del aula'); 
             

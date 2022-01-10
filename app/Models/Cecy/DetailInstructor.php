@@ -52,7 +52,7 @@ class DetailInstructor extends Model implements Auditable
     public function scopeCodeCertifiedSources($query, $code_certified)
     {
         if ($code_certified) {
-            return $query->orWhere('code_certified', $code_certified);
+            return $query->Where('code_certified', $code_certified);
         }
     }
     // Mis campos son de  tipo JSON 

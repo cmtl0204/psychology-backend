@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\V1\Cecy;
 
-use App\Http\Controllers\Controller;
-use App\Models\Cecy\Course;    
+use App\Http\Controllers\Controller;   
 use Illuminate\Http\Request;
 use App\Models\Cecy\Catalogue;    
 use App\Http\Resources\V1\Cecy\DetailInstructors\DetailInstructorResource;
@@ -13,7 +12,7 @@ use App\Models\Cecy\DetailInstructor;
 
 use App\Models\Core\File;
 
-class RiveraDetailInstructorController extends Controller
+class RiveraDetailInstructorsController extends Controller
 {
     public function __construct()
     {
@@ -24,7 +23,7 @@ class RiveraDetailInstructorController extends Controller
 
     public function index()
     {
-        return (new DetailInstructorCollection($detailInstructo))
+        return (new DetailInstructorCollection($detailInstructor))
         ->additional([
             'msg' => [
                 'summary' => 'success',
@@ -42,7 +41,7 @@ class RiveraDetailInstructorController extends Controller
         $detailInstructor->state_certified()->associate(Catalogue::find($request->input('state_certified.id')));
         $detailInstructor->code_certified = $request->input('code_certified');
 
-        return (new TopicResource($topic))
+        return (new DetailInstructorResource($detailInstructor))
         ->additional([
             'msg' => [
                 'summary' => 'Tema o subtema Creado',
