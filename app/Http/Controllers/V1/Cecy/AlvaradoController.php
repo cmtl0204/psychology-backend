@@ -9,7 +9,9 @@ use App\Models\Cecy\Course;
 use App\Models\Cecy\Catalogue;
 use App\Http\Resources\V1\Cecy\Topics\TopicResource;
 use App\Http\Resources\V1\Cecy\Topics\TopicCollection;
+use App\Http\Resources\V1\Cecy\Courses\CourseResource;
 use App\Http\Requests\V1\Cecy\Topics\StoreTopicRequest;
+use App\Http\Requests\V1\Cecy\Courses\UpdateCourseRequest;
 
 
 class AlvaradoTopicsController extends Controller
@@ -112,11 +114,11 @@ class AlvaradoTopicsController extends Controller
         $course->objective = $request->input('objective');
         $course->techniques_requisites = $request->input('techniquesRequisites');
         $course->teaching_strategies = $request->input('teachingStrategies');
-        $course->evaluation_mechanism = $request->input('evaluationMechanism');
-        $course->learning_environment = $request->input('learningEnvironment');
+        $course->evaluation_mechanism = $request->input('evaluationMechanisms');
+        $course->learning_environment = $request->input('learningEnvironments');
         $course->practice_hours = $request->input('practiceHours');
         $course->theory_hours = $request->input('theoryHours');
-        $course->bibliographys = $request->input('bibliographys');
+        $course->bibliographies = $request->input('bibliographies');
         $course->save();
 
         return (new CourseResource($course))
