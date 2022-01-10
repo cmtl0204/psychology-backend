@@ -15,7 +15,7 @@ class CreateCecyDetailRegistrationsTable extends Migration
 
             $table->foreignId('registration_id')
                 ->comment('Fk de la tabla matricula')
-                ->constrained('cecy.registrations');
+                ->constrained('cecy.detail_planifications');
 
             $table->foreignId('detail_planification_id')
                 ->comment('id del detalle de la planificacion')
@@ -44,7 +44,7 @@ class CreateCecyDetailRegistrationsTable extends Migration
                 ->comment('Nota del segundo parcial');
 
             $table->json('observations')
-                ->comment('Observacion del estudiante');
+                ->comment('Observaciones del estudiante');
         });
     }
 
