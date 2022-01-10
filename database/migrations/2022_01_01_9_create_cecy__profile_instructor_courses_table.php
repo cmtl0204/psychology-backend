@@ -20,13 +20,13 @@ class CreateCecyProfileInstructorCoursesTable extends Migration
                 ->constrained('cecy.courses');
 
             $table->json('require_experience')
-                ->comment('');
+                ->comment('experiencia del instrucotr para impartir un curso');
 
             $table->json('require_knowledge')
-                ->comment('');
+                ->comment('conocimiento del instructor para impartir un curso');
 
             $table->json('require_skills')
-            ->comment('');
+            ->comment('habilidades del instructor para impartir un curso');
         });
     }
 
