@@ -16,7 +16,7 @@ class CreateCecyAuthoritiesTable extends Migration
             $table->foreignId('intitution_id')
                 ->nullable()
                 ->comment('Una autoridad puede pertenecer a varias instituciones')
-                ->constrained('core.institutions');
+                ->constrained('cecy.institutions');
 
             $table->foreignId('user_id')
                 ->comment('Informacion del usuario')
