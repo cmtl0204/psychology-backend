@@ -3,6 +3,7 @@
 namespace App\Models\Authentication;
 
 use App\Models\Cecy\Authority;
+use App\Models\Cecy\Instructor;
 use App\Models\Core\Catalogue;
 use App\Models\Core\Email;
 use App\Models\Core\File;
@@ -135,6 +136,11 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     public function authority()
     {
         return $this->hasOne(Authority::class);
+    }
+
+    public function instructor()
+    {
+        $this->hasOne(Instructor::class);
     }
 
     // Scopes
