@@ -14,36 +14,51 @@ class CreateCecyCoursesTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('academic_period_id')
+                ->comment()
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('authority_id')
+                ->comment()
                 ->constrained('cecy.authorities');
 
             $table->foreignId('area_id')
+                ->comment()
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('career_id')
+                ->comment()
                 ->constrained('core.careers');
 
+            $table->foreignId('category_id')
+                ->comment('Categoría a la cual pertenece el curso')
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('certified_type_id')
+                ->comment()
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('course_type_id')
+                ->comment()
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('level_id')
+                ->comment()
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('modality_id')
+                ->comment()
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('participant_type_id') //¿Qué es?
+            $table->foreignId('participant_type_id')
+                ->comment() //¿Qué es?
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('schedule_id')
+                ->comment()
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('speciality_id')
+                ->comment()
                 ->constrained('cecy.catalogues');
 
             $table->string('abbreviation')
@@ -58,10 +73,6 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Fecha en que se aprobo el curso')
                 ->nullable();
 
-            // revisar campo
-            $table->integer('attached')
-                ->nullable();
-
             $table->date('authorized_at')
                 ->comment('Fecha en que se autorizo el curso')
                 ->nullable();
@@ -70,18 +81,13 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Bibliografías')
                 ->nullable();
 
-            // revisar
-            $table->string('category')
-                ->comment('Categoría a la cual pertenece el curso')
-                ->nullable();
-
             $table->string('code')
                 ->comment('Código del curso')
                 ->nullable();
 
             // revisar si se deja cost o se pone price
-            $table->double('cost')
-                ->comment('Costo del curso')
+            $table->double('price')
+                ->comment('Precio del curso')
                 ->nullable();
 
             $table->json('cross_cutting_topics')
