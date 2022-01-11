@@ -18,10 +18,15 @@ class PerezController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('permission:store-catalogues')->only(['store']);
-        // $this->middleware('permission:update-catalogues')->only(['update']);
-        // $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
+        $this->middleware('permission:view-detailPlanifications')->only(['view']);
+        $this->middleware('permission:store-detailPlanifications')->only(['store']);
+        $this->middleware('permission:update-detailPlanifications')->only(['update']);
+        $this->middleware('permission:delete-detailPlanifications')->only(['destroy']);
+        $this->middleware('permission:view-planifications')->only(['view']);
     }
+    /**
+     *  Planifications
+     */
 
     public function getPlanifications($request)
     {
@@ -40,66 +45,11 @@ class PerezController extends Controller
                 ]
             ]);
     }
-
-    public function showPlanification(Planification $planification)
-    {
-        return (new ResponsibleCoursePlanificationResource($planification))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-
-
-    public function storePlanification($request)
-    {
-        $course = Course::find($request->input('course.id'));
-        $schoolPeriod = SchoolPeriod::find($request->input('schoolPeriod.id'));
-        $responsibleCourse = Authority::find($request->input('responsibleCourse.id'));
-
-        $planification = new Planification();
-
-        $planification->course()->associate($course);
-        $planification->schoolPeriod()->associate($schoolPeriod);
-        $planification->responsibleCourse()->associate($responsibleCourse);
-
-        $planification->started_at = $request->input('started_at');
-        $planification->ended_at = $request->input('ended_at');
-
-        $planification->save();
-
-        return (new ResponsibleCoursePlanificationResource($planification))
-            ->additional([
-                'msg' => [
-                    'summary' => 'Registro Creado',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-
-    public function updatePlanification($request)
-    {
-        /**
-         *
-         */
-    }
-
-    public function deletePlanification($request)
-    {
-        /**
-         *
-         */
-    }
-
     /**
      * Detail planifications
      */
 
-    public function getAll($request)
+    public function index(IndexResponsibleCourseDetailPlanificationRequest $request)
     {
         $planification = Planification::find($request->input('planification.id'));
 
@@ -116,23 +66,24 @@ class PerezController extends Controller
             ]);
     }
 
-    public function storePlanificationDetail($request)
+    public function store(StoreResponsibleCourseDetailPlanificationRequest $request)
     {
-        $planification = Planification::find($request->input('planification.id'));
         $classroom = Classroom::find($request->input('classroom.id'));
         $days = Catalogue::find($request->input('day.id'));
+        $planification = Planification::find($request->input('planification.id'));
         $workday = Catalogue::find($request->input('workday.id'));
 
         $detailPlanification = new DetailPlanification();
 
-        $detailPlanification->planification()->associate($planification);
         $detailPlanification->classroom()->associate($classroom);
         $detailPlanification->day()->associate($days);
+        $detailPlanification->planification()->associate($planification);
+        $detailPlanification->workday()->associate($workday);
 
-        $detailPlanification->started_at = $request->input('started_at');
+        $detailPlanification->days_number = $request->input('days_number');
         $detailPlanification->ended_at = $request->input('ended_at');
         $detailPlanification->plan_ended_at = $request->input('plan_ended_at');
-
+        $detailPlanification->started_at = $request->input('started_at');
 
         $detailPlanification->save();
 
@@ -146,8 +97,9 @@ class PerezController extends Controller
             ]);
     }
 
-    public function showDetailPlanification(DetailPlanification $detailPlanification)
+    public function show(ShowResponsibleCourseDetailPlanificationRequest $request)
     {
+        $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
         return (new DetailPlanificactionResource($detailPlanification))
             ->additional([
                 'msg' => [
@@ -158,17 +110,48 @@ class PerezController extends Controller
             ]);
     }
 
-    public function updatePlanificationDetail($request)
+    public function update(UpdateResponsibleCourseDetailPlanificationRequest $request)
     {
-        /**
-         *
-         */
+        $classroom = Classroom::find($request->input('classroom.id'));
+        $days = Catalogue::find($request->input('day.id'));
+        $planification = Planification::find($request->input('planification.id'));
+        $workday = Catalogue::find($request->input('workday.id'));
+
+        $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
+
+        $detailPlanification->classroom()->associate($classroom);
+        $detailPlanification->day()->associate($days);
+        $detailPlanification->planification()->associate($planification);
+        $detailPlanification->workday()->associate($workday);
+
+        $detailPlanification->days_number = $request->input('days_number');
+        $detailPlanification->ended_at = $request->input('ended_at');
+        $detailPlanification->plan_ended_at = $request->input('plan_ended_at');
+        $detailPlanification->started_at = $request->input('started_at');
+
+        $detailPlanification->save();
+
+        return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    public function deletePlanificationDetail($request)
+    public function delete(DeteleResponsibleCourseDetailPlanificationRequest $request)
     {
-        /**
-         *
-         */
+        $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
+        $detailPlanification->delete();
+        return (new DetailPlanificactionResource($detailPlanification))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 }
