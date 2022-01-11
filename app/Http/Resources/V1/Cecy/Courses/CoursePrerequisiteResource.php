@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1\Cecy\Courses;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CourseResource extends JsonResource
+class CoursePrerequisiteResource extends JsonResource
 {
     public function toArray($request)
     {
