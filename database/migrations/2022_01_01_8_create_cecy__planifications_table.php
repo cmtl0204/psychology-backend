@@ -22,7 +22,7 @@ class CreateCecyPlanificationsTable extends Migration
                 ->constrained('cecy.courses');
 
             $table->foreignId('responsible_course_id')
-                ->constrained('cecy.authorities');
+                ->constrained('cecy.instructors');
 
             $table->foreignId('responsible_cecy_id')
                 ->constrained('cecy.authorities');

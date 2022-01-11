@@ -41,12 +41,17 @@ class Planification extends Model implements Auditable
 
     public function responsibleCourse()
     {
-        return $this->belongsTo(Authoritie::class);
+        return $this->belongsTo(Instructor::class);
     }
 
     public function responsibleCecy()
     {
-        return $this->belongsTo(Authoritie::class);
+        return $this->belongsTo(Authority::class);
+    }
+
+    public function detailplanifications()
+    {
+        $this->hasMany(DetailPlanification::class);
     }
 
 
