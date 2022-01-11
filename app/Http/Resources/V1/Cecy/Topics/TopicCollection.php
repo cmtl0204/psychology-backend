@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\V1\Cecy\Prerequisites;
+namespace App\Http\Resources\V1\Cecy\Topics;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class PrerequisiteCollection extends ResourceCollection
+class TopicCollection extends ResourceCollection
 {
     public function toArray($request)
     {
