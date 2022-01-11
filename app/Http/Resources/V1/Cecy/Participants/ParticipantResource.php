@@ -10,10 +10,9 @@ class DetailRegistrationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            // 'course' => CourseResource::make($this->parent),
-            'parent' => DetailRegistrationResource::make($this->parent),
-            // 'nivel' => CatalogueResource::make($this->parent),
-            'code_certified' => $this->code_certified,
+            'additional_information_id' => $this->additional_information_id,
+            'person_type_id' => $this->person_type_id,
+            'user_id' => $this->user_id,
         ];
     }
 }
