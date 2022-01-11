@@ -31,7 +31,7 @@ class DetailInstructor extends Model implements Auditable
     }
     public function state_certified()
     {
-        return $this->belongsTo(Catalogue::class)
+        return $this->belongsTo(Catalogue::class);
     }
 
 

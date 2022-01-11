@@ -22,7 +22,7 @@ class CreateCecyTopicsTable extends Migration
                 ->comment('Id del tema principal')
                 ->constrained('cecy.topics');
 
-            $table->foreignId('nivel_id')
+            $table->foreignId('level_id')
                 ->nullable()
                 ->comment('Nivel de los temas Ej: 1 y 2')
                 ->constrained('cecy.catalogues');

@@ -22,15 +22,14 @@ class Course extends Model implements Auditable
         'aimtheory_required_resources',
         'alignment',
         'approved_at',
-        'attached',
         'authorized_at',
         'bibliographies',
         'category',
         'code',
-        'cost',
+        'price',
         'cross_cutting_topics',
         'duration',
-        'evaluation_mechanism',
+        'evaluation_mechanisms',
         'expired_at',
         'facilities',
         'free',
@@ -38,7 +37,7 @@ class Course extends Model implements Auditable
         'needs',
         'needed_at',
         'nro_record',
-        'learning_environment',
+        'learning_environments',
         'local_proposal',
         'objective',
         'observation',
@@ -220,7 +219,7 @@ class Course extends Model implements Auditable
     public function scopeCategory($query, $category)
     {
         if ($category) {
-            return $query->orWhere('category', $category);
+            return $query->orWhere('id', request()->input('category_id'));
         }
     }
 
@@ -298,6 +297,12 @@ class Course extends Model implements Auditable
     {
         if ($summary) {
             return $query->orWhere('summary', $summary);
+        }
+    }
+    public function scopeType($query, $type)
+    {
+        if ($type) {
+            return $query->orWhere('summary', $type);
         }
     }
 

@@ -13,8 +13,6 @@ class CreateCecyDetailPlanificationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            // hay que crear tabla classrooms en cecy: cod, nombre, desc, capacidad, estado.
-            
             $table->foreignId('classroom_id')
                 ->nullable()
                 ->comment('Id aula')

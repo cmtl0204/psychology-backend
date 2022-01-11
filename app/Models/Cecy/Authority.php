@@ -45,6 +45,11 @@ class Authority extends Model
         return $this->belongsTo(State::class);
     }
 
+    public function planification()
+    {
+        return $this->hasMany(Planification::class);
+    }
+
     // Mutators
 
 

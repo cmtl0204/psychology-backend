@@ -26,7 +26,7 @@ class Topic extends Model implements Auditable
         return $this->belongsTo(Course::class);
     }
 
-    public function nivel()
+    public function level()
     {
         return $this->belongsTo(Catalogue::class);
     }
