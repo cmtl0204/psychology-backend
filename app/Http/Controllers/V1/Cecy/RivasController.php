@@ -16,34 +16,34 @@ class ParticipantController extends Controller
         $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
     }
     /*DDRC-C: Busca participantes de cursos por periodo */
-    public function getCoursesByPeriod($period)
+    public function getCoursesByPeriod()
     {
     }
 /*DDRC-C: busca participantes de un curso especifico*/
-    public function getCourseParticipants(Request $request)
+    public function getCourseParticipants()
     {
        
     }
     /*DDRC-C: busca informacion adicional de un participante  */
 
     
-    public function getParticipantInfo(Request $request)
+    public function getParticipantInfo()
     {
         
     }
 /*DDRC-C: actualiza la informacion de una inscripcion de un participante a un curso especifico  */
-    public function updateParticpantRegistration(Participant $participant)
+    public function updateParticpantRegistration()
     {
        
     }
 
 /*DDRC-C: notifica a un participante de una observacion en su inscripcion*/
-    public function notifyParticipant(Request $request, Participant $participant)
+    public function notifyParticipant()
     {
       
     }
 /*DDRC-C: elimina una matricula de un participante en un curso especifico */
-    public function nullifyRegistration(Request $request)
+    public function nullifyRegistration()
     {
     }
 }
