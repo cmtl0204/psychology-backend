@@ -15,7 +15,7 @@ class CreateCecyDetailRegistrationsTable extends Migration
 
             $table->foreignId('registration_id')
                 ->comment('Fk de la tabla matricula')
-                ->constrained('cecy.detail_planifications');
+                ->constrained('cecy.planifications');
 
             $table->foreignId('detail_planification_id')
                 ->comment('id del detalle de la planificacion')

@@ -10,7 +10,7 @@ use App\Http\Resources\V1\Cecy\Instructors\InstructorCollection;
 use App\Http\Resources\V1\Cecy\Instructors\InstructorResource;
 use App\Models\Core\File;
 
-class JumboInstructorController extends Controller
+class JumboController extends Controller
 {
     public function __construct()
     {
@@ -19,20 +19,14 @@ class JumboInstructorController extends Controller
         $this->middleware('permission:delete')->only(['destroy', 'destroys']);
     }
 
-    public function index()
+    public function indexInstructors()
     {
-        return (new InstructorCollection($instructor))
-        ->additional([
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ]);
+        //Aqui va traer todos los instructores
     }
 
-    public function store(Request $request)
+    public function storeInstructors(Request $request)
     {
+        // Para crear un nuevo Instructor
         $Instructor = new Instructor();
         $Instructor->instructor()->associate(Course::find($request->input('user.id')));
         $Instructor->state_id()->associate(Instructor::find($request->input('state_id')));
@@ -49,7 +43,7 @@ class JumboInstructorController extends Controller
         ]);
     }
 
-    public function show(Instructor $Instructor)
+    /* public function show(Instructor $Instructor)
     {
         return (new InstructorResource($Instructor))
         ->additional([
@@ -59,10 +53,11 @@ class JumboInstructorController extends Controller
                 'code' => '200'
             ]
         ]);
-    }
+    } */
 
-    public function update(Request $request,Instructor $Instructor )
+    public function updateInstructors(Request $request,Instructor $Instructor )
     {
+        //Me va permitir editar la asignacion del instructor 
         $Instructor->instructor()->associate(Course::find($request->input('user.id')));
         $Instructor->state_id()->associate(Instructor::find($request->input('state_id')));
         $Instructor->type_id()->associate(Catalogue::find($request->input('type_id')));
@@ -78,16 +73,8 @@ class JumboInstructorController extends Controller
         ]);
     }
 
-    public function destroy(Instructor $Instructor)
+    public function destroyInstructors(Instructor $Instructor)
     {
-        $topic->delete();
-        return (new InstructorResource($Instructor))
-            ->additional([
-                'msg' => [
-                    'summary' => 'Instructor Eliminado',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
+       //Me va permitir elimminar la asignacion del instructor
     }
 }

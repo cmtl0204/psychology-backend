@@ -14,6 +14,9 @@ class DetailRegistrationResource extends JsonResource
             'parent' => DetailRegistrationResource::make($this->parent),
             // 'nivel' => CatalogueResource::make($this->parent),
             'code_certified' => $this->code_certified,
+            'grade1' => $this->grade1,
+            'grade2' => $this->grade2,
+            'final_grade' => $this->final_grade,
         ];
     }
 }
