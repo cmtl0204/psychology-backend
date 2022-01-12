@@ -13,6 +13,7 @@ use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateRespon
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeteleResponsibleCourseDetailPlanificationRequest;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\ResponsibleCourseDetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\ResponsibleCourseDetailPlanificationCollection;
+use App\Models\Cecy\DetailInstructor;
 
 class PerezController extends Controller
 {
@@ -28,7 +29,6 @@ class PerezController extends Controller
     {
         $detailPlanifications = DetailPlanification::where(
             'planification_id',
-            '=',
             $request->input('planification.id')
         )->get();
 
@@ -52,6 +52,7 @@ class PerezController extends Controller
         $days = Catalogue::find($request->input('day.id'));
         $planification = Planification::find($request->input('planification.id'));
         $workday = Catalogue::find($request->input('workday.id'));
+        DetailInstructor::find();
 
         $detailPlanification = new DetailPlanification();
 

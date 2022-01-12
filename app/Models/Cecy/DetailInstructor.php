@@ -25,7 +25,7 @@ class DetailInstructor extends Model implements Auditable
     {
         return $this->belongsTo(detailPlanification::class);
     }
-    public function istructor()
+    public function instructor()
     {
         return $this->belongsTo(Instructor::class);
     }

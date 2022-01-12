@@ -13,15 +13,16 @@ class UpdateResponsibleCourseDetailPlanificationRequest extends FormRequest
     public function rules()
     {
         return [
-            'classroom.id' => ['required','integer'],
-            'day.id' => ['required','integer'],
-            'detailPlanification.id' => ['required','integer'],
-            'planification.id' => ['required','integer'],
-            'workday.id' => ['required','integer'],
-            'daysNumber' => ['required','integer'],
-            'endedAt' => ['required','date'],
-            'planEndedAt' => ['required','date'],
-            'startedAt' => ['required','date'],
+            'classroom.id' => ['required', 'integer'],
+            'day.id' => ['required', 'integer'],
+            'instructors' => ['required'],
+            'detailPlanification.id' => ['required', 'integer'],
+            'planification.id' => ['required', 'integer'],
+            'workday.id' => ['required', 'integer'],
+            'daysNumber' => ['required', 'integer'],
+            'endedAt' => ['required', 'date'],
+            'planEndedAt' => ['required', 'date'],
+            'startedAt' => ['required', 'date'],
         ];
     }
 
@@ -30,6 +31,7 @@ class UpdateResponsibleCourseDetailPlanificationRequest extends FormRequest
         return [
             'classroom.id' => 'Aula',
             'day.id' => 'Días de clase',
+            'instructors' => 'Instructores',
             'detailPlanification.id' => 'Detalle de planificación',
             'planification.id' => 'Planificación',
             'workday.id' => 'Jornada',
