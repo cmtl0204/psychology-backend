@@ -24,23 +24,13 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->comment('Id día')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('end_time_id')
-                ->nullable()
-                ->comment('Id hora final')
-                ->constrained('cecy.catalogues');
-
             $table->foreignId('planification_id')
                 ->nullable()
                 ->comment('Id planificación')
                 ->constrained('cecy.planifications');
 
-            $table->foreignId('start_time_id')
-                ->nullable()
-                ->comment('Id hora de inicio')
-                ->constrained('cecy.catalogues');
-
             $table->foreignId('state_id')
-                // ->default() que valor se muestra por defecto?
+                // ->default() el valor por defecto es por aprobarse
                 ->nullable()
                 ->comment('Estados como en proceso, finalizado')
                 ->constrained('cecy.catalogues');
@@ -48,23 +38,38 @@ class CreateCecyDetailPlanificationsTable extends Migration
             $table->foreignId('workday_id')
                 ->nullable()
                 ->comment('Jornada laboral como matutino, vespertino o nocturno')
-                ->constrained('cecy.catalogues');   
+                ->constrained('cecy.catalogues');
+                
 
-            // Pendinte de revisar con workday
+            $table->string('code')
+                ->nullable()
+                ->comment('Código del detalle de planificación: SENESCYT-FF-V001-2021');
+
             $table->integer('days_number')
                 ->comment('Número de días de duración del curso');
 
             $table->date('ended_at')
                 ->comment('Fecha final');
 
-            $table->integer('parallel')
-                ->comment('Paralelo');
+            $table->time('end_time_id')
+                ->nullable()
+                ->comment('Hora de finalización de clases')
+                ->constrained('cecy.catalogues');
+
+            $table->text('observation')
+                ->nullable()
+                ->comment('Observación necesaria si las horas de duración de curso no son alcanzadas por las horas de clase');
 
             $table->date('plan_ended_at')
                 ->comment('Fecha final de la planificación');
 
             $table->date('started_at')
-                ->comment('Fecha inicio');    
+                ->comment('Fecha inicio');
+
+            $table->time('start_time_id')
+                ->nullable()
+                ->comment('Hora de inicio de clases')
+                ->constrained('cecy.catalogues');
         });
     }
 

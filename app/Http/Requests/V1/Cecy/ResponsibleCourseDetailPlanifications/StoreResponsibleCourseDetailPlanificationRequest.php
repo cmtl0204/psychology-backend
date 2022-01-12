@@ -15,6 +15,7 @@ class StoreResponsibleCourseDetailPlanificationRequest extends FormRequest
         return [
             'classroom.id' => ['required', 'integer'],
             'day.id' => ['required', 'integer'],
+            'instructors' => ['required'],
             'planification.id' => ['required', 'integer'],
             'workday.id' => ['required', 'integer'],
             'daysNumber' => ['required', 'integer'],
@@ -23,12 +24,13 @@ class StoreResponsibleCourseDetailPlanificationRequest extends FormRequest
             'startedAt' => ['required', 'date'],
         ];
     }
-
+    
     public function attributes()
     {
         return [
             'classroom.id' => 'Aula',
             'day.id' => 'Días de clase',
+            'instructors' => 'Instructores',
             'planification.id' => 'Planificación',
             'workday.id' => 'Jornada',
             'daysNumber' => 'Número total de días de clase',

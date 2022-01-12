@@ -17,15 +17,25 @@ class DetailPlanification extends Model implements Auditable
     protected $table = 'cecy.detail_planifications';
 
     protected $fillable = [
-        'day',
+        'code',
+        'days_number',
         'ended_at',
-        'started_at',
+        'end_time_id',
+        'observation',
         'plan_ended_at',
-        'parallel',
-        'workday',
+        'started_at',
+        'start_time_id',
     ];
 
     // Relationships
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class);
+    }
+    public function day()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
     public function planification()
     {
         return $this->belongsTo(Planification::class);
@@ -33,29 +43,9 @@ class DetailPlanification extends Model implements Auditable
 
     public function state()
     {
-        return $this->belongsTo(State::class);
+        return $this->belongsTo(Catalogue::class);
     }
 
-    public function classroom()
-    {
-        return $this->belongsTo(Classroom::class);
-    }
-
-    public function day()
-    {
-        return $this->belongsTo(Day::class);
-    }
-
-    public function start_time()
-    {
-        return $this->belongsTo(Start_time::class);
-    }
-
-    public function end_time()
-    {
-        return $this->belongsTo(End_time::class);
-    }
-    
     public function detailInstructors()
     {
         return $this->hasMany(DetailInstructor::class);
