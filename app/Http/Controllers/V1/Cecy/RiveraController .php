@@ -21,22 +21,22 @@ class RiveraController extends Controller
     }
 
 
-    public function ShowInformCourseNeeds()
+    public function showInformCourseNeeds()
     {
     //trae un informe de nececidades de un curso en especifico por el docente que se logea
     }
 
-    public function ShowMonthlySchedule()
+    public function showMonthlySchedule()
     {
     //trae todos los cursos planificados de un mes en especifico
     }
 
-    public function ShowRecordCompetitor()
+    public function showRecordCompetitor()
     {
     //trae todos los participantes registrados de un curso en especifico
     }
 
-    public function ShowPhotographicRecord()
+    public function showPhotographicRecord()
     {
     //trae un registro fotografico de un curso en especifico por el docente que se loguea
     }
