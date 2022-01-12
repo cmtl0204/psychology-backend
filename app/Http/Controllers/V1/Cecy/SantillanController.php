@@ -9,6 +9,7 @@ use App\Models\Cecy\Attendance;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Course;
 use App\Models\Cecy\DetailRegistration;
+use App\Models\Cecy\Registration;
 use Illuminate\Http\Client\Request;
 
 class SantillanController extends Controller
@@ -37,8 +38,8 @@ class SantillanController extends Controller
     {
         $attendance = new Attendance();
 
-        $attendance->detail_registration_id()
-            ->associate(DetailRegistration::find($request->input('detail_registration_id')));
+        $attendance->registration_id()
+            ->associate(Registration::find($request->input('registration_id')));
 
         $attendance->type_id()
             ->associate(Catalogue::find($request->input('type_id')));
@@ -75,8 +76,8 @@ class SantillanController extends Controller
     //editar o actualizar una asistencia
     public function updateAttendaceTeacher(Attendance $attendance, Request $request)
     {
-        $attendance->detail_registration_id()
-            ->associate(DetailRegistration::find($request->input('detail_registration_id')));
+        $attendance->registration_id()
+            ->associate(Registration::find($request->input('registration_id')));
 
         $attendance->type_id()
             ->associate(Catalogue::find($request->input('type_id')));
