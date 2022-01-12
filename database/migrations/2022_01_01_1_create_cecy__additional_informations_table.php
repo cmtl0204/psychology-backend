@@ -42,9 +42,6 @@ class CreateCecyAdditionalInformationsTable extends Migration
             $table->string('contact_name')
                 ->comment('nombre de contacto que patrocina');
 
-            $table->integer('level_instruction')
-                ->comment('Nivel de instrucción del participante');
-
             $table->json('course_knows')
                 ->comment('como se entero del curso? Array');
 

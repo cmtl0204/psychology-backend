@@ -23,7 +23,6 @@ class AdditionalInformation extends Model
         'company_phone',
         'company_sponsor',
         'contact_name',
-        'level_instruction',
         'course_know',
         "course_follow",
         'worked',
