@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cecy\Classroom;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Planification;
+use App\Models\Cecy\Instructor;
 use App\Models\Core\Catalogue;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\IndexResponsibleCourseDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowResponsibleCourseDetailPlanificationRequest;
@@ -13,8 +15,6 @@ use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateRespon
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeteleResponsibleCourseDetailPlanificationRequest;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\ResponsibleCourseDetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\ResponsibleCourseDetailPlanificationCollection;
-use App\Models\Cecy\Classroom;
-use App\Models\Cecy\Instructor;
 
 class PerezController extends Controller
 {
