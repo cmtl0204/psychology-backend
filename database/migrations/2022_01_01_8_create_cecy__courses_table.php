@@ -38,7 +38,7 @@ class CreateCecyCoursesTable extends Migration
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('course_type_id')
-                ->comment()
+                ->comment('Tipo de curso')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('level_id')
@@ -50,7 +50,7 @@ class CreateCecyCoursesTable extends Migration
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('participant_type_id')
-                ->comment() //¿Qué es?
+                ->comment('Si es dedicado para profesores o para estudiantes en general')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('schedule_id')
@@ -62,7 +62,7 @@ class CreateCecyCoursesTable extends Migration
                 ->constrained('cecy.catalogues');
 
             $table->string('abbreviation')
-                ->comment('Abreviación')
+                ->comment('Abreviación del curso')
                 ->nullable();
 
             $table->string('alignment')
