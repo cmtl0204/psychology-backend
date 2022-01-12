@@ -85,9 +85,8 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Código del curso')
                 ->nullable();
 
-            // revisar si se deja cost o se pone price
-            $table->double('price')
-                ->comment('Precio del curso')
+            $table->double('cost')
+                ->comment('Costo del curso')
                 ->nullable();
 
             $table->json('cross_cutting_topics')
@@ -151,7 +150,7 @@ class CreateCecyCoursesTable extends Migration
                 ->nullable();
 
             $table->integer('practice_hours')
-                ->comment('Número de horas prácticas del curso')
+                ->comment('Cantidad de horas practicas del curso')
                 ->nullable();
 
             $table->date('proposed_at')
@@ -191,9 +190,8 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Fase teórica')
                 ->nullable();
 
-            // revisar
             $table->integer('theory_hours')
-                ->comment('Duración horas teoricas')
+                ->comment('Cantidad de horas del curso en teoria')
                 ->nullable();
         });
     }
