@@ -2,10 +2,7 @@
 
 namespace App\Http\Resources\V1\Cecy\DetailPlanifications;
 
-use App\Http\Resources\V1\Cecy\Authorities\AuthorityResource;
-use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
-use App\Models\Cecy\Authority;
-use App\Models\Cecy\SchoolPeriod;
+use App\Models\Cecy\Instructor;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ResponsibleCourseDetailPlanificationResource extends JsonResource
@@ -14,16 +11,15 @@ class ResponsibleCourseDetailPlanificationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'classroom' => CourseResource::make($this->classroom),
-            'day' => CecyCatalogueResource::make($this->day),
-            'planification' => PlanificationResource::make($this->planification),
-            'state' => CecyCatalogueResource::make($this->state),
+            'classroom' => ClassroomResource::make($this->classroom),
+            'day' => CatalogueResource::make($this->day),
+            'workday' => CatalogueResource::make($this->workday),
             'endTime' => $this->endTime,
+            'instructors'=> Instructor::make($this->instructors),
             'endedAt' => $this->endedAt,
             'daysNumber' => $this->daysNumber,
             'startTime' => $this->startTime,
             'startedAt' => $this->startedAt,
-            'planEndedAt' => $this->planEndedAt,
         ];
     }
 }

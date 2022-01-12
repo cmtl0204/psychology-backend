@@ -21,7 +21,7 @@ class DetailInstructor extends Model implements Auditable
     ];
 
     // Relationships
-    public function detail_planification()
+    public function detailPlanification()
     {
         return $this->belongsTo(detailPlanification::class);
     }
@@ -29,7 +29,7 @@ class DetailInstructor extends Model implements Auditable
     {
         return $this->belongsTo(Instructor::class);
     }
-    public function state_certified()
+    public function stateCertified()
     {
         return $this->belongsTo(Catalogue::class)
     }

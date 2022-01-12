@@ -16,9 +16,7 @@ class Instructor extends Model implements Auditable
 
     protected $table = 'cecy.instructors';
 
-    protected $fillable = [
-
-    ];
+    protected $fillable = [];
 
     // Relationships
     public function user()
@@ -34,6 +32,11 @@ class Instructor extends Model implements Auditable
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+
+    public function detailInstructors()
+    {
+        $this->hasMany(DetailInstructor::class);
     }
 
     // Mutators

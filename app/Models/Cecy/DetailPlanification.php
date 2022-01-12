@@ -55,6 +55,11 @@ class DetailPlanification extends Model implements Auditable
     {
         return $this->belongsTo(End_time::class);
     }
+    
+    public function detailInstructors()
+    {
+        return $this->hasMany(DetailInstructor::class);
+    }
 
     // Mutators
 

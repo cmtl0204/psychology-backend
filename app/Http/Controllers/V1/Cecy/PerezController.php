@@ -23,27 +23,19 @@ class PerezController extends Controller
         $this->middleware('permission:update-detailPlanifications')->only(['update']);
         $this->middleware('permission:delete-detailPlanifications')->only(['destroy']);
     }
-    // public function index(IndexResponsibleCourseDetailPlanificationRequest $request)
-    // {
-    // $user = $request->user();
-    // $authority = $user->authority();
-    // $planifications = $authority->planifications();
-    // $detailPlanifications = $planifications->detailPlanifications();
-    // return (new ResponsibleCourseDetailPlanificationCollection($detailPlanifications))
-    // ->additional([
-    // 'msg' => [
-    // 'summary' => 'success',
-    // 'detail' => '',
-    // 'code' => '200'
-    // ]
-    // ]);
-    // }
 
     public function index(IndexResponsibleCourseDetailPlanificationRequest $request)
     {
-        $user = $request->user();
-        $instructor = $user->instructor();
-        $detailPlanifications = $instructor->detailPlanifications();
+        $detailPlanifications = DetailPlanification::where(
+            'planification_id',
+            '=',
+            $request->input('planification.id')
+        )->get();
+
+        foreach ($detailPlanifications as $detailPlanification) {
+            $detailPlanification->instructors = $detailPlanification->detailInstructors();
+        }
+
         return (new ResponsibleCourseDetailPlanificationCollection($detailPlanifications))
             ->additional([
                 'msg' => [
@@ -53,6 +45,7 @@ class PerezController extends Controller
                 ]
             ]);
     }
+
     public function store(StoreResponsibleCourseDetailPlanificationRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
@@ -142,3 +135,29 @@ class PerezController extends Controller
             ]);
     }
 }
+// $detailPlanifications = DB::table('users')
+        //     ->join('instructors', function ($join) {
+        //         $join->on('users.id', '=', 'instructors.user_id')
+        //             ->where('instructors.user_id', '=', request()->user()->id);
+        //     })
+        //     ->join('detail_instructors', 'instructors.id', 'instructor_id')
+        //     ->join('detail_planifications', 'detail_planifications.id', 'detail_planification_id')
+        //     ->join('planifications', '.planifications.id', 'planification_id')
+        //     ->join('school_periods', 'school_periods.id', 'school_period_id')
+        //     ->join('school_periods', function ($join, $re) {
+        //         $join->on('school_periods.id', '=', 'planifications.school_period_id')
+        //             ->where('planifications.school_period_id', '=', request()->input('school_period_id'));
+        //     })
+        //     ->join('', 'school_periods.id', 'school_period_id')
+        //     ->select('detail_planifications.*', 'user.name', 'school_periods.name')
+        //     ->get();
+
+
+        // $detailInstructors = $instructor->detailInstructors();
+
+        // $detailPlanifications = [];
+
+        // foreach ($detailInstructors as $detailInstructor) {
+        //     $detailInstructor->detailPlanification();
+        //     array_push($detailPlanifications, $detailInstructor->detailPlanification());
+        // }

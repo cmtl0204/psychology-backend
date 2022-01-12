@@ -40,6 +40,7 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('state_id')
+                // ->default() que valor se muestra por defecto?
                 ->nullable()
                 ->comment('Estados como en proceso, finalizado')
                 ->constrained('cecy.catalogues');

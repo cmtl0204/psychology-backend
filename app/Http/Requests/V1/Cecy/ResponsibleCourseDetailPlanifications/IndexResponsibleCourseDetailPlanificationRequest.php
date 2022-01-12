@@ -13,14 +13,14 @@ class IndexResponsibleCourseDetailPlanificationRequest extends FormRequest
     public function rules()
     {
         return [
-            'schoolPeriod.id' => ['required', 'integer'],
+            'planification.id' => ['required', 'integer'],
         ];
     }
 
     public function attributes()
     {
         return [
-            'schoolPeriod.id' => 'Periodo lectivo',
+            'planification.id' => 'Planificación',
         ];
     }
 }
