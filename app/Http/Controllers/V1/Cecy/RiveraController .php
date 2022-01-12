@@ -12,43 +12,31 @@ use App\Models\Cecy\DetailInstructor;
 
 use App\Models\Core\File;
 
-class RiveraDetailInstructorsController extends Controller
+class RiveraController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:store')->only(['store']);
-        $this->middleware('permission:update')->only(['update']);
-        $this->middleware('permission:delete')->only(['destroy', 'destroys']);
+        $this->middleware('permission:show')->only(['show']);
+        
     }
 
-    public function indexPlanification()
-    {
-        return (new Collection($))
-        ->additional([
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ]);
-    }
 
-    public function ShowInformCourseNeeds(Request $request)
+    public function ShowInformCourseNeeds()
     {
     //trae un informe de nececidades de un curso en especifico por el docente que se logea
     }
 
-    public function ShowMonthlySchedule(DetailInstructor $detailInstructor)
+    public function ShowMonthlySchedule()
     {
     //trae todos los cursos planificados de un mes en especifico
     }
 
-    public function ShowRecordCompetitor(Request $request,DetailInstructor $detailInstructor )
+    public function ShowRecordCompetitor()
     {
     //trae todos los participantes registrados de un curso en especifico
     }
 
-    public function ShowPhotographicRecord(DetailInstructor $detailInstructor)
+    public function ShowPhotographicRecord()
     {
     //trae un registro fotografico de un curso en especifico por el docente que se loguea
     }
