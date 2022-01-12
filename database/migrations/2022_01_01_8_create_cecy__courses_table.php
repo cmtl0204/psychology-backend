@@ -14,11 +14,11 @@ class CreateCecyCoursesTable extends Migration
             $table->softDeletes();
 
             $table->foreignId('academic_period_id')
-                ->comment()
+                ->comment('Primero, segundo, tercero, cuarto, quinto, sexto, séptimo')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('authority_id')
-                ->comment()
+                ->comment('Id del docente responsable del curso')
                 ->constrained('cecy.authorities');
 
             $table->foreignId('area_id')
@@ -26,7 +26,7 @@ class CreateCecyCoursesTable extends Migration
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('career_id')
-                ->comment()
+                ->comment('El id de la carrera que oferto el curso')
                 ->constrained('core.careers');
 
             $table->foreignId('category_id')
@@ -34,31 +34,31 @@ class CreateCecyCoursesTable extends Migration
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('certified_type_id')
-                ->comment()
+                ->comment('Curso, Taller, Webinar')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('course_type_id')
-                ->comment('Tipo de curso')
+                ->comment('Ténico, Administrativo')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('level_id')
-                ->comment()
+                ->comment('Primero, segundo, tercero')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('modality_id')
-                ->comment()
+                ->comment('Dual, Presencial, Virtual')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('participant_type_id')
-                ->comment('Si es dedicado para profesores o para estudiantes en general')
+                ->comment('Adultos, Estudiantes, Profesores')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('schedule_id')
-                ->comment()
+                ->comment('Domingos, Sábados, Lunes-Viernes, Lunes-Domingo')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('speciality_id')
-                ->comment()
+                ->comment('')
                 ->constrained('cecy.catalogues');
 
             $table->string('abbreviation')
@@ -144,7 +144,6 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Observación de curso')
                 ->nullable();
 
-            // revisar
             $table->json('practical_phases')
                 ->comment('Fase práctica')
                 ->nullable();
@@ -157,9 +156,8 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Fecha en que se propuso el curso')
                 ->nullable();
 
-            // revisar para que sirve este campo
             $table->string('project')
-                ->comment('Proyect')
+                ->comment('Si el curso persigue generar un proyecto que nombre tiene')
                 ->nullable();
 
             $table->string('required_installing_sources')

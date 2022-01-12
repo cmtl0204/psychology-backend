@@ -20,7 +20,7 @@ class GuachagmiraCourseController extends Controller
         $sorts = explode(',', $request->sort);
 
         $courses = Course::customOrderBy($sorts)
-            ->category($request->input('category_id'))
+            ->category($request->input('category.id'))
             ->name($request->input('name'))
             ->paginate();
 

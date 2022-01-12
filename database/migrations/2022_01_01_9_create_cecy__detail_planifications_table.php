@@ -39,7 +39,6 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->nullable()
                 ->comment('Jornada laboral como matutino, vespertino o nocturno')
                 ->constrained('cecy.catalogues');
-                
 
             $table->string('code')
                 ->nullable()

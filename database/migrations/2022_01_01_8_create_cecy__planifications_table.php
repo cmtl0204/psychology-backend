@@ -19,21 +19,27 @@ class CreateCecyPlanificationsTable extends Migration
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('course_id')
+                ->comment('Id del curso al que esta atado la planificación')
                 ->constrained('cecy.courses');
 
             $table->foreignId('responsible_course_id')
+                ->comment('Id del docente responsable del curso')
                 ->constrained('cecy.instructors');
 
             $table->foreignId('responsible_cecy_id')
+                ->comment('Id del responsable del cecy')
                 ->constrained('cecy.authorities');
 
             $table->foreignId('school_period_id')
+                ->comment('Id del periodo escolar')
                 ->constrained('cecy.school_periods');
 
             $table->foreignId('sector_id')
+                ->comment('Ganaderia, Industria...')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('state_id')
+                ->comment('Pendiente, Aceptada, Rechazada')
                 ->constrained('cecy.catalogues');
 
 
