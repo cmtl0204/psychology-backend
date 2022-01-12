@@ -33,7 +33,12 @@ class PerezController extends Controller
         )->get();
 
         foreach ($detailPlanifications as $detailPlanification) {
-            $detailPlanification->instructors = $detailPlanification->detailInstructors();
+            $detailInstructors = $detailPlanification->detailInstructors();
+            $instructors = [];
+            foreach ($detailInstructors as $detailInstructor) {
+                array_push($instructors, $detailInstructor->instructor());
+            }
+            $detailPlanification->instructors = $instructors;
         }
 
         return (new ResponsibleCourseDetailPlanificationCollection($detailPlanifications))
