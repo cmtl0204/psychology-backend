@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cecy\Classroom;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Planification;
+use App\Models\Cecy\Instructor;
 use App\Models\Core\Catalogue;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\IndexResponsibleCourseDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowResponsibleCourseDetailPlanificationRequest;
@@ -13,7 +15,6 @@ use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateRespon
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeteleResponsibleCourseDetailPlanificationRequest;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\ResponsibleCourseDetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\ResponsibleCourseDetailPlanificationCollection;
-use App\Models\Cecy\DetailInstructor;
 
 class PerezController extends Controller
 {
@@ -25,16 +26,13 @@ class PerezController extends Controller
         $this->middleware('permission:delete-detailPlanifications')->only(['destroy']);
     }
 
-    public function index(IndexResponsibleCourseDetailPlanificationRequest $request)
+    public function getDetailPlanificationsByResponsibleCourse(IndexResponsibleCourseDetailPlanificationRequest $request)
     {
-        $detailPlanifications = DetailPlanification::where(
-            'planification_id',
-            $request->input('planification.id')
-        )->get();
+        $responsibleCourse = Instructor::where('user_id', $request->user()->id)->get();
 
-        foreach ($detailPlanifications as $detailPlanification) {
-            $detailPlanification->instructors = $detailPlanification->detailInstructors();
-        }
+        $detailPlanifications = $responsibleCourse
+            ->detailPlanifications()
+            ->paginate($request->input('per_page'));
 
         return (new ResponsibleCourseDetailPlanificationCollection($detailPlanifications))
             ->additional([
@@ -46,13 +44,12 @@ class PerezController extends Controller
             ]);
     }
 
-    public function store(StoreResponsibleCourseDetailPlanificationRequest $request)
+    public function registerDetailPlanificationByResponsibleCourse(StoreResponsibleCourseDetailPlanificationRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
         $days = Catalogue::find($request->input('day.id'));
         $planification = Planification::find($request->input('planification.id'));
         $workday = Catalogue::find($request->input('workday.id'));
-        DetailInstructor::find();
 
         $detailPlanification = new DetailPlanification();
 
@@ -61,10 +58,13 @@ class PerezController extends Controller
         $detailPlanification->planification()->associate($planification);
         $detailPlanification->workday()->associate($workday);
 
-        $detailPlanification->days_number = $request->input('days_number');
-        $detailPlanification->ended_at = $request->input('ended_at');
-        $detailPlanification->plan_ended_at = $request->input('plan_ended_at');
-        $detailPlanification->started_at = $request->input('started_at');
+        $detailPlanification->instructors()->attach($request->input('instructors.id'));
+
+        $detailPlanification->days_number = $request->input('daysNumber');
+        $detailPlanification->ended_at = $request->input('endedAt');
+        $detailPlanification->ended_time = $request->input('endedTime');
+        $detailPlanification->started_at = $request->input('startedAt');
+        $detailPlanification->started_time = $request->input('startedTime');
 
         $detailPlanification->save();
 
@@ -78,7 +78,7 @@ class PerezController extends Controller
             ]);
     }
 
-    public function show(ShowResponsibleCourseDetailPlanificationRequest $request)
+    public function showDetailPlanificationByResponsibleCourse(ShowResponsibleCourseDetailPlanificationRequest $request)
     {
         $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
         return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
@@ -91,7 +91,7 @@ class PerezController extends Controller
             ]);
     }
 
-    public function update(UpdateResponsibleCourseDetailPlanificationRequest $request)
+    public function updateDetailPlanificationByResponsibleCourse(UpdateResponsibleCourseDetailPlanificationRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
         $days = Catalogue::find($request->input('day.id'));
@@ -105,10 +105,13 @@ class PerezController extends Controller
         $detailPlanification->planification()->associate($planification);
         $detailPlanification->workday()->associate($workday);
 
-        $detailPlanification->days_number = $request->input('days_number');
-        $detailPlanification->ended_at = $request->input('ended_at');
-        $detailPlanification->plan_ended_at = $request->input('plan_ended_at');
-        $detailPlanification->started_at = $request->input('started_at');
+        $detailPlanification->instructors()->attach($request->input('instructors.id'));
+
+        $detailPlanification->days_number = $request->input('daysNumber');
+        $detailPlanification->ended_at = $request->input('endedAt');
+        $detailPlanification->ended_time = $request->input('endedTime');
+        $detailPlanification->started_at = $request->input('startedAt');
+        $detailPlanification->started_time = $request->input('startedTime');
 
         $detailPlanification->save();
 
@@ -122,7 +125,7 @@ class PerezController extends Controller
             ]);
     }
 
-    public function destroy(DeteleResponsibleCourseDetailPlanificationRequest $request)
+    public function deleteDetailPlanificationByResponsibleCourse(DeteleResponsibleCourseDetailPlanificationRequest $request)
     {
         $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
         $detailPlanification->delete();
@@ -136,29 +139,3 @@ class PerezController extends Controller
             ]);
     }
 }
-// $detailPlanifications = DB::table('users')
-        //     ->join('instructors', function ($join) {
-        //         $join->on('users.id', '=', 'instructors.user_id')
-        //             ->where('instructors.user_id', '=', request()->user()->id);
-        //     })
-        //     ->join('detail_instructors', 'instructors.id', 'instructor_id')
-        //     ->join('detail_planifications', 'detail_planifications.id', 'detail_planification_id')
-        //     ->join('planifications', '.planifications.id', 'planification_id')
-        //     ->join('school_periods', 'school_periods.id', 'school_period_id')
-        //     ->join('school_periods', function ($join, $re) {
-        //         $join->on('school_periods.id', '=', 'planifications.school_period_id')
-        //             ->where('planifications.school_period_id', '=', request()->input('school_period_id'));
-        //     })
-        //     ->join('', 'school_periods.id', 'school_period_id')
-        //     ->select('detail_planifications.*', 'user.name', 'school_periods.name')
-        //     ->get();
-
-
-        // $detailInstructors = $instructor->detailInstructors();
-
-        // $detailPlanifications = [];
-
-        // foreach ($detailInstructors as $detailInstructor) {
-        //     $detailInstructor->detailPlanification();
-        //     array_push($detailPlanifications, $detailInstructor->detailPlanification());
-        // }
