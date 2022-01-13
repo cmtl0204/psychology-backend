@@ -19,13 +19,7 @@ class Planification extends Model implements Auditable
     protected $fillable = [
         'code',
         'ended_at',
-        'especial_ended_date_at',
-        'especial_started_date_at',
-        'extraordinary_inscription_ended_at',
-        'extraordinary_inscription_started_at',
         'needs',
-        'ordinary_inscription_ended_at',
-        'ordinary_inscription_started_at',
         'started_at'
     ];
 
