@@ -22,7 +22,7 @@ class SantillanController extends Controller
     }
 
     //ver todas las asistencias
-    public function getAttendaceTeacher(Attendance $attendance)
+    public function getAttendanceTeacher(Attendance $attendance)
     {
         return (new AttendanceShowTeacherCollection($attendance))
             ->additional([
@@ -34,7 +34,7 @@ class SantillanController extends Controller
             ]);
     }
     //crear una asistencia a partir de las fechas y horarios de detalle planicacion.
-    public function storeAttendaceTeacher(Request $request)
+    public function storeAttendanceTeacher(Request $request)
     {
         $attendance = new Attendance();
 
@@ -74,7 +74,7 @@ class SantillanController extends Controller
     }
 
     //editar o actualizar una asistencia
-    public function updateAttendaceTeacher(Attendance $attendance, Request $request)
+    public function updateAttendanceTeacher(Attendance $attendance, Request $request)
     {
         $attendance->registration_id()
             ->associate(Registration::find($request->input('registration_id')));
