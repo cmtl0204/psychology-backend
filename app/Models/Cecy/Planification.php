@@ -17,14 +17,9 @@ class Planification extends Model implements Auditable
     protected $table = 'cecy.planifications';
 
     protected $fillable = [
+        'code',
         'ended_at',
-        'especial_ended_date_at',
-        'especial_started_date_at',
-        'extraordinary_inscription_ended_at',
-        'extraordinary_inscription_started_at',
         'needs',
-        'ordinary_inscription_ended_at',
-        'ordinary_inscription_started_at',
         'started_at'
     ];
 
@@ -52,6 +47,20 @@ class Planification extends Model implements Auditable
     public function detailplanifications()
     {
         $this->hasMany(DetailPlanification::class);
+    }
+
+    //Mutators
+    public function setCodeAttribute($value)
+    {
+        $this->attributes['code'] = strtoupper($value);
+    }
+
+    //Scopes
+    public function scopeCode($query, $code)
+    {
+        if ($code) {
+            return $query->orWhere('category', $code);
+        }
     }
 
 

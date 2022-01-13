@@ -20,7 +20,7 @@ class CreateCecyInstructorsTable extends Migration
 
             $table->foreignId('state_id')
                 ->nullable()
-                ->comment('Estado de autoridad ej. ')
+                ->comment('Estado de autoridad activo, inactivo')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('type_id')

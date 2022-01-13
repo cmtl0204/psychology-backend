@@ -102,12 +102,17 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function personProposal() //¿Qué es?
+    public function personProposal()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
     public function schedule()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function state()
     {
         return $this->belongsTo(Catalogue::class);
     }
