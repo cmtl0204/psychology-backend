@@ -41,6 +41,16 @@ class Registration extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
+    public function detailPlanification()
+    {
+        return $this->belongsTo(DetailPlanification::class);
+    }
+
+    public function additionalInformations()
+    {
+        return $this->hasMany(DetailPlanification::class);
+    }
+
     // Mutators
 
     // Scopes
