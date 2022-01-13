@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Models\Cecy\Classroom;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Planification;
@@ -105,7 +106,8 @@ class PerezController extends Controller
         $detailPlanification->planification()->associate($planification);
         $detailPlanification->workday()->associate($workday);
 
-        $detailPlanification->instructors()->attach($request->input('instructors.id'));
+        // $detailPlanification->instructors()->attach($request->input('instructors.id'));
+        $detailPlanification->instructors()->updateExistingPivot($request->input('instructors.id'));
 
         $detailPlanification->days_number = $request->input('daysNumber');
         $detailPlanification->ended_at = $request->input('endedAt');
@@ -128,7 +130,14 @@ class PerezController extends Controller
     public function deleteDetailPlanificationByResponsibleCourse(DeteleResponsibleCourseDetailPlanificationRequest $request)
     {
         $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
+        $instructors = $detailPlanification->instructors();
+
+        foreach ($instructors as $instructor) {
+            $detailPlanification->instructors()->detach($instructor->id);
+        }
+
         $detailPlanification->delete();
+
         return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
             ->additional([
                 'msg' => [
