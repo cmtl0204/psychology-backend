@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreResponsibleCourseDetailPlanificationRequest extends FormRequest
+class RegisterDetailPlanificationByResponsibleCourseRequest extends FormRequest
 {
     public function authorize()
     {
@@ -20,8 +20,9 @@ class StoreResponsibleCourseDetailPlanificationRequest extends FormRequest
             'workday.id' => ['required', 'integer'],
             'daysNumber' => ['required', 'integer'],
             'endedAt' => ['required', 'date'],
-            'planEndedAt' => ['required', 'date'],
+            'endedTime' => ['required', 'time'],
             'startedAt' => ['required', 'date'],
+            'startedTime' => ['required', 'time'],
         ];
     }
     
@@ -35,8 +36,10 @@ class StoreResponsibleCourseDetailPlanificationRequest extends FormRequest
             'workday.id' => 'Jornada',
             'daysNumber' => 'Número total de días de clase',
             'endedAt' => 'Fecha de finalización de clases',
+            'endedTime' => ['required', 'time'],
             'planEndedAt' => 'Fecha real de finalización de clases',
             'startedAt' => 'Fecha de inicio de clases',
+            'startedTime' => ['required', 'time'],
         ];
     }
 }

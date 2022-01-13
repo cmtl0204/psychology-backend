@@ -18,7 +18,7 @@ class CreateCecyParticipantsTable extends Migration
                 ->constrained('cecy.additional_informations');
 
             $table->foreignId('person_type_id')
-                ->comment('Obtiene el tipo de participante que se inscribe a un curso. ejemplo: participante externo, participante interno')
+                ->comment('Obtiene el tipo de participante que se inscribe a un curso. ejemplo: externo, egresado, graduado')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('user_id')

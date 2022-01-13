@@ -219,7 +219,7 @@ class Course extends Model implements Auditable
     public function scopeCategory($query, $category)
     {
         if ($category) {
-            return $query->orWhere('id', request()->input('category_id'));
+            return $query->orWhere('category_id', $category->id);
         }
     }
 
@@ -233,7 +233,7 @@ class Course extends Model implements Auditable
     public function scopeName($query, $name)
     {
         if ($name) {
-            return $query->orWhere('name', $name);
+            return $query->orWhere('name', 'ilike', "%$name%");
         }
     }
 

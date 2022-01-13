@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowResponsibleCourseDetailPlanificationRequest extends FormRequest
+class DeleteDetailPlanificationByResponsibleCourseRequest extends FormRequest
 {
     public function authorize()
     {
