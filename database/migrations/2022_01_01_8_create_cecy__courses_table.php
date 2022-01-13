@@ -61,7 +61,7 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('status_id')
+            $table->foreignId('state_id')
                 ->comment('Aprobado, rechazado, pendiente')
                 ->constrained('cecy.catalogues');
 
