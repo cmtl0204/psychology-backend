@@ -7,8 +7,6 @@ use App\Http\Resources\V1\Cecy\Attendances\AttendanceShowTeacherCollection;
 use App\Http\Resources\V1\Cecy\Attendances\AttendanceShowTeacherResource;
 use App\Models\Cecy\Attendance;
 use App\Models\Cecy\Catalogue;
-use App\Models\Cecy\Course;
-use App\Models\Cecy\DetailRegistration;
 use App\Models\Cecy\Registration;
 use Illuminate\Http\Client\Request;
 
