@@ -60,8 +60,8 @@ class SantillanController extends Controller
             ]);
     }
 
-    //ver asistencia una por una 
-    public function showAttendaceTeacher(Attendance $attendance)
+    //ver asistencia una por una
+    public function showAttendanceTeacher(Attendance $attendance)
     {
         return (new AttendanceShowTeacherCollection($attendance))
             ->additional([
@@ -99,7 +99,7 @@ class SantillanController extends Controller
     }
     //eliminar una asistencia
 
-    public function destroyAttendaceTeacher(Attendance $attendance)
+    public function destroyAttendanceTeacher(Attendance $attendance)
     {
         $attendance->delete();
         return (new AttendanceShowTeacherResource($attendance))
@@ -116,7 +116,7 @@ class SantillanController extends Controller
     public function showCourseTeacher()
     {
     }
-    //subir notas de los estudiantes 
+    //subir notas de los estudiantes
     public function uploadGrades()
     {
     }
@@ -126,7 +126,7 @@ class SantillanController extends Controller
     {
     }
 
-    //descargar plantilla de las notas 
+    //descargar plantilla de las notas
     public function downloadTemplates()
     {
     }
