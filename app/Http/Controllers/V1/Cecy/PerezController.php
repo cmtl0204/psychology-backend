@@ -9,11 +9,12 @@ use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Planification;
 use App\Models\Cecy\Instructor;
 use App\Models\Core\Catalogue;
-use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\IndexResponsibleCourseDetailPlanificationRequest;
-use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowResponsibleCourseDetailPlanificationRequest;
-use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\StoreResponsibleCourseDetailPlanificationRequest;
-use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateResponsibleCourseDetailPlanificationRequest;
-use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeteleResponsibleCourseDetailPlanificationRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetDetailPlanificationsByPlanificationRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetDetailPlanificationsByResponsibleCourseRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\RegisterDetailPlanificationByResponsibleCourseRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowDetailPlanificationByResponsibleCourseRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateDetailPlanificationByResponsibleCourseRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeleteDetailPlanificationByResponsibleCourseRequest;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\ResponsibleCourseDetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\ResponsibleCourseDetailPlanificationCollection;
 
@@ -27,7 +28,7 @@ class PerezController extends Controller
         $this->middleware('permission:delete-detailPlanifications')->only(['destroy']);
     }
 
-    public function getDetailPlanificationsByResponsibleCourse(IndexResponsibleCourseDetailPlanificationRequest $request)
+    public function getDetailPlanificationsByResponsibleCourse(GetDetailPlanificationsByResponsibleCourseRequest $request)
     {
         $responsibleCourse = Instructor::where('user_id', $request->user()->id)->get();
 
@@ -45,7 +46,24 @@ class PerezController extends Controller
             ]);
     }
 
-    public function registerDetailPlanificationByResponsibleCourse(StoreResponsibleCourseDetailPlanificationRequest $request)
+    public function getDetailPlanificationsByPlanification(GetDetailPlanificationsByPlanificationRequest $request)
+    {
+        $detailPlanifications = DetailPlanification::where(
+            'planification_id',
+            $request->input('planification.id')
+        )->get();
+
+        return (new ResponsibleCourseDetailPlanificationCollection($detailPlanifications))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    public function registerDetailPlanificationByResponsibleCourse(RegisterDetailPlanificationByResponsibleCourseRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
         $days = Catalogue::find($request->input('day.id'));
@@ -79,7 +97,7 @@ class PerezController extends Controller
             ]);
     }
 
-    public function showDetailPlanificationByResponsibleCourse(ShowResponsibleCourseDetailPlanificationRequest $request)
+    public function showDetailPlanificationByResponsibleCourse(ShowDetailPlanificationByResponsibleCourseRequest $request)
     {
         $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
         return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
@@ -92,7 +110,7 @@ class PerezController extends Controller
             ]);
     }
 
-    public function updateDetailPlanificationByResponsibleCourse(UpdateResponsibleCourseDetailPlanificationRequest $request)
+    public function updateDetailPlanificationByResponsibleCourse(UpdateDetailPlanificationByResponsibleCourseRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
         $days = Catalogue::find($request->input('day.id'));
@@ -127,7 +145,7 @@ class PerezController extends Controller
             ]);
     }
 
-    public function deleteDetailPlanificationByResponsibleCourse(DeteleResponsibleCourseDetailPlanificationRequest $request)
+    public function deleteDetailPlanificationByResponsibleCourse(DeleteDetailPlanificationByResponsibleCourseRequest $request)
     {
         $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
         $instructors = $detailPlanification->instructors();
