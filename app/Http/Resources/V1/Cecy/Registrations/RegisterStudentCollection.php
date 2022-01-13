@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1\Cecy\Registrations;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class RegistrationCollection extends ResourceCollection
+class RegisterStudentCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

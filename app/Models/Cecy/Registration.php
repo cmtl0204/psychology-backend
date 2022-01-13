@@ -17,6 +17,10 @@ class Registration extends Model implements Auditable
     protected $table = 'cecy.registrations';
 
     protected $fillable = [
+        'final_grade',
+        'grade1',
+        'grade2',
+        'observations',
         'number',
         'registered_at',
     ];
@@ -32,11 +36,12 @@ class Registration extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    // Mutators
-    public function setNumberAttribute($value)
+    public function state()
     {
-        $this->attributes['number'] = strtoupper($value);
+        return $this->belongsTo(Catalogue::class);
     }
+
+    // Mutators
 
     // Scopes
     public function scopeCustomOrderBy($query, $sorts)

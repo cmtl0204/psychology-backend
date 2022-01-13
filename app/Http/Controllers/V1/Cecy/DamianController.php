@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Cecy\Registrations\StoreRegistrationRequest;
+use App\Http\Requests\V1\Cecy\Registrations\RegisterStudentRequest;
 use App\Http\Resources\V1\Cecy\Registrations\RegistrationResource;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Participant;
@@ -12,7 +12,7 @@ use App\Models\Cecy\Registration;
 class DamianController extends Controller
 {
     //inscripcion al curso
-    public function registerStudent(StoreRegistrationRequest $request)
+    public function registerStudent(RegisterStudentRequest $request)
     {
         $registration = new Registration();
 
@@ -27,7 +27,7 @@ class DamianController extends Controller
 
         $registration->save();
 
-        return (new RegistrationResource($registration))
+        return (new RegisterStudentResource($registration))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Creado',

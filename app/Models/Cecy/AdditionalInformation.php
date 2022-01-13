@@ -29,9 +29,9 @@ class AdditionalInformation extends Model
     ];
 
     // Relationships
-    public function AdditionalInformations()
+    public function registration()
     {
-        return $this->hasMany(Participant::class);
+        return $this->belongsTo(Registration::class);
     }
 
     // Mutators

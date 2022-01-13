@@ -35,6 +35,21 @@ class CreateCecyRegistrationsTable extends Migration
                 $table->date('registered_at')
                 ->nullable()
                 ->comment('Fecha de matrícula del participante');
+
+            $table->unsignedFloat('final_grade')
+                ->nullable()
+                ->comment('nota final');
+
+            $table->unsignedFloat('grade1')
+                ->nullable()
+                ->comment('Nota del primer parcial');
+
+            $table->unsignedFloat('grade2')
+                ->nullable()
+                ->comment('Nota del segundo parcial');
+
+            $table->json('observations')
+                ->comment('Observaciones del estudiante');
         });
     }
 

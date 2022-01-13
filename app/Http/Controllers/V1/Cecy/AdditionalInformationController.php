@@ -55,6 +55,9 @@ class AdditionalInformationController extends Controller
     {
         $additionalInformation = new AdditionalInformation();
 
+        $additionalInformation->registration()
+            ->associate(AdditionalInformation::find($request->input('additional_information.id')));
+
         $additionalInformation->company_activity = $request->input('companyActivity');
         $additionalInformation->company_address = $request->input('companyAddress');
         $additionalInformation->company_email = $request->input('companyEmail');
@@ -107,6 +110,9 @@ class AdditionalInformationController extends Controller
     public function update(UpdateAdditionalInformationRequest $request, AdditionalInformation $additionalInformation)
     {
         //db
+        $additionalInformation->registration()
+            ->associate(AdditionalInformation::find($request->input('additional_information.id')));
+        
         $additionalInformation->company_activity = $request->input('companyActivity');
         $additionalInformation->company_address = $request->input('companyAddress');
         $additionalInformation->company_email = $request->input('companyEmail');
