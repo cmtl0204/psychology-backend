@@ -56,24 +56,16 @@ public function getCarrers(Career $careers)
     ]);
     }
 
-//mostrar informacion de la planificacion
-public function indexPlanification()
-{
-    $sorts = explode(',', $request->sort);
-
-    $courses = Planification::customOrderBy($sorts)
-        ->category($request->input('category_id'))
-        ->name($request->input('name'))
-        ->paginate();
-
-    return (new PlanificationCollection($courses))
-        ->additional([
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ]);
+//mostrar informacion de la planificacion al coordinadoor de carrera
+public function showPlanificationByCoordinator(Planification $planifications)
+{return (new PlanificationCollection($planifications))
+    ->additional([
+        'msg' => [
+            'sumary' => 'consulta exitosa',
+            'detail' => '',
+            'code' => '200'
+        ]
+    ]);
 }
 //Crear un curso y asignar responsable
 public function storePlanificationCourse()
@@ -94,6 +86,11 @@ public function storePlanificationCourse()
             'code' => '200'
         ]
     ]);
+}
+//mostrar informacion al responsable del cecy
+public function showplanificationByResponsibleCecy(){
+
+
 }
 //consultar el detalle de planificacion
 public function getdetailPlanification(DetailPlanifications $details_planifications)

@@ -13,6 +13,11 @@ class CreateCecyRegistrationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreignId('detail_planification_id')
+                ->nullable()
+                ->comment('especificaciones de la planificacion')
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('participant_id')
                 ->nullable()
                 ->comment('Participante que se matricula')

@@ -31,7 +31,10 @@ class SchoolPeriod extends Model implements Auditable
 
     // Relationships
 
-
+    public function state()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
     // Mutators
     public function setCodeAttribute($value)
     {
