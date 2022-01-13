@@ -18,6 +18,10 @@ class CreateCecyPlanificationsTable extends Migration
             $table->foreignId('area_id')
                 ->constrained('cecy.catalogues');
 
+            $table->string('code')
+                ->nullable()
+                ->comment('Código del detalle de planificación: SENESCYT-FF-V001-2021');
+
             $table->foreignId('course_id')
                 ->comment('Id del curso al que esta atado la planificación')
                 ->constrained('cecy.courses');
