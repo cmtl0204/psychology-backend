@@ -29,12 +29,6 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->comment('Id planificación')
                 ->constrained('cecy.planifications');
 
-            $table->foreignId('state_id')
-                // ->default() el valor por defecto es por aprobarse
-                ->nullable()
-                ->comment('Estados como en proceso, finalizado')
-                ->constrained('cecy.catalogues');
-
             $table->foreignId('workday_id')
                 ->nullable()
                 ->comment('Jornada laboral como matutino, vespertino o nocturno')
@@ -46,7 +40,7 @@ class CreateCecyDetailPlanificationsTable extends Migration
             $table->date('ended_at')
                 ->comment('Fecha final');
 
-            $table->time('end_time_id')
+            $table->time('end_time')
                 ->nullable()
                 ->comment('Hora de finalización de clases')
                 ->constrained('cecy.catalogues');
@@ -61,7 +55,7 @@ class CreateCecyDetailPlanificationsTable extends Migration
             $table->date('started_at')
                 ->comment('Fecha inicio');
 
-            $table->time('start_time_id')
+            $table->time('start_time')
                 ->nullable()
                 ->comment('Hora de inicio de clases')
                 ->constrained('cecy.catalogues');
