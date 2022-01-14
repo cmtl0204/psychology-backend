@@ -3,9 +3,8 @@
 namespace App\Http\Requests\V1\Cecy\Courses;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 
-class IndexCourseRequest extends FormRequest
+class getCoursesByNameRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,11 +13,16 @@ class IndexCourseRequest extends FormRequest
 
     public function rules()
     {
-        return [];
+        return [
+            'name' =>  ['string', 'required'],
+        ];
     }
 
     public function attributes()
     {
-        return [];
+        return [
+
+            'name' => 'Nombre del curso',
+        ];
     }
 }

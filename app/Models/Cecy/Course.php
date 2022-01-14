@@ -62,9 +62,9 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function authority()
+    public function instructor()
     {
-        return $this->belongsTo(Authority::class);
+        return $this->belongsTo(Instructor::class);
     }
 
     public function area()

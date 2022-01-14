@@ -17,9 +17,9 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Primero, segundo, tercero, cuarto, quinto, sexto, séptimo')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('authority_id')
+            $table->foreignId('responsible_id')
                 ->comment('Id del docente responsable del curso')
-                ->constrained('cecy.authorities');
+                ->constrained('cecy.instructors');
 
             $table->foreignId('area_id')
                 ->comment()
