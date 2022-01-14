@@ -2,56 +2,40 @@
 
 namespace App\Models\Cecy;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as Auditing;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as Auditing;
 
-class DetailRegistration extends Model implements Auditable
+class PhotograficRecord extends Model
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.detail_registrations';
+    protected $table = 'cecy.photografic_records';
 
     protected $fillable = [
-        'final_grade',
-        'grade1',
-        'grade2',
-        'observations',
+        'url_imagen',
+        'description',
+        'number_week',
+        'week_at'
     ];
 
     // Relationships
-    public function detail_planification()
+    public function detailPlanifaction()
     {
-        return $this->belongsTo(detailPlanification::class);
-    }
-    public function registration()
-    {
-        return $this->belongsTo(Registration::class);
-    }
-    public function state_certificate()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
-    public function state()
-    {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(DetailPlanification::class);
     }
 
- 
-    
     // Mutators
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = strtoupper($value);
+    }
 
-    //Mis campos son de tipo JSON
 
     // Scopes
-    
-    // Mis campos son de  tipo JSON 
-    
-
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {

@@ -18,6 +18,10 @@ class CreateCecyAdditionalInformationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreignId('additional_information_id')
+                ->comment('Informacion adicional de trabajo para el registro')
+                ->constrained('cecy.participants');
+
             $table->boolean('worked')
                 ->comment('el participante trabaja, true -> trabaja, false -> no trabaja');
 

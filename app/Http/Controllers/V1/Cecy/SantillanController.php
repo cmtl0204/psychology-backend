@@ -7,8 +7,6 @@ use App\Http\Resources\V1\Cecy\Attendances\AttendanceShowTeacherCollection;
 use App\Http\Resources\V1\Cecy\Attendances\AttendanceShowTeacherResource;
 use App\Models\Cecy\Attendance;
 use App\Models\Cecy\Catalogue;
-use App\Models\Cecy\Course;
-use App\Models\Cecy\DetailRegistration;
 use App\Models\Cecy\Registration;
 use Illuminate\Http\Client\Request;
 
@@ -22,7 +20,7 @@ class SantillanController extends Controller
     }
 
     //ver todas las asistencias
-    public function getAttendaceTeacher(Attendance $attendance)
+    public function getAttendanceTeacher(Attendance $attendance)
     {
         return (new AttendanceShowTeacherCollection($attendance))
             ->additional([
@@ -34,7 +32,7 @@ class SantillanController extends Controller
             ]);
     }
     //crear una asistencia a partir de las fechas y horarios de detalle planicacion.
-    public function storeAttendaceTeacher(Request $request)
+    public function storeAttendanceTeacher(Request $request)
     {
         $attendance = new Attendance();
 
@@ -60,8 +58,8 @@ class SantillanController extends Controller
             ]);
     }
 
-    //ver asistencia una por una 
-    public function showAttendaceTeacher(Attendance $attendance)
+    //ver asistencia una por una
+    public function showAttendanceTeacher(Attendance $attendance)
     {
         return (new AttendanceShowTeacherCollection($attendance))
             ->additional([
@@ -74,7 +72,7 @@ class SantillanController extends Controller
     }
 
     //editar o actualizar una asistencia
-    public function updateAttendaceTeacher(Attendance $attendance, Request $request)
+    public function updateAttendanceTeacher(Attendance $attendance, Request $request)
     {
         $attendance->registration_id()
             ->associate(Registration::find($request->input('registration_id')));
@@ -99,7 +97,7 @@ class SantillanController extends Controller
     }
     //eliminar una asistencia
 
-    public function destroyAttendaceTeacher(Attendance $attendance)
+    public function destroyAttendanceTeacher(Attendance $attendance)
     {
         $attendance->delete();
         return (new AttendanceShowTeacherResource($attendance))
@@ -116,7 +114,7 @@ class SantillanController extends Controller
     public function showCourseTeacher()
     {
     }
-    //subir notas de los estudiantes 
+    //subir notas de los estudiantes
     public function uploadGrades()
     {
     }
@@ -126,7 +124,7 @@ class SantillanController extends Controller
     {
     }
 
-    //descargar plantilla de las notas 
+    //descargar plantilla de las notas
     public function downloadTemplates()
     {
     }

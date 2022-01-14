@@ -17,7 +17,6 @@ class DetailPlanification extends Model implements Auditable
     protected $table = 'cecy.detail_planifications';
 
     protected $fillable = [
-        'code',
         'days_number',
         'ended_at',
         'end_time_id',

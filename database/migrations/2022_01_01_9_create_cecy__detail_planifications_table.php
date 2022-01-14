@@ -40,10 +40,6 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->comment('Jornada laboral como matutino, vespertino o nocturno')
                 ->constrained('cecy.catalogues');
 
-            $table->string('code')
-                ->nullable()
-                ->comment('Código del detalle de planificación: SENESCYT-FF-V001-2021');
-
             $table->integer('days_number')
                 ->comment('Número de días de duración del curso');
 
