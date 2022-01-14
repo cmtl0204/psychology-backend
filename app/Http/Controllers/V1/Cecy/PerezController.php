@@ -27,7 +27,49 @@ class PerezController extends Controller
         $this->middleware('permission:update-detailPlanifications')->only(['update']);
         $this->middleware('permission:delete-detailPlanifications')->only(['destroy']);
     }
+    /**
+     * Get all planifications filtered by responsible_course, and school_period
+     */
+    public function getPlanifications(GetPlanificationsByResponsibleCourse $request)
+    {
+        $planifications = Planification::where([
+            ['responsible_course', $request->input('responsibleCourse.id')],
+            ['school_period', $request->input('schoolPeriod.id')]
+        ]);
+        return (new Collection($planifications))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
 
+    /**
+     * Get all planifications filtered by responsible_course, and school_period and responsible course
+     *
+     */
+    public function getPlanificationsByCourse(GetPlanificationsByCourse $request)
+    {
+        $planifications = Planification::where([
+            ['responsible_course', $request->input('responsibleCourse.id')],
+            ['school_period', $request->input('schoolPeriod.id')],
+            ['course_id', $request->input('course.id')]
+        ]);
+        return (new Collection($planifications))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    /**
+     * Get all detail planifications filtered by responsible_course
+     */
     public function getDetailPlanificationsByResponsibleCourse(GetDetailPlanificationsByResponsibleCourseRequest $request)
     {
         $responsibleCourse = Instructor::where('user_id', $request->user()->id)->get();
@@ -46,6 +88,9 @@ class PerezController extends Controller
             ]);
     }
 
+    /**
+     * Get all detail planifications filtered by planification
+     */
     public function getDetailPlanificationsByPlanification(GetDetailPlanificationsByPlanificationRequest $request)
     {
         $detailPlanifications = DetailPlanification::where(
