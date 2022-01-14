@@ -25,11 +25,6 @@ class Participant extends Model implements Auditable
         return $this->belongsTo(User::class,  'user_id','authentication.users');
     }
     
-    public function additionalInformation()
-    {
-        return $this->belongsTo(AdditionalInformation::class);
-    }
-    
     public function personType()
     {
         return $this->belongsTo(Catalogue::class);
