@@ -15,8 +15,12 @@ use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\RegisterDeta
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowDetailPlanificationByResponsibleCourseRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateDetailPlanificationByResponsibleCourseRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeleteDetailPlanificationByResponsibleCourseRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetPlanificationsByCourseRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetPlanificationsByResponsibleCourseRequest;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\ResponsibleCourseDetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\ResponsibleCourseDetailPlanificationCollection;
+use App\Http\Resources\V1\Cecy\Planifications\PlanificationByCourseCollection;
+use App\Http\Resources\V1\Cecy\Planifications\PlanificationByResponsibleCourseCollection;
 
 class PerezController extends Controller
 {
@@ -30,13 +34,13 @@ class PerezController extends Controller
     /**
      * Get all planifications filtered by responsible_course, and school_period
      */
-    public function getPlanifications(GetPlanificationsByResponsibleCourse $request)
+    public function getPlanifications(GetPlanificationsByResponsibleCourseRequest $request)
     {
         $planifications = Planification::where([
             ['responsible_course', $request->input('responsibleCourse.id')],
             ['school_period', $request->input('schoolPeriod.id')]
         ]);
-        return (new Collection($planifications))
+        return (new PlanificationByResponsibleCourseCollection($planifications))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -45,19 +49,17 @@ class PerezController extends Controller
                 ]
             ]);
     }
-
     /**
      * Get all planifications filtered by responsible_course, and school_period and responsible course
-     *
      */
-    public function getPlanificationsByCourse(GetPlanificationsByCourse $request)
+    public function getPlanificationsByCourse(GetPlanificationsByCourseRequest $request)
     {
         $planifications = Planification::where([
             ['responsible_course', $request->input('responsibleCourse.id')],
             ['school_period', $request->input('schoolPeriod.id')],
             ['course_id', $request->input('course.id')]
         ]);
-        return (new Collection($planifications))
+        return (new PlanificationByCourseCollection($planifications))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -66,7 +68,6 @@ class PerezController extends Controller
                 ]
             ]);
     }
-
     /**
      * Get all detail planifications filtered by responsible_course
      */
@@ -87,7 +88,6 @@ class PerezController extends Controller
                 ]
             ]);
     }
-
     /**
      * Get all detail planifications filtered by planification
      */
@@ -107,7 +107,9 @@ class PerezController extends Controller
                 ]
             ]);
     }
-
+    /**
+     * Store a detail planification record  
+     */
     public function registerDetailPlanificationByResponsibleCourse(RegisterDetailPlanificationByResponsibleCourseRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
@@ -143,7 +145,9 @@ class PerezController extends Controller
                 ]
             ]);
     }
-
+    /**
+     * Return a detailPlanification record
+     */
     public function showDetailPlanificationByResponsibleCourse(ShowDetailPlanificationByResponsibleCourseRequest $request)
     {
         $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
@@ -156,7 +160,9 @@ class PerezController extends Controller
                 ]
             ]);
     }
-
+    /**
+     * Update a detail planification record
+     */
     public function updateDetailPlanificationByResponsibleCourse(UpdateDetailPlanificationByResponsibleCourseRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
@@ -191,7 +197,9 @@ class PerezController extends Controller
                 ]
             ]);
     }
-
+    /**
+     * Delete a detail planification record
+     */
     public function deleteDetailPlanificationByResponsibleCourse(DeleteDetailPlanificationByResponsibleCourseRequest $request)
     {
         $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
