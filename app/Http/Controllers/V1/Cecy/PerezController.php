@@ -122,7 +122,6 @@ class PerezController extends Controller
         $detailPlanification->planification()->associate($planification);
         $detailPlanification->workday()->associate($workday);
 
-        $detailPlanification->instructors()->attach($request->input('instructors.id'));
 
         $detailPlanification->days_number = $request->input('daysNumber');
         $detailPlanification->ended_at = $request->input('endedAt');
@@ -130,7 +129,10 @@ class PerezController extends Controller
         $detailPlanification->started_at = $request->input('startedAt');
         $detailPlanification->started_time = $request->input('startedTime');
 
-        $detailPlanification->save();
+        DB::transaction(function () use ($request, $detailPlanification) {
+            $detailPlanification->save();
+            $detailPlanification->instructors()->attach($request->input('instructors.id'));
+        }, 5);
 
         return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
             ->additional([
@@ -168,17 +170,17 @@ class PerezController extends Controller
         $detailPlanification->day()->associate($days);
         $detailPlanification->planification()->associate($planification);
         $detailPlanification->workday()->associate($workday);
-
-        // $detailPlanification->instructors()->attach($request->input('instructors.id'));
-        $detailPlanification->instructors()->updateExistingPivot($request->input('instructors.id'));
-
+        
         $detailPlanification->days_number = $request->input('daysNumber');
         $detailPlanification->ended_at = $request->input('endedAt');
         $detailPlanification->ended_time = $request->input('endedTime');
         $detailPlanification->started_at = $request->input('startedAt');
         $detailPlanification->started_time = $request->input('startedTime');
-
-        $detailPlanification->save();
+        
+        DB::transaction(function () use ($request, $detailPlanification) {
+            $detailPlanification->save();
+            $detailPlanification->instructors()->updateExistingPivot($request->input('instructors.id'));
+        }, 5);
 
         return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
             ->additional([
