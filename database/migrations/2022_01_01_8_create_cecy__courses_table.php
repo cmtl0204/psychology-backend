@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,12 +17,12 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Primero, segundo, tercero, cuarto, quinto, sexto, séptimo')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('responsible_id')
-                ->comment('Id del docente responsable del curso')
-                ->constrained('cecy.instructors');
-
             $table->foreignId('area_id')
                 ->comment()
+                ->constrained('cecy.catalogues');
+
+            $table->foreignId('availability_id')
+                ->comment('Pagado, Gratuito')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('career_id')
@@ -53,9 +53,9 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Adultos, Estudiantes, Profesores')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('schedule_id')
-                ->comment('Domingos, Sábados, Lunes-Viernes, Lunes-Domingo')
-                ->constrained('cecy.catalogues');
+            $table->foreignId('responsible_id')
+                ->comment('Id del docente responsable del curso')
+                ->constrained('cecy.instructors');
 
             $table->foreignId('speciality_id')
                 ->comment('')

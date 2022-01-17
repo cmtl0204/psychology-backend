@@ -107,7 +107,7 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function schedule()
+    public function availability()
     {
         return $this->belongsTo(Catalogue::class);
     }
