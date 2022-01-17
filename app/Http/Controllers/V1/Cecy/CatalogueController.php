@@ -9,7 +9,7 @@ use App\Http\Requests\V1\Core\Files\IndexFileRequest;
 use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
 use App\Http\Resources\V1\Core\Catalogues\CatalogueCollection;
-use App\Models\Core\Catalogue;
+use App\Models\Cecy\Catalogue;
 use App\Models\Core\File;
 
 class CatalogueController extends Controller
@@ -69,6 +69,11 @@ class CatalogueController extends Controller
     public function downloadFile(Catalogue $catalogue, File $file)
     {
         return $catalogue->downloadFile($file);
+    }
+
+    public function downloadFiles(Catalogue $catalogue)
+    {
+        return $catalogue->downloadFiles();
     }
 
     public function showFile(Catalogue $catalogue, File $file)
