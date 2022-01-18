@@ -3,7 +3,9 @@
 namespace App\Models\Cecy;
 
 use App\Models\Core\File;
+use App\Models\Core\Image;
 use App\Traits\FileTrait;
+use App\Traits\ImageTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -16,6 +18,7 @@ class Catalogue extends Model implements Auditable
     use Auditing;
     use SoftDeletes;
     use FileTrait;
+    use ImageTrait;
 
     protected $table = 'core.catalogues';
 
@@ -40,6 +43,11 @@ class Catalogue extends Model implements Auditable
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 
     // Mutators

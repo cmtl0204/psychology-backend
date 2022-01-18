@@ -18,16 +18,16 @@ class CreateCecyAuthoritiesTable extends Migration
                 ->comment('Una autoridad puede pertenecer a varias instituciones')
                 ->constrained('cecy.institutions');
 
+            $table->foreignId('position_id')
+                ->comment('Cargo en el cecy')
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('user_id')
                 ->comment('Informacion del usuario')
                 ->constrained('authentication.users');
 
             $table->foreignId('state_id')
                 ->comment('Estado de una autoridad')
-                ->constrained('cecy.catalogues');
-
-            $table->foreignId('position_id')
-                ->comment('Cargo en el cecy')
                 ->constrained('cecy.catalogues');
 
             $table->date('position_started_at')

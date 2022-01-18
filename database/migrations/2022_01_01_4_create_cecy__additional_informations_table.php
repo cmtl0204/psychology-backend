@@ -18,12 +18,9 @@ class CreateCecyAdditionalInformationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('additional_information_id')
+            $table->foreignId('registration_id')
                 ->comment('Informacion adicional de trabajo para el registro')
-                ->constrained('cecy.participants');
-
-            $table->boolean('worked')
-                ->comment('el participante trabaja, true -> trabaja, false -> no trabaja');
+                ->constrained('cecy.registrations');
 
             $table->string('company_activity')
                 ->comment('actividad de la empresa');
@@ -46,12 +43,15 @@ class CreateCecyAdditionalInformationsTable extends Migration
             $table->string('contact_name')
                 ->comment('nombre de contacto que patrocina');
 
-            $table->json('course_knows')
-                ->comment('como se entero del curso? Array');
-
             $table->json('course_follows')
                 ->nullable()
                 ->comment('cursos que te gustaria seguir? Array');
+
+            $table->json('course_knows')
+                ->comment('como se entero del curso? Array');
+
+            $table->boolean('worked')
+                ->comment('el participante trabaja, true -> trabaja, false -> no trabaja');
         });
     }
 

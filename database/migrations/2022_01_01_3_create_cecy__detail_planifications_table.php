@@ -24,6 +24,10 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->comment('Id día')
                 ->constrained('cecy.catalogues');
 
+            $table->foreignId('paralel_id')
+                ->comment('A,B,C,D')
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('planification_id')
                 ->nullable()
                 ->comment('Id planificación')
@@ -34,31 +38,27 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->comment('Jornada laboral como matutino, vespertino o nocturno')
                 ->constrained('cecy.catalogues');
 
-            $table->integer('days_number')
-                ->comment('Número de días de duración del curso');
-
-            $table->date('ended_at')
-                ->comment('Fecha final');
+            $table->integer('state_id')
+                ->comment('Si el paralelo esta: Proceso, culminado')
+                ->constrained('cecy.catalogues');
 
             $table->time('end_time')
                 ->nullable()
-                ->comment('Hora de finalización de clases')
-                ->constrained('cecy.catalogues');
+                ->comment('Hora de finalización de clases');
 
             $table->text('observation')
                 ->nullable()
                 ->comment('Observación necesaria si las horas de duración de curso no son alcanzadas por las horas de clase');
 
             $table->date('plan_ended_at')
-                ->comment('Fecha final de la planificación');
+                ->comment('Fecha final real de la planificación (que puede variar a la planificación)');
 
-            $table->date('started_at')
-                ->comment('Fecha inicio');
+            $table->integer('registrations_left')
+                ->comment('Capacidad restante del paralelo');
 
             $table->time('start_time')
                 ->nullable()
-                ->comment('Hora de inicio de clases')
-                ->constrained('cecy.catalogues');
+                ->comment('Hora de inicio de clases');
         });
     }
 

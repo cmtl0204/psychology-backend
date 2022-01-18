@@ -38,9 +38,9 @@ trait ImageTrait
             $newImage->imageable()->associate($this);
             $newImage->save();
 
-            Storage::makeDirectory('images\\' . $newImage->id);
+            Storage::makeDirectory('images/' . $newImage->id);
 
-            $storagePath = storage_path('app\private\images\\');
+            $storagePath = storage_path('app/private/images/');
             $this->uploadOriginal(InterventionImage::make($image), $newImage->id, $storagePath);
             $this->uploadLargeImage(InterventionImage::make($image), $newImage->id, $storagePath);
             $this->uploadMediumImage(InterventionImage::make($image), $newImage->id, $storagePath);
@@ -108,7 +108,7 @@ trait ImageTrait
         $image->save();
 
         // Elimina los archivos del servidoir
-        Storage::deleteDirectory('images\\' . $imageId);
+        Storage::deleteDirectory('images/' . $imageId);
 
         return response()->json([
             'data' => null,
@@ -180,12 +180,12 @@ trait ImageTrait
     // Guarda imagenes con una resolución de 300px de ancho y el alto es ajustable para celulares
     private function uploadSmallImage($image, $name, $storagePath)
     {
-        $path = $storagePath . $name . '\\' . $name . '-sm.jpg';
+        $path = $storagePath . $name . '/' . $name . '-sm.jpg';
         $image->widen(300, function ($constraint) {
             $constraint->upsize();
         })->save($path, 75);
 
-        $path = $storagePath . $name . '\\' . $name . '-sm.webp';
+        $path = $storagePath . $name . '/' . $name . '-sm.webp';
         $image->widen(300, function ($constraint) {
             $constraint->upsize();
         })->save($path, 75);
@@ -194,12 +194,12 @@ trait ImageTrait
     // Guarda imagenes con una resolución de 750px de ancho y el alto es ajustable para tablets
     private function uploadMediumImage($image, $name, $storagePath)
     {
-        $path = $storagePath . $name . '\\' . $name . '-md.jpg';
+        $path = $storagePath . $name . '/' . $name . '-md.jpg';
         $image->widen(750, function ($constraint) {
             $constraint->upsize();
         })->save($path, 75);
 
-        $path = $storagePath . $name . '\\' . $name . '-md.webp';
+        $path = $storagePath . $name . '/' . $name . '-md.webp';
         $image->widen(750, function ($constraint) {
             $constraint->upsize();
         })->save($path, 75);
@@ -208,12 +208,12 @@ trait ImageTrait
     // Guarda imagenes con una resolución de 1250px de ancho y el alto es ajustable para pc
     private function uploadLargeImage($image, $name, $storagePath)
     {
-        $path = $storagePath . $name . '\\' . $name . '-lg.jpg';
+        $path = $storagePath . $name . '/' . $name . '-lg.jpg';
         $image->widen(1250, function ($constraint) {
             $constraint->upsize();
         })->save($path, 75);
 
-        $path = $storagePath . $name . '\\' . $name . '-lg.webp';
+        $path = $storagePath . $name . '/' . $name . '-lg.webp';
         $image->widen(1250, function ($constraint) {
             $constraint->upsize();
         })->save($path, 75);
@@ -222,10 +222,10 @@ trait ImageTrait
     // Guarda imagenes con su tamaño original
     private function uploadOriginal($image, $name, $storagePath)
     {
-        $path = $storagePath . $name . '\\' . $name . '.jpg';
+        $path = $storagePath . $name . '/' . $name . '.jpg';
         $image->save($path, 75);
 
-        $path = $storagePath . $name . '\\' . $name . '.webp';
+        $path = $storagePath . $name . '/' . $name . '.webp';
         $image->save($path, 75);
     }
 }

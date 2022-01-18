@@ -55,7 +55,6 @@ trait FileTrait
                 $zip->addFile($storage . $file->full_path, $file->partial_path);
             }
             $zip->close();
-
             return Storage::download('temp/' . $zipName);
         } else {
             return "error" . $filePath;

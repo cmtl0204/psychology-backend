@@ -17,7 +17,7 @@ class CreateCecyPlanificationsTable extends Migration
 
             $table->foreignId('area_id')
                 ->constrained('cecy.catalogues');
-                
+
             $table->foreignId('course_id')
                 ->comment('Id del curso al que esta atado la planificación')
                 ->constrained('cecy.courses');
@@ -50,7 +50,10 @@ class CreateCecyPlanificationsTable extends Migration
                 ->comment('Fecha en la que se espera terminar la planificación');
 
             $table->json('needs')
-                ->comment('Necesidades');
+                ->comment('Se puede hacer una copia de las propias necesidades del curso de ser necesario');
+
+            $table->integer('number_days')
+                ->comment('Número de dias que dura el curso');
 
             $table->date('started_at')
                 ->comment('Fecha en que inicia la planificación');

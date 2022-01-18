@@ -22,7 +22,3 @@ Route::prefix('login')->group(function () {
 Route::get('generate-password/{password}',function ($password){
     return \Illuminate\Support\Facades\Hash::make($password);
 });
-
-Route::get('/', function () {
-    return view('welcome');
-});
