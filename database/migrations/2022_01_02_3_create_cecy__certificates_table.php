@@ -13,6 +13,7 @@ class CreateCecyCertificatesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->morphs('certificateable');
             // $table->foreignId('certificable_id')
             //     ->constrained('authentication.users');
 
