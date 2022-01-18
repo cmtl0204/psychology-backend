@@ -19,11 +19,11 @@ class DetailPlanification extends Model implements Auditable
     protected $fillable = [
         'days_number',
         'ended_at',
-        'end_time_id',
+        'end_time',
         'observation',
         'plan_ended_at',
         'started_at',
-        'start_time_id',
+        'start_time',
     ];
 
     // Relationships
@@ -38,11 +38,6 @@ class DetailPlanification extends Model implements Auditable
     public function planification()
     {
         return $this->belongsTo(Planification::class);
-    }
-
-    public function state()
-    {
-        return $this->belongsTo(Catalogue::class);
     }
 
     public function detailInstructors()

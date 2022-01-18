@@ -67,7 +67,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 # Libraries
  
-- **[ext-json](https://php.watch/versions/8.0/ext-json)**
+- **["ext-json": "*",](https://php.watch/versions/8.0/ext-json)**
+- **["ext-zip": "*",](https://php.watch/versions/8.0/ext-json)**
 
 add  in composer.json/require => "ext-json": "*",
 ## DomPDF

@@ -13,6 +13,12 @@ class CreateCecySchoolPeriodsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreignId('state_id')
+                ->nullable()
+                ->comment('estado del periodo lectivo ej: actual, antiguo')
+                ->constrained('cecy.catalogues');
+
+
             $table->string('code')->unique()
                 ->comment('codigo unico de periodos lectivos ej: 2021-2022');
             

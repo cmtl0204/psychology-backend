@@ -7,32 +7,41 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Authentication\User;
 
-class Participant extends Model implements Auditable
+class Certificate extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.participants';
+    protected $table = 'cecy.certificates';
 
-    protected $fillable = [];
+    protected $fillable = [
+        'code',
+        'issued_at',
+    ];
 
     // Relationships
-    public function user()
-    {
-        return $this->belongsTo(User::class,  'user_id','authentication.users');
-    }
-    
-    public function personType()
+
+    public function state()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function registration()
+    // Mutators
+
+    public function setCodeAttribute($value)
     {
-        return $this->hasMany(Registration::class);
+        $this->attributes['code'] = strtoupper($value);
+    }
+
+    // Scopes
+
+    public function scopeCodeSources($query, $code)
+    {
+        if ($code) {
+            return $query->Where('code', $code);
+        }
     }
 
     public function scopeCustomOrderBy($query, $sorts)

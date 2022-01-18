@@ -2,6 +2,8 @@
 
 namespace App\Models\Cecy;
 
+use App\Models\Core\File;
+use App\Traits\FileTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -13,8 +15,9 @@ class Catalogue extends Model implements Auditable
     use HasFactory;
     use Auditing;
     use SoftDeletes;
+    use FileTrait;
 
-    protected $table = 'cecy.catalogues';
+    protected $table = 'core.catalogues';
 
     protected $fillable = [
         'code',
@@ -26,12 +29,17 @@ class Catalogue extends Model implements Auditable
     // Relationships
     public function parent()
     {
-        return $this->belongsTo(Catalogue::class,  'parent_id','core.catalogues');
+        return $this->belongsTo(Catalogue::class, 'parent_id', 'core.catalogues');
     }
 
     public function children()
     {
-        return $this->hasMany(Catalogue::class, 'parent_id','core.catalogues');
+        return $this->hasMany(Catalogue::class, 'parent_id', 'core.catalogues');
+    }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
     }
 
     // Mutators

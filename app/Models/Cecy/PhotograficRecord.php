@@ -2,39 +2,40 @@
 
 namespace App\Models\Cecy;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as Auditing;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Authentication\User;
+use OwenIt\Auditing\Auditable as Auditing;
 
-class Participant extends Model implements Auditable
+class PhotograficRecord extends Model
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.participants';
+    protected $table = 'cecy.photografic_records';
 
-    protected $fillable = [];
+    protected $fillable = [
+        'url_imagen',
+        'description',
+        'number_week',
+        'week_at'
+    ];
 
     // Relationships
-    public function user()
+    public function detailPlanifaction()
     {
-        return $this->belongsTo(User::class,  'user_id','authentication.users');
-    }
-    
-    public function personType()
-    {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(DetailPlanification::class);
     }
 
-    public function registration()
+    // Mutators
+    public function setDescriptionAttribute($value)
     {
-        return $this->hasMany(Registration::class);
+        $this->attributes['description'] = strtoupper($value);
     }
 
+
+    // Scopes
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {

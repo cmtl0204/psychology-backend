@@ -6,10 +6,11 @@ use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
 use App\Http\Requests\V1\Core\Files\IndexFileRequest;
 use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
-use App\Http\Resources\V1\Core\Authentications\FileCollection;
-use App\Http\Resources\V1\Core\Authentications\FileResource;
+use App\Http\Resources\V1\Core\FileCollection;
+use App\Http\Resources\V1\Core\FileResource;
 use App\Models\Core\File;
 use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 trait FileTrait
 {
@@ -29,11 +30,44 @@ trait FileTrait
         return Storage::download($file->full_path);
     }
 
+    public function downloadFiles()
+    {
+        $files = $this->files()->get();
+
+        if (sizeof($files) === 0) {
+            return (new FileCollection([]))->additional(
+                [
+                    'msg' => [
+                        'summary' => 'Archivos no encontrados',
+                        'detail' => 'Intente de nuevo',
+                        'code' => '404'
+                    ]
+                ]);
+        }
+
+        $zip = new ZipArchive();
+        $storage = storage_path('app/private/');
+        $zipName = time() . '.zip';
+        $filePath = $storage . 'temp/' . $zipName;
+
+        if ($zip->open($filePath, ZipArchive::CREATE) === true) {
+            foreach ($files as $file) {
+                $zip->addFile($storage . $file->full_path, $file->partial_path);
+            }
+            $zip->close();
+            return Storage::download('temp/' . $zipName);
+        } else {
+            return "error" . $filePath;
+        }
+    }
+
     public function uploadFile(UploadFileRequest $request)
     {
+
         if ($request->hasFile('file')) {
             $this->saveFile($request, $request->file('file'));
         }
+
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
                 $this->saveFile($request, $file);
@@ -174,11 +208,7 @@ trait FileTrait
         $newFile->fileable()->associate($this);
         $newFile->save();
 
-        $file->storeAs(
-            'files',
-            $newFile->partial_path,
-            'private'
-        );
+        $file->storeAs('files', $newFile->partial_path, 'private');
 
         $newFile->directory = 'files';
         $newFile->save();
