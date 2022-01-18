@@ -24,6 +24,10 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->comment('Id día')
                 ->constrained('cecy.catalogues');
 
+            $table->foreignId('paralel_id')
+                ->comment('A,B,C,D')
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('planification_id')
                 ->nullable()
                 ->comment('Id planificación')
@@ -34,11 +38,13 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->comment('Jornada laboral como matutino, vespertino o nocturno')
                 ->constrained('cecy.catalogues');
 
-            $table->integer('days_number')
-                ->comment('Número de días de duración del curso');
+            $table->integer('state_id')
+                ->comment('Si el paralelo esta: Proceso, culminado')
+                ->constrained('cecy.catalogues');
 
-            $table->date('ended_at')
-                ->comment('Fecha final');
+            $table->integer('capacity_remaining')
+                ->comment('Capacidad restante del paralelo')
+                ->constrained('cecy.catalogues');
 
             $table->time('end_time')
                 ->nullable()
@@ -51,9 +57,6 @@ class CreateCecyDetailPlanificationsTable extends Migration
 
             $table->date('plan_ended_at')
                 ->comment('Fecha final de la planificación');
-
-            $table->date('started_at')
-                ->comment('Fecha inicio');
 
             $table->time('start_time')
                 ->nullable()
