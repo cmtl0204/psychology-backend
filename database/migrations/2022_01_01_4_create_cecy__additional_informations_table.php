@@ -18,11 +18,6 @@ class CreateCecyAdditionalInformationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-
-            $table->foreignId('level_instruction_id')
-                ->comment('Nivel de instrucción ejem: Primer nivel, segundo nivel, tercer nivel')
-                ->constrained('cecy.catalogues');
-
             $table->foreignId('registration_id')
                 ->comment('Informacion adicional de trabajo para el registro')
                 ->constrained('cecy.registrations');

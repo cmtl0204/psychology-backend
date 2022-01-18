@@ -21,10 +21,10 @@ class AdditionalInformation extends Model
         'company_email',
         'company_name',
         'company_phone',
-        'company_sponsor',
+        'company_sponsored',
         'contact_name',
-        'course_know',
-        "course_follow",
+        "course_follows",
+        'course_knows',
         'worked',
     ];
 
