@@ -42,10 +42,6 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->comment('Si el paralelo esta: Proceso, culminado')
                 ->constrained('cecy.catalogues');
 
-            $table->integer('capacity_remaining')
-                ->comment('Capacidad restante del paralelo')
-                ->constrained('cecy.catalogues');
-
             $table->time('end_time')
                 ->nullable()
                 ->comment('Hora de finalización de clases');
@@ -56,6 +52,9 @@ class CreateCecyDetailPlanificationsTable extends Migration
 
             $table->date('plan_ended_at')
                 ->comment('Fecha final real de la planificación (que puede variar a la planificación)');
+
+            $table->integer('registrations_left')
+                ->comment('Capacidad restante del paralelo');
 
             $table->time('start_time')
                 ->nullable()
