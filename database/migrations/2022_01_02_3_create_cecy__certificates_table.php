@@ -14,11 +14,6 @@ class CreateCecyCertificatesTable extends Migration
             $table->softDeletes();
 
             $table->morphs('certificateable');
-            // $table->foreignId('certificable_id')
-            //     ->constrained('authentication.users');
-
-            // $table->foreignId('certificable_type')
-            //     ->constrained('authentication.users');
 
             $table->foreignId('state_id')
                 ->comment('Id del tema principal')
