@@ -33,10 +33,6 @@ class CreateCecyRegistrationsTable extends Migration
                 ->comment('Tipo de matrícula: Ordinaria, extraordinaria, o especial')
                 ->constrained('cecy.catalogues');
 
-            $table->date('registered_at')
-                ->nullable()
-                ->comment('Fecha de matrícula del participante');
-
             $table->unsignedFloat('final_grade')
                 ->nullable()
                 ->comment('nota final');
@@ -56,6 +52,10 @@ class CreateCecyRegistrationsTable extends Migration
             $table->json('observations')
                 ->nullable()
                 ->comment('Observaciones del estudiante');
+
+            $table->date('registered_at')
+                ->nullable()
+                ->comment('Fecha de matrícula del participante');
         });
     }
 
