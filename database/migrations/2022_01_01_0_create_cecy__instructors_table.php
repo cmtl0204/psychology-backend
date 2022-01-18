@@ -13,11 +13,6 @@ class CreateCecyInstructorsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('user_id')
-                ->nullable()
-                ->comment('usuario de autenticación')
-                ->constrained('authentication.users');
-
             $table->foreignId('state_id')
                 ->nullable()
                 ->comment('Estado de autoridad activo, inactivo')
@@ -27,6 +22,11 @@ class CreateCecyInstructorsTable extends Migration
                 ->nullable()
                 ->comment('Un instructor puede ser de la setec o docente de la senescyt')
                 ->constrained('cecy.catalogues');
+
+            $table->foreignId('user_id')
+                ->nullable()
+                ->comment('usuario de autenticación')
+                ->constrained('authentication.users');
         });
     }
 

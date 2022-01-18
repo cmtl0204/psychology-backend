@@ -22,17 +22,6 @@ class CreateCecyDetailInstructorsTable extends Migration
                 ->nullable()
                 ->comment('trae la informacion del detail_planification')
                 ->constrained('cecy.detail_planifications');
-
-            $table->foreignId('state_certified')
-                ->nullable()
-                ->comment('Estado del certificado')
-                ->constrained('cecy.catalogues');
-
-/*             $table->string('state_certified')
-                ->comment('Estado del certificado'); */
-
-            $table->string('code_certified')
-                ->comment('Código del certificado');
         });
     }
 
