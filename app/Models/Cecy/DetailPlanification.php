@@ -17,12 +17,10 @@ class DetailPlanification extends Model implements Auditable
     protected $table = 'cecy.detail_planifications';
 
     protected $fillable = [
-        'days_number',
-        'ended_at',
+        'capacity_remaining',
         'end_time',
         'observation',
         'plan_ended_at',
-        'started_at',
         'start_time',
     ];
 
@@ -31,13 +29,30 @@ class DetailPlanification extends Model implements Auditable
     {
         return $this->belongsTo(Classroom::class);
     }
+
     public function day()
     {
         return $this->belongsTo(Catalogue::class);
     }
+
+    public function paralel()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
     public function planification()
     {
         return $this->belongsTo(Planification::class);
+    }
+
+    public function workday()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(Catalogue::class);
     }
 
     public function detailInstructors()

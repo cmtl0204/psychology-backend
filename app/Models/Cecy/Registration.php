@@ -26,14 +26,14 @@ class Registration extends Model implements Auditable
     ];
 
     // Relationships
+    public function detailPlanification()
+    {
+        return $this->belongsTo(DetailPlanification::class);
+    }
+
     public function participant()
     {
         return $this->belongsTo(Participant::class);
-    }
-
-    public function type()
-    {
-        return $this->belongsTo(Catalogue::class);
     }
 
     public function state()
@@ -41,14 +41,9 @@ class Registration extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function detailPlanification()
+    public function type()
     {
-        return $this->belongsTo(DetailPlanification::class);
-    }
-
-    public function additionalInformation()
-    {
-        return $this->hasOne(DetailPlanification::class);
+        return $this->belongsTo(Catalogue::class);
     }
 
     // Mutators
@@ -68,5 +63,4 @@ class Registration extends Model implements Auditable
             return $query;
         }
     }
-
 }

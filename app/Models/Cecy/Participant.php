@@ -20,12 +20,17 @@ class Participant extends Model implements Auditable
     protected $fillable = [];
 
     // Relationships
+
+    public function personType()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
     public function user()
     {
-        return $this->belongsTo(User::class,  'user_id','authentication.users');
+        return $this->belongsTo(User::class);
     }
-    
-    public function personType()
+    public function state()
     {
         return $this->belongsTo(Catalogue::class);
     }

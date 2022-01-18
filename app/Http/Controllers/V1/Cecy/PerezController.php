@@ -52,7 +52,7 @@ class PerezController extends Controller
             ]);
     }
     /**
-     * Get all planifications filtered by responsible_course, and school_period and responsible course
+     * Get all planifications filtered by responsible_course, and school_period and course
      */
     public function getPlanificationsByCourse(GetPlanificationsByCourseRequest $request)
     {

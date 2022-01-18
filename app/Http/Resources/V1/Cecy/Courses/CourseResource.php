@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1\Cecy\Courses;
 
+use App\Http\Resources\V1\Cecy\Catalogues\CatalogueResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CourseResource extends JsonResource

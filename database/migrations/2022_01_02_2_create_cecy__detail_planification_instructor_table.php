@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCecyDetailInstructorsTable extends Migration
+class CreateCecyDetailPlanificationInstructorTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_CECY'))->create('detail_instructors', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CECY'))->create('detail_planification_instructor', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -27,6 +27,6 @@ class CreateCecyDetailInstructorsTable extends Migration
 
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('detail_instructors');
+        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('detail_planification_instructor');
     }
 }
