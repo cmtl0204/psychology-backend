@@ -20,6 +20,10 @@ class CreateCecyParticipantsTable extends Migration
             $table->foreignId('user_id')
                 ->comment('Información de un usuario que se relaciona a un participante de un curso')
                 ->constrained('authentication.users');
+
+            $table->foreignId('state_id')
+                ->comment('Estado del participante')
+                ->constrained('authentication.users');
         });
     }
 
