@@ -16,7 +16,7 @@ class CreateCecyRegistrationsTable extends Migration
             $table->foreignId('detail_planification_id')
                 ->nullable()
                 ->comment('especificaciones de la planificacion')
-                ->constrained('cecy.catalogues');
+                ->constrained('cecy.detail_planifications');
 
             $table->foreignId('participant_id')
                 ->nullable()
