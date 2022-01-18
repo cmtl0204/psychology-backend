@@ -18,21 +18,21 @@ class CreateCecyClassroomsTable extends Migration
                 ->comment('Estado si esta disponible o no disponible')
                 ->constrained('cecy.catalogues');
 
-            $table->integer('capacity')
-                ->nullable()
-                ->comment('Capacidad del aula a recibir'); 
-                
-            $table->string('code')
-                ->nullable()
-                ->comment('Código del aula');    
-
             $table->text('description')
                 ->nullable()
-                ->comment('Descripción del aula'); 
-            
+                ->comment('Descripción del aula');
+
+            $table->integer('capacity')
+                ->nullable()
+                ->comment('Capacidad del aula a recibir');
+
+            $table->string('code')
+                ->nullable()
+                ->comment('Código del aula');
+
             $table->string('name')
                 ->nullable()
-                ->comment('Nombre del aula');   
+                ->comment('Nombre del aula');
         });
     }
 

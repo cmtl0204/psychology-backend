@@ -17,32 +17,54 @@ class Classroom extends Model implements Auditable
     protected $table = 'cecy.classrooms';
 
     protected $fillable = [
+        'description',
         'capacity',
         'code',
-        'description',
         'name',
     ];
 
     // Relationships
-    
+
     public function state()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
     // Mutators
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = strtoupper($value);
+    }
 
     public function setCodeAttribute($value)
     {
         $this->attributes['code'] = strtoupper($value);
     }
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtoupper($value);
+    }
     // Scopes
+
+    public function scopeDescriptionSources($query, $description)
+    {
+        if ($description) {
+            return $query->Where('description', $description);
+        }
+    }
 
     public function scopeCodeSources($query, $code)
     {
         if ($code) {
             return $query->Where('code', $code);
+        }
+    }
+
+    public function scopeNameSources($query, $name)
+    {
+        if ($name) {
+            return $query->Where('name', $name);
         }
     }
 

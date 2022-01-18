@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,15 +16,14 @@ class CreateCecyPhotograficRecordsTable extends Migration
             $table->foreignId('detail_planification_id')
                 ->constrained('cecy.detail_planifications');
 
-            // Pendiente el tipo de datos si es entero, time
-            $table->string('url_imagen')
-                ->comment('direccion de la imagen(evidencia fotografica)');
-
             $table->string('description')
                 ->comment('descripcion del curso');
 
             $table->integer('number_week')
                 ->comment('numero de la semana que se impartio el curso');
+
+            $table->string('url_imagen')
+                ->comment('direccion de la imagen(evidencia fotografica)');
 
             $table->date('week')
                 ->comment('fecha del dia que se guardo la evidencia fotografica');
