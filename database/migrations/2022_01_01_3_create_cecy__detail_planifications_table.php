@@ -48,20 +48,18 @@ class CreateCecyDetailPlanificationsTable extends Migration
 
             $table->time('end_time')
                 ->nullable()
-                ->comment('Hora de finalización de clases')
-                ->constrained('cecy.catalogues');
+                ->comment('Hora de finalización de clases');
 
             $table->text('observation')
                 ->nullable()
                 ->comment('Observación necesaria si las horas de duración de curso no son alcanzadas por las horas de clase');
 
             $table->date('plan_ended_at')
-                ->comment('Fecha final de la planificación');
+                ->comment('Fecha final real de la planificación (que puede variar a la planificación)');
 
             $table->time('start_time')
                 ->nullable()
-                ->comment('Hora de inicio de clases')
-                ->constrained('cecy.catalogues');
+                ->comment('Hora de inicio de clases');
         });
     }
 
