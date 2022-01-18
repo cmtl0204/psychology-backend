@@ -2,6 +2,7 @@
 
 namespace App\Models\Cecy;
 
+use App\Models\Authentication\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -26,6 +27,11 @@ class Classroom extends Model implements Auditable
     // Relationships
 
     public function state()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function personType()
     {
         return $this->belongsTo(Catalogue::class);
     }
