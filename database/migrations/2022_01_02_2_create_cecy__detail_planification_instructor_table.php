@@ -10,8 +10,6 @@ class CreateCecyDetailPlanificationInstructorTable extends Migration
     {
         Schema::connection(env('DB_CONNECTION_CECY'))->create('detail_planification_instructor', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->softDeletes();
 
             $table->foreignId('instructor_id')
                 ->nullable()

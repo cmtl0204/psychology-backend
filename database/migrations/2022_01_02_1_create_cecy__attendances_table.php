@@ -13,9 +13,6 @@ class CreateCecyAttendancesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('registration_id')
-                ->constrained('cecy.registrations');
-
             $table->foreignId('type_id')
                 ->nullable()
                 ->comment('para saber si esta presente,inasistente o atrasado ')
