@@ -54,6 +54,7 @@ class CreateCecyRegistrationsTable extends Migration
                 ->comment('Nota del segundo parcial');
 
             $table->json('observations')
+                ->nullable()
                 ->comment('Observaciones del estudiante');
         });
     }
