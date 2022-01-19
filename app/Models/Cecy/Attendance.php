@@ -21,10 +21,6 @@ class Attendance extends Model
     ];
 
     // Relationships
-    public function registration()
-    {
-        return $this->belongsTo(Registration::class);
-    }
     public function catalogue()
     {
         return $this->belongsTo(Catalogue::class);
