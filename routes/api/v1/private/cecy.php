@@ -35,3 +35,32 @@ Route::prefix('catalogue/{catalogue}')->group(function () {
 /***********************************************************************************************************************
  * PLANIFICATIONS
  **********************************************************************************************************************/
+
+/***********************************************************************************************************************
+ * COURSE
+ **********************************************************************************************************************/
+Route::prefix('courses')->group(function () {
+    Route::get('', [AlvaradoController::class, 'getCourses']);
+    Route::put('/{course}', [AlvaradoController::class, 'updateCourse']);
+});
+
+/***********************************************************************************************************************
+ * TOPICS
+ **********************************************************************************************************************/
+Route::prefix('topics')->group(function () {
+    Route::get('/{course}', [AlvaradoController::class, 'getTopics']);
+    Route::post('/{course}', [AlvaradoController::class, 'storeTopic']);
+    Route::put('/{course}', [AlvaradoController::class, 'updateTopic']);
+    Route::delete('', [AlvaradoController::class, 'destroyTopic']);
+    Route::patch('', [AlvaradoController::class, 'destroysTopics']);
+});
+/***********************************************************************************************************************
+ * PREREQUISITES
+ **********************************************************************************************************************/
+Route::prefix('prerequisites')->group(function () {
+    Route::get('/{course}', [AlvaradoController::class, 'getPrerequisites']);
+    Route::post('/{course}', [AlvaradoController::class, 'storePrerequisite']);
+    Route::put('/{course}', [AlvaradoController::class, 'updatePrerequisite']);
+    Route::delete('', [AlvaradoController::class, 'DestroyPrerequisite']);
+    Route::patch('', [AlvaradoController::class, 'destroysPrerequisites']);
+});

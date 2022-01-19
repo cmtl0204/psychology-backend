@@ -34,7 +34,7 @@ class Topic extends Model implements Auditable
     // Recursividad
     public function children()
     {
-        return $this->hasMany(Catalogue::class, 'parent_id','core.catalogues');
+        return $this->hasMany(Catalogue::class, 'parent_id','cecy.topics');
     }
 
     // Mutators
