@@ -8,25 +8,23 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SchoolPeriod extends Model implements Auditable
+class DetailSchoolPeriod extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.school_periods';
+    protected $table = 'cecy.detail_school_periods';
 
     protected $fillable = [
-        'code',
-        'ended_at',
+        'anulation_ended_at',
+        'anulation_started_at',
         'especial_ended_at',
         'especial_started_at',
         'extraordinary_ended_at',
         'extraordinary_started_at',
-        'name',
         'ordinary_ended_at',
         'ordinary_started_at',
-        'started_at',
     ];
 
     // Relationships
@@ -36,34 +34,20 @@ class SchoolPeriod extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function detailSchoolPeriods()
+    public function planifications()
     {
-        $this->hasMany(DetailSchoolPeriod::class);
-    }
-    // Mutators
-    public function setCodeAttribute($value)
-    {
-        $this->attributes['code'] = strtoupper($value);
+        $this->hasMany(Planification::class);
     }
 
-    public function setNameAttribute($value)
+    public function schoolPeriod()
     {
-        $this->attributes['name'] = strtoupper($value);
+        return $this->belongsTo(SchoolPeriod::class);
     }
+
+    // Mutators
+
 
     // Scopes
-    public function scopeCode($query, $code)
-    {
-        if ($code) {
-            return $query->where('code', $code);
-        }
-    }
-    public function scopeName($query, $name)
-    {
-        if ($name) {
-            return $query->where('name', $name);
-        }
-    }
 
     public function scopeCustomOrderBy($query, $sorts)
     {

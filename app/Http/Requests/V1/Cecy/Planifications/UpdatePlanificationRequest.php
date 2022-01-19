@@ -15,8 +15,8 @@ class UpdatePlanificationRequest extends FormRequest
     return [
       'area.id' => ['required', 'integer'],
       'course.id' => ['required', 'integer'],
+      'detailSchoolPeriod.id' => ['required', 'integer'],
       'responsible.id' => ['required', 'integer'],
-      'schoolPeriod.id' => ['required', 'integer'],
       'sector.id' => ['required', 'integer'],
       'state.id' => ['required', 'integer'],
       'code' => ['required', 'string', 'max:100'],
@@ -33,7 +33,7 @@ class UpdatePlanificationRequest extends FormRequest
       'academicPeriod.id' => 'Id del area',
       'course.id' => 'Id del curso',
       'responsible.id' => 'Id del responsable',
-      'schoolPeriod.id' => 'Id del periodo escolar',
+      'detailSchoolPeriod.id' => 'Id de detalle periodo escolar',
       'sector.id' => 'Id del sector',
       'state.id' => 'Id del estado',
       'code' => 'Código',
