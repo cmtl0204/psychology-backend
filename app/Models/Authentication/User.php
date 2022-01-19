@@ -143,7 +143,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         $this->hasOne(Instructor::class);
     }
 
-    public function instructor()
+    public function participant()
     {
         $this->hasOne(Participant::class);
     }
