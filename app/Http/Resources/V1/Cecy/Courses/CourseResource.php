@@ -3,6 +3,8 @@
 namespace App\Http\Resources\V1\Cecy\Courses;
 
 use App\Http\Resources\V1\Cecy\Catalogues\CatalogueResource;
+use App\Http\Resources\V1\Cecy\Instructors\InstructorResource;
+use App\Http\Resources\V1\Core\CareerResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CourseResource extends JsonResource
@@ -54,5 +56,6 @@ class CourseResource extends JsonResource
             'teachingStrategies' => $this->teaching_strategies,
             'theoreticalPhase' => $this->theoretical_phase,
             'theoryHours' => $this->theory_hours
+        ];
     }
 }
