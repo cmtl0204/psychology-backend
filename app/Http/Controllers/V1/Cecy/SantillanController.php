@@ -114,11 +114,7 @@ class SantillanController extends Controller
     /*******************************************************************************************************************
      * FILES
      ******************************************************************************************************************/
-    public function indexFiles(IndexFileRequest $request, Catalogue $catalogue)
-    {
-        return $catalogue->indexFiles($request);
-    }
-
+    
     //subir notas de los estudiantes
     public function uploadFile(UploadFileRequest $request, Catalogue $catalogue)
     {
