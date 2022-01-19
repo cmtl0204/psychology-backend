@@ -27,11 +27,6 @@ class PhotograficRecord extends Model
     {
         return $this->belongsTo(DetailPlanification::class);
     }
-    
-    public function files()
-    {
-        return $this->morphMany(File::class, 'fileable');
-    }
 
     public function images()
     {
