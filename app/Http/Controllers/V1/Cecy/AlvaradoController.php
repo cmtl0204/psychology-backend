@@ -81,10 +81,10 @@ class AlvaradoController extends Controller
         ]);
     }
 
-    public function storeTopic(StoreTopicRequest $request)
+    public function storeTopic(Course $course, StoreTopicRequest $request)
     {
         $topic = new Topic();
-        $topic->course()->associate(Course::find($request->input('course.id')));
+        $topic->course()->associate(Course::find($course));
         $topic->level()->associate(Catalogue::find($request->input('level.id')));
         if($request->input('level.id') === '7') {
             $topic->parent()->associate(Topic::find($request->input('parent.id')));
@@ -103,9 +103,9 @@ class AlvaradoController extends Controller
     }
 
 
-    public function updateTopic(StoreTopicRequest $request, Topic $topic )
+    public function updateTopic(Course $course, StoreTopicRequest $request, Topic $topic )
     {
-        $topic->course()->associate(Course::find($request->input('course.id')));
+        $topic->course()->associate(Course::find($course));
         $topic->level()->associate(Catalogue::find($request->input('level.id')));
         if($request->input('level.id') === '7') {
             $topic->parent()->associate(Topic::find($request->input('parent.id')));
@@ -124,7 +124,7 @@ class AlvaradoController extends Controller
     }
 
     public function destroyTopic(Topic $topic)
-    {
+    {   
         $topic->delete();
         return (new TopicResource($topic))
         ->additional([
@@ -164,22 +164,10 @@ class AlvaradoController extends Controller
         ]);
     }
 
-    public function getCoursesPrerequisites(Course $course)
-    {
-        return (new CoursePrerequisiteResource($course))
-        ->additional([
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ]);
-    }
-
-    public function storePrerequisite(StorePrerequisiteRequest $request)
+    public function storePrerequisite(Course $course, StorePrerequisiteRequest $request)
     {
         $prerequisite = new Prerequisite();
-        $prerequisite->course()->associate(Course::find($request->input('course.id')));
+        $prerequisite->course()->associate(Course::find($course));
         $prerequisite->prerequisite()->associate(Course::find($request->input('prerequisite.id')));
         $prerequisite->save();
         return (new PrerequisiteResource($prerequisite))
@@ -192,9 +180,9 @@ class AlvaradoController extends Controller
         ]);
     }
 
-    public function updatePrerequisite(StorePrerequisiteRequest $request, Prerequisite $prerequisite )
+    public function updatePrerequisite(Course $course, StorePrerequisiteRequest $request, Prerequisite $prerequisite )
     {
-        $prerequisite->course()->associate(Course::find($request->input('course.id')));
+        $prerequisite->course()->associate(Course::find($course));
         $prerequisite->prerequisite()->associate(Course::find($request->input('prerequisite.id')));
         $prerequisite->save();
         return (new PrerequisiteResource($prerequisite))

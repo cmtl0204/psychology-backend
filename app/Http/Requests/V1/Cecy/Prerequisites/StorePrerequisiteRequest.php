@@ -14,7 +14,7 @@ class StorePrerequisiteRequest extends FormRequest
     {
         return [
             'prerequisite.id' => ['required', 'integer'],
-            'course.id' => ['required', 'integer'],
+            // 'course.id' => ['required', 'integer'],
         ];
     }
 
@@ -22,7 +22,7 @@ class StorePrerequisiteRequest extends FormRequest
     {
         return [
             'prerequisite.id' => 'Identificador del prerequisito',
-            'course.id' => 'Identificador del curso',
+            // 'course.id' => 'Identificador del curso',
         ];
     }
 }
