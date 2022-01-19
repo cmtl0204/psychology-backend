@@ -32,7 +32,6 @@ class SantillanController extends Controller
                 ]
             ]);
     }
-
     //crear una asistencia a partir de las fechas y horarios de detalle planicacion.
     public function storeAttendanceTeacher(Request $request)
     {
@@ -97,7 +96,6 @@ class SantillanController extends Controller
                 ]
             ]);
     }
-
     //eliminar una asistencia
 
     public function destroyAttendanceTeacher(Attendance $attendance)
@@ -116,6 +114,10 @@ class SantillanController extends Controller
     /*******************************************************************************************************************
      * FILES
      ******************************************************************************************************************/
+    public function indexFiles(IndexFileRequest $request, Catalogue $catalogue)
+    {
+        return $catalogue->indexFiles($request);
+    }
 
     //subir notas de los estudiantes
     public function uploadFile(UploadFileRequest $request, Catalogue $catalogue)
@@ -130,18 +132,15 @@ class SantillanController extends Controller
         return $catalogue->downloadFile($file);
     }
 
-    //visualizar plantilla
     public function showFile(Catalogue $catalogue, File $file)
     {
         return $catalogue->showFile($file);
     }
 
-
     public function updateFile(UpdateFileRequest $request, Catalogue $catalogue, File $file)
     {
         return $catalogue->updateFile($request, $file);
     }
-
 
     public function destroyFile(Catalogue $catalogue, File $file)
     {
