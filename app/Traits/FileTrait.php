@@ -2,15 +2,15 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;
+use App\Models\Core\File;
 use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
 use App\Http\Requests\V1\Core\Files\IndexFileRequest;
 use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
 use App\Http\Resources\V1\Core\FileCollection;
 use App\Http\Resources\V1\Core\FileResource;
-use App\Models\Core\File;
-use Illuminate\Support\Facades\Storage;
-use ZipArchive;
 
 trait FileTrait
 {
@@ -63,7 +63,6 @@ trait FileTrait
 
     public function uploadFile(UploadFileRequest $request)
     {
-
         if ($request->hasFile('file')) {
             $this->saveFile($request, $request->file('file'));
         }
@@ -117,9 +116,17 @@ trait FileTrait
 
     public function updateFile(UpdateFileRequest $request, File $file)
     {
+        if ($request->hasFile('files')) {
+            Storage::delete($file->full_path);
+            $newFile = $request->file('files')[0];
+            $file->extension = $newFile->getClientOriginalExtension();
+            $newFile->storeAs('files', $file->partial_path, 'private');
+        }
+
         $file->name = $request->input('name');
         $file->description = $request->input('description');
         $file->save();
+
         return (new FileResource($file))->additional(
             [
                 'msg' => [
@@ -133,8 +140,8 @@ trait FileTrait
     public function destroyFile(File $file)
     {
         try {
-            Storage::delete($file->full_path);
             $file->delete();
+            Storage::delete($file->full_path);
             return (new FileResource($file))->additional(
                 [
                     'msg' => [
@@ -161,9 +168,9 @@ trait FileTrait
     {
         foreach ($request->input('ids') as $id) {
             $file = File::find($id);
-            if ($file) {
-                $file->delete();
+            if (isset($file)) {
                 Storage::delete($file->full_path);
+                $file->delete();
             }
         }
 

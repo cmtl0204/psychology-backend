@@ -13,7 +13,7 @@ Route::prefix('catalogue/{catalogue}')->group(function () {
         Route::get('', [CatalogueController::class, 'indexFiles']);
         Route::get('{file}', [CatalogueController::class, 'showFile']);
         Route::post('', [CatalogueController::class, 'uploadFile']);
-        Route::put('{file}', [CatalogueController::class, 'updateFile']);
+        Route::post('{file}', [CatalogueController::class, 'updateFile']);
         Route::delete('{file}', [CatalogueController::class, 'destroyFile']);
         Route::patch('', [CatalogueController::class, 'destroyFiles']);
     });

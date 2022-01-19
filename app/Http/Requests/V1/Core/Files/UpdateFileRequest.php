@@ -14,15 +14,15 @@ class UpdateFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>[
-                'required'
-            ],
+//            'name' => [
+//                'required',
+//            ],
         ];
     }
 
     public function attributes()
     {
-       return [
+        return [
             'name' => 'nombre',
         ];
     }
