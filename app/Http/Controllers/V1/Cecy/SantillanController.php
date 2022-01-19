@@ -7,6 +7,7 @@ use App\Http\Resources\V1\Cecy\Attendances\AttendanceShowTeacherCollection;
 use App\Http\Resources\V1\Cecy\Attendances\AttendanceShowTeacherResource;
 use App\Models\Cecy\Attendance;
 use App\Models\Cecy\Catalogue;
+use App\Models\Cecy\PhotograficRecord;
 use App\Models\Cecy\Registration;
 use Illuminate\Http\Client\Request;
 
@@ -110,22 +111,50 @@ class SantillanController extends Controller
             ]);
     }
 
-    //cargar cursos por docente encargado
-    public function showCourseTeacher()
+    /*******************************************************************************************************************
+     * FILES
+     ******************************************************************************************************************/
+    public function indexFiles(IndexFileRequest $request, Catalogue $catalogue)
     {
-    }
-    //subir notas de los estudiantes
-    public function uploadGrades()
-    {
+        return $catalogue->indexFiles($request);
     }
 
-    //subir evidencia fotografica
-    public function uploadPhotograficRegister()
+    //subir notas de los estudiantes
+    public function uploadFile(UploadFileRequest $request, Catalogue $catalogue)
     {
+        return $catalogue->uploadFile($request);
     }
+
 
     //descargar plantilla de las notas
-    public function downloadTemplates()
+    public function downloadFile(Catalogue $catalogue, File $file)
     {
+        return $catalogue->downloadFile($file);
     }
+
+    public function showFile(Catalogue $catalogue, File $file)
+    {
+        return $catalogue->showFile($file);
+    }
+
+    public function updateFile(UpdateFileRequest $request, Catalogue $catalogue, File $file)
+    {
+        return $catalogue->updateFile($request, $file);
+    }
+
+    public function destroyFile(Catalogue $catalogue, File $file)
+    {
+        return $catalogue->destroyFile($file);
+    }
+
+
+    /*******************************************************************************************************************
+     * IMAGES
+     ******************************************************************************************************************/
+    //subir evidencia fotografica
+    public function uploadImage(UploadImageRequest $request, PhotograficRecord $photograficRecord)
+    {
+        return $photograficRecord->uploadImage($request);
+    }
+
 }

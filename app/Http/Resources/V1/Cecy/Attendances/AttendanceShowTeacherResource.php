@@ -12,7 +12,6 @@ class AttendanceShowTeacherResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            // 'register_photografic' => PhotograficRegister::make($this->PhotograficRegister),
             'detail_planification_id' => DetailPlanification::make($this->DetailPlanification),
             'type_id' => Catalogue::make($this->type_id),
             'duration' => $this->duration,
