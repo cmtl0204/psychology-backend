@@ -21,10 +21,6 @@ class CreateCecyCataloguesTable extends Migration
             $table->string('code')
                 ->comment('No debe ser modificado una vez que se lo crea');
 
-            $table->text('color')
-                ->comment('color en hexadecimal')
-                ->default('#9c9c9c');
-
             $table->text('description')
                 ->nullable();
 
