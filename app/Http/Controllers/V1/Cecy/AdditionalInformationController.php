@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Cecy\AdditionalInformations\IndexAdditionalInformationRequest;
+use App\Http\Requests\V1\Cecy\AdditionalInformations\StoreAdditionalInformationRequest;
 use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
 use App\Http\Requests\V1\Core\Files\IndexFileRequest;
 use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
+use App\Http\Resources\V1\Cecy\AdditionalInformations\AdditionalInformationCollection;
+use App\Http\Resources\V1\Cecy\AdditionalInformations\AdditionalInformationResource;
 use App\Models\Cecy\AdditionalInformation;
 use App\Models\Core\File;
 use Illuminate\Http\Request;
@@ -112,7 +116,7 @@ class AdditionalInformationController extends Controller
         //db
         $additionalInformation->registration()
             ->associate(AdditionalInformation::find($request->input('additional_information.id')));
-        
+
         $additionalInformation->company_activity = $request->input('companyActivity');
         $additionalInformation->company_address = $request->input('companyAddress');
         $additionalInformation->company_email = $request->input('companyEmail');
@@ -162,20 +166,7 @@ class AdditionalInformationController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroys(DestroysAdditionalInformationRequest $request)
-    {
-        $additionalInformations = Application::whereIn('id', $request->input('ids'))->get();
-        AdditionalInformation::destroy($request->input('ids'));
 
-        return (new AdditionalInformationCollection($additionalInformations))
-            ->additional([
-                'msg' => [
-                    'summary' => 'Registros Eliminados',
-                    'detail' => '',
-                    'code' => '201'
-                ]
-            ]);
-    }
 
     // Files
     public function indexFiles(IndexFileRequest $request, AdditionalInformation $additionalInformation)
