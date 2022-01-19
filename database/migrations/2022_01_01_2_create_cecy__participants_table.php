@@ -22,7 +22,7 @@ class CreateCecyParticipantsTable extends Migration
                 ->constrained('authentication.users');
 
             $table->foreignId('state_id')
-                ->comment('Estado del participante')
+                ->comment('Estado de un participante')
                 ->constrained('authentication.users');
         });
     }
