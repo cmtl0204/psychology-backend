@@ -13,34 +13,14 @@ class DestroysCourseRequest extends FormRequest
   public function rules()
   {
     return [
-      'area.id' => ['required', 'integer'],
-      'speciality.id' => ['required', 'integer'],
-      'alignment' => ['required', 'max:100'],
-      'objective' => ['required'],
-      'techniques_requisites' => ['required'],
-      'teaching_strategies' => ['required'],
-      'evaluation_mechanisms' => ['required'],
-      'learning_environments' => ['required'],
-      'practice_hours' => ['required'],
-      'theory_hours' => ['required'],
-      'bibliographies' => ['required'],
+      'ids' => ['required'],
     ];
   }
 
   public function attributes()
   {
     return [
-      'area.id' => 'Área del curso',
-      'speciality.id' => 'Especialidad',
-      'alignment' => 'Alineación',
-      'objective' => 'Objetivo',
-      'techniques_requisites' => 'Requisitos técnicos y generales',
-      'teaching_strategies' => 'Estrategias de enseñanza',
-      'evaluation_mechanisms' => 'Mecanismos de evaluación',
-      'learning_environments' => 'Entorno de aprendizaje',
-      'practice_hours' => 'Horas prácticas',
-      'theory_hours' => 'Horas teóricas',
-      'bibliographies' => 'Bibliografía',
+      'ids' => 'ID`s de los cursos',
     ];
   }
 }
