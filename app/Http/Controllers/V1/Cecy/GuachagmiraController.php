@@ -11,7 +11,7 @@ use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
 use App\Models\Cecy\Course;
 use App\Models\Core\File;
 
-class GuachagmiraCourseController extends Controller
+class GuachagmiraController extends Controller
 {
     public function __construct()
     {
