@@ -21,8 +21,9 @@ class CreateCecyParticipantsTable extends Migration
                 ->comment('Información de un usuario que se relaciona a un participante de un curso')
                 ->constrained('authentication.users');
 
+            // Esto debe venir de catalogo
             $table->foreignId('state_id')
-                ->comment('Estado del participante')
+                ->comment('Estado de un participante')
                 ->constrained('authentication.users');
         });
     }
