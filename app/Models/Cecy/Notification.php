@@ -8,55 +8,49 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as Auditing;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class DetailInstructor extends Model implements Auditable
+class Notification extends Model implements Auditable
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.detail_registrations';
+    protected $table = 'cecy.notifications';
 
     protected $fillable = [
-        'code_certified',
+        'description',
+        'title'
     ];
 
-    // Relationships
-    public function detailPlanification()
+    public function authorities()
     {
-        return $this->belongsTo(detailPlanification::class);
-    }
-    public function instructor()
-    {
-        return $this->belongsTo(Instructor::class);
-    }
-    public function stateCertified()
-    {
-        return $this->belongsTo(Catalogue::class);
+        $this->hasMany(Authority::class);
     }
 
-
- 
-    
     // Mutators
-
-    public function setCodeCertifiedAttribute($value)
+    public function setDescriptionAttribute($value)
     {
-        $this->attributes['code_certified'] = strtoupper($value);
+        $this->attributes['description'] = strtoupper($value);
     }
 
- 
-
-    //Mis campos son de tipo JSON
-
-    // Scopes
-    public function scopeCodeCertifiedSources($query, $code_certified)
+    public function setTitleAttribute($value)
     {
-        if ($code_certified) {
-            return $query->Where('code_certified', $code_certified);
+        $this->attributes['title'] = strtoupper($value);
+    }
+
+    //scopes
+    public function scopeDescription($query, $description)
+    {
+        if ($description) {
+            return $query->where('description', $description);
         }
     }
-    // Mis campos son de  tipo JSON 
-    
+
+    public function scopeTitle($query, $title)
+    {
+        if ($title) {
+            return $query->where('title', $title);
+        }
+    }
 
     public function scopeCustomOrderBy($query, $sorts)
     {

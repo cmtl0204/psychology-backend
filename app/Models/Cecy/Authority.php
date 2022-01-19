@@ -30,17 +30,17 @@ class Authority extends Model
         return $this->belongsTo(Institution::class);
     }
 
+    public function position()
+    {
+        return $this->belongsTo(State::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
     public function state()
-    {
-        return $this->belongsTo(State::class);
-    }
-
-    public function position()
     {
         return $this->belongsTo(State::class);
     }

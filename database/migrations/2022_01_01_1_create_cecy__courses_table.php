@@ -77,10 +77,6 @@
                     ->comment('Fecha en que se aprobo el curso')
                     ->nullable();
 
-                $table->date('authorized_at')
-                    ->comment('Fecha en que se autorizo el curso')
-                    ->nullable();
-
                 $table->json('bibliographies')
                     ->comment('Bibliografías')
                     ->nullable();

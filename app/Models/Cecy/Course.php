@@ -19,15 +19,11 @@ class Course extends Model implements Auditable
 
     protected $fillable = [
         'abbreviation',
-        'aimtheory_required_resources',
         'alignment',
         'approved_at',
-        'authorized_at',
         'bibliographies',
-        'category',
         'code',
-        'price',
-        'cross_cutting_topics',
+        'cost',
         'duration',
         'evaluation_mechanisms',
         'expired_at',
@@ -36,14 +32,13 @@ class Course extends Model implements Auditable
         'name',
         'needs',
         'needed_at',
-        'nro_record',
+        'record_number',
         'learning_environments',
         'local_proposal',
         'objective',
         'observation',
         'practical_phase',
         'practice_hours',
-        'practice_required_resources',
         'proposed_at',
         'project',
         'required_installing_sources',
@@ -57,14 +52,20 @@ class Course extends Model implements Auditable
     ];
 
     // Relationships
+    
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
+    
     public function academicPeriod()
     {
         return $this->belongsTo(Catalogue::class);
-    }
-
-    public function instructor()
-    {
-        return $this->belongsTo(Instructor::class);
     }
 
     public function area()
@@ -72,9 +73,19 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
+    public function availability()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
     public function career()
     {
         return $this->belongsTo(Career::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Catalogue::class);
     }
 
     public function certifiedType()
@@ -86,7 +97,7 @@ class Course extends Model implements Auditable
     {
         return $this->belongsTo(Catalogue::class);
     }
-
+    
     public function level()
     {
         return $this->belongsTo(Catalogue::class);
@@ -102,12 +113,12 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function personProposal()
+    public function responsible()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Instructor::class);
     }
 
-    public function availability()
+    public function speciality()
     {
         return $this->belongsTo(Catalogue::class);
     }
@@ -117,25 +128,30 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function speciality()
+    public function topics()
     {
-        return $this->belongsTo(Catalogue::class);
+        $this->hasMany(Topics::class);
+    }
+
+    public function planifications()
+    {
+        $this->hasMany(Planification::class);
+    }
+
+    public function prerequisites()
+    {
+        $this->hasMany(Prerequisite::class);
+    }
+
+    public function profileInstructorCourses()
+    {
+        $this->hasMany(ProfileInstructorCourses::class);
     }
 
     // Mutators
     public function setAbbreviationAttribute($value)
     {
         $this->attributes['abbreviation'] = strtoupper($value);
-    }
-
-    public function setAimtheoryRequiredResourcesAttribute($value)
-    {
-        $this->attributes['aimtheory_required_resources'] = strtoupper($value);
-    }
-
-    public function setCategoryAttribute($value)
-    {
-        $this->attributes['category'] = strtoupper($value);
     }
 
     public function setCodeAttribute($value)
@@ -207,13 +223,6 @@ class Course extends Model implements Auditable
         }
     }
 
-    public function scopeAimtheoryRequiredResource($query, $aimtheory_required_resources)
-    {
-        if ($aimtheory_required_resources) {
-            return $query->orWhere('aimtheory_required_resources', $aimtheory_required_resources);
-        }
-    }
-
     public function scopeAlignment($query, $alignment)
     {
         if ($alignment) {
@@ -231,7 +240,7 @@ class Course extends Model implements Auditable
     public function scopeCode($query, $code)
     {
         if ($code) {
-            return $query->orWhere('category', $code);
+            return $query->orWhere('code', $code);
         }
     }
 

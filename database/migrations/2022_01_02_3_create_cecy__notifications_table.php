@@ -25,12 +25,12 @@ class CreateCecyNotificationsTable extends Migration
                 ->comment('Id del tema principal')
                 ->constrained('cecy.catalogues');
 
+            $table->text('description')
+                ->nullable('Descripción breve de la notificación')
+                ->comment('Descripcion');
+
             $table->string('title')
                 ->comment('Titulo del tema de la notificacion');
-
-            $table->text('description')
-                ->nullable()
-                ->comment('Descripcion');
         });
     }
 

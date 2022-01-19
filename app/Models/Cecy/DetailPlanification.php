@@ -60,16 +60,20 @@ class DetailPlanification extends Model implements Auditable
         return $this->hasMany(DetailInstructor::class);
     }
 
-    public function instructors()
+    public function photographicRecords()
     {
-        return $this->belongsToMany(
-            Instructor::class,
-            'detail_instructors',
-            'detail_planification_id',
-            'instructor_id'
-        );
+        return $this->hasMany(PhotograficRecord::class);
     }
 
+    public function instructors()
+    {
+        return $this->belongsToMany(Instructor::class, 'detail_planification_instructor', 'detail_planification_id', 'instructor_id');
+    }
+    
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
+    }
     // Mutators
 
     // Scopes

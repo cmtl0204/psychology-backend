@@ -27,7 +27,10 @@ class ProfileInstructorCourse extends Model implements Auditable
     {
         return $this->belongsTo(Course::class);
     }
-    
+    public function instructors()
+    {
+        return $this->belongsToMany(Instructor::class, 'authorized_instructors', 'instructor_id', 'profile_instructor_id');
+    }
     // Mutators
 
     //Mis campos son de tipo JSON

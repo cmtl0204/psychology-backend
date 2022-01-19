@@ -50,6 +50,11 @@ class Catalogue extends Model implements Auditable
         return $this->morphMany(Image::class, 'imageable');
     }
 
+    public function planifications()
+    {
+        return $this->hasMany(Planification::class);
+    }
+    
     // Mutators
     public function setCodeAttribute($value)
     {

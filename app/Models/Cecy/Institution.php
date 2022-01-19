@@ -23,6 +23,11 @@ class Institution extends Model implements Auditable
         'slogan'
     ];
 
+    public function authorities()
+    {
+        $this->hasMany(Authority::class);
+    }
+
     // Mutators
     public function setCodeAttribute($value)
     {

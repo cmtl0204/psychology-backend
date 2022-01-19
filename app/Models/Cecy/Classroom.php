@@ -31,9 +31,9 @@ class Classroom extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function personType()
+    public function detailPlanifications()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->hasMany(DetailPlanification::class);
     }
 
     // Mutators

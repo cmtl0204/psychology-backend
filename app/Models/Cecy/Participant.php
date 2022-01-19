@@ -35,7 +35,7 @@ class Participant extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function registration()
+    public function registrations()
     {
         return $this->hasMany(Registration::class);
     }

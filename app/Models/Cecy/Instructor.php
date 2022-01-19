@@ -39,14 +39,24 @@ class Instructor extends Model implements Auditable
         $this->hasMany(DetailInstructor::class);
     }
 
+    public function planifications()
+    {
+        return $this->hasMany(Planification::class);
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
     public function detailPlanifications()
     {
-        $this->belongsToMany(
-            DetailPlanification::class,
-            'detail_instructors',
-            'instructor_id',
-            'detail_planification_id'
-        );
+        return $this->belongsToMany(DetailPlanification::class,'detail_planification_instructor','instructor_id','detail_planification_id');
+    }
+
+    public function profileInstructorCourses()
+    {
+        return $this->belongsToMany(ProfileInstructorCourse::class, 'authorized_instructors', 'profile_instructor_id', 'instructor_id');
     }
 
     // Mutators

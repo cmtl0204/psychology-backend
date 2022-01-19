@@ -143,6 +143,10 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         $this->hasOne(Instructor::class);
     }
 
+    public function instructor()
+    {
+        $this->hasOne(Participant::class);
+    }
     // Scopes
     public function scopeUsername($query, $username)
     {

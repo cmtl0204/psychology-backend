@@ -46,6 +46,16 @@ class Registration extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
+    public function additionalInformation()
+    {
+        $this->hasOne(AdditionalInformation::class);
+    }
+
+    public function attendances()
+    {
+        return $this->belongsToMany(Attendances::class,'detail_attendances','attendance_id','registration_id');
+    }
+
     // Mutators
 
     // Scopes

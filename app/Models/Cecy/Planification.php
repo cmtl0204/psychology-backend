@@ -20,18 +20,19 @@ class Planification extends Model implements Auditable
         'code',
         'ended_at',
         'needs',
+        'number_days',
         'started_at'
     ];
 
     // Relationships
+    public function area()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
     public function course()
     {
         return $this->belongsTo(Course::class);
-    }
-
-    public function schoolPeriod()
-    {
-        return $this->belongsTo(SchoolPeriod::class);
     }
 
     public function responsibleCourse()
@@ -42,6 +43,21 @@ class Planification extends Model implements Auditable
     public function responsibleCecy()
     {
         return $this->belongsTo(Authority::class);
+    }
+
+    public function schoolPeriod()
+    {
+        return $this->belongsTo(SchoolPeriod::class);
+    }
+
+    public function sector()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(Catalogue::class);
     }
 
     public function detailplanifications()
