@@ -51,9 +51,9 @@ class Registration extends Model implements Auditable
         $this->hasOne(AdditionalInformation::class);
     }
 
-    public function attendances()
+    public function files()
     {
-        return $this->belongsToMany(Attendances::class,'detail_attendances','attendance_id','registration_id');
+        return $this->morphMany(File::class, 'fileable');
     }
 
     // Mutators

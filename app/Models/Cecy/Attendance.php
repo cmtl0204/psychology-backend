@@ -26,10 +26,6 @@ class Attendance extends Model
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function registrations()
-    {
-        return $this->belongsToMany(Registration::class,'detail_attendances', 'registration_id', 'attendance_id');
-    }
 
     // Mutators
 
