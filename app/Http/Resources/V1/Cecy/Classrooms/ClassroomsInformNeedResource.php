@@ -11,7 +11,9 @@ class ClassroomsInformNeedResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'capacity' => $this->capacity
+            'capacity' => $this->capacity,
+            'name' => $this->name,
+            'description'=> $this -> description
         ];
     }
 }
