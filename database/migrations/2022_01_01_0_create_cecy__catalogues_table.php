@@ -32,7 +32,6 @@ class CreateCecyCataloguesTable extends Migration
 
             $table->string('type')
                 ->unique()
-                ->index()
                 ->comment('Para categorizar los catalogos');
         });
     }

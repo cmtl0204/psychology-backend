@@ -6,6 +6,8 @@ use App\Http\Controllers\V1\Cecy\CatalogueController;
 /***********************************************************************************************************************
  * CATALOGUES
  **********************************************************************************************************************/
+Route::apiResource('catalogues', CatalogueController::class);
+
 Route::prefix('catalogue/{catalogue}')->group(function () {
     Route::prefix('file')->group(function () {
         Route::get('{file}/download', [CatalogueController::class, 'downloadFile']);
