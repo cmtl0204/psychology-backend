@@ -10,6 +10,7 @@ class ParticipantResource extends JsonResource
     {
         return [
             'id' => $this->id,
+
         ];
     }
 }
