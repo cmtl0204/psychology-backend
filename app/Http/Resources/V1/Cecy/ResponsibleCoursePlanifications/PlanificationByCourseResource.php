@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources\V1\Cecy\Planifications;
 
-use App\Http\Resources\V1\Cecy\Authorities\AuthorityResource;
+use App\Http\Resources\V1\Cecy\Catalogues\CatalogueResource;
 use App\Http\Resources\V1\Cecy\Instructors\InstructorResource;
-use App\Models\Cecy\Authority;
-use App\Models\Cecy\SchoolPeriod;
+use App\Http\Resources\V1\Cecy\SchoolPeriods\SchoolPeriodResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PlanificationByCourseResource extends JsonResource
