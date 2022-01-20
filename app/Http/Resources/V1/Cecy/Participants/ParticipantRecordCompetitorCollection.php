@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1\Cecy\ParticipantRecordCompetitors;
+namespace App\Http\Resources\V1\Cecy\Participants;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
