@@ -7,15 +7,14 @@ use App\Http\Requests\V1\Cecy\Courses\GetCoursesByCategoryRequest;
 use App\Http\Requests\V1\Cecy\Courses\GetCoursesByNameRequest;
 use App\Http\Requests\V1\Cecy\Courses\GetInstructorsInformationByCourseRequest;
 use App\Http\Requests\V1\Cecy\Courses\GetDetailPlanificationsByCourseRequest;
-use App\Http\Requests\V1\Cecy\Courses\GetPrerequisitesByCourseRequest;
 use App\Http\Requests\V1\Cecy\Courses\GetTopicsByCourseRequest;
-use App\Http\Requests\V1\Cecy\Participants\StoreParticipantsRequest;
+use App\Http\Requests\V1\Cecy\Participants\StoreParticipantRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
 use App\Http\Resources\V1\Cecy\Courses\DetailPlanificationByCourseCollection;
 use App\Http\Resources\V1\Cecy\Courses\InstructorsInformationByCourseCollection;
 use App\Http\Resources\V1\Cecy\Courses\PrerequisitesByCourseCollection;
 use App\Http\Resources\V1\Cecy\Courses\TopicsByCourseCollection;
-use App\Http\Resources\V1\Cecy\DetailRegistrations\ParticipantResource;
+use App\Http\Resources\V1\Cecy\Participants\ParticipantResource;
 use App\Models\Authentication\User;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Course;
@@ -159,7 +158,7 @@ class GuachagmiraController extends Controller
                 ]
             ]);
     }
-    public function registerParticipant(StoreParticipantsRequest $request)
+    public function registerParticipant(StoreParticipantRequest $request)
     {
 
         $participant = new Participant();
