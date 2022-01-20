@@ -73,7 +73,7 @@ trait ImageTrait
             $this->uploadMediumImage(InterventionImage::make($image), $newImage->id, $storagePath);
             $this->uploadSmallImage(InterventionImage::make($image), $newImage->id, $storagePath);
 
-            $newImage->directory = 'images/'. $newImage->id;
+            $newImage->directory = 'images/' . $newImage->id;
             $newImage->save();
         }
         return response()->json([
@@ -85,36 +85,30 @@ trait ImageTrait
             ]], 201);
     }
 
-    public function updateImage(UpdateImageRequest $request, $imageId)
+    public function updateImage(UpdateImageRequest $request, Image $image)
     {
-        $image = Image::find($imageId);
-        // Valida que exista la imagen, si no encuentra el registro en la base devuelve un mensaje de error
-        if (!$image) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Imagen no encontrada',
-                    'detail' => 'La imagen no pudo ser modificada',
-                    'code' => '404'
-                ]], 404);
+        if ($request->hasFile('images')) {
+            $requestImage = $request->file('images')[0];
+            Storage::delete($image->full_path);
+            $storagePath = storage_path('app/private/images/');
+            $this->uploadOriginal(InterventionImage::make($requestImage), $image->id, $storagePath);
+//            $this->uploadLargeImage($requestImage, $image->id);
+//            $this->uploadMediumImage($requestImage, $image->id);
+//            $this->uploadSmallImage($requestImage, $image->id);
         }
 
         $image->name = $request->input('name');
         $image->description = $request->input('description');
         $image->save();
 
-        $this->uploadOriginal($request->file('image'), $imageId);
-        $this->uploadLargeImage($request->file('image'), $imageId);
-        $this->uploadMediumImage($request->file('image'), $imageId);
-        $this->uploadSmallImage($request->file('image'), $imageId);
-
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Imagen actulizada',
-                'detail' => 'La imagen fue actualizada correctamente',
-                'code' => '201'
-            ]], 201);
+        return (new ImageResource($image))->additional(
+            [
+                'msg' => [
+                    'summary' => 'Imagen actualizada',
+                    'detail' => 'La imagen fue actualizada correctamente',
+                    'code' => '201'
+                ]
+            ]);
     }
 
     public function destroyImage($imageId)

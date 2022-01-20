@@ -10,6 +10,7 @@ use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
 use App\Http\Requests\V1\Core\Images\DownloadImageRequest;
 use App\Http\Requests\V1\Core\Images\IndexImageRequest;
+use App\Http\Requests\V1\Core\Images\UpdateImageRequest;
 use App\Http\Requests\V1\Core\Images\UploadImageRequest;
 use App\Http\Resources\V1\Core\Catalogues\CatalogueCollection;
 use App\Models\Cecy\Catalogue;
@@ -125,4 +126,8 @@ class CatalogueController extends Controller
         return $catalogue->showImage($image);
     }
 
+    public function updateImage(UpdateImageRequest $request, Catalogue $catalogue, Image $image)
+    {
+        return $catalogue->updateImage($request, $image);
+    }
 }
