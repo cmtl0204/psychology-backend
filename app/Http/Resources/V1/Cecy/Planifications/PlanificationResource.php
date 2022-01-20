@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1\Cecy\Prerequisites;
+namespace App\Http\Resources\V1\Cecy\Planifications;
 
 use App\Http\Resources\V1\Cecy\Authorities\AuthorityResource;
 use App\Http\Resources\V1\Cecy\Catalogues\CatalogueResource;
@@ -27,6 +27,7 @@ class PlanificationResource extends JsonResource
             'endedAt' => $this->ended_at,
             'needs' => $this->needs,
             'numberDays' => $this->number_days,
+            'observations' => $this->observations,
             'startedAt' => $this->started_at,
         ];
     }

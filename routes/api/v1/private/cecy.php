@@ -6,6 +6,8 @@ use App\Http\Controllers\V1\Cecy\CatalogueController;
 /***********************************************************************************************************************
  * CATALOGUES
  **********************************************************************************************************************/
+Route::apiResource('catalogues', CatalogueController::class);
+
 Route::prefix('catalogue/{catalogue}')->group(function () {
     Route::prefix('file')->group(function () {
         Route::get('{file}/download', [CatalogueController::class, 'downloadFile']);
@@ -22,7 +24,7 @@ Route::prefix('catalogue/{catalogue}')->group(function () {
         Route::get('', [CatalogueController::class, 'indexImages']);
         Route::get('{image}', [CatalogueController::class, 'showImage']);
         Route::post('', [CatalogueController::class, 'uploadImage']);
-        Route::put('{image}', [CatalogueController::class, 'updateImage']);
+        Route::post('{image}', [CatalogueController::class, 'updateImage']);
         Route::delete('{image}', [CatalogueController::class, 'destroyImage']);
         Route::patch('', [CatalogueController::class, 'destroyImages']);
     });

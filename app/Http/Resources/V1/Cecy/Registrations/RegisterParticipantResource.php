@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Resources\V1\Cecy\ParticipantRecordCompetitors;
+namespace App\Http\Resources\V1\Cecy\Registrations;
 
+use App\Models\Cecy\Participant;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ParticipantRecordCompetitorResource extends JsonResource
+class RegisterParticipantResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +16,11 @@ class ParticipantRecordCompetitorResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'user' => UserResource::make($this->user)
+        
+        'id' => $this->id,
+        'person_type_id' => Participant::make($this->person_type_id),
+        
+
         ];
     }
 }

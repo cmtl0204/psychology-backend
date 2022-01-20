@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\V1\Cecy;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\Cecy\Attendances\AttendanceCollection;
-use App\Http\Resources\V1\Cecy\Attendances\AttendanceDetailPlanificationCollection;
-use App\Http\Resources\V1\Cecy\Attendances\AttendanceResource;
 use App\Models\Cecy\Attendance;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\PhotograficRecord;
 use App\Models\Cecy\Registration;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\Cecy\Attendances\AttendanceCollection;
+use App\Http\Resources\V1\Cecy\Attendances\AttendanceDetailPlanificationCollection;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetAttendanceTeacherRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowAttendanceTeacherRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\StoreAttendanceTeacherRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateAttendanceTeacherRequest;
+use App\Http\Requests\V1\Cecy\Topics\DestroysAttendanceTeacherRequest;
+use App\Http\Resources\V1\Cecy\Attendances\AttendanceResource;
+
 use Illuminate\Http\Client\Request;
 
 class SantillanController extends Controller
@@ -23,7 +29,7 @@ class SantillanController extends Controller
     }
 
     //ver todas las asistencias
-    public function getAttendanceTeacher(Attendance $attendance)
+    public function getAttendanceTeacher(GetAttendanceTeacherRequest $attendance)
     {
         return (new AttendanceCollection($attendance))
             ->additional([
@@ -33,13 +39,13 @@ class SantillanController extends Controller
                     'code' => '200'
                 ]
             ]);
-    }
+    }           
     //traer fechas y horarios de un curso
     public function getDetailPlanification(DetailPlanification $detailPlanification){
         return (new AttendanceDetailPlanificationCollection($detailPlanification))
             ->additional([
                     'msg' => [
-                        'sumary' => 'consulta exitosa',
+                        'sumary' => 'consulta exitosa', 
                         'detail' => '',
                         'code' => '200'
                     ]
@@ -47,7 +53,7 @@ class SantillanController extends Controller
     }
 
     //crear una asistencia a partir de las fechas y horarios de detalle planificacion.
-    public function storeAttendanceTeacher(Request $request)
+    public function storeAttendanceTeacher(StoreAttendanceTeacherRequest $request)
     {
         $attendance = new Attendance();
 
@@ -71,7 +77,7 @@ class SantillanController extends Controller
     }
 
     //ver asistencia una por una
-    public function showAttendanceTeacher(Attendance $attendance)
+    public function showAttendanceTeacher(ShowAttendanceTeacherRequest $attendance)
     {
         return (new AttendanceResource($attendance))
             ->additional([
@@ -84,7 +90,7 @@ class SantillanController extends Controller
     }
 
     //editar o actualizar una asistencia
-    public function updateAttendanceTeacher(Attendance $attendance, Request $request)
+    public function updateAttendanceTeacher(UpdateAttendanceTeacherRequest $attendance, Request $request)
     {
 
         $attendance->type_id()
@@ -107,7 +113,7 @@ class SantillanController extends Controller
     }
     //eliminar una asistencia
 
-    public function destroyAttendanceTeacher(Attendance $attendance)
+    public function destroysAttendanceTeacher(DestroysAttendanceTeacherRequest $attendance)
     {
         $attendance = Attendance::whereIn('id', $request->input('ids'))->get();
         Attendance::destroy($request->input('ids'));

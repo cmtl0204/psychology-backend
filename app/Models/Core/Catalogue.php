@@ -19,6 +19,7 @@ class Catalogue extends Model implements Auditable
 
     protected $fillable = [
         'code',
+        'description',
         'name',
         'type',
         'icon',
@@ -39,11 +40,6 @@ class Catalogue extends Model implements Auditable
     {
         return $this->morphedByMany(Role::class, 'catalogueable');
     }
-
-//    public function offer()
-//    {
-//        return $this->hasOne(Offer::class);
-//    }
 
     // Mutators
     public function setCodeAttribute($value)

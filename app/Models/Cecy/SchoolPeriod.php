@@ -19,13 +19,7 @@ class SchoolPeriod extends Model implements Auditable
     protected $fillable = [
         'code',
         'ended_at',
-        'especial_ended_at',
-        'especial_started_at',
-        'extraordinary_ended_at',
-        'extraordinary_started_at',
         'name',
-        'ordinary_ended_at',
-        'ordinary_started_at',
         'started_at',
     ];
 

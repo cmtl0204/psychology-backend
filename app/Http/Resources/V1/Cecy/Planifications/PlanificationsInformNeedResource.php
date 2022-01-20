@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\V1\Cecy\PlanificationsInformNeeds;
+namespace App\Http\Resources\V1\Cecy\Planifications;
 
 use App\Http\Resources\V1\Cecy\DetailInstructors\DetailInstructorResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PlanificationsInformNeedsResource extends JsonResource
+class PlanificationsInformNeedResource extends JsonResource
 {
     public function toArray($request)
     {

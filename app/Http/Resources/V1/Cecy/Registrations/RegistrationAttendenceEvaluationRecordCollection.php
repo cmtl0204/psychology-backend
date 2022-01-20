@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\V1\Cecy\ParticipantRecordCompetitors;
+namespace App\Http\Resources\V1\Cecy\Registrations;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ParticipantRecordCompetitorCollection extends ResourceCollection
+class RegistrationAttendenceEvaluationRecordCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

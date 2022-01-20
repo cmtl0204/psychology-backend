@@ -21,6 +21,7 @@ class Planification extends Model implements Auditable
         'ended_at',
         'needs',
         'number_days',
+        'observations',
         'started_at'
     ];
 
