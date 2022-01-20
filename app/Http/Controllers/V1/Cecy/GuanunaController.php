@@ -13,6 +13,7 @@ use App\Http\Requests\V1\Cecy\Planifications\getPlanificationByCoodinatorRequest
 use App\Http\Requests\V1\Cecy\DetailPlanifications\UpdateDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\Planifications\UpdatePlanificationRequest;
 use App\Http\Requests\V1\Cecy\Planifications\getPlanificationByCoordinatorRequest;
+use App\Http\Requests\V1\Cecy\Planifications\getPlanificationByResponsibleCecyRequest;
 use App\Http\Requests\V1\Cecy\Planifications\StorePlanificationRequest;
 use App\Models\Cecy\Authority;
 use App\Models\Cecy\Classroom;
@@ -83,7 +84,7 @@ public function getPlanificationByCoordinator(getPlanificationByCoordinatorReque
         ]);
 }
 
-//Crear un curso y asignar responsable
+// asignar responsable
 public function storePlanificationByCourse(StorePlanificationRequest $request)
 {
     $planifications = new Planification();
@@ -106,6 +107,10 @@ public function storePlanificationByCourse(StorePlanificationRequest $request)
         ]
     ]);
 }
+//crear curso no existente
+public function storePlanificationCourseNew(){
+
+}
 //consultar de la planificacion
 public function getPlanification(Planification $planifications)
 {
@@ -121,22 +126,25 @@ public function getPlanification(Planification $planifications)
 
 ///Responsable del CECY
 //mostrar informacion al responsable del cecy
-public function showplanificationByResponsibleCecy(){
+public function getPlanificationByResponsibleCecy(getPlanificationByResponsibleCecyRequest $request){
 
+    {
+        $responsibleCecy = Authority::where('user_id', $request->user()->id)->get();
 
-}
-//consultar el detalle de planificacion
-public function getdetailPlanification(DetailPlanifications $details_planifications)
-{
-    return (new DetailPlanifications($details_planifications))
-    ->additional([
-        'msg' => [
-            'summary' => 'success',
-            'detail' => '',
-            'code' => '200'
-        ]
-    ]);
-}
+        $Planifications = $responsibleCecy
+            ->Planifications()
+            ->paginate($request->input('per_page'));
+
+        return (new PlanificationCollection($Planifications))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+}}
+
 
 //editar informacion de la planificacion
 public function updatePlanificationByCecy(UpdatePlanificationRequest $request)
