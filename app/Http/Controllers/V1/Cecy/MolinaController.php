@@ -12,7 +12,7 @@ use App\Models\Cecy\Course;
 use App\Models\Cecy\DetailRegistration;
 use Illuminate\Http\Client\Request;
 
-class MolinaAttendanceController extends Controller
+class MolinaController extends Controller
 {
     /*public function __construct()
     {

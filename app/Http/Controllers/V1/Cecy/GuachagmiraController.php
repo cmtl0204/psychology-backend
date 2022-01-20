@@ -10,9 +10,11 @@ use App\Http\Requests\V1\Cecy\Courses\GetSchedulesInformationByCourseRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
 use App\Http\Resources\V1\Cecy\Courses\DetailPlanificationByCourseCollection;
 use App\Http\Resources\V1\Cecy\Courses\InstructorsInformationByCourseCollection;
+use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Course;
 use App\Models\Cecy\Planification;
 use App\Models\Core\File;
+use App\Models\Core\Image;
 
 class GuachagmiraController extends Controller
 {
@@ -107,5 +109,10 @@ class GuachagmiraController extends Controller
     public function showFile(Course $courses, File $file)
     {
         return $courses->showFile($file);
+    }
+
+    public function showImage(Catalogue $catalogue, Image $image)
+    {
+        return $catalogue->showImage($image);
     }
 }
