@@ -16,7 +16,7 @@ class UpdateDetailPlanificationByResponsibleCourseRequest extends FormRequest
         return [
             'classroom.id' => ['required', 'integer'],
             'day.id' => ['required', 'integer'],
-            'detailPlanification.id' => ['required', 'integer'],
+            // 'detailPlanification.id' => ['required', 'integer'],
             'instructors' => ['required'],
             'planification.id' => ['required', 'integer'],
             'workday.id' => ['required', 'integer'],
@@ -34,7 +34,7 @@ class UpdateDetailPlanificationByResponsibleCourseRequest extends FormRequest
         return [
             'classroom.id' => 'Aula',
             'day.id' => 'Días de clase',
-            'detailPlanification.id' => 'Detalle de planificación',
+            // 'detailPlanification.id' => 'Detalle de planificación',
             'instructors' => 'Instructores',
             'planification.id' => 'Planificación',
             'workday.id' => 'Jornada',
