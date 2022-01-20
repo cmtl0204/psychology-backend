@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Cecy\Courses;
+namespace App\Http\Requests\V1\Cecy\DetailPlanifications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class getCoursesByResponsibleRequest extends FormRequest
+class GetDetailPlanificationPhotographicRecordRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,7 +14,10 @@ class getCoursesByResponsibleRequest extends FormRequest
     public function rules()
     {
         return [
-            'responsible.id' =>  ['integer', 'required'],
+            'workday.id' =>  ['integer', 'required'],
+        
+
+
         ];
     }
 
@@ -22,7 +25,8 @@ class getCoursesByResponsibleRequest extends FormRequest
     {
         return [
 
-            'responsible.id' => 'Id  del docente responsable del curso',
+            'workday.id' => 'Id  de la jornada',
+    
         ];
     }
 }

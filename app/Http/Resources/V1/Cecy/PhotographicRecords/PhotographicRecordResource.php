@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\V1\Cecy\DetailPanifications;
+namespace App\Http\Resources\V1\Cecy\PhotographicRecords;
 
 use App\Http\Resources\V1\Cecy\DetailInstructors\DetailInstructorResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PhotographicRecordPhotographicRecordResource extends JsonResource
+class PhotographicRecordResource extends JsonResource
 {
     public function toArray($request)
     {

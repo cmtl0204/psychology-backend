@@ -1,28 +1,26 @@
 <?php
 
-namespace App\Http\Requests\V1\Cecy\Courses;
+namespace App\Http\Requests\V1\Cecy\Certificates;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class getCoursesByResponsibleRequest extends FormRequest
+class ShowParticipantsRequest extends FormRequest
 {
     public function authorize()
     {
         return true;
     }
-
     public function rules()
     {
         return [
-            'responsible.id' =>  ['integer', 'required'],
+            'course_id' => ['required','integer']
         ];
     }
 
     public function attributes()
     {
         return [
-
-            'responsible.id' => 'Id  del docente responsable del curso',
+            'course_id' => 'id del curso'
         ];
     }
 }

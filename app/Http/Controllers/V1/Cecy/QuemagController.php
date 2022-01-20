@@ -8,69 +8,83 @@ use App\Models\Cecy\Catalogue;
 use App\Http\Resources\V1\Cecy\Detailregistrations\DetailregistrationResource;
 use App\Http\Resources\V1\Cecy\Detailregistrations\DetailregistrationCollection;
 use App\Models\Cecy\DetailRegistration;
+use App\Http\Requests\V1\Cecy\Certificates\ShowParticipantsRequest;
 
 class QuemagController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('permission:store')->only(['store']);
-    //     $this->middleware('permission:update')->only(['update']);
-    //     $this->middleware('permission:delete')->only(['destroy', 'destroys']);
-    // }
-
-    public function indexListAttendaces()
+    public function __construct()
     {
-       //mostrar lista de aprobados y no aprobados
+        $this->middleware('permission:store-authorities_teacher')->only(['store']);
+        $this->middleware('permission:update-authorities_teacher')->only(['update']);
     }
 
-    public function downloadCertifiedNoSignature()
+    public function showParticipants(ShowParticipantsRequest $responsibleCourse)
     {
-       //descargar certificado sin firma individual
+    //trae datos de los participantes matriculados
+    $responsibleCourse = course::where('course_id', $request->course()->id)->get();
+
+    $detailPlanifications = $responsibleCourse
+        ->registrations()
+        ->participants()
+        ->users()
+        ->additionalInformations()
+        ->detailPlanifications()
+        ->planifications()
+        ->course()
+        ->paginate($request->input('per_page'));
+
+    return (new DetailPlanificationInformNeedCollection($detailPlanifications))
+        ->additional([
+            'msg' => [
+                'summary' => 'success',
+                'detail' => '',
+                'code' => '200'
+            ]
+        ]);
     }
 
-    public function downloadMatrixApproved()
-    {
-       //Descargar matriz de todos los aprovados
-    }
+/*******************************************************************************************************************
+        * FILES
+******************************************************************************************************************/
 
-    public function uploadCertifiedSigned()
-    {
-        //Cargar Certificado individual Firmado
-    }
-
-    public function uploadCodeCertified()
-    {
-        //Cargar codigos de Certificados
-    }
-
-    public function putCodeCertified()
-    {
-        //Asignar codigos de Certificados Instructores
-    }
-
-    public function destroyArchiveCertified()
-    {
-        //Eliminar Certificado subido incorrectamente 
-    }
-    
-    public function storesCodeCertified()
-    {
-        //Pendiente si es generacion de certificados masivamente como seria el metodo
-    }
-   
-    public function storeCodeCertifiedNoSignature()
-    {
-        //generacion de certificados sin firma individualmente
-    }
-
-    public function downloadsCertifiedNoSignature()
-    {
-        //descargas masivas de certificados sin firma
-    }
-
-     public function uploadsCertifiedSigned()
+     //descargar matriz A7
+     public function downloadFile(Catalogue $catalogue, File $file)
      {
-     //cargas masivas de certificados firmados 
+         return $catalogue->downloadFile($file);
      }
 
+    //descarga de plantilla
+    public function downloadFileTemplate(Catalogue $catalogue, File $file)
+       {
+           return $catalogue->downloadFileTemplate($file);
+       }
+
+     //subir certificado Firmado 
+
+     public function uploadFileCertificateFirm(UploadFileRequest $request, Catalogue $catalogue)
+    {
+        return $catalogue->uploadFileCertificateFirm($request);
+    }
+
+    //carga de codigos certificado excel
+
+    public function uploadFileCertificate(UploadFileRequest $request, Catalogue $catalogue)
+    {
+        return $catalogue->uploadFileCertificate($request);
+    }
+
+    //descarga de certificados generados
+
+    public function downloadFileCertificates(Catalogue $catalogue, File $file)
+       {
+           return $catalogue->downloadFileCertificates($file);
+       }
+
+     //previsualizar la platilla 
+     public function showFile(Catalogue $catalogue, File $file)
+     {
+         return $catalogue->showFile($file);
+     }
+
+   
 }

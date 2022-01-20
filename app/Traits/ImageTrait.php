@@ -16,7 +16,7 @@ trait ImageTrait
 {
     public function downloadImage(DownloadImageRequest $request, Image $image)
     {
-        $path = $image->full_path;
+        $path = $image->directory;
 
         $size = strtolower($request->input('size'));
         $compression = strtolower($request->input('compression'));
@@ -35,7 +35,7 @@ trait ImageTrait
                 $path = "$path$image->id";
         }
 
-        if ($request->has('compression') && $request->input('compression') === 'true') {
+        if ($request->has('compression') && $compression === 'true') {
             $path = "$path.webp";
         } else {
             $path = "$path.jpg";
@@ -73,82 +73,83 @@ trait ImageTrait
             $this->uploadMediumImage(InterventionImage::make($image), $newImage->id, $storagePath);
             $this->uploadSmallImage(InterventionImage::make($image), $newImage->id, $storagePath);
 
-            $newImage->directory = 'images/'. $newImage->id;
+            $newImage->directory = 'images/' . $newImage->id;
             $newImage->save();
         }
         return response()->json([
             'data' => null,
             'msg' => [
                 'summary' => 'Imagen subida',
-                'detail' => 'La imagen fue subida correctamente',
+                'detail' => 'Su petición se procesó correctamente',
                 'code' => '201'
             ]], 201);
     }
 
-    public function updateImage(UpdateImageRequest $request, $imageId)
+    public function updateImage(UpdateImageRequest $request, Image $image)
     {
-        $image = Image::find($imageId);
-        // Valida que exista la imagen, si no encuentra el registro en la base devuelve un mensaje de error
-        if (!$image) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Imagen no encontrada',
-                    'detail' => 'La imagen no pudo ser modificada',
-                    'code' => '404'
-                ]], 404);
+        if ($request->hasFile('images')) {
+            $requestImage = $request->file('images')[0];
+            Storage::delete($image->directory);
+            $storagePath = storage_path('app/private/images/');
+            $this->uploadOriginal(InterventionImage::make($requestImage), $image->id, $storagePath);
+            $this->uploadLargeImage(InterventionImage::make($requestImage), $image->id, $storagePath);
+            $this->uploadMediumImage(InterventionImage::make($requestImage), $image->id, $storagePath);
+            $this->uploadSmallImage(InterventionImage::make($requestImage), $image->id, $storagePath);
         }
 
         $image->name = $request->input('name');
         $image->description = $request->input('description');
         $image->save();
 
-        $this->uploadOriginal($request->file('image'), $imageId);
-        $this->uploadLargeImage($request->file('image'), $imageId);
-        $this->uploadMediumImage($request->file('image'), $imageId);
-        $this->uploadSmallImage($request->file('image'), $imageId);
-
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Imagen actulizada',
-                'detail' => 'La imagen fue actualizada correctamente',
-                'code' => '201'
-            ]], 201);
+        return (new ImageResource($image))->additional(
+            [
+                'msg' => [
+                    'summary' => 'Imagen actualizada',
+                    'detail' => 'Su petición se procesó correctamente',
+                    'code' => '201'
+                ]
+            ]);
     }
 
-    public function destroyImage($imageId)
+    public function destroyImage(Image $image)
     {
-        $image = Image::find($imageId);
-        // Valida que exista la imagen, si no encuentra el registro en la base devuelve un mensaje de error
-        if (!$image) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Imagen no encontrada',
-                    'detail' => 'La imagen ya ha sido eliminada',
-                    'code' => '404'
-                ]], 404);
+        try {
+            Storage::delete("$image->directory/$image->id.jpg");
+            Storage::delete("$image->directory/$image->id.webp");
+            Storage::delete("$image->directory/$image->id-lg.jpg");
+            Storage::delete("$image->directory/$image->id-lg.webp");
+            Storage::delete("$image->directory/$image->id-md.jpg");
+            Storage::delete("$image->directory/$image->id-md.webp");
+            Storage::delete("$image->directory/$image->id-sm.jpg");
+            Storage::delete("$image->directory/$image->id-sm.webp");
+
+            $image->delete();
+
+            return (new ImageResource($image))->additional(
+                [
+                    'msg' => [
+                        'summary' => 'Imagen eliminada',
+                        'detail' => 'Su petición se procesó correctamente',
+                        'code' => '201'
+                    ]
+                ]
+            );
+        } catch (\Exception $exception) {
+            return (new ImageResource(null))->additional(
+                [
+                    'msg' => [
+                        'summary' => 'Surgió un error al eliminar',
+                        'detail' => 'Intente de nuevo',
+                        'code' => '500'
+                    ]
+                ]
+            );
         }
-        // Es una eliminación lógica
-        $image->state = false;
-        $image->save();
-
-        // Elimina los archivos del servidoir
-        Storage::deleteDirectory('images/' . $imageId);
-
-        return response()->json([
-            'data' => null,
-            'msg' => [
-                'summary' => 'Imagen eliminada',
-                'detail' => 'La imagen fue eliminada correctamente',
-                'code' => '201'
-            ]], 201);
     }
 
     public function indexImages(IndexImageRequest $request)
     {
-        $images = $this->files()
+        $images = $this->images()
             ->description($request->input('description'))
             ->name($request->input('name'))
             ->paginate($request->input('per_page'));
