@@ -21,16 +21,14 @@ class RiveraController extends Controller
     }
 
 
-    public function showInformCourseNeeds(getCoursesByNameRequest $request)
+    public function showInformCourseNeeds(ShowInformCourseNeedsRequest $request)
     {
     //trae un informe de nececidades de un curso en especifico por el docente que se logea
 
     $responsibleCourse = Instructor::where('user_id', $request->user()->id)->get();
 
-    $detailPlanifications = $responsibleCourse
-        ->detailPlanifications()
-        ->planifications()
-        ->course()
+    $course = $responsibleCourse
+        ->courses()
         ->paginate($request->input('per_page'));
 
     return (new DetailPlanificationInformNeedCollection($detailPlanifications))

@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\V1\Cecy\Registrations;
 
-use App\Http\Requests\V1\Cecy\Registrations\RegisterStudentRequest;
+use App\Models\Cecy\DetailPlanification;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RegisterStudentResource extends JsonResource
+class RegistrationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,18 +16,16 @@ class RegisterStudentResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'detail_planification_id' => DetailPlanification::make($this->registrations),
+            'participant_id' => DetailPlanification::make($this->participant),
+            'state_id' => DetailPlanification::make($this->state),
+            'type_id' => DetailPlanification::make($this->type),
             'finalGrade' => $this->final_grade,
             'grade1' => $this->grade1,
             'grade2' => $this->grade2,
             'number' => $this->number,
-<<<<<<< HEAD
+            'observations' => $this->observations,
             'registeredAt' => $this->registered_at,
-=======
-            'registered_at' => $this->registeredAt,
-            'participante'=>RegisterParticipantResource::collection($this->participant_id)
-        
->>>>>>> 84b3a1f4342609ce7e518ca27be6802dc35c00f6
-
         ];
     }
 }
