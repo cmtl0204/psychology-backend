@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers\V1\Cecy;
 
-use App\Models\Cecy\Attendance;
-use App\Models\Cecy\Catalogue;
-use App\Models\Cecy\DetailPlanification;
-use App\Models\Cecy\PhotograficRecord;
-use App\Models\Cecy\Registration;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\Cecy\Attendances\AttendanceCollection;
-use App\Http\Resources\V1\Cecy\Attendances\AttendanceDetailPlanificationCollection;
+use App\Http\Requests\V1\Cecy\Attendances\GetAttendanceDetailPlanificationRequest;
+use App\Http\Requests\V1\Cecy\Planifications\GetPlanificationByResponsableCourseRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\StoreAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\Topics\DestroysAttendanceTeacherRequest;
+use App\Http\Resources\V1\Cecy\Attendances\AttendanceCollection;
+use App\Http\Resources\V1\Cecy\Attendances\AttendanceDetailPlanificationCollection;
 use App\Http\Resources\V1\Cecy\Attendances\AttendanceResource;
-
+use App\Http\Resources\V1\Cecy\Attendances\DetailAttendanceResource;
+use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
+use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
+use App\Http\Resources\V1\Cecy\Registrations\RegisterStudentResource;
+use App\Models\Cecy\Attendance;
+use App\Models\Cecy\Catalogue;
+use App\Models\Cecy\PhotograficRecord;
 use Illuminate\Http\Client\Request;
 
 class SantillanController extends Controller
@@ -39,13 +42,84 @@ class SantillanController extends Controller
                     'code' => '200'
                 ]
             ]);
-    }           
+    }
+    //asistencias de los estudiantes de un curso
+    public  function ShowParticipantCourse(ShowParticipantsRequest $participants){
+
+        $participants = course::where('course_id', $request->course()->id)->get();
+
+        $registration = $participants
+            ->detailAttendaces()
+            ->registrations()
+            ->attendances()
+            ->participants()
+            ->users()
+            ->detailPlanifications()
+            ->planifications()
+            ->course()
+            ->paginate($request->input('per_page'));
+
+        return (new DetailAttendanceResource($registration))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+    //estudiantes de un curso y sus notas
+    public  function ShowParticipantGrades(ShowParticipantsRequest $participants){
+
+        $participants = course::where('course_id', $request->course()->id)->get();
+
+        $registration = $participants
+            ->registrations()
+            ->participants()
+            ->users()
+            ->detailPlanifications()
+            ->planifications()
+            ->course()
+            ->paginate($request->input('per_page'));
+
+        return (new RegisterStudentResource($registration))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+    //cursos de un docente instructor
+    public function showInstructorCourse(GetPlanificationByResponsableCourseRequest $responsableCorse){
+
+        $responsableCourse = planification::where('responsable_course_id', $request->planification()->id)->get();
+
+        $detailPlanification = $responsableCourse
+            ->detailPlanifications()
+            ->classRooms()
+            ->planifications()
+            ->intructors()
+            ->users()
+            ->course()
+            ->paginate($request->input('per_page'));
+
+        return (new DetailPlanificationResource($detailPlanification))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
     //traer fechas y horarios de un curso
-    public function getDetailPlanification(DetailPlanification $detailPlanification){
+    public function getDetailPlanification(GetAttendanceDetailPlanificationRequest $detailPlanification){
         return (new AttendanceDetailPlanificationCollection($detailPlanification))
             ->additional([
                     'msg' => [
-                        'sumary' => 'consulta exitosa', 
+                        'sumary' => 'consulta exitosa',
                         'detail' => '',
                         'code' => '200'
                     ]
