@@ -10,6 +10,7 @@ class DetailPlanificationResource extends JsonResource
     public function toArray($request)
     {
         return [
+            
             'id' => $this->id,
             'parent' => DetailInstructorResource::make($this->parent),
             'code_certified' => $this->code_certified,

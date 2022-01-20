@@ -14,13 +14,15 @@ class GetDetailPlanificationsByPlanificationRequest extends FormRequest
     {
         return [
             'planification.id' => ['required', 'integer'],
+            'course.id' => ['required', 'integer'],
         ];
     }
-
+    
     public function attributes()
     {
         return [
             'planification.id' => 'Planificación',
+            'course.id' => 'Curso',
         ];
     }
 }

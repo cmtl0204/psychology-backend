@@ -8,19 +8,16 @@ use App\Http\Requests\V1\JobBoard\JobBoardFormRequest;
 class IndexSchoolPeriodsRequest extends FormRequest
 {
     public function authorize()
-    {
-        return true;
-    }
+  {
+    return true;
+  }
+  public function rules()
+  {
+    return [];
+  }
 
-    public function rules()
-    {
-        $rules = [];
-        return JobBoardFormRequest::rules($rules);
-    }
-
-    public function attributes()
-    {
-        $attributes = [];
-        return JobBoardFormRequest::attributes($attributes);
-    }
+  public function attributes()
+  {
+    return [];
+  }
 }

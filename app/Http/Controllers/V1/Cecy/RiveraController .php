@@ -10,7 +10,7 @@ use App\Http\Resources\V1\Cecy\DetailInstructors\DetailInstructorCollection;
 use App\Models\Cecy\DetailInstructor;
 
 
-use App\Models\Core\File;
+
 
 class RiveraController extends Controller
 {
@@ -100,7 +100,7 @@ class RiveraController extends Controller
         ->detailPlanifications()
         ->photographicRecords()
 
-    return (new DetailPlanificationPhotographicRecordResource($detailPlanifications))
+    // return (new GetDetailPlanificationPhotographicRecordResource($detailPlanifications))
         ->additional([
             'msg' => [
                 'summary' => 'success',

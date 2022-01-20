@@ -24,6 +24,7 @@ class Catalogue extends Model implements Auditable
 
     protected $fillable = [
         'code',
+        'description',
         'icon',
         'name',
         'type',
@@ -54,7 +55,7 @@ class Catalogue extends Model implements Auditable
     {
         return $this->hasMany(Planification::class);
     }
-    
+
     // Mutators
     public function setCodeAttribute($value)
     {
@@ -67,6 +68,20 @@ class Catalogue extends Model implements Auditable
     }
 
     // Scopes
+    public function scopeName($query, $name)
+    {
+        if ($name) {
+            return $query->where('name', 'ILIKE', "%$name%");
+        }
+    }
+
+    public function scopeDescription($query, $description)
+    {
+        if ($description) {
+            return $query->where('description', 'ILIKE', "%$description%");
+        }
+    }
+
     public function scopeType($query, $type)
     {
         if ($type) {
