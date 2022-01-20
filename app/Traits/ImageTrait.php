@@ -3,26 +3,53 @@
 namespace App\Traits;
 
 use App\Http\Requests\V1\Core\Images\DownloadImageRequest;
-use App\Http\Requests\V1\Core\Images\IndexImageRequest;
-use App\Http\Requests\V1\Core\Images\UpdateImageRequest;
-use App\Http\Requests\V1\Core\Images\UploadImageRequest;
+use App\Http\Resources\V1\Core\ImageCollection;
+use App\Http\Resources\V1\Core\ImageResource;
 use App\Models\Core\Image;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as InterventionImage;
+use App\Http\Requests\V1\Core\Images\IndexImageRequest;
+use App\Http\Requests\V1\Core\Images\UpdateImageRequest;
+use App\Http\Requests\V1\Core\Images\UploadImageRequest;
 
 trait ImageTrait
 {
-    public function downloadImage(DownloadImageRequest $request)
+    public function downloadImage(DownloadImageRequest $request, Image $image)
     {
-        $path = $request->input('full_path');
+        $path = $image->full_path;
+
+        $size = strtolower($request->input('size'));
+        $compression = strtolower($request->input('compression'));
+
+        switch ($size) {
+            case 'sm':
+                $path = "$path$image->id-sm";
+                break;
+            case 'md':
+                $path = "$path$image->id-md";
+                break;
+            case 'lg':
+                $path = "$path$image->id-lg";
+                break;
+            default:
+                $path = "$path$image->id";
+        }
+
+        if ($request->has('compression') && $request->input('compression') === 'true') {
+            $path = "$path.webp";
+        } else {
+            $path = "$path.jpg";
+        }
+
         if (!Storage::exists($path)) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Imagen no encontrada',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]], 404);
+            return (new ImageCollection([]))->additional(
+                [
+                    'msg' => [
+                        'summary' => 'Imagen no encontrada',
+                        'detail' => 'Intente de nuevo',
+                        'code' => '404'
+                    ]
+                ]);
         }
 
         return Storage::download($path);
@@ -34,7 +61,7 @@ trait ImageTrait
             $newImage = new Image();
             $newImage->name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
             $newImage->description = $request->input('description');
-            $newImage->extension = '.jpg';
+            $newImage->extension = 'jpg';
             $newImage->imageable()->associate($this);
             $newImage->save();
 
@@ -46,7 +73,7 @@ trait ImageTrait
             $this->uploadMediumImage(InterventionImage::make($image), $newImage->id, $storagePath);
             $this->uploadSmallImage(InterventionImage::make($image), $newImage->id, $storagePath);
 
-            $newImage->directory = 'images';
+            $newImage->directory = 'images/'. $newImage->id;
             $newImage->save();
         }
         return response()->json([
@@ -119,62 +146,44 @@ trait ImageTrait
             ]], 201);
     }
 
-    public function indexImages(IndexImageRequest $request, $model)
+    public function indexImages(IndexImageRequest $request)
     {
-        if ($request->has('search')) {
-            $images = $model->images()
-                ->name($request->input('search'))
-                ->description($request->input('search'))
-                ->get();
-        } else {
-            $images = $model->images()->paginate($request->input('per_page'));
-        }
+        $images = $this->files()
+            ->description($request->input('description'))
+            ->name($request->input('name'))
+            ->paginate($request->input('per_page'));
 
-        if (sizeof($images) === 0) {
-            return response()->json([
-                'data' => null,
+        return (new ImageCollection($images))->additional(
+            [
                 'msg' => [
-                    'summary' => 'No se encontraron imagenes',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '404'
-                ]], 404);
-        }
-
-        return response()->json($images, 200);
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
 
-    public function showImage($imageId)
+    public function showImage(Image $image)
     {
-        // Valida que el id se un número, si no es un número devuelve un mensaje de error
-        if (!is_numeric($imageId)) {
-            return response()->json([
-                'data' => null,
+        return (new ImageResource($image))->additional(
+            [
                 'msg' => [
-                    'summary' => 'ID no válido',
-                    'detail' => 'Intente de nuevo',
-                    'code' => '400'
-                ]], 400);
-        }
-        $image = Image::firstWhere('id', $imageId);
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]
+        );
+    }
 
-        // Valida que exista el registro, si no encuentra el registro en la base devuelve un mensaje de error
-        if (!$image) {
-            return response()->json([
-                'data' => null,
-                'msg' => [
-                    'summary' => 'Imagen no encontrado',
-                    'detail' => 'Vuelva a intentar',
-                    'code' => '404'
-                ]], 404);
-        }
+    // Guarda imagenes con su tamaño original
+    private function uploadOriginal($image, $name, $storagePath)
+    {
+        $path = $storagePath . $name . '/' . $name . '.jpg';
+        $image->save($path, 75);
 
-        return response()->json([
-            'data' => $image,
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]], 200);
+        $path = $storagePath . $name . '/' . $name . '.webp';
+        $image->save($path, 75);
     }
 
     // Guarda imagenes con una resolución de 300px de ancho y el alto es ajustable para celulares
@@ -217,15 +226,5 @@ trait ImageTrait
         $image->widen(1250, function ($constraint) {
             $constraint->upsize();
         })->save($path, 75);
-    }
-
-    // Guarda imagenes con su tamaño original
-    private function uploadOriginal($image, $name, $storagePath)
-    {
-        $path = $storagePath . $name . '/' . $name . '.jpg';
-        $image->save($path, 75);
-
-        $path = $storagePath . $name . '/' . $name . '.webp';
-        $image->save($path, 75);
     }
 }

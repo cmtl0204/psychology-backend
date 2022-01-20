@@ -63,10 +63,6 @@ trait FileTrait
 
     public function uploadFile(UploadFileRequest $request)
     {
-        if ($request->hasFile('file')) {
-            $this->saveFile($request, $request->file('file'));
-        }
-
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
                 $this->saveFile($request, $file);
@@ -89,7 +85,6 @@ trait FileTrait
             ->description($request->input('description'))
             ->name($request->input('name'))
             ->paginate($request->input('per_page'));
-
 
         return (new FileCollection($files))->additional(
             [

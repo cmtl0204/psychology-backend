@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Core\Images;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexImageRequest extends FormRequest
+class DownloadImageRequest extends FormRequest
 {
     public function authorize()
     {
@@ -20,8 +20,8 @@ class IndexImageRequest extends FormRequest
 
     public function attributes()
     {
-       return [
-
+        return [
+          
         ];
     }
 }

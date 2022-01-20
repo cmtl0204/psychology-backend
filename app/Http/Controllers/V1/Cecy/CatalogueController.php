@@ -8,10 +8,13 @@ use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
 use App\Http\Requests\V1\Core\Files\IndexFileRequest;
 use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
+use App\Http\Requests\V1\Core\Images\DownloadImageRequest;
+use App\Http\Requests\V1\Core\Images\IndexImageRequest;
 use App\Http\Requests\V1\Core\Images\UploadImageRequest;
 use App\Http\Resources\V1\Core\Catalogues\CatalogueCollection;
 use App\Models\Cecy\Catalogue;
 use App\Models\Core\File;
+use App\Models\Core\Image;
 
 class CatalogueController extends Controller
 {
@@ -102,9 +105,24 @@ class CatalogueController extends Controller
     /*******************************************************************************************************************
      * IMAGES
      ******************************************************************************************************************/
+    public function indexImages(IndexImageRequest $request, Catalogue $catalogue)
+    {
+        return $catalogue->indexImages($request);
+    }
+
     public function uploadImage(UploadImageRequest $request, Catalogue $catalogue)
     {
         return $catalogue->uploadImage($request);
+    }
+
+    public function downloadImage(DownloadImageRequest $request, Catalogue $catalogue, Image $image)
+    {
+        return $catalogue->downloadImage($request, $image);
+    }
+
+    public function showImage(Catalogue $catalogue, Image $image)
+    {
+        return $catalogue->showImage($image);
     }
 
 }
