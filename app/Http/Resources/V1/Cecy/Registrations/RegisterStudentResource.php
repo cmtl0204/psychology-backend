@@ -15,11 +15,11 @@ class RegisterStudentResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'final_grade' => $this->final_grade,
+            'finalGrade' => $this->final_grade,
             'grade1' => $this->grade1,
             'grade2' => $this->grade2,
             'number' => $this->number,
-            'registered_at' => $this->registeredAt,
+            'registeredAt' => $this->registered_at,
 
         ];
     }
