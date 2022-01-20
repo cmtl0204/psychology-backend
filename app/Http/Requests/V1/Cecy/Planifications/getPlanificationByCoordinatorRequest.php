@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Cecy\Planifications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetPlanificationByCoordinatorRequest extends FormRequest
+class getPlanificationByCoordinatorRequest extends FormRequest
 {
     public function authorize()
     {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource as DetailPlanifications;
+use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\SchoolPeriods\SchoolPeriodsCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
@@ -11,6 +11,8 @@ use App\Http\Resources\V1\Core\CareerCollection;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResorece;
 use App\Http\Requests\V1\Cecy\Planifications\getPlanificationByCoodinatorRequest;
 use App\Http\Requests\V1\Cecy\DetailPlanifications\UpdateDetailPlanificationRequest;
+use App\Http\Requests\V1\Cecy\Planifications\UpdatePlanificationRequest;
+use App\Http\Requests\V1\Cecy\Planifications\getPlanificationByCoordinatorRequest;
 use App\Http\Requests\V1\Cecy\Planifications\StorePlanificationRequest;
 use App\Models\Cecy\Authority;
 use App\Models\Cecy\Classroom;
@@ -63,7 +65,7 @@ public function getCarrers(Career $careers)
     }
 
 //mostrar informacion de la planificacion al coordinadoor de carrera
-public function getPlanificationByCoordinator(getPlanificationByCoodinatorRequest $request)
+public function getPlanificationByCoordinator(getPlanificationByCoordinatorRequest   $request)
 
 { $sorts = explode(',', $request->sort);
 
@@ -105,9 +107,9 @@ public function storePlanificationByCourse(StorePlanificationRequest $request)
     ]);
 }
 //consultar de la planificacion
-public function getPlanification(Planifications $planifications)
+public function getPlanification(Planification $planifications)
 {
-    return (new Planifications($planifications))
+    return (new PlanificationCollection ($planifications))
     ->additional([
         'msg' => [
             'summary' => 'success',
@@ -160,7 +162,7 @@ public function updatePlanificationByCecy(UpdatePlanificationRequest $request)
     $detailPlanification->started_at = $request->input('started_at');
     $detailPlanification->save();
 
-    return (new PlanificationsResource ($detailPlanification))
+    return (new PlanificationResource ($detailPlanification))
         ->additional([
             'msg' => [
                 'summary' => 'Actualizado correctamente',
@@ -193,7 +195,7 @@ public function updatedetailPlanificationByCecy(UpdateDetailPlanificationRequest
     $detailPlanification->started_at = $request->input('started_at');
     $detailPlanification->save();
 
-    return (new DetailPlanificationsResource ($detailPlanification))
+    return (new DetailPlanificationResource ($detailPlanification))
         ->additional([
             'msg' => [
                 'summary' => 'Actualizado correctamente',
