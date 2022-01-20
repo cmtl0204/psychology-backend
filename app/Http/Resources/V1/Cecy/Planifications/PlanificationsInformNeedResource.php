@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources\V1\Cecy\Planifications;
 
+use App\Http\Resources\V1\Cecy\Catalogues\CatalogueResource;
 use App\Http\Resources\V1\Cecy\DetailInstructors\DetailInstructorResource;
+use App\Http\Resources\V1\Cecy\Instructors\InstructorResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PlanificationsInformNeedResource extends JsonResource
@@ -13,8 +15,8 @@ class PlanificationsInformNeedResource extends JsonResource
             'id' => $this->id,
             'area' => CatalogueResource::make($this->area),
             'sector' => CatalogueResource::make($this->sector),
-            'course' => CatalogueResource::make($this->course),
-            'responsibleCourse' => AuthorityResource::make($this->responsibleCourse),
+            'responsibleCourse' => InstructorResource::make($this->responsibleCourse),
+            'detailSchoolPeriod' => DetailSchoolPeriodResource::make($this->schoolPeriod),
             'endedAt' => $this->ended_at,
             'startedAt' => $this->started_at,
             'needs' => $this->needs,
