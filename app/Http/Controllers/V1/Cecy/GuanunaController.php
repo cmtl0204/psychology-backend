@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource as DetailPlanifications;
 use App\Http\Resources\V1\Cecy\SchoolPeriods\SchoolPeriodsCollection;
-use App\Http\Resources\V1\Cecy\DetailsPlanifications\PlanificationCollection;
-use App\Http\Resources\V1\Cecy\DetailsPlanifications\PlanificationResource;
+use App\Http\Resources\V1\Cecy\Planifications\PlanificationCollection;
+use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResorece;
+use App\Http\Requests\V1\Cecy\DetailPlanifications\UpdateDetailPlanificationRequest;
 use App\Models\Cecy\Authority;
 use App\Models\Cecy\Classroom;
 use App\Models\Cecy\Course;
@@ -76,6 +78,7 @@ public function storePlanificationCourse()
     $planifications->responsibleCourse()->associate(Instructor::find($request->input('user.id')));
     $planifications->ended_at = $request->input('fin de la planificación');
     $planifications->started_at = $request->input('inicio de la planificación');
+    $planifications->state_id = $request->input('Estado de la planificacion');
     $planifications->save();
 
     return (new planificationsResource($planifications))
@@ -117,7 +120,7 @@ public function getCoursesKFI(Course $courses)
     ]);
 }
 //editar informacion del detalle planificación
-public function updatedetailPlanification()
+public function updatedetailPlanificationByCecy(UpdateDetailPlanificationRequest $request)
 {
     $classroom = Classroom::find($request->input('classroom.id'));
     $code = Course::find($request->input('code.id'));
@@ -140,7 +143,7 @@ public function updatedetailPlanification()
     $detailPlanification->started_at = $request->input('started_at');
     $detailPlanification->save();
 
-    return (new DetailPlanificationResource($detailPlanification))
+    return (new DetailPlanificationsResource ($detailPlanification))
         ->additional([
             'msg' => [
                 'summary' => 'Actualizado correctamente',

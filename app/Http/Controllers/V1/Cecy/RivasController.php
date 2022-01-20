@@ -15,18 +15,17 @@ class RivasController extends Controller
         $this->middleware('permission:update-catalogues')->only(['update']);
         $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
     }
-    /*DDRC-C: Busca participantes de cursos por periodo */
-    public function getCoursesByPeriod()
+    /*DDRC-C: Busca planificaciones vigentes por periodo */
+    public function getPlanificationsByPeriod()
     {
+
     }
-/*DDRC-C: busca participantes de un curso especifico*/
+/*DDRC-C: Busca participantes de un curso especifico*/
     public function getCourseParticipants()
     {
        
     }
-    /*DDRC-C: busca informacion adicional de un participante  */
-
-    
+    /*DDRC-C: Busca informacion de un participante y de registro a un curso especifico */
     public function getParticipantInfo()
     {
         

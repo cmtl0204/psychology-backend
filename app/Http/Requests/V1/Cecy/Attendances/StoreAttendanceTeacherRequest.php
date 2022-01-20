@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetPlanificationsByCourseRequest extends FormRequest
+class StoreAttendanceTeacherRequest extends FormRequest
 {
     public function authorize()
     {
@@ -13,16 +13,18 @@ class GetPlanificationsByCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'responsibleCourse.id' => ['required', 'integer'],
-            'course.id' => ['required', 'integer'],
+            'type_id' => ['required','integer'],
+            'duration' => ['required'],
+            'registered_at' => ['required']
         ];
     }
 
     public function attributes()
     {
         return [
-            'responsibleCourse.id' => 'Responsable del curso',
-            'course.id' => 'Curso'
+            'type_id' => 'tipo de asistencia',
+            'duration' => 'duracion',
+            'registered_at' => 'fecha'
         ];
     }
 }
