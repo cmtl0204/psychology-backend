@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Cecy\Attendance;
+namespace App\Http\Requests\V1\Cecy\Certificates;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroysAttendanceTeacherRequest  extends FormRequest
+class ShowParticipantsRequest extends FormRequest
 {
     public function authorize()
     {
@@ -13,14 +13,14 @@ class DestroysAttendanceTeacherRequest  extends FormRequest
     public function rules()
     {
         return [
-            'ids' => ['required'],
+            'course_id' => ['required','integer']
         ];
     }
 
     public function attributes()
     {
         return [
-            'ids' => 'ID`s de todas las asistencia de ese dia',
+            'course_id' => 'id del curso'
         ];
     }
 }
