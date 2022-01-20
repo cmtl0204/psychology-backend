@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1\Cecy\DetailPlanifications;
+namespace App\Http\Resources\V1\Cecy\PhotographicRecords;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
