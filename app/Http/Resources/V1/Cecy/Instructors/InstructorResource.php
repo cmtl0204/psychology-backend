@@ -10,10 +10,9 @@ class InstructorResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            // 'course' => CourseResource::make($this->parent),
-            'parent' => InstructorResource::make($this->parent),
-            // 'nivel' => CatalogueResource::make($this->parent),
-            'code_certified' => $this->code_certified,
+            'state' => CatalogueResource::make($this->state_id),
+            'type' => CatalogueResource::make($this->type_id),
+            'user' => UsersResource::make($this->user_id),
         ];
     }
 }

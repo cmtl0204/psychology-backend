@@ -14,9 +14,12 @@ class UpdateFileRequest extends FormRequest
     public function rules()
     {
         return [
-//            'name' => [
-//                'required',
-//            ],
+            'files.*' => [
+                'required',
+                'mimes:pdf,txt,doc,docx,xls,xlsx,csv,ppt,pptx,zip,rar,7z,tar,jpg,jpeg,png,bmp,tiff,tif,svg',
+                'file',
+                'max:1024000',
+            ],
         ];
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Cecy\Courses;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetSchedulesInformationByCourseRequest extends FormRequest
+class getCoursesByResponsibleRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,14 +14,15 @@ class GetSchedulesInformationByCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'courses.id' => ['required', 'integer'],
+            'responsible.id' =>  ['integer', 'required'],
         ];
     }
 
     public function attributes()
     {
         return [
-            'courses.id' => 'Id del curso'
+
+            'responsible.id' => 'Id  del docente responsable del curso',
         ];
     }
 }

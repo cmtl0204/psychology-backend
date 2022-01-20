@@ -75,6 +75,6 @@ class JumboController extends Controller
 
     public function destroyInstructors(Instructor $Instructor)
     {
-       //Me va permitir elimminar la asignacion del instructor
+       //Me va permitir elimminar  al instructor
     }
 }
