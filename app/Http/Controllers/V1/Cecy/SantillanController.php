@@ -69,7 +69,7 @@ class SantillanController extends Controller
             ]);
     }
     //estudiantes de un curso y sus notas
-    public  function ShowParticipantCourse(ShowParticipantsRequest $participants){
+    public  function ShowParticipantGrades(ShowParticipantsRequest $participants){
 
         $participants = course::where('course_id', $request->course()->id)->get();
 
