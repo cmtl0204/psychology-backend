@@ -28,6 +28,7 @@ class CatalogueController extends Controller
 
     public function index(IndexCatalogueRequest $request)
     {
+        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         $sorts = explode(',', $request->sort);
 
         $catalogues = Catalogue::customOrderBy($sorts)
@@ -129,5 +130,10 @@ class CatalogueController extends Controller
     public function updateImage(UpdateImageRequest $request, Catalogue $catalogue, Image $image)
     {
         return $catalogue->updateImage($request, $image);
+    }
+
+    public function destroyImage(Catalogue $catalogue, Image $image)
+    {
+        return $catalogue->destroyImage($image);
     }
 }
