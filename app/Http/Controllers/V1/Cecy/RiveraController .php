@@ -23,15 +23,8 @@ class RiveraController extends Controller
     public function showInformCourseNeeds(ShowInformCourseNeedsRequest $request, Course $course)
     {
     //trae un informe de nececidades de un curso en especifico por el docente que se logea
-    $planification = Planification::where([
-         ['course_id',$request->input('course.id')],
-         ['detailSchoolPeriod',$request->input('detailSchoolPeriod.id')],
-            ['responsible_id',$request->input('responsible.id')]
-        ]);
-    
 
-
-    return (new InformCourseNeedsResource($planification))
+    return (new InformCourseNeedsResource($course))
         ->additional([
             'msg' => [
                 'summary' => 'success',
