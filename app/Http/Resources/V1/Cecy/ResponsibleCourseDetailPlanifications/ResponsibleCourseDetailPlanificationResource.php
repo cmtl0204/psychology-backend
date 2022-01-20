@@ -17,6 +17,7 @@ class ResponsibleCourseDetailPlanificationResource extends JsonResource
             'day' => CatalogueResource::make($this->day),
             'workday' => CatalogueResource::make($this->workday),
             'instructors'=> Instructor::make($this->instructors),
+            'paralel' => $this->paralel,
             'daysNumber' => $this->daysNumber,
             'endTime' => $this->endTime,
             'endedAt' => $this->endedAt,

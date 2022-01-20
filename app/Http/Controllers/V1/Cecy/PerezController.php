@@ -18,11 +18,9 @@ use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowDetailPl
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateDetailPlanificationByResponsibleCourseRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeleteDetailPlanificationByResponsibleCourseRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetPlanificationsByCourseRequest;
-use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetPlanificationsByResponsibleCourseRequest;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\ResponsibleCourseDetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\ResponsibleCourseDetailPlanificationCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationByCourseCollection;
-use App\Http\Resources\V1\Cecy\Planifications\PlanificationByResponsibleCourseCollection;
 
 class PerezController extends Controller
 {
@@ -34,24 +32,6 @@ class PerezController extends Controller
         $this->middleware('permission:delete-detailPlanifications')->only(['destroy']);
     }
     /**
-     * Get all planifications filtered by responsible_course, and school_period
-     */
-    public function getPlanifications(GetPlanificationsByResponsibleCourseRequest $request)
-    {
-        $planifications = Planification::where([
-            ['responsible_course', $request->input('responsibleCourse.id')],
-            ['school_period', $request->input('schoolPeriod.id')]
-        ]);
-        return (new PlanificationByResponsibleCourseCollection($planifications))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-    /**
      * Get all planifications filtered by responsible_course, and school_period and course
      */
     public function getPlanificationsByCourse(GetPlanificationsByCourseRequest $request)
@@ -61,6 +41,7 @@ class PerezController extends Controller
             ['school_period', $request->input('schoolPeriod.id')],
             ['course_id', $request->input('course.id')]
         ]);
+
         return (new PlanificationByCourseCollection($planifications))
             ->additional([
                 'msg' => [
@@ -126,7 +107,7 @@ class PerezController extends Controller
         $detailPlanification->planification()->associate($planification);
         $detailPlanification->workday()->associate($workday);
 
-
+        $detailPlanification->paralel = $request->input('paralel');
         $detailPlanification->days_number = $request->input('daysNumber');
         $detailPlanification->ended_at = $request->input('endedAt');
         $detailPlanification->ended_time = $request->input('endedTime');
@@ -184,6 +165,7 @@ class PerezController extends Controller
         $detailPlanification->planification()->associate($planification);
         $detailPlanification->workday()->associate($workday);
 
+        $detailPlanification->paralel = $request->input('paralel');
         $detailPlanification->days_number = $request->input('daysNumber');
         $detailPlanification->ended_at = $request->input('endedAt');
         $detailPlanification->ended_time = $request->input('endedTime');
