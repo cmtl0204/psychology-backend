@@ -33,13 +33,13 @@ class SantillanController extends Controller
                     'code' => '200'
                 ]
             ]);
-    }
+    }           
     //traer fechas y horarios de un curso
     public function getDetailPlanification(DetailPlanification $detailPlanification){
         return (new AttendanceDetailPlanificationCollection($detailPlanification))
             ->additional([
                     'msg' => [
-                        'sumary' => 'consulta exitosa',
+                        'sumary' => 'consulta exitosa', 
                         'detail' => '',
                         'code' => '200'
                     ]
