@@ -26,7 +26,6 @@ class RegisterStudentRequest extends FormRequest
         return [
             'number' => ['required'],
             'registered_at' => ['required'],
-
         ];
     }
 
