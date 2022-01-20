@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Cecy\Courses\GetCoursesByCategoryRequest;
-use App\Http\Requests\V1\Cecy\Courses\GetCoursesByNameRequest;
-use App\Http\Requests\V1\Cecy\Courses\GetInstructorsInformationByCourseRequest;
-use App\Http\Requests\V1\Cecy\Courses\GetSchedulesInformationByCourseRequest;
+use App\Http\Requests\V1\Cecy\Courses\getCoursesByCategoryRequest;
+use App\Http\Requests\V1\Cecy\Courses\getCoursesByNameRequest;
+use App\Http\Requests\V1\Cecy\Courses\getInstructorsInformationByCourseRequest;
+use App\Http\Requests\V1\Cecy\Courses\getSchedulesInformationByCourseRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
-use App\Http\Resources\V1\Cecy\Courses\DetailInformationByCourseResource;
-use App\Http\Resources\V1\Cecy\Courses\InstructorsInformationByCourseResource;
 use App\Models\Cecy\Course;
-use App\Models\Cecy\DetailPlanification;
-use App\Models\Cecy\Planification;
 use App\Models\Core\File;
 
 class GuachagmiraController extends Controller
@@ -56,39 +52,11 @@ class GuachagmiraController extends Controller
                 ]
             ]);
     }
-
-    public function getInstructorsInformationByCourse(GetInstructorsInformationByCourseRequest $request)
+    public function getInstructorsInformationByCourse(getInstructorsInformationByCourseRequest $request)
     {
-        $planifications  = Planification::where('course_id', $request->input('course.id'))->get();
-        $instructorsInformation = $planifications
-            ->detailplanifications()
-            ->instructors()
-            ->user();
-        //->images();
-
-        return (new InstructorsInformationByCourseResource($instructorsInformation))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
     }
-    public function getDetailPlanificationInformationByCourse(GetSchedulesInformationByCourseRequest $request)
+    public function getSchedulesInformationByCourse(getSchedulesInformationByCourseRequest $request)
     {
-        $planifications = Planification::where('course_id', $request->input('course.id'))->get();
-        $detailPlanifications =  $planifications
-            ->detailplanifications();
-
-        return (new DetailInformationByCourseResource($detailPlanifications))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
     }
 
     public function show(Course $course)
