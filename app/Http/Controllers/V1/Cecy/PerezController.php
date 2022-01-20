@@ -22,7 +22,7 @@ use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetPlanifica
 use App\Http\Resources\V1\Cecy\DetailPlanifications\ResponsibleCourseDetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\ResponsibleCourseDetailPlanificationCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationByCourseCollection;
-use App\Http\Resources\V1\Cecy\Prerequisites\PlanificationResource;
+use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
 
 class PerezController extends Controller
 {
@@ -113,9 +113,7 @@ class PerezController extends Controller
 
         $detailPlanification->paralel = $request->input('paralel');
         $detailPlanification->days_number = $request->input('daysNumber');
-        $detailPlanification->ended_at = $request->input('endedAt');
         $detailPlanification->ended_time = $request->input('endedTime');
-        $detailPlanification->started_at = $request->input('startedAt');
         $detailPlanification->started_time = $request->input('startedTime');
 
         DB::transaction(function () use ($request, $detailPlanification) {
@@ -168,16 +166,15 @@ class PerezController extends Controller
 
         $detailPlanification->paralel = $request->input('paralel');
         $detailPlanification->days_number = $request->input('daysNumber');
-        $detailPlanification->ended_at = $request->input('endedAt');
         $detailPlanification->ended_time = $request->input('endedTime');
-        $detailPlanification->started_at = $request->input('startedAt');
         $detailPlanification->started_time = $request->input('startedTime');
 
         DB::transaction(function () use ($request, $detailPlanification, $user) {
             $detailPlanification->save();
-            $detailPlanification->instructors()->updateExistingPivot($request->input('instructors.id'));
+            // $detailPlanification->instructors()->updateExistingPivot($request->input('instructors.id'));
+            $detailPlanification->instructors()->updateExistingPivot($request->input('instructors.id'), ['instructor_id']);
             //$user es el responsable de cecy
-            $user->notify(new DetailPlanificationChanged($detailPlanification));
+            // $user->notify(new DetailPlanificationChanged($detailPlanification));
         }, 5);
 
         return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
@@ -213,11 +210,11 @@ class PerezController extends Controller
     {
         $instructors = $detailPlanification->instructors();
 
-        foreach ($instructors as $instructor) {
-            $detailPlanification->instructors()->detach($instructor->id);
-        }
+        DB::transaction(function () use ($instructors, $detailPlanification) {
+            $detailPlanification->instructors()->detach($instructors);
+            $detailPlanification->delete();
+        }, 5);
 
-        $detailPlanification->delete();
 
         return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
             ->additional([
