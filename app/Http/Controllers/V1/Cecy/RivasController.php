@@ -7,7 +7,7 @@ use App\Models\Cecy\Participant;
 use Illuminate\Http\Request;
 
 
-class ParticipantController extends Controller
+class RivasController extends Controller
 {
     public function __construct()
     {

@@ -32,8 +32,8 @@ class UserResource extends JsonResource
             'bloodType' => CatalogueResource::make($this->bloodType),
             'ethnicOrigin' => CatalogueResource::make($this->ethnicOrigin),
             'civilStatus' => CatalogueResource::make($this->civilStatus),
-            'email_verified_at' => $this->email_verified_at,
-            'password_changed' => $this->password_changed,
+            'emailVerifiedAt' => $this->email_verified_at,
+            'passwordChanged' => $this->password_changed,
         ];
     }
 

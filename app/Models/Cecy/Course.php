@@ -52,7 +52,7 @@ class Course extends Model implements Auditable
     ];
 
     // Relationships
-    
+
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');
@@ -62,7 +62,7 @@ class Course extends Model implements Auditable
     {
         return $this->morphMany(Image::class, 'imageable');
     }
-    
+
     public function academicPeriod()
     {
         return $this->belongsTo(Catalogue::class);
@@ -97,7 +97,7 @@ class Course extends Model implements Auditable
     {
         return $this->belongsTo(Catalogue::class);
     }
-    
+
     public function level()
     {
         return $this->belongsTo(Catalogue::class);

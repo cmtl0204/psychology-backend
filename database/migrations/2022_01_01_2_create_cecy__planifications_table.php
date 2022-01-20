@@ -22,6 +22,10 @@ class CreateCecyPlanificationsTable extends Migration
                 ->comment('Id del curso al que esta atado la planificación')
                 ->constrained('cecy.courses');
 
+            $table->foreignId('detail_school_period_id')
+                ->comment('Id del periodo escolar')
+                ->constrained('cecy.detail_school_periods');
+
             $table->foreignId('responsible_course_id')
                 ->comment('Id del docente responsable del curso')
                 ->constrained('cecy.instructors');
@@ -29,10 +33,6 @@ class CreateCecyPlanificationsTable extends Migration
             $table->foreignId('responsible_cecy_id')
                 ->comment('Id del responsable del cecy')
                 ->constrained('cecy.authorities');
-
-            $table->foreignId('school_period_id')
-                ->comment('Id del periodo escolar')
-                ->constrained('cecy.school_periods');
 
             $table->foreignId('sector_id')
                 ->comment('Ganaderia, Industria...')

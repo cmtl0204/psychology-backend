@@ -45,9 +45,9 @@ class Planification extends Model implements Auditable
         return $this->belongsTo(Authority::class);
     }
 
-    public function schoolPeriod()
+    public function detailSchoolPeriod()
     {
-        return $this->belongsTo(SchoolPeriod::class);
+        return $this->belongsTo(DetailSchoolPeriod::class);
     }
 
     public function sector()

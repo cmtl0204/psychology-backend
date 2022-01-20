@@ -35,10 +35,10 @@ class SchoolPeriod extends Model implements Auditable
     {
         return $this->belongsTo(Catalogue::class);
     }
-        
-    public function planifications()
+
+    public function detailSchoolPeriods()
     {
-        $this->hasMany(Planification::class);
+        $this->hasMany(DetailSchoolPeriod::class);
     }
     // Mutators
     public function setCodeAttribute($value)

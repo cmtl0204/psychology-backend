@@ -18,9 +18,9 @@ class LocationResource extends JsonResource
             'id'=>$this->id,
             'code'=>$this->code,
             'name'=>$this->name,
-            'alpha2_code'=>$this->alpha2_code,
-            'alpha3_code'=>$this->alpha3_code,
-            'calling_code'=>$this->calling_code,
+            'alpha2Code'=>$this->alpha2_code,
+            'alpha3Code'=>$this->alpha3_code,
+            'callingCode'=>$this->calling_code,
             'flag'=>$this->flag,
         ];
     }

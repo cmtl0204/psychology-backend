@@ -3,7 +3,7 @@ namespace App\Http\Requests\V1\Cecy\Participants;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpadateParticpantRequest extends FormRequest
+class UpdateParticipantsRequest extends FormRequest
 {
     public function authorize()
     {
