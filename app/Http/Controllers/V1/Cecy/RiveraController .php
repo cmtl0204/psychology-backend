@@ -100,7 +100,7 @@ class RiveraController extends Controller
         ->detailPlanifications()
         ->photographicRecords()
 
-    // return (new GetDetailPlanificationPhotographicRecordResource($detailPlanifications))
+         return (new PhotographicRecordResource($detailPlanifications))
         ->additional([
             'msg' => [
                 'summary' => 'success',
