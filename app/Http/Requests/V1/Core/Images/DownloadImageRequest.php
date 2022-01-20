@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Cecy\Courses;
+namespace App\Http\Requests\V1\Core\Images;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class getSchedulesInformationByCourseRequest extends FormRequest
+class DownloadImageRequest extends FormRequest
 {
     public function authorize()
     {
@@ -13,11 +13,15 @@ class getSchedulesInformationByCourseRequest extends FormRequest
 
     public function rules()
     {
-        return [];
+        return [
+
+        ];
     }
 
     public function attributes()
     {
-        return [];
+        return [
+          
+        ];
     }
 }

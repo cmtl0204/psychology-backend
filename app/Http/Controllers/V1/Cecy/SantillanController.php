@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers\V1\Cecy;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\Cecy\Attendances\AttendanceShowTeacherCollection;
-use App\Http\Resources\V1\Cecy\Attendances\AttendanceShowTeacherResource;
 use App\Models\Cecy\Attendance;
 use App\Models\Cecy\Catalogue;
+use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\PhotograficRecord;
 use App\Models\Cecy\Registration;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\Cecy\Attendances\AttendanceCollection;
+use App\Http\Resources\V1\Cecy\Attendances\AttendanceDetailPlanificationCollection;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetAttendanceTeacherRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowAttendanceTeacherRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\StoreAttendanceTeacherRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateAttendanceTeacherRequest;
+use App\Http\Requests\V1\Cecy\Topics\DestroysAttendanceTeacherRequest;
+use App\Http\Resources\V1\Cecy\Attendances\AttendanceResource;
+
 use Illuminate\Http\Client\Request;
 
 class SantillanController extends Controller
@@ -21,9 +29,9 @@ class SantillanController extends Controller
     }
 
     //ver todas las asistencias
-    public function getAttendanceTeacher(Attendance $attendance)
+    public function getAttendanceTeacher(GetAttendanceTeacherRequest $attendance)
     {
-        return (new AttendanceShowTeacherCollection($attendance))
+        return (new AttendanceCollection($attendance))
             ->additional([
                 'msg' => [
                     'sumary' => 'consulta exitosa',
@@ -32,13 +40,22 @@ class SantillanController extends Controller
                 ]
             ]);
     }
-    //crear una asistencia a partir de las fechas y horarios de detalle planicacion.
-    public function storeAttendanceTeacher(Request $request)
+    //traer fechas y horarios de un curso
+    public function getDetailPlanification(DetailPlanification $detailPlanification){
+        return (new AttendanceDetailPlanificationCollection($detailPlanification))
+            ->additional([
+                    'msg' => [
+                        'sumary' => 'consulta exitosa',
+                        'detail' => '',
+                        'code' => '200'
+                    ]
+                ]);
+    }
+
+    //crear una asistencia a partir de las fechas y horarios de detalle planificacion.
+    public function storeAttendanceTeacher(StoreAttendanceTeacherRequest $request)
     {
         $attendance = new Attendance();
-
-        $attendance->registration_id()
-            ->associate(Registration::find($request->input('registration_id')));
 
         $attendance->type_id()
             ->associate(Catalogue::find($request->input('type_id')));
@@ -49,7 +66,7 @@ class SantillanController extends Controller
 
         $attendance->save();
 
-        return (new AttendanceShowTeacherResource($attendance))
+        return (new AttendanceResource($attendance))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Creado',
@@ -60,9 +77,9 @@ class SantillanController extends Controller
     }
 
     //ver asistencia una por una
-    public function showAttendanceTeacher(Attendance $attendance)
+    public function showAttendanceTeacher(ShowAttendanceTeacherRequest $attendance)
     {
-        return (new AttendanceShowTeacherCollection($attendance))
+        return (new AttendanceResource($attendance))
             ->additional([
                 'msg' => [
                     'summary' => 'Asistencias encontradas',
@@ -73,10 +90,8 @@ class SantillanController extends Controller
     }
 
     //editar o actualizar una asistencia
-    public function updateAttendanceTeacher(Attendance $attendance, Request $request)
+    public function updateAttendanceTeacher(UpdateAttendanceTeacherRequest $attendance, Request $request)
     {
-        $attendance->registration_id()
-            ->associate(Registration::find($request->input('registration_id')));
 
         $attendance->type_id()
             ->associate(Catalogue::find($request->input('type_id')));
@@ -87,7 +102,7 @@ class SantillanController extends Controller
 
         $attendance->save();
 
-        return (new AttendanceShowTeacherResource($attendance))
+        return (new AttendanceResource($attendance))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro actualizado',
@@ -98,10 +113,12 @@ class SantillanController extends Controller
     }
     //eliminar una asistencia
 
-    public function destroyAttendanceTeacher(Attendance $attendance)
+    public function destroysAttendanceTeacher(DestroysAttendanceTeacherRequest $attendance)
     {
-        $attendance->delete();
-        return (new AttendanceShowTeacherResource($attendance))
+        $attendance = Attendance::whereIn('id', $request->input('ids'))->get();
+        Attendance::destroy($request->input('ids'));
+
+        return (new AttendanceResource($attendance))
             ->additional([
                 'msg' => [
                     'summary' => 'Asistencia eliminada',
@@ -114,7 +131,7 @@ class SantillanController extends Controller
     /*******************************************************************************************************************
      * FILES
      ******************************************************************************************************************/
-    
+
     //subir notas de los estudiantes
     public function uploadFile(UploadFileRequest $request, Catalogue $catalogue)
     {
@@ -128,16 +145,13 @@ class SantillanController extends Controller
         return $catalogue->downloadFile($file);
     }
 
+    //previsualizar la platilla de notas
     public function showFile(Catalogue $catalogue, File $file)
     {
         return $catalogue->showFile($file);
     }
 
-    public function updateFile(UpdateFileRequest $request, Catalogue $catalogue, File $file)
-    {
-        return $catalogue->updateFile($request, $file);
-    }
-
+    //eliminar el archivo existente para poder cargar de nuevo
     public function destroyFile(Catalogue $catalogue, File $file)
     {
         return $catalogue->destroyFile($file);
@@ -150,7 +164,13 @@ class SantillanController extends Controller
     //subir evidencia fotografica
     public function uploadImage(UploadImageRequest $request, PhotograficRecord $photograficRecord)
     {
+        $storagePath = storage_path('app/private/images/');
+        $image = InterventionImage::make($image);
+        $path = $storagePath . time() . '.jpg';
+        $image->save($path, 75);
+
         return $photograficRecord->uploadImage($request);
+
     }
 
 }

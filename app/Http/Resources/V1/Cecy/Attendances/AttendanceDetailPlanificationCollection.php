@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1\Cecy\Attendances;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class AttendanceShowTeacherCollection extends ResourceCollection
+class AttendanceDetailPlanificationCollection extends ResourceCollection
 {
     public function toArray($request)
     {

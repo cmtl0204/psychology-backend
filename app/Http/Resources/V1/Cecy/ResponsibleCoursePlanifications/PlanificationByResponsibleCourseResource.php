@@ -3,7 +3,12 @@
 namespace App\Http\Resources\V1\Cecy\Planifications;
 
 use App\Http\Resources\V1\Cecy\Authorities\AuthorityResource;
+<<<<<<< HEAD
 use App\Http\Resources\V1\Cecy\Courses\CourseResource;
+=======
+use App\Http\Resources\V1\Cecy\Catalogues\CatalogueResource;
+use App\Http\Resources\V1\Cecy\SchoolPeriods\SchoolPeriodResource;
+>>>>>>> 0e29ed5e1284f70ddaa1c44e6e575b8e52a081ec
 use App\Models\Cecy\Authority;
 use App\Models\Cecy\SchoolPeriod;
 use Illuminate\Http\Resources\Json\JsonResource;

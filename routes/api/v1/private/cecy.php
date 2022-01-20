@@ -18,7 +18,7 @@ Route::prefix('catalogue/{catalogue}')->group(function () {
         Route::patch('', [CatalogueController::class, 'destroyFiles']);
     });
     Route::prefix('image')->group(function () {
-        Route::get('{image}/download', [CatalogueController::class, 'downloadImage']);
+        Route::get('{image}/download', [CatalogueController::class, 'downloadImage'])->withoutMiddleware('auth:sanctum');
         Route::get('', [CatalogueController::class, 'indexImages']);
         Route::get('{image}', [CatalogueController::class, 'showImage']);
         Route::post('', [CatalogueController::class, 'uploadImage']);

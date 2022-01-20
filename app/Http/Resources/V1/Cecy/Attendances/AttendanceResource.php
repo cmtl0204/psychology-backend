@@ -12,7 +12,6 @@ class AttendanceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'detail_planification_id' => DetailPlanification::make($this->DetailPlanification),
             'type_id' => Catalogue::make($this->type_id),
             'duration' => $this->duration,
             'registered_at' => $this->registered_at,
