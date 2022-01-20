@@ -10,7 +10,7 @@ use App\Http\Resources\V1\Cecy\DetailInstructors\DetailInstructorCollection;
 use App\Models\Cecy\DetailInstructor;
 
 
-use App\Models\Core\File;
+
 
 class RiveraController extends Controller
 {
@@ -21,16 +21,14 @@ class RiveraController extends Controller
     }
 
 
-    public function showInformCourseNeeds(getCoursesByNameRequest $request)
+    public function showInformCourseNeeds(ShowInformCourseNeedsRequest $request)
     {
     //trae un informe de nececidades de un curso en especifico por el docente que se logea
 
     $responsibleCourse = Instructor::where('user_id', $request->user()->id)->get();
 
-    $detailPlanifications = $responsibleCourse
-        ->detailPlanifications()
-        ->planifications()
-        ->course()
+    $course = $responsibleCourse
+        ->courses()
         ->paginate($request->input('per_page'));
 
     return (new DetailPlanificationInformNeedCollection($detailPlanifications))
@@ -100,7 +98,7 @@ class RiveraController extends Controller
         ->detailPlanifications()
         ->photographicRecords()
 
-    return (new DetailPlanificationInformNeedCollection($detailPlanifications))
+         return (new PhotographicRecordResource($detailPlanifications))
         ->additional([
             'msg' => [
                 'summary' => 'success',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1\Cecy\Topics;
 
+use App\Http\Resources\V1\Cecy\Catalogues\CatalogueResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TopicResource extends JsonResource
@@ -10,7 +11,7 @@ class TopicResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'parent' => TopicResource::make($this->parent),
+            'children' => TopicResource::make($this->children),
             'level' => CatalogueResource::make($this->level),
             'description' => $this->description,
         ];

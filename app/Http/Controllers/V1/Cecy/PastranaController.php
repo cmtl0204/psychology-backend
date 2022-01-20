@@ -13,14 +13,59 @@ class PastranaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:store-catalogues')->only(['store']);
-        $this->middleware('permission:update-catalogues')->only(['update']);
-        $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
+        $this->middleware('permission:view-courses')->only(['view']);
+        $this->middleware('permission:view-planification')->only(['view']);
     }
-  
+    
+    // Filtrar peridos lectivos
     public function getCoursesByPeriod()
     {
-        // Buscar peridos lectivos y carrera
+        return (new SchoolPeriodsCollection($courses))
+    ->additional([
+        'msg' => [
+            'summary' => '',
+            'detail' => '',
+            'code' => '200'
+        ]
+    ]);
+    }
+    
+    
+    //Buscar por aprobado
+    public function getPlanificationsByApproved(getPlanificationsByApprovedRequest $request)
+    {
+        $sorts = explode(',', $request->sort);
+
+        $planifications = Planification::customOrderBy($sorts)
+            ->category($request->input('state.id'))
+            ->paginate();
+
+        return (new PlanificationCollection($planifications))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+    //Buscar por no aprobado
+    public function getPlanificationsByNotApproved(getPlanificationsByNotApprovedRequest $request)
+    {
+        $sorts = explode(',', $request->sort);
+
+        $planifications = Planification::customOrderBy($sorts)
+            ->category($request->input('state.id'))
+            ->paginate();
+
+        return (new PlanificationCollection($planifications))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
     
     public function indexPlanification()
@@ -32,19 +77,29 @@ class PastranaController extends Controller
     {
         // Actualiza el estado del curso dependiendo el OCS
     }
-
-    public function bringCourseStates( )
+    
+    // Mostrar los KPI
+    public function getCoursesKPI(Course $courses)
     {
-        // Traer el estado de los cursos del KPI, ya sea en el front end o por API
+        return (new Course($courses))
+        ->additional([
+        'msg' => [
+            'summary' => '',
+            'detail' => '',
+            'code' => '200'
+        ]
+    ]);
     }
 
-    public function uploadsArrays( )
-    {
-        // Descargar matrices cuando el curso no esta aprobado
-    }
 
     public function putAssignResponsibleTeacher()
     {
         //Asignar docente responsable
+    }
+
+    // Adjuntar el acta de aprobación
+    public function uploadFile(UploadFileRequest $request, Catalogue $catalogue)
+    {
+        return $catalogue->uploadFile($request);
     }
 }

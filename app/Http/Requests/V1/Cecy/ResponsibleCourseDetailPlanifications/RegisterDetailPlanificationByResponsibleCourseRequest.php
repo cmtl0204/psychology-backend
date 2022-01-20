@@ -18,10 +18,9 @@ class RegisterDetailPlanificationByResponsibleCourseRequest extends FormRequest
             'instructors' => ['required'],
             'planification.id' => ['required', 'integer'],
             'workday.id' => ['required', 'integer'],
+            'paralel' => ['required'],
             'daysNumber' => ['required', 'integer'],
-            'endedAt' => ['required', 'date'],
             'endedTime' => ['required', 'time'],
-            'startedAt' => ['required', 'date'],
             'startedTime' => ['required', 'time'],
         ];
     }
@@ -34,11 +33,10 @@ class RegisterDetailPlanificationByResponsibleCourseRequest extends FormRequest
             'instructors' => 'Instructores',
             'planification.id' => 'Planificación',
             'workday.id' => 'Jornada',
+            'paralel' => 'Paralelo del aula o clase',
             'daysNumber' => 'Número total de días de clase',
-            'endedAt' => 'Fecha de finalización de clases',
             'endedTime' => ['required', 'time'],
             'planEndedAt' => 'Fecha real de finalización de clases',
-            'startedAt' => 'Fecha de inicio de clases',
             'startedTime' => ['required', 'time'],
         ];
     }

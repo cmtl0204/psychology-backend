@@ -6,13 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Cecy\Courses\GetCoursesByCategoryRequest;
 use App\Http\Requests\V1\Cecy\Courses\GetCoursesByNameRequest;
 use App\Http\Requests\V1\Cecy\Courses\GetInstructorsInformationByCourseRequest;
-use App\Http\Requests\V1\Cecy\Courses\GetSchedulesInformationByCourseRequest;
+use App\Http\Requests\V1\Cecy\Courses\GetDetailPlanificationsByCourseRequest;
+use App\Http\Requests\V1\Cecy\Courses\GetTopicsByCourseRequest;
+use App\Http\Requests\V1\Cecy\Participants\StoreParticipantRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
 use App\Http\Resources\V1\Cecy\Courses\DetailPlanificationByCourseCollection;
 use App\Http\Resources\V1\Cecy\Courses\InstructorsInformationByCourseCollection;
+use App\Http\Resources\V1\Cecy\Courses\PrerequisitesByCourseCollection;
+use App\Http\Resources\V1\Cecy\Courses\TopicsByCourseCollection;
+use App\Http\Resources\V1\Cecy\Participants\ParticipantResource;
+use App\Models\Authentication\User;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Course;
+use App\Models\Cecy\Instructor;
+use App\Models\Cecy\Participant;
 use App\Models\Cecy\Planification;
+use App\Models\Cecy\Prerequisite;
+use App\Models\Cecy\Topic;
 use App\Models\Core\File;
 use App\Models\Core\Image;
 
@@ -21,6 +31,11 @@ class GuachagmiraController extends Controller
     public function __construct()
     {
         $this->middleware('permission:view-courses')->only(['view']);
+        $this->middleware('permission:view-topics')->only(['view']);
+        $this->middleware('permission:view-prerequisites')->only(['view']);
+        $this->middleware('permission:view-detailPlanifications')->only(['view']);
+        $this->middleware('permission:view-Instructors')->only(['view']);
+        $this->middleware('permission:view-Planifications')->only(['view']);
     }
 
     public function getCoursesByCategory(getCoursesByCategoryRequest $request)
@@ -57,6 +72,9 @@ class GuachagmiraController extends Controller
                 ]
             ]);
     }
+    /*
+        Obtener la información persona de cada instructor que dicta dado un curso
+    */
     public function getInstructorsInformationByCourse(GetInstructorsInformationByCourseRequest $request)
     {
         $planification = Planification::where('course_id', $request->input('course.id'));
@@ -74,12 +92,14 @@ class GuachagmiraController extends Controller
                 ]
             ]);
     }
-    public function getSchedulesInformationByCourse(GetSchedulesInformationByCourseRequest $request)
+    /*
+        Obtener los horarios de cada paralelo dado un curso
+    */
+    public function getDetailPlanificationsByCourse(GetDetailPlanificationsByCourseRequest $request)
     {
         $planification = Planification::where('course_id', $request->input('course.id'));
         $detailPlanification =  $planification
             ->detailPlanification();
-
 
         return (new DetailPlanificationByCourseCollection($detailPlanification))
             ->additional([
@@ -90,6 +110,41 @@ class GuachagmiraController extends Controller
                 ]
             ]);
     }
+    /*
+        Obtener los prerequisitos dado un curso
+    */
+    public function getPrerequisitesByCourse(Course $course)
+    {
+        $prerequisites = $course->prerequisite()->get();
+
+        return (new PrerequisitesByCourseCollection($prerequisites))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+    /*
+        Obtener los topicos  dado un curso
+    */
+    public function getTopicsByCourse(GetTopicsByCourseRequest $request)
+    {
+        $topics = Topic::where([
+            ['course_id', $request->input('course.id')],
+        ]);
+
+        return (new TopicsByCourseCollection($topics))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
 
     public function show(Course $course)
     {
@@ -104,15 +159,43 @@ class GuachagmiraController extends Controller
                 ]
             ]);
     }
+    public function registerParticipant(StoreParticipantRequest $request)
+    {
+
+        $participant = new Participant();
+
+        $participant->user()->associate(User::find($request->input('user.id')));
+        $participant->personType()->associate(Catalogue::find($request->input('personType.id')));
+        $participant->state()->associate(Catalogue::find($request->input('state.id')));
+
+        return (new ParticipantResource($participant))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
 
     // Files
-    public function showFile(Course $courses, File $file)
+    public function showFileCourse(Course $courses, File $file)
     {
         return $courses->showFile($file);
     }
 
-    public function showImage(Catalogue $catalogue, Image $image)
+    public function showImageCourse(Course $courses, Image $image)
     {
-        return $catalogue->showImage($image);
+        return $courses->showImage($image);
+    }
+
+    public function showFileInstructor(Instructor $instructor, File $file)
+    {
+        return $instructor->showFile($file);
+    }
+
+    public function showImageInstructor(Instructor $instructor, Image $image)
+    {
+        return $instructor->showImage($image);
     }
 }

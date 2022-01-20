@@ -14,11 +14,11 @@ class UpdateImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => [
+            'images.*' => [
                 'required',
-                'mimes:jpg,jpeg,png,jpeg 2000,bmp',
+                'mimes:pdf,txt,doc,docx,xls,xlsx,csv,ppt,pptx,zip,rar,7z,tar,jpg,jpeg,png,bmp,tiff,tif,svg',
                 'file',
-                'max:102400',
+                'max:1024000',
             ],
         ];
 
@@ -26,7 +26,7 @@ class UpdateImageRequest extends FormRequest
 
     public function attributes()
     {
-       return [
+        return [
             'image' => 'imagen'
         ];
 

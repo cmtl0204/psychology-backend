@@ -14,7 +14,6 @@ class GetPlanificationsByCourseRequest extends FormRequest
     {
         return [
             'responsibleCourse.id' => ['required', 'integer'],
-            'schoolPeriod.id' => ['required', 'integer'],
             'course.id' => ['required', 'integer'],
         ];
     }
@@ -23,7 +22,6 @@ class GetPlanificationsByCourseRequest extends FormRequest
     {
         return [
             'responsibleCourse.id' => 'Responsable del curso',
-            'schoolPeriod.id' => 'Periodo lectivo',
             'course.id' => 'Curso'
         ];
     }
