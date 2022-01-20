@@ -15,16 +15,16 @@ class AdditionalInformationResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'company_activity' => $this->companyActivity,
-            'company_address' => $this->companyAddress,
-            'company_email' => $this->companyEmail,
-            'company_name' => $this->companyName,
-            'company_phone' => $this->companyPhone,
-            'company_sponsor' => $this->companySponsor,
-            'contact_name' => $this->contactName,
-            'level_instruction' => $this->levelInstruction,
-            'course_know' => $this->courseKnow,
-            'course_follow' => $this->courseFollow,
+            'companyActivity' => $this->company_activity,
+            'companyAddress' => $this->company_address,
+            'companyEmail' => $this->company_email,
+            'companyAddress' => $this->company_name,
+            'companyPhone' => $this->company_phone,
+            'companySponsor' => $this->company_sponsor,
+            'contactName' => $this->contact_name,
+            'levelInstruction' => $this->level_instruction,
+            'courseKnow' => $this->course_know,
+            'courseFollow' => $this->course_follow,
             'worked' => $this->worked,
         ];
     }

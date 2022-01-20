@@ -18,9 +18,11 @@ use App\Http\Resources\V1\Cecy\Participants\ParticipantResource;
 use App\Models\Authentication\User;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Course;
+use App\Models\Cecy\Instructor;
 use App\Models\Cecy\Participant;
 use App\Models\Cecy\Planification;
 use App\Models\Cecy\Prerequisite;
+use App\Models\Cecy\Topic;
 use App\Models\Core\File;
 use App\Models\Core\Image;
 
@@ -129,10 +131,9 @@ class GuachagmiraController extends Controller
     */
     public function getTopicsByCourse(GetTopicsByCourseRequest $request)
     {
-        $topics = Prerequisite::where([
+        $topics = Topic::where([
             ['course_id', $request->input('course.id')],
-            // ['parent_id', $request->input('parent.id')],
-        ])->course();
+        ]);
 
         return (new TopicsByCourseCollection($topics))
             ->additional([
@@ -178,22 +179,23 @@ class GuachagmiraController extends Controller
     }
 
     // Files
-    public function showFile(Course $courses, File $file)
+    public function showFileCourse(Course $courses, File $file)
     {
         return $courses->showFile($file);
     }
 
-    public function showImage(Course $courses, Image $image)
+    public function showImageCourse(Course $courses, Image $image)
     {
         return $courses->showImage($image);
     }
-    // public function showFile(Participant $participant, File $file)
-    // {
-    //     return $participant->showFile($file);
-    // }
 
-    // public function showImage(Participant $participant, Image $image)
-    // {
-    //     return $participant->showImage($image);
-    // }
+    public function showFileInstructor(Instructor $instructor, File $file)
+    {
+        return $instructor->showFile($file);
+    }
+
+    public function showImageInstructor(Instructor $instructor, Image $image)
+    {
+        return $instructor->showImage($image);
+    }
 }

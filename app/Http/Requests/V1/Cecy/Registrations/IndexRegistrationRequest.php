@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Cecy\Registrations;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterStudentRequest extends FormRequest
+class IndexRegistrationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,15 @@ class RegisterStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => ['required'],
-            'registered_at' => ['required'],
+           
+
         ];
     }
 
     public function attributes()
     {
         return [
-            'number' => 'numero de matricula',
-            'registered_at' => 'fecha de matricula',
-
+         
         ];
     }
 }
