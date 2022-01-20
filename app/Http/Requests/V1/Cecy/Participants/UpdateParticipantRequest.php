@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Requests\V1\Cecy\Participants;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreParticipantsRequest extends FormRequest
+class UpdateParticipantRequest extends FormRequest
 {
     public function authorize()
     {
@@ -13,18 +12,18 @@ class StoreParticipantsRequest extends FormRequest
     public function rules()
     {
         return [
-            'user.id' => ['required', 'integer'],
             'person_type.id' => ['required', 'integer'],
             'state.id' => ['required', 'integer'],
+            'user.id' => ['required', 'integer'],
         ];
     }
 
     public function attributes()
     {
         return [
-            'user_id' => 'Id del usuario',
-            'person_type_id' => 'Id del tipo de persona',
-            'state.id' => 'Id del estado del participante'
+            'person_type.id' => 'Tipo de participante',
+            'state.id' => 'Estado del partipante',
+            'user.id' => 'Usuario',
         ];
     }
 }

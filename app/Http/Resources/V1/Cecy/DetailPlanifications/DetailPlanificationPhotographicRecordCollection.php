@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\V1\Cecy\Participants;
+namespace App\Http\Resources\V1\Cecy\DetailPlanificationPhotographicRecords;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ParticipantCollection extends ResourceCollection
+class DetailPlanificationPhotographicRecordCollection extends ResourceCollection
 {
     public function toArray($request)
     {
