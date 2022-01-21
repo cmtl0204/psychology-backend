@@ -16,9 +16,9 @@ class InformCourseNeedsResource extends JsonResource
 {
     public function toArray($request)
     {
-        $planification = Planification::course();
-        $planification = Planification::detail_school_period();
-        $planification = Planification::responsible_course_id();
+        $planification = Planification::course()
+        ->detail_school_period()
+        ->responsible_course_id();
   /*       ['course', $request->input('course')],
         ['detail_school_period', $request->input('detailSchoolPeriod')],
         ['responsible_course_id', $request->input('responsibleCourse')] */
