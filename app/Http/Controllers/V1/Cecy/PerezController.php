@@ -40,10 +40,12 @@ class PerezController extends Controller
      */
     public function getPlanificationsByCourse(GetPlanificationsByCourseRequest $request)
     {
-        $planifications = Planification::where([
-            ['responsible_course', $request->input('responsibleCourse.id')],
-            ['course_id', $request->input('course.id')]
-        ])->get();
+        $sorts = explode(',', $request->sort);
+
+        $planifications = Planification::customOrderBy($sorts)
+            ->responsibleCourse($request->user()->id)
+            ->course($request->input('course.id'))
+            ->paginate($request->input('per_page'));
 
         return (new PlanificationByCourseCollection($planifications))
             ->additional([
@@ -79,11 +81,11 @@ class PerezController extends Controller
      */
     public function getDetailPlanificationsByPlanification(GetDetailPlanificationsByPlanificationRequest $request)
     {
+        $sorts = explode(',', $request->sort);
 
-        $detailPlanifications = Planification::where([
-            ['planification_id', $request->input('responsibleCourse.id')],
-            ['course_id', $request->input('course.id')]
-        ])->get();
+        $detailPlanifications = DetailPlanification::customOrderBy($sorts)
+            ->planification($request->input('planification.id'))
+            ->paginate($request->input('per_page'));
 
         return (new ResponsibleCourseDetailPlanificationCollection($detailPlanifications))
             ->additional([
@@ -171,10 +173,9 @@ class PerezController extends Controller
 
         DB::transaction(function () use ($request, $detailPlanification, $user) {
             $detailPlanification->save();
-            // $detailPlanification->instructors()->updateExistingPivot($request->input('instructors.id'));
             $detailPlanification->instructors()->updateExistingPivot($request->input('instructors.id'), ['instructor_id']);
             //$user es el responsable de cecy
-            // $user->notify(new DetailPlanificationChanged($detailPlanification));
+            $user->notify(new DetailPlanificationChanged($detailPlanification));
         }, 5);
 
         return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))

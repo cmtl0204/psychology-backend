@@ -14,7 +14,6 @@ class GetDetailPlanificationsByPlanificationRequest extends FormRequest
     {
         return [
             'planification.id' => ['required', 'integer'],
-            'course.id' => ['required', 'integer'],
         ];
     }
     
@@ -22,7 +21,6 @@ class GetDetailPlanificationsByPlanificationRequest extends FormRequest
     {
         return [
             'planification.id' => 'Planificación',
-            'course.id' => 'Curso',
         ];
     }
 }
