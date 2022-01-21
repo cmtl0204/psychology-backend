@@ -8,8 +8,12 @@ use App\Models\Cecy\Catalogue;
 use App\Http\Resources\V1\Cecy\DetailInstructors\DetailInstructorResource;
 use App\Http\Resources\V1\Cecy\DetailInstructors\DetailInstructorCollection;
 use App\Models\Cecy\Course;
+use App\Http\Requests\V1\Cecy\Courses\GetCoursesByCategoryRequest;
+
 use App\Models\Cecy\DetailInstructor;
 use App\Models\Cecy\Planification;
+use App\Http\Resources\V1\Cecy\Planifications\InformCourseNeedsResource;
+
 
 class RiveraController extends Controller
 {
@@ -20,7 +24,7 @@ class RiveraController extends Controller
     }
 
 
-    public function showInformCourseNeeds(ShowInformCourseNeedsRequest $request, Course $course)
+    public function showInformCourseNeeds(GetCoursesByCategoryRequest $request, Course $course)
     {
     //trae un informe de nececidades de un curso en especifico por el docente que se logea
 
