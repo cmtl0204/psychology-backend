@@ -10,14 +10,14 @@ class DetailPlanificationResource extends JsonResource
     public function toArray($request)
     {
         return [
-            
+
             'id' => $this->id,
-            'classroomsId' => ClassroomResource::make($this->classroom_id),
-            'dayId' => CatalogueResource::make($this->day_id),
-            'paralelId' =>CatalogueResource::make($this->paralel_id),
-            'planificationId' => PlanificationResource::make($this->planification_id),
-            'workdayId' => CatalogueResource::make($this->workday_id),
-            'stateId' => CatalogueResource::make($this->state_id),
+            'classrooms' => ClassroomResource::collection($this->classroom_id),
+            'day' => CatalogueResource::collection($this->day_id),
+            'paralel' =>CatalogueResource::collection($this->paralel_id),
+            'planification' => PlanificationResource::collection($this->planification_id),
+            'workday' => CatalogueResource::collection($this->workday_id),
+            'state' => CatalogueResource::collection($this->state_id),
             'endTime' => $this->end_time,
             'observation' => $this->observation,
             'planEndedAt' => $this->plan_ended_at,
