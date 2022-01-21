@@ -15,7 +15,7 @@ class DetailSchoolPeriodResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => '',
+            'id' => $this->id,
             'schoolPeriod' => SchoolPeriodResource::make($this->detailSchoolPeriods),
         ];
     }
