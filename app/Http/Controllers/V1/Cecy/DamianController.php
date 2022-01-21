@@ -39,8 +39,8 @@ class DamianController extends Controller
             ]);
     }
 
-    // CURD de additional Information
-    public function storeAdditionalInformation(storeAdditionalInformationRequest $request)
+    // llenar informacion adicional de la solicitud de matricula
+    private function storeAdditionalInformation(storeAdditionalInformationRequest $request, Registration $registration)
     {
         $additionalInformation = new AdditionalInformation();
 
@@ -69,5 +69,17 @@ class DamianController extends Controller
                 ]
             ]);
     }
+    // enviar documentacion
+
+    public function addFilesrequired(){
+        return;
+    }
+    // crud de requisitos
+    // crear un school periods
+    // mostrar todos los school periods
+    // crud detail periods
 
 }
+
+
+
