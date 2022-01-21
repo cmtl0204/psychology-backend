@@ -22,9 +22,9 @@ class GetCoursesByCoordinatorCecyRequest extends FormRequest
   public function attributes()
   {
     return [
-      'career.id' => 'Id de ',
-      'academicPeriod.id' => 'Id de ',
-      'state.id' => 'Id de ',
+      'career.id' => 'Id de la carrera ',
+      'academicPeriod.id' => 'Id de periodo academico ',
+      'state.id' => 'Id del estado ',
     ];
   }
 }
