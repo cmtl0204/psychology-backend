@@ -7,28 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as Auditing;
 
-class Attendance extends Model
+class DetailAttendance extends Model
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.attendances';
+    protected $table = 'cecy.detail_attendances';
 
-    protected $fillable = [
-        'duration',
-        'registered_at',
-    ];
+    protected $fillable = [];
 
     // Relationships
-    public function catalogue()
+    public function attendance()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Attendance::class);
     }
-    /*public function registrations()
+    public function registrations()
     {
         return $this->belongsToMany(Registration::class);
-    }*/
+    }
 
 
     // Mutators

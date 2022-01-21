@@ -34,6 +34,10 @@ class Participant extends Model implements Auditable
     {
         return $this->belongsTo(Catalogue::class);
     }
+    public function registrations()
+    {
+        $this->hasMany(Registration::class);
+    }
 
 
     public function scopeCustomOrderBy($query, $sorts)
