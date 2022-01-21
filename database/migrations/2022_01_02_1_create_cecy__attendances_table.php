@@ -12,7 +12,7 @@ class CreateCecyAttendancesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->foreignId('detail_planification_id')
                 ->constrained('cecy.detail_planifications');
 

@@ -26,6 +26,10 @@ class DetailAttendance extends Model
     {
         return $this->belongsToMany(Registration::class);
     }
+    public function catalogue()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
 
 
     // Mutators

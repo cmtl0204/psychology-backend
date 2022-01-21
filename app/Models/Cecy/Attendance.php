@@ -21,14 +21,11 @@ class Attendance extends Model
     ];
 
     // Relationships
-    public function catalogue()
+
+    public function detailPlanification()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsToMany(DetailPlanification::class);
     }
-    /*public function registrations()
-    {
-        return $this->belongsToMany(Registration::class);
-    }*/
 
 
     // Mutators
