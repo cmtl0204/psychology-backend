@@ -11,8 +11,11 @@ class PlanificationsInformNeedResource extends JsonResource
 {
     public function toArray($request)
     {
+        $detailPlanification=DetailPlanification::where(['planification_id',$request->input(planification.id)]);
+
         return [
             'id' => $this->id,
+            'detailplanification' => new DetailPlanifcationInformNeedResource($detailPlanification),
             'area' => CatalogueResource::make($this->area),
             'sector' => CatalogueResource::make($this->sector),
             'responsibleCourse' => InstructorResource::make($this->responsibleCourse),
