@@ -73,7 +73,7 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function availability()
+    public function entityCertification()
     {
         return $this->belongsTo(Catalogue::class);
     }

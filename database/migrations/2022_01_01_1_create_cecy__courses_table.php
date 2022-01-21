@@ -21,8 +21,8 @@
                     ->comment()
                     ->constrained('cecy.catalogues');
 
-                $table->foreignId('availability_id')
-                    ->comment('Pagado, Gratuito')
+                $table->foreignId('entity_certification_id')
+                    ->comment('Institución que lo avala')
                     ->constrained('cecy.catalogues');
 
                 $table->foreignId('career_id')
