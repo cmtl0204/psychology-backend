@@ -13,7 +13,7 @@ use App\Http\Requests\V1\Cecy\Topics\DestroysAttendanceTeacherRequest;
 use App\Http\Resources\V1\Cecy\Attendances\AttendanceCollection;
 use App\Http\Resources\V1\Cecy\Attendances\AttendanceDetailPlanificationCollection;
 use App\Http\Resources\V1\Cecy\Attendances\AttendanceResource;
-use App\Http\Resources\V1\Cecy\Attendances\DetailAttendanceResource;
+use App\Http\Resources\V1\Cecy\DetailAttendances\DetailAttendanceResource;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
 use App\Http\Resources\V1\Cecy\Registrations\RegisterStudentResource;
@@ -34,6 +34,8 @@ class SantillanController extends Controller
     //ver todas las asistencias
     public function getAttendanceTeacher(GetAttendanceTeacherRequest $attendance)
     {
+        $attendance =  Planification::where([['course_id', $request->input('course.id')]])->get();
+
         return (new AttendanceCollection($attendance))
             ->additional([
                 'msg' => [
@@ -153,6 +155,8 @@ class SantillanController extends Controller
     //ver asistencia una por una
     public function showAttendanceTeacher(ShowAttendanceTeacherRequest $attendance)
     {
+        $attendance =  Attendance::where([['registered_at', $request->input('registered_at')]])->get();
+
         return (new AttendanceResource($attendance))
             ->additional([
                 'msg' => [

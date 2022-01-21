@@ -216,6 +216,13 @@ class Course extends Model implements Auditable
 
     // Scopes
 
+    public function scopeAcademicPeriod($query, $academicPeriod)
+    {
+        if ($academicPeriod) {
+            return $query->orWhere('academic_period_id', $academicPeriod->id);
+        }
+    }
+
     public function scopeAbbreviation($query, $abbreviation)
     {
         if ($abbreviation) {
@@ -234,6 +241,13 @@ class Course extends Model implements Auditable
     {
         if ($category) {
             return $query->orWhere('category_id', $category->id);
+        }
+    }
+    
+    public function scopeCareer($query, $career)
+    {
+        if ($career) {
+            return $query->orWhere('career_id', $career->id);
         }
     }
 
@@ -307,16 +321,24 @@ class Course extends Model implements Auditable
         }
     }
 
+    public function scopeState($query, $state)
+    {
+        if ($state) {
+            return $query->orWhere('state_id', $state->id);
+        }
+    }
+
     public function scopeSummary($query, $summary)
     {
         if ($summary) {
             return $query->orWhere('summary', $summary);
         }
     }
-    public function scopeType($query, $type)
+    //pendiente
+    public function scopeYear($query, $year)
     {
-        if ($type) {
-            return $query->orWhere('summary', $type);
+        if ($year) {
+            return $query->orWhere('year', $year);
         }
     }
 

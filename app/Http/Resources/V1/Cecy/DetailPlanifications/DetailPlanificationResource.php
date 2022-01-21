@@ -10,7 +10,7 @@ class DetailPlanificationResource extends JsonResource
     public function toArray($request)
     {
         return [
-            
+
             'id' => $this->id,
             'classrooms' => ClassroomResource::collection($this->classroom_id),
             'day' => CatalogueResource::collection($this->day_id),
