@@ -73,7 +73,7 @@ class GuachagmiraController extends Controller
             ]);
     }
     /*
-        Obtener la información persona de cada instructor que dicta dado un curso
+        Obtener la información personal de cada instructor que dicta dado un curso
     */
     public function getInstructorsInformationByCourse(GetInstructorsInformationByCourseRequest $request)
     {

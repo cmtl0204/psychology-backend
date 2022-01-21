@@ -88,7 +88,22 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
+    public function capacitationType()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
     public function certifiedType()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function complianceIndicators()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function control()
     {
         return $this->belongsTo(Catalogue::class);
     }
@@ -98,12 +113,17 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function level()
+    public function frecuency()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
     public function modality()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function meansVerification()
     {
         return $this->belongsTo(Catalogue::class);
     }
@@ -243,7 +263,7 @@ class Course extends Model implements Auditable
             return $query->orWhere('category_id', $category->id);
         }
     }
-    
+
     public function scopeCareer($query, $career)
     {
         if ($career) {

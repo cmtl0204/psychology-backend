@@ -33,21 +33,41 @@
                     ->comment('Categoría a la cual pertenece el curso')
                     ->constrained('cecy.catalogues');
 
+                $table->foreignId('capacitation_type')
+                    ->comment('Tipo de capacitación puede ser webinar, taller, curso')
+                    ->constrained('cecy.catalogues');
+
                 $table->foreignId('certified_type_id')
                     ->comment('Curso, Taller, Webinar')
                     ->constrained('cecy.catalogues');
+
+                $table->foreignId('compliance_indicators_id')
+                    ->comment('Por averigurar campo añadido 21/01')
+                    ->constrained('cecy.catalogues')
+                    ->nullable();
+
+                $table->foreignId('control_id')
+                    ->comment('Por averigurar campo añadido 21/01')
+                    ->constrained('cecy.catalogues')
+                    ->nullable();
 
                 $table->foreignId('course_type_id')
                     ->comment('Ténico, Administrativo')
                     ->constrained('cecy.catalogues');
 
-                $table->foreignId('level_id')
-                    ->comment('Primero, segundo, tercero')
-                    ->constrained('cecy.catalogues');
+                $table->foreignId('frecuency_id')
+                    ->comment('Por averigurar campo añadido 21/01')
+                    ->constrained('cecy.catalogues')
+                    ->nullable();
 
                 $table->foreignId('modality_id')
                     ->comment('Dual, Presencial, Virtual')
                     ->constrained('cecy.catalogues');
+
+                $table->foreignId('means_verification_id')
+                    ->comment('Por averigurar campo añadido 21/01')
+                    ->constrained('cecy.catalogues')
+                    ->nullable();
 
                 $table->foreignId('participant_type_id')
                     ->comment('Adultos, Estudiantes, Profesores')
