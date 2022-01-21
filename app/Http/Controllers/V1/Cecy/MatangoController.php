@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1\Cecy;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Cecy\Courses\getCoursesByResponsibleRequest;
 use App\Http\Requests\V1\Cecy\Courses\StoreCourseGeneralDataRequest;
+use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
 use App\Models\Cecy\Institution;
 use Illuminate\Http\Request;
 use App\Models\Cecy\Catalogue;
@@ -15,6 +16,7 @@ use App\Http\Resources\V1\Cecy\Prerequisites\CoursesByResponsibleCollection;
 use App\Http\Resources\V1\Core\CareerCollection;
 use App\Models\Cecy\Course;
 use App\Models\Core\Career;
+use App\Models\Core\Image;
 
 class MatangoController extends Controller
 {
@@ -32,7 +34,6 @@ class MatangoController extends Controller
             ['responsible_id', $request->input('responsible.id')]
         ]);
 
-
         return (new CoursesByResponsibleCollection($courses))
             ->additional([
                 'msg' => [
@@ -44,11 +45,7 @@ class MatangoController extends Controller
     }
 
 
-    // public function getCoursesByPeriod()
-    // {
-    //     //busca peridos lectivos y carrera
-    // }
-
+   
     public function getCarrers(Career $careers)
     {
         return (new CareerCollection($careers))
@@ -61,11 +58,25 @@ class MatangoController extends Controller
             ]);
     }
 
+    //trae toda la info de un curso en especifico
 
+    public function show(Course $course)
+    {
+        $course = Course::find($course);
+
+        return (new CourseCollection($course))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
 
 
     
-    public function createGeneralData(StoreCourseGeneralDataRequest $request, Course $course)
+    public function updateGeneralData(StoreCourseGeneralDataRequest $request, Course $course)
     {
         $course->carrerId()->associate(Career::find($request->input('carrer.id')));
         $course->category()->associate(Catalogue::find($request->input('category.id')));
@@ -90,5 +101,10 @@ class MatangoController extends Controller
                 'code' => '200'
             ]
         ]);
+    }
+
+    public function showImage(Course $course, Image $image)
+    {
+        return $course->showImage($image);
     }
 }
