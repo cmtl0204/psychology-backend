@@ -11,8 +11,14 @@ use App\Models\Cecy\Course;
 use App\Http\Requests\V1\Cecy\Courses\GetCoursesByCategoryRequest;
 
 use App\Models\Cecy\DetailInstructor;
-use App\Models\Cecy\Planification;
+use App\Models\Cecy\Instructor;
 use App\Http\Resources\V1\Cecy\Planifications\InformCourseNeedsResource;
+use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationInformNeedResource;
+use App\Http\Requests\V1\Cecy\Planifications\getDateByshowYearScheduleRequest;
+
+use App\Http\Resources\V1\Cecy\PhotographicRecords\PhotographicRecordResource;
+
+
 
 
 class RiveraController extends Controller
@@ -94,8 +100,9 @@ class RiveraController extends Controller
     $detailPlanifications = $responsibleCourse
         ->detailPlanifications()
         ->photographicRecords()
+        ->paginate($request->input('per_page'));
 
-        // return (new PhotographicRecordResource($detailPlanifications))
+         return (new PhotographicRecordResource($detailPlanifications))
         ->additional([
             'msg' => [
                 'summary' => 'success',

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\V1\Cecy\Courses;
+namespace App\Http\Requests\V1\Cecy\Planifications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,7 +25,7 @@ class GetDateByshowYearScheduleRequest extends FormRequest
     public function attributes()
     {
         return [
-            'startedAt' => 'fecha de la planificacion'
+            'startedAt' => 'fecha de la planificacion',
             'sector.id' => 'sector de la planificacion',
             'area.id' => 'area de la planificacion',
 
