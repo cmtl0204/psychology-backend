@@ -28,7 +28,7 @@ class SalazarController extends Controller
         ->course()
         ->paginate($request->input('per_page'));
 
-    return (new DetailPlanificationCurricularDesign($detailPlanifications))
+    return (new InformCourseNeedsResource($detailPlanifications))
         ->additional([
             'msg' => [
                 'summary' => 'success',
@@ -52,7 +52,7 @@ class SalazarController extends Controller
         ->attendence()
         ->paginate($request->input('per_page'));
 
-    return (new DetailPlanificationEvaluationRecord($detailPlanifications))
+    return (new RegistrationRecordCompetitorResource($detailPlanifications))
         ->additional([
             'msg' => [
                 'summary' => 'success',
@@ -63,18 +63,11 @@ class SalazarController extends Controller
     }
       
   
-      public function showFinalCourseReport()
+      public function showFinalCourseReport(Course $course)
       {
        // trae la informacion del informe final del curso 
-       $responsibleCourse= Instructor::where('user_id', $request->user()->id)->get();
-
-    $detailPlanifications = $course
-        ->detailPlanifications()
-        ->planifications()
-        ->course()
-        ->paginate($request->input('per_page'));
-
-    return (new DetailPlanificationFinalCourseReport($detailPlanifications))
+       
+        return (new InformCourseNeedsResource($course))
         ->additional([
             'msg' => [
                 'summary' => 'success',
