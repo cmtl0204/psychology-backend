@@ -17,33 +17,18 @@ class Planification extends Model implements Auditable
     protected $table = 'cecy.planifications';
 
     protected $fillable = [
+        'aproved_at',
         'code',
         'ended_at',
         'needs',
-        'number_days',
         'observations',
         'started_at'
     ];
 
     // Relationships
-    public function area()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
-
     public function course()
     {
         return $this->belongsTo(Course::class);
-    }
-
-    public function responsibleCourse()
-    {
-        return $this->belongsTo(Instructor::class);
-    }
-
-    public function responsibleCecy()
-    {
-        return $this->belongsTo(Authority::class);
     }
 
     public function detailSchoolPeriod()
@@ -51,9 +36,24 @@ class Planification extends Model implements Auditable
         return $this->belongsTo(DetailSchoolPeriod::class);
     }
 
-    public function sector()
+    public function vicerrector()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->belongsTo(Authority::class);
+    }
+
+    public function responsibleCourse()
+    {
+        return $this->belongsTo(Instructor::class);
+    }
+
+    public function responsibleOcs()
+    {
+        return $this->belongsTo(Authority::class);
+    }
+
+    public function responsibleCecy()
+    {
+        return $this->belongsTo(Authority::class);
     }
 
     public function state()
@@ -76,7 +76,7 @@ class Planification extends Model implements Auditable
     public function scopeCode($query, $code)
     {
         if ($code) {
-            return $query->orWhere('category', $code);
+            return $query->orWhere('code', $code);
         }
     }
 

@@ -15,9 +15,6 @@ class CreateCecyPlanificationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('area_id')
-                ->constrained('cecy.catalogues');
-
             $table->foreignId('course_id')
                 ->comment('Id del curso al que esta atado la planificación')
                 ->constrained('cecy.courses');
@@ -26,21 +23,28 @@ class CreateCecyPlanificationsTable extends Migration
                 ->comment('Id del periodo escolar')
                 ->constrained('cecy.detail_school_periods');
 
+            $table->foreignId('vicerrector_id')
+                ->comment('Id del periodo escolar')
+                ->constrained('cecy.authorities');
+
             $table->foreignId('responsible_course_id')
                 ->comment('Id del docente responsable del curso')
+                ->constrained('cecy.instructors');
+
+            $table->foreignId('responsible_ocs_id')
+                ->comment('Id de responsable del ocs')
                 ->constrained('cecy.instructors');
 
             $table->foreignId('responsible_cecy_id')
                 ->comment('Id del responsable del cecy')
                 ->constrained('cecy.authorities');
 
-            $table->foreignId('sector_id')
-                ->comment('Ganaderia, Industria...')
-                ->constrained('cecy.catalogues');
-
             $table->foreignId('state_id')
                 ->comment('Por aprobar, culminada ...')
                 ->constrained('cecy.catalogues');
+
+            $table->date('aproved_at')
+                ->comment('Fecha de aprobación de la planificación');
 
             $table->string('code')
                 ->nullable()
@@ -52,10 +56,7 @@ class CreateCecyPlanificationsTable extends Migration
             $table->json('needs')
                 ->comment('Se puede hacer una copia de las propias necesidades del curso de ser necesario');
 
-            $table->integer('number_days')
-                ->comment('Número de dias que dura el curso');
-
-           $table->json('observations')
+            $table->json('observations')
                 ->comment('En caso de que no se apruebe la planificaciopn se pone una observacion del porque no se acepta');
 
             $table->date('started_at')
