@@ -33,7 +33,6 @@ class InformCourseNeedsResource extends JsonResource
             'name' => $this->name,
             'duration' => $this->duration,
             'summary' => $this->summary
-            'code' => $this->code,
            
         ];
     }

@@ -47,7 +47,7 @@ class RiveraController extends Controller
         ->course()
         ->paginate($request->input('per_page'));
 
-    return (new DetailPlanificationInformNeedCollection($detailPlanifications))
+    return (new DetailPlanificationInformNeedResource($detailPlanifications))
         ->additional([
             'msg' => [
                 'summary' => 'success',
@@ -72,7 +72,7 @@ class RiveraController extends Controller
         ->course()
         ->paginate($request->input('per_page'));
 
-    return (new RegistrationRecordCompetitorCollection($registration))
+    return (new RegistrationRecordCompetitorResource($registration))
         ->additional([
             'msg' => [
                 'summary' => 'success',
