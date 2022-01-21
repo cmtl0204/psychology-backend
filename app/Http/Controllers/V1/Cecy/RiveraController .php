@@ -28,7 +28,7 @@ class RiveraController extends Controller
     $responsibleCourse = Instructor::where('user_id', $request->user()->id)->get();
 
     $detailPlanifications = $responsibleCourse
-        ->detailPlanifications()
+        ->detailPlanifications()mentir
         ->planifications()
         ->course()
         ->paginate($request->input('per_page'));
