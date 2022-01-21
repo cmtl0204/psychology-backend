@@ -13,7 +13,7 @@ class getPlanificationsByResponsibleCecyRequest extends FormRequest
     public function rules()
     {
         return [
-            'responsibleCourse.id' => ['required', 'integer'],
+            'responsibleCecy.id' => ['required', 'integer'],
             'schoolPeriod.id' => ['required', 'integer'],
         ];
     }
@@ -21,7 +21,7 @@ class getPlanificationsByResponsibleCecyRequest extends FormRequest
     public function attributes()
     {
         return [
-            'responsibleCourse.id' => 'Responsable del curso',
+            'responsibleCecy.id' => 'Responsable del cecy',
             'schoolPeriod.id' => 'Periodo lectivo'
         ];
     }

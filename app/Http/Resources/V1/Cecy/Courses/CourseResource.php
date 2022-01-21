@@ -15,7 +15,7 @@ class CourseResource extends JsonResource
             'id' => $this->id,
             'academicPeriod' => CatalogueResource::make($this->academicPeriod),
             'area' => CatalogueResource::make($this->area),
-            'availability' => CatalogueResource::make($this->availability),
+            'entityCertification' => CatalogueResource::make($this->entityCertification),
             'career' => CareerResource::make($this->career),
             'category' => CatalogueResource::make($this->category),
             'certifiedType' => CatalogueResource::make($this->certifiedType),

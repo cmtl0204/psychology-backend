@@ -15,7 +15,7 @@ class StoreCourseRequest extends FormRequest
     return [
       'academicPeriod.id' => ['required', 'integer'],
       'area.id' => ['required', 'integer'],
-      'availability.id' => ['required', 'integer'],
+      'entityCcertification.id' => ['required', 'integer'],
       'career.id' => ['required', 'integer'],
       'category.id' => ['required', 'integer'],
       'certifiedType.id' => ['required', 'integer'],

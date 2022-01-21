@@ -80,6 +80,20 @@ class Planification extends Model implements Auditable
         }
     }
 
+    public function scopeResponsibleCourse($query, $responsibleCourse)
+    {
+        if ($responsibleCourse) {
+            return $query->orWhere('responsible_course_id', $responsibleCourse->id);
+        }
+    }
+
+    public function scopeCourse($query, $course)
+    {
+        if ($course) {
+            return $query->orWhere('course_id', $course->id);
+        }
+    }
+
 
     public function scopeCustomOrderBy($query, $sorts)
     {

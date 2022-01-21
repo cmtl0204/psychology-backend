@@ -91,4 +91,11 @@ class DetailPlanification extends Model implements Auditable
             return $query;
         }
     }
+
+    public function scopePlanificationplanification($query, $planification)
+    {
+        if ($planification) {
+            return $query->orWhere('planification_id', $planification->id);
+        }
+    }
 }
