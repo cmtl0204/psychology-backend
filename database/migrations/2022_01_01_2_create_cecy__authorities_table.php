@@ -19,7 +19,7 @@ class CreateCecyAuthoritiesTable extends Migration
                 ->constrained('cecy.institutions');
 
             $table->foreignId('position_id')
-                ->comment('Cargo en el cecy')
+                ->comment('Cargo en el cecy. activo, inactivo, vacaciones, permiso medico')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('user_id')

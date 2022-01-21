@@ -14,8 +14,11 @@ class QuemagController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:store-authorities_teacher')->only(['store']);
-        $this->middleware('permission:update-authorities_teacher')->only(['update']);
+        $this->middleware('permission:view-Planifications')->only(['view']);
+        $this->middleware('permission:store-Planifications')->only(['store']);
+        $this->middleware('permission:store-detailPlanifications')->only(['store']);
+        $this->middleware('permission:update-detailPlanifications')->only(['update']);
+
     }
 
     public function showParticipants(ShowParticipantsRequest $responsibleCourse)
@@ -33,7 +36,7 @@ class QuemagController extends Controller
         ->course()
         ->paginate($request->input('per_page'));
 
-    return (new DetailPlanificationInformNeedCollection($detailPlanifications))
+    return (new CertificateResource($detailPlanifications))
         ->additional([
             'msg' => [
                 'summary' => 'success',
@@ -42,6 +45,7 @@ class QuemagController extends Controller
             ]
         ]);
     }
+
 
 /*******************************************************************************************************************
         * FILES

@@ -13,7 +13,7 @@ class StoreTopicRequest extends FormRequest
     public function rules()
     {
         return [
-            'level.id' => ['required', 'integer'],
+            'level' => ['required', 'integer'],
             'description' => ['required', 'max:240'],
         ];
     }
@@ -21,7 +21,7 @@ class StoreTopicRequest extends FormRequest
     public function attributes()
     {
         return [
-            'level.id' => 'Tipo de nivel, tema o subtema',
+            'level' => 'Tipo de nivel, tema o subtema',
             'description' => 'Descripción del tema o subtemas',
         ];
     }

@@ -15,6 +15,12 @@ class CreateCecyCertificatesTable extends Migration
 
             $table->morphs('certificateable');
 
+            $table->foreignId('certificable_id')
+            ->constrained('cecy.registrations');
+
+            $table->foreignId('certificable_type')
+            ->constrained('cecy.detail_planification_instructor');
+
             $table->foreignId('state_id')
                 ->comment('Id del tema principal')
                 ->constrained('cecy.catalogues');
