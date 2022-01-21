@@ -17,10 +17,12 @@ class CreateCecyDetailSchoolPeriodsTable extends Migration
                 ->comment('Id del periodo escolar')
                 ->constrained('cecy.school_periods');
 
+            // revisar el nombre anulation ver que otro se puede poner
             $table->date('anulation_ended_at')
                 ->nullable()
                 ->comment('fecha de inicio de anulación de matrícula');
 
+            // revisar el nombre anulation ver que otro se puede poner
             $table->date('anulation_started_at')
                 ->nullable()
                 ->comment('fecha de fin de anulación de matrícula');

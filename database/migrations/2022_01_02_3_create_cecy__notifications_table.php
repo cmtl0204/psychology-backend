@@ -21,6 +21,7 @@ class CreateCecyNotificationsTable extends Migration
             ->comment('Informacion del usuario')
             ->constrained('authentication.users');
 
+            // El comentario no corresponde -3
             $table->foreignId('state_id')
                 ->comment('Id del tema principal')
                 ->constrained('cecy.catalogues');

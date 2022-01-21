@@ -18,14 +18,17 @@ class CreateCecyAuthoritiesTable extends Migration
                 ->comment('Una autoridad puede pertenecer a varias instituciones')
                 ->constrained('cecy.institutions');
 
+            // No tiene relacion el campo con los ejemplos
             $table->foreignId('position_id')
                 ->comment('Cargo en el cecy. activo, inactivo, vacaciones, permiso medico')
                 ->constrained('cecy.catalogues');
 
+            // Esta foreign key debe estar despues de state_id
             $table->foreignId('user_id')
                 ->comment('Informacion del usuario')
                 ->constrained('authentication.users');
 
+            // Falta ejemplos -2
             $table->foreignId('state_id')
                 ->comment('Estado de una autoridad')
                 ->constrained('cecy.catalogues');
@@ -36,6 +39,7 @@ class CreateCecyAuthoritiesTable extends Migration
             $table->date('position_ended_at')
                 ->comment('Fecha final de la gestion');
 
+            // si no estoy mal firma electronica es electronic_signature
             $table->string('firm')
                 ->comment('Código de la firma electrónica');
         });

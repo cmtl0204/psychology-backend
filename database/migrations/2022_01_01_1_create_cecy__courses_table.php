@@ -1,197 +1,210 @@
-	<?php
+<?php
 
-    use Illuminate\Database\Migrations\Migration;
-    use Illuminate\Database\Schema\Blueprint;
-    use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-    class CreateCecyCoursesTable extends Migration
+class CreateCecyCoursesTable extends Migration
+{
+    public function up()
     {
-        public function up()
-        {
-            Schema::connection(env('DB_CONNECTION_CECY'))->create('courses', function (Blueprint $table) {
-                $table->id();
-                $table->timestamps();
-                $table->softDeletes();
+        Schema::connection(env('DB_CONNECTION_CECY'))->create('courses', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->softDeletes();
 
-                $table->foreignId('academic_period_id')
-                    ->comment('Primero, segundo, tercero, cuarto, quinto, sexto, séptimo')
-                    ->constrained('cecy.catalogues');
+            $table->foreignId('academic_period_id')
+                ->comment('Primero, segundo, tercero, cuarto, quinto, sexto, séptimo')
+                ->constrained('cecy.catalogues');
 
-                $table->foreignId('area_id')
-                    ->comment()
-                    ->constrained('cecy.catalogues');
+            // Falta el comentario -5
+            $table->foreignId('area_id')
+                ->comment()
+                ->constrained('cecy.catalogues');
 
-                $table->foreignId('entity_certification_id')
-                    ->comment('Institución que lo avala')
-                    ->constrained('cecy.catalogues');
+            $table->foreignId('entity_certification_id')
+                ->comment('Institución que lo avala')
+                ->constrained('cecy.catalogues');
 
-                $table->foreignId('career_id')
-                    ->comment('El id de la carrera que oferto el curso')
-                    ->constrained('core.careers');
+            $table->foreignId('career_id')
+                ->comment('El id de la carrera que oferto el curso')
+                ->constrained('core.careers');
 
-                $table->foreignId('category_id')
-                    ->comment('Categoría a la cual pertenece el curso')
-                    ->constrained('cecy.catalogues');
+            // Falta ejemplos -2
+            $table->foreignId('category_id')
+                ->comment('Categoría a la cual pertenece el curso')
+                ->constrained('cecy.catalogues');
 
-                $table->foreignId('certified_type_id')
-                    ->comment('Curso, Taller, Webinar')
-                    ->constrained('cecy.catalogues');
+            $table->foreignId('certified_type_id')
+                ->comment('Curso, Taller, Webinar')
+                ->constrained('cecy.catalogues');
 
-                $table->foreignId('course_type_id')
-                    ->comment('Ténico, Administrativo')
-                    ->constrained('cecy.catalogues');
+            $table->foreignId('course_type_id')
+                ->comment('Ténico, Administrativo')
+                ->constrained('cecy.catalogues');
 
-                $table->foreignId('level_id')
-                    ->comment('Primero, segundo, tercero')
-                    ->constrained('cecy.catalogues');
+            $table->foreignId('level_id')
+                ->comment('Primero, segundo, tercero')
+                ->constrained('cecy.catalogues');
 
-                $table->foreignId('modality_id')
-                    ->comment('Dual, Presencial, Virtual')
-                    ->constrained('cecy.catalogues');
+            $table->foreignId('modality_id')
+                ->comment('Dual, Presencial, Virtual')
+                ->constrained('cecy.catalogues');
 
-                $table->foreignId('participant_type_id')
-                    ->comment('Adultos, Estudiantes, Profesores')
-                    ->constrained('cecy.catalogues');
+            $table->foreignId('participant_type_id')
+                ->comment('Adultos, Estudiantes, Profesores')
+                ->constrained('cecy.catalogues');
 
-                $table->foreignId('responsible_id')
-                    ->comment('Id del docente responsable del curso')
-                    ->constrained('cecy.instructors');
+            $table->foreignId('responsible_id')
+                ->comment('Docente responsable del curso')
+                ->constrained('cecy.instructors');
+            // Falta el comentario -5
+            $table->foreignId('speciality_id')
+                ->comment('')
+                ->constrained('cecy.catalogues');
 
-                $table->foreignId('speciality_id')
-                    ->comment('')
-                    ->constrained('cecy.catalogues');
+            $table->foreignId('state_id')
+                ->comment('Aprobado, rechazado, pendiente')
+                ->constrained('cecy.catalogues');
 
-                $table->foreignId('state_id')
-                    ->comment('Aprobado, rechazado, pendiente')
-                    ->constrained('cecy.catalogues');
+            $table->string('abbreviation')
+                ->comment('Abreviación del curso')
+                ->nullable();
 
-                $table->string('abbreviation')
-                    ->comment('Abreviación del curso')
-                    ->nullable();
+            // Falta ejemplos -2
+            $table->string('alignment')
+                ->comment('Alineación del curso')
+                ->nullable();
 
-                $table->string('alignment')
-                    ->comment('Alineación del curso')
-                    ->nullable();
+            $table->date('approved_at')
+                ->comment('Fecha en que se aprobo el curso')
+                ->nullable();
 
-                $table->date('approved_at')
-                    ->comment('Fecha en que se aprobo el curso')
-                    ->nullable();
+            $table->json('bibliographies')
+                ->comment('Bibliografías')
+                ->nullable();
 
-                $table->json('bibliographies')
-                    ->comment('Bibliografías')
-                    ->nullable();
+            $table->string('code')
+                ->comment('Código del curso')
+                ->nullable();
 
-                $table->string('code')
-                    ->comment('Código del curso')
-                    ->nullable();
+            $table->double('cost')
+                ->comment('Costo del curso')
+                ->nullable();
 
-                $table->double('cost')
-                    ->comment('Costo del curso')
-                    ->nullable();
+            $table->integer('duration')
+                ->comment('Duración medida en horas')
+                ->nullable();
 
-                $table->integer('duration')
-                    ->comment('Duración medida en horas')
-                    ->nullable();
+            // Faltan ejemplos -2
+            $table->json('evaluation_mechanisms')
+                ->comment('Mecanismos de evaluación')
+                ->nullable();
 
-                $table->json('evaluation_mechanisms')
-                    ->comment('Mecanismos de evaluación')
-                    ->nullable();
+            $table->date('expired_at')
+                ->comment('Fecha de expiración del curso')
+                ->nullable();
 
-                $table->date('expired_at')
-                    ->comment('Fecha de expiración del curso')
-                    ->nullable();
+            $table->json('facilities')
+                ->comment('instalaciones')
+                ->nullable();
 
-                $table->json('facilities')
-                    ->comment('instalaciones')
-                    ->nullable();
+            $table->boolean('free')
+                ->comment('Si el curso es gratuito es true y si no es false')
+                ->nullable();
 
-                $table->boolean('free')
-                    ->comment('Si el curso es gratuito es true y si no es false')
-                    ->nullable();
+            $table->string('name')
+                ->comment('Nombre del curso')
+                ->nullable();
 
-                $table->string('name')
-                    ->comment('Nombre del curso')
-                    ->nullable();
+            $table->json('needs')
+                ->comment('Necesidades')
+                ->nullable();
 
-                $table->json('needs')
-                    ->comment('Necesidades')
-                    ->nullable();
+            // Falat el comentario -5
+            $table->date('needed_at')
+                ->nullable();
 
-                $table->date('needed_at')
-                    ->nullable();
+            // No esta claro el comentario -2
+            $table->string('record_number')
+                ->comment('Número de record')
+                ->nullable();
 
-                $table->string('record_number')
-                    ->comment('Número de record')
-                    ->nullable();
+            // Faltan ejemplos -2
+            $table->json('learning_environments')
+                ->comment('Entorno de aprendizaje')
+                ->nullable();
 
-                $table->json('learning_environments')
-                    ->comment('Entorno de aprendizaje')
-                    ->nullable();
+            // Faltan ejemplos -2
+            $table->string('local_proposal')
+                ->comment('Propuesta local')
+                ->nullable();
 
-                $table->string('local_proposal')
-                    ->comment('Propuesta local')
-                    ->nullable();
+            $table->string('objective')
+                ->comment('Objetivo del curso')
+                ->nullable();
 
-                $table->string('objective')
-                    ->comment('Objetivo del curso')
-                    ->nullable();
+            // Debe ser un json
+            $table->string('observation')
+                ->comment('Observación de curso')
+                ->nullable();
 
-                $table->string('observation')
-                    ->comment('Observación de curso')
-                    ->nullable();
+            // Faltan ejemplos -2
+            $table->json('practical_phases')
+                ->comment('Fase práctica')
+                ->nullable();
 
-                $table->json('practical_phases')
-                    ->comment('Fase práctica')
-                    ->nullable();
+            $table->integer('practice_hours')
+                ->comment('Cantidad de horas practicas del curso')
+                ->nullable();
 
-                $table->integer('practice_hours')
-                    ->comment('Cantidad de horas practicas del curso')
-                    ->nullable();
+            $table->date('proposed_at')
+                ->comment('Fecha en que se propuso el curso')
+                ->nullable();
 
-                $table->date('proposed_at')
-                    ->comment('Fecha en que se propuso el curso')
-                    ->nullable();
+            $table->string('project')
+                ->comment('Si el curso persigue generar un proyecto que nombre tiene')
+                ->nullable();
 
-                $table->string('project')
-                    ->comment('Si el curso persigue generar un proyecto que nombre tiene')
-                    ->nullable();
+            $table->string('required_installing_sources')
+                ->comment('Fuentes de instación necesaria')
+                ->nullable();
 
-                $table->string('required_installing_sources')
-                    ->comment('Fuentes de instación necesaria')
-                    ->nullable();
+            $table->string('setec_name')
+                ->comment('Nombre del setec')
+                ->nullable();
 
-                $table->string('setec_name')
-                    ->comment('Nombre del setec')
-                    ->nullable();
+            $table->text('summary')
+                ->comment('Resumen del curso')
+                ->nullable();
 
-                $table->string('summary')
-                    ->comment('Resumen del curso')
-                    ->nullable();
+            // Faltan ejemplos -2
+            $table->json('target_groups')
+                ->comment('Tarjeta de grupo')
+                ->nullable();
 
-                $table->json('target_groups')
-                    ->comment('Tarjeta de grupo')
-                    ->nullable();
+            // Faltan ejemplos -2
+            $table->json('teaching_strategies')
+                ->comment('Estrategias de enseñanza')
+                ->nullable();
 
-                $table->json('teaching_strategies')
-                    ->comment('Estrategias de enseñanza')
-                    ->nullable();
+            $table->json('techniques_requisites')
+                ->comment('Requisitos técnicos y generales del curso')
+                ->nullable();
 
-                $table->json('techniques_requisites')
-                    ->comment('Requisitos técnicos y generales del curso')
-                    ->nullable();
+            // Faltan ejemplos -2
+            $table->json('theoretical_phases')
+                ->comment('Fase teórica')
+                ->nullable();
 
-                $table->json('theoretical_phases')
-                    ->comment('Fase teórica')
-                    ->nullable();
-
-                $table->integer('theory_hours')
-                    ->comment('Cantidad de horas del curso en teoria')
-                    ->nullable();
-            });
-        }
-
-        public function down()
-        {
-            Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('courses');
-        }
+            $table->integer('theory_hours')
+                ->comment('Cantidad de horas del curso en teoria')
+                ->nullable();
+        });
     }
+
+    public function down()
+    {
+        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('courses');
+    }
+}

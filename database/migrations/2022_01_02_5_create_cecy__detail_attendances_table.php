@@ -22,7 +22,6 @@ class CreateCecyDetailAttendancesTable extends Migration
                 ->nullable()
                 ->comment('para saber si esta presente,inasistente o atrasado ')
                 ->constrained('cecy.catalogues');
-
         });
     }
 
