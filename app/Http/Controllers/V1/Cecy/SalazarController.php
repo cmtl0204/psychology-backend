@@ -8,6 +8,9 @@ use App\Http\Resources\V1\Cecy\ProfileInstructorCourses\ProfileInstructorCourseR
 use Illuminate\Http\Request;
 use App\Models\Cecy\ProfileInstructorCourse;
 use App\Models\Cecy\Course;    
+use App\Http\Resources\V1\Cecy\Planifications\InformCourseNeedsResource;
+use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationInformNeedResource;
+use App\Http\Resources\V1\Cecy\Registration\RegistrationRecordCompetitorResource;
 
 
 class SalazarController extends Controller
@@ -37,8 +40,8 @@ class SalazarController extends Controller
             ]
         ]);
     }
-      
 
+      
       public function showAttendenceEvaluationRecord()
       {
          // trae la informacion de registro asistencia-evaluacion
