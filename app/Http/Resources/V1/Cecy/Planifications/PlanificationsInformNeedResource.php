@@ -14,7 +14,7 @@ class PlanificationsInformNeedResource extends JsonResource
 {
     public function toArray($request)
     {
-        $detailPlanification=DetailPlanification::planification_id();
+        $detailPlanification=DetailPlanification::planification_id() ->get();
 
         return [
             'id' => $this->id,

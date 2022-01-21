@@ -27,9 +27,22 @@ class CatalogueController extends Controller
         $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
     }
 
+    public function createUser(IndexCatalogueRequest $request)
+    {
+        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
+        $state = Catalogue::where('code', 'INACTIVE');
+        $state = Catalogue::where('name', 'INACTIVO');
+        if ($request->input('gender.code') == $catalogue['gender']['male']) {
+// PARA PONER UN AVATAR DE HOMBRE
+        }
+
+        $request->input('gender.id');
+    }
+
     public function index(IndexCatalogueRequest $request)
     {
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
+        // $catalogue['gender']['female']
         $sorts = explode(',', $request->sort);
 
         $catalogues = Catalogue::customOrderBy($sorts)

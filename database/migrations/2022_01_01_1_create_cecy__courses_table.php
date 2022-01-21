@@ -17,7 +17,6 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Primero, segundo, tercero, cuarto, quinto, sexto, séptimo')
                 ->constrained('cecy.catalogues');
 
-            // Falta el comentario -5
             $table->foreignId('area_id')
                 ->comment()
                 ->constrained('cecy.catalogues');
@@ -30,35 +29,54 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('El id de la carrera que oferto el curso')
                 ->constrained('core.careers');
 
-            // Falta ejemplos -2
             $table->foreignId('category_id')
                 ->comment('Categoría a la cual pertenece el curso')
+                ->constrained('cecy.catalogues');
+
+            $table->foreignId('capacitation_type')
+                ->comment('Tipo de capacitación puede ser webinar, taller, curso')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('certified_type_id')
                 ->comment('Curso, Taller, Webinar')
                 ->constrained('cecy.catalogues');
 
+            $table->foreignId('compliance_indicators_id')
+                ->comment('Por averigurar campo añadido 21/01')
+                ->constrained('cecy.catalogues')
+                ->nullable();
+
+            $table->foreignId('control_id')
+                ->comment('Por averigurar campo añadido 21/01')
+                ->constrained('cecy.catalogues')
+                ->nullable();
+
             $table->foreignId('course_type_id')
                 ->comment('Ténico, Administrativo')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('level_id')
-                ->comment('Primero, segundo, tercero')
-                ->constrained('cecy.catalogues');
+            $table->foreignId('frecuency_id')
+                ->comment('Por averigurar campo añadido 21/01')
+                ->constrained('cecy.catalogues')
+                ->nullable();
 
             $table->foreignId('modality_id')
-                ->comment('Dual, Presencial, Virtual')
+                ->comment('Presencial, Virtual')
                 ->constrained('cecy.catalogues');
+
+            $table->foreignId('means_verification_id')
+                ->comment('Por averigurar campo añadido 21/01')
+                ->constrained('cecy.catalogues')
+                ->nullable();
 
             $table->foreignId('participant_type_id')
                 ->comment('Adultos, Estudiantes, Profesores')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('responsible_id')
-                ->comment('Docente responsable del curso')
+                ->comment('Id del docente responsable del curso')
                 ->constrained('cecy.instructors');
-            // Falta el comentario -5
+
             $table->foreignId('speciality_id')
                 ->comment('')
                 ->constrained('cecy.catalogues');
@@ -71,7 +89,6 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Abreviación del curso')
                 ->nullable();
 
-            // Falta ejemplos -2
             $table->string('alignment')
                 ->comment('Alineación del curso')
                 ->nullable();
@@ -96,7 +113,6 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Duración medida en horas')
                 ->nullable();
 
-            // Faltan ejemplos -2
             $table->json('evaluation_mechanisms')
                 ->comment('Mecanismos de evaluación')
                 ->nullable();
@@ -121,21 +137,17 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Necesidades')
                 ->nullable();
 
-            // Falat el comentario -5
             $table->date('needed_at')
                 ->nullable();
 
-            // No esta claro el comentario -2
             $table->string('record_number')
                 ->comment('Número de record')
                 ->nullable();
 
-            // Faltan ejemplos -2
             $table->json('learning_environments')
                 ->comment('Entorno de aprendizaje')
                 ->nullable();
 
-            // Faltan ejemplos -2
             $table->string('local_proposal')
                 ->comment('Propuesta local')
                 ->nullable();
@@ -144,12 +156,10 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Objetivo del curso')
                 ->nullable();
 
-            // Debe ser un json
             $table->string('observation')
                 ->comment('Observación de curso')
                 ->nullable();
 
-            // Faltan ejemplos -2
             $table->json('practical_phases')
                 ->comment('Fase práctica')
                 ->nullable();
@@ -174,16 +184,14 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Nombre del setec')
                 ->nullable();
 
-            $table->text('summary')
+            $table->string('summary')
                 ->comment('Resumen del curso')
                 ->nullable();
 
-            // Faltan ejemplos -2
             $table->json('target_groups')
                 ->comment('Tarjeta de grupo')
                 ->nullable();
 
-            // Faltan ejemplos -2
             $table->json('teaching_strategies')
                 ->comment('Estrategias de enseñanza')
                 ->nullable();
@@ -192,7 +200,6 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Requisitos técnicos y generales del curso')
                 ->nullable();
 
-            // Faltan ejemplos -2
             $table->json('theoretical_phases')
                 ->comment('Fase teórica')
                 ->nullable();

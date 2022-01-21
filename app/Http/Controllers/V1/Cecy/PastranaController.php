@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\V1\Cecy;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Cecy\Courses\GetCoursesByCoordinatorCecyRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseByCoordinatorCecyCollection;
 use App\Models\Cecy\DetailPlanification;
-use Illuminate\Http\Request;
 use App\Models\Cecy\Catalogue;
+use App\Models\Cecy\Course;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationCollection;
-use App\Models\Cecy\Course;
 
 class PastranaController extends Controller
 {
@@ -43,7 +43,9 @@ class PastranaController extends Controller
             ]);
     }
 
-    // Mostrar los KPI
+    /*
+    * Mostrar los KPI
+    */
     public function getCoursesKPI($request)
     {
         
@@ -65,7 +67,9 @@ class PastranaController extends Controller
         //Insertar motivo en observations
     }
 
-    // Adjuntar el acta de aprobación
+    /*
+    * Adjuntar el acta de aprobación
+    */ 
     public function uploadFile(UploadFileRequest $request, Catalogue $catalogue)
     {
         return $catalogue->uploadFile($request);

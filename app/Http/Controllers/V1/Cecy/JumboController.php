@@ -19,6 +19,18 @@ class JumboController extends Controller
         $this->middleware('permission:delete')->only(['destroy', 'destroys']);
     }
 
+    public function getCourses(Course $course)
+    {
+        return (new CourseCollection($course))
+        ->additional([
+            'msg' => [
+                'summary' => 'success',
+                'detail' => '',
+                'code' => '200'
+            ]
+        ]);
+    }
+
     public function indexInstructors()
     {
         //Aqui va traer todos los instructores
@@ -43,7 +55,7 @@ class JumboController extends Controller
         ]);
     }
 
-    /* public function show(Instructor $Instructor)
+     public function show(Instructor $Instructor)
     {
         return (new InstructorResource($Instructor))
         ->additional([
@@ -53,11 +65,11 @@ class JumboController extends Controller
                 'code' => '200'
             ]
         ]);
-    } */
+    } 
 
     public function updateInstructors(Request $request,Instructor $Instructor )
     {
-        //Me va permitir editar la asignacion del instructor 
+        //Me va permitir editar modificar al instructor 
         $Instructor->instructor()->associate(Course::find($request->input('user.id')));
         $Instructor->state_id()->associate(Instructor::find($request->input('state_id')));
         $Instructor->type_id()->associate(Catalogue::find($request->input('type_id')));
@@ -76,5 +88,19 @@ class JumboController extends Controller
     public function destroyInstructors(Instructor $Instructor)
     {
        //Me va permitir elimminar  al instructor
+       $instructor->delete();
+        return (new InstructorResource($instructor))
+        ->additional([
+            'msg' => [
+                'summary' => 'Instructor Eliminado',
+                'detail' => '',
+                'code' => '200'
+            ]
+        ]);
+       
     }
+
 }
+
+//crud de ​Instituciones
+//crud de autoridades 
