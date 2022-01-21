@@ -89,7 +89,7 @@ class JumboController extends Controller
     {
        //Me va permitir elimminar  al instructor
        $instructor->delete();
-        return (new TopicResource($topic))
+        return (new InstructorResource($instructor))
         ->additional([
             'msg' => [
                 'summary' => 'Instructor Eliminado',
