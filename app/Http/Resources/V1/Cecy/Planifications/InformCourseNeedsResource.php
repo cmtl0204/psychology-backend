@@ -19,13 +19,20 @@ class InformCourseNeedsResource extends JsonResource
         $planification = Planification::where([
             ['course_id', $request->input('course.id')],
             ['detail_school_period', $request->input('detailSchoolPeriod.id')],
-            ['responsible_course_id', $request->input('responsible.id')]
+            ['responsible_course_id', $request->input('responsibleCourse.id')]
         ]);
 
         return [
             'id' => $this->id,
             // 'course' => CourseResource::make($this->course),
             'planification' => new PlanificationsInformNeedResource($planification),
+            'courseType' => CatalogueResource::make($this->course_type),
+            'modality' => CatalogueResource::make($this->modality),
+            'needs' => $this->needs,
+            'code' => $this->code,
+            'name' => $this->name,
+            'duration' => $this->duration,
+            'summary' => $this->summary
             'code' => $this->code,
            
         ];
