@@ -14,7 +14,7 @@ use App\Http\Requests\V1\Cecy\Topics\StoreTopicRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseResource;
 use App\Http\Resources\V1\Cecy\Courses\CoursePrerequisiteResource;
 use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
-use App\Http\Requests\V1\Cecy\Courses\CourseRequest;
+use App\Http\Requests\V1\Cecy\Courses\UpdateCourseRequest;
 use App\Http\Resources\V1\Cecy\Prerequisites\PrerequisiteCollection;
 use App\Http\Resources\V1\Cecy\Prerequisites\PrerequisiteResource;
 use App\Http\Requests\V1\Cecy\Prerequisites\DestroyPrerequisiteRequest;
@@ -42,7 +42,7 @@ class AlvaradoController extends Controller
         ]);
     }
 
-    public function updateCourse(CourseRequest $request, Course $course)
+    public function updateCourse(UpdateCourseRequest $request, Course $course)
     {
         $course->area()->associate(Catalogue::find($request->input('area.id')));
         $course->speciality()->associate(Catalogue::find($request->input('speciality.id')));
@@ -85,8 +85,8 @@ class AlvaradoController extends Controller
     {
         $topic = new Topic();
         $topic->course()->associate(Course::find($course));
-        $topic->level()->associate(Catalogue::find($request->input('level.id')));
-        if($request->input('level.id') === '7') {
+        $topic->level = $request->input('level');
+        if($request->input('level') === '2') {
             $topic->parent()->associate(Topic::find($request->input('parent.id')));
         }
         $topic->description = $request->input('description');
@@ -106,8 +106,8 @@ class AlvaradoController extends Controller
     public function updateTopic(Course $course, StoreTopicRequest $request, Topic $topic )
     {
         $topic->course()->associate(Course::find($course));
-        $topic->level()->associate(Catalogue::find($request->input('level.id')));
-        if($request->input('level.id') === '7') {
+        $topic->level = $request->input('level');
+        if($request->input('level') === '2') {
             $topic->parent()->associate(Topic::find($request->input('parent.id')));
         }
         $topic->description = $request->input('description');

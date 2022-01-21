@@ -17,6 +17,7 @@ class Topic extends Model implements Auditable
     protected $table = 'cecy.topics';
 
     protected $fillable = [
+        'level',
         'description',
     ];
 
@@ -24,11 +25,6 @@ class Topic extends Model implements Auditable
     public function course()
     {
         return $this->belongsTo(Course::class);
-    }
-
-    public function level()
-    {
-        return $this->belongsTo(Catalogue::class);
     }
 
     // Recursividad
