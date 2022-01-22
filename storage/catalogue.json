@@ -8,5 +8,65 @@
     },
     "ethnic_origin": {
         "type": "ETHNIC_ORIGIN"
+    },
+    "entity_certification": {
+        "type": "ENTITY_CERTIFICATION",
+        "senecyt": "SENECYT",
+        "setec": "SETECT",
+        "cecy": "CECY"
+    },
+    "capacitation": {
+        "type": "CAPACITATION",
+        "curso": "CURSO",
+        "workshop": "WORKSHOP",
+        "webinar": "WEBINAR"
+    },
+    "course": {
+        "type": "COURSE",
+        "technical": "TECHNICAL",
+        "administrative": "ADMINISTRATIVE"
+    },
+    "modality": {
+        "type": "ACADEMIC_PERIOD",
+        "first": "FIRST",
+        "second": "SECOND",
+        "third": "THIRD",
+        "fourth": "FOURTH",
+        "fifth": "FIFTH",
+        "sixth": "SIXTH",
+        "seventh": "SEVENTH"
+    },
+    "participant": {
+        "type": "PARTICIPANT",
+        "external": "EXTERNAL",
+        "student": "STUDENT",
+        "teacher": "TEACHER"
+    },
+    "course_state": {
+        "type": "COURSE_STATE",
+        "defeated": "DEFEATED",
+        "to_be_approved": "TO_BE_APPROVED",
+        "approved": "APPROVED",
+        "not_approved": "NOT_APPROVED"
+    },
+    "certificate": {
+        "type": "CERTIFICATE",
+        "assitance": "ASSITANCE",
+        "approval": "APPROVAL"
+    },
+    "category": {
+        "type": "CATEGORY",
+        "technical": "TECHNICAL",
+        "administrative": "ADMINISTRATIVE",
+        "english": "ENGLISH",
+        "teaching_course": "TEACHING_COURSE",
+        "patern_tailoring": "PATERN_TAILORING",
+        "pedagogical": "PEDAGOGICAL"
+    },
+    "area": {
+        "type": "AREA"
+    },
+    "speciality_area": {
+        "type": "SPECIALITY_AREA"
     }
 }
