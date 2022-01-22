@@ -63,10 +63,35 @@
         "patern_tailoring": "PATERN_TAILORING",
         "pedagogical": "PEDAGOGICAL"
     },
+    "compliance": {
+        "type": "COMPLIANCE"
+    },
+    "control": {
+        "type": "CONTROL"
+    },
+    "means_verification": {
+        "type": "MEANS_VERIFICATION"
+    },
+    "frecuency": {
+        "type": "FRECUENCY"
+    },
     "area": {
         "type": "AREA"
     },
     "speciality_area": {
         "type": "SPECIALITY_AREA"
+    },
+    "economic_sector": {
+        "type": "ECONOMIC_SECTOR",
+        "cattle_raising": "CATTLE_RAISING",
+        "industry": "INDUSTRY"
+    },
+    "planification_state": {
+        "type": "PLANIFICATION_STATE",
+        "to_be_approved": "TO_BE_APPROVED",
+        "completed": "COMPLETED",
+        "in_process": "IN_PROCESS",
+        "not_approved": "NOT_APPROVED",
+        "approved": "APPROVED"
     }
 }
