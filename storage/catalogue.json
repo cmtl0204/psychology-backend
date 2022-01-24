@@ -130,5 +130,12 @@
         "senescyt":"SENESCYT",
         "setec":"SETECT",
         "external":"EXTERNAL"
+    },
+    "certified_state":{
+        "type":"CERTIFIED_STATE",
+        "with_code":"WITH_CODE",
+        "generated":"GENERATED",
+        "in_process":"IN PROCESS",
+        "signed":"SIGNED"
     }
 }
