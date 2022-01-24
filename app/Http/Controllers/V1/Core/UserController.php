@@ -48,7 +48,8 @@ class UserController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
 
     public function store(StoreUserRequest $request)
@@ -56,7 +57,7 @@ class UserController extends Controller
         $user = User::where('username', $request->input('username'))
             ->orWhere('email', $request->input('email'))->first();
 
-        if ($user->username === $request->input('username')) {
+        if (isset($user) && $user->username === $request->input('username')) {
             return (new UserResource($user))
                 ->additional([
                     'msg' => [
@@ -64,10 +65,11 @@ class UserController extends Controller
                         'detail' => 'Intente con otro nombre de usuario',
                         'code' => '200'
                     ]
-                ]);
+                ])
+                ->response()->setStatusCode(400);
         }
 
-        if ($user->email === $request->input('email')) {
+        if (isset($user) && $user->email === $request->input('email')) {
             return (new UserResource($user))
                 ->additional([
                     'msg' => [
@@ -75,8 +77,9 @@ class UserController extends Controller
                         'detail' => 'Intente con otro correo electrónico',
                         'code' => '200'
                     ]
-                ]);
+                ])->response()->setStatusCode(400);
         }
+
         $user = new User();
         $user->identificationType()->associate(Catalogue::find($request->input('identificationType.id')));
         $user->sex()->associate(Catalogue::find($request->input('sex.id')));
@@ -94,8 +97,8 @@ class UserController extends Controller
 
         DB::transaction(function () use ($request, $user) {
             $user->save();
-            $user->addPhones($request->input('phones'));
-            $user->addEmails($request->input('emails'));
+//            $user->addPhones($request->input('phones'));
+//            $user->addEmails($request->input('emails'));
         });
 
         return (new UserResource($user))
@@ -105,7 +108,8 @@ class UserController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(201);
     }
 
     public function show(User $user)
@@ -117,7 +121,8 @@ class UserController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -136,8 +141,8 @@ class UserController extends Controller
         $user->email = $request->input('email');
 
         $user->save();
-        $user->addPhones($request->input('phones'));
-        $user->addEmails($request->input('emails'));
+//        $user->addPhones($request->input('phones'));
+//        $user->addEmails($request->input('emails'));
 
         return (new UserResource($user))
             ->additional([
@@ -146,7 +151,8 @@ class UserController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(201);
     }
 
     public function destroy(Request $request, User $user)
@@ -154,21 +160,24 @@ class UserController extends Controller
         if ($request->user()->id === $user->id) {
             return response()->json([
                 'msg' => [
-                    'summary' => 'No se puede eliminar',
-                    'detail' => 'No puede eliminar el usuario logueado',
+                    'summary' => 'Error al Eliminar',
+                    'detail' => 'El usuario está logueado actualmente',
                     'code' => '400'
                 ],
             ], 400);
         }
+
         $user->delete();
+
         return (new UserResource($user))
             ->additional([
                 'msg' => [
                     'summary' => 'Usuario Eliminado',
                     'detail' => '',
-                    'code' => '200'
+                    'code' => '201'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(201);
     }
 
     public function destroys(DestroysUserRequest $request)
@@ -184,6 +193,7 @@ class UserController extends Controller
         }
 
         $users = User::whereIn('id', $request->input('ids'))->get();
+
         User::destroy($request->input('ids'));
 
         return (new UserCollection($users))
@@ -193,7 +203,8 @@ class UserController extends Controller
                     'detail' => '',
                     'code' => '201'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(201);
     }
 
     // Images
