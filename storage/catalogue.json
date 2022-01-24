@@ -93,5 +93,11 @@
         "in_process": "IN_PROCESS",
         "not_approved": "NOT_APPROVED",
         "approved": "APPROVED"
+    },
+    "classroom_type":{
+        "type":"CLASSROOM_TYPE",
+        "classroom_class":"AULACLASE",
+        "office":"OFICINA",
+        "laboratory":"LABORATORIO"
     }
 }
