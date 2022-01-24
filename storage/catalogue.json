@@ -119,5 +119,16 @@
         "present": "PRESENT",
         "backwardness": "BACKWARDNESS",
         "absent": "ABSENT"
+    },
+    "instructor_state":{
+        "type": "INSTRUCTOR_STATE",
+        "active": "ACTIVE",
+        "inactive": "INACTIVE"
+    },
+    "instructor_type":{
+        "type": "INSTRUCTOR_TYPE",
+        "senescyt":"SENESCYT",
+        "setec":"SETECT",
+        "external":"EXTERNAL"
     }
 }
