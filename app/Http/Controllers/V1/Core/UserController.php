@@ -34,12 +34,14 @@ class UserController extends Controller
 
     public function index(IndexUserRequest $request)
     {
-        $sorts = explode(',', $request->sort);
+        $sorts = explode(',', $request->input('sort'));
 
-        $users = User::customSelect($request->fields)->customOrderBy($sorts)
-            ->name($request->input('name'))
-            ->lastname($request->input('lastname'))
-            ->paginate();
+        $users = User::customOrderBy($sorts)
+            ->email($request->input('search'))
+            ->lastname($request->input('search'))
+            ->name($request->input('search'))
+            ->username($request->input('search'))
+            ->paginate($request->input('per_page'));
 
         return (new UserCollection($users))
             ->additional([
@@ -97,8 +99,8 @@ class UserController extends Controller
 
         DB::transaction(function () use ($request, $user) {
             $user->save();
-//            $user->addPhones($request->input('phones'));
-//            $user->addEmails($request->input('emails'));
+            $user->addPhones($request->input('phones'));
+            $user->addEmails($request->input('emails'));
         });
 
         return (new UserResource($user))
@@ -141,8 +143,8 @@ class UserController extends Controller
         $user->email = $request->input('email');
 
         $user->save();
-//        $user->addPhones($request->input('phones'));
-//        $user->addEmails($request->input('emails'));
+        $user->addPhones($request->input('phones'));
+        $user->addEmails($request->input('emails'));
 
         return (new UserResource($user))
             ->additional([
@@ -160,8 +162,8 @@ class UserController extends Controller
         if ($request->user()->id === $user->id) {
             return response()->json([
                 'msg' => [
-                    'summary' => 'Error al Eliminar',
-                    'detail' => 'El usuario está logueado actualmente',
+                    'summary' => 'Error al eliminar',
+                    'detail' => 'El usuario se encuentra logueado',
                     'code' => '400'
                 ],
             ], 400);
@@ -185,7 +187,7 @@ class UserController extends Controller
         if (in_array($request->user()->id, $request->ids)) {
             return response()->json([
                 'msg' => [
-                    'summary' => 'No se pudeo eliminar',
+                    'summary' => 'Error al eliminar',
                     'detail' => 'El usuario se encuentra logueado',
                     'code' => '400'
                 ],

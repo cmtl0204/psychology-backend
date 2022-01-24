@@ -20,6 +20,7 @@ class PhoneResource extends JsonResource
             'number' => $this->number,
             'operator' => CatalogueResource::make($this->operator),
             'location' => LocationResource::make($this->location),
+            'type' => LocationResource::make($this->type),
         ];
     }
 }
