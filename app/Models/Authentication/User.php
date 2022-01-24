@@ -147,11 +147,19 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     {
         $this->hasOne(Participant::class);
     }
+
     // Scopes
-    public function scopeUsername($query, $username)
+    public function scopeEmail($query, $email)
     {
-        if ($username) {
-            return $query->orWhere('username', 'ILIKE', "%$username%");
+        if ($email) {
+            return $query->orWhere('email', 'ILIKE', "%$email%");
+        }
+    }
+
+    public function scopeLastname($query, $lastname)
+    {
+        if ($lastname) {
+            return $query->orWhere('lastname', 'ILIKE', "%$lastname%");
         }
     }
 
@@ -162,10 +170,10 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         }
     }
 
-    public function scopeLastname($query, $lastname)
+    public function scopeUsername($query, $username)
     {
-        if ($lastname) {
-            return $query->orWhere('lastname', 'ILIKE', "%$lastname%");
+        if ($username) {
+            return $query->orWhere('username', 'ILIKE', "%$username%");
         }
     }
 

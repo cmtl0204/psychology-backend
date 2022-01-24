@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources\V1\Core\Users;
 
-use App\Http\Resources\V1\Core\Catalogues\CatalogueResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Resources\V1\Core\Catalogues\CatalogueResource;
+Use App\Http\Resources\V1\Core\EmailResource;
+Use App\Http\Resources\V1\Core\PhoneResource;
 class UserResource extends JsonResource
 {
     /**
