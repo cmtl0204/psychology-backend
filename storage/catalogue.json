@@ -99,5 +99,19 @@
         "classroom_class":"CLASSROOMCLASS",
         "office":"OFFICE",
         "laboratory":"LABORATORY"
+    },
+    "parallel_name":{
+        "type": "PARALLEL_NAME",
+        "a": "A",
+        "b": "B"
+    },
+    "detail_planification_state":{
+        "type": "DETAIL_PLANIFICATION_STATE",
+        "to_be_approved": "TO_BE_APPROVED",
+        "culminated": "CULMINATED",
+        "in_process": "IN_PROCESS",
+        "not_approved": "NOT_APPROVED",
+        "approved": "APPROVED"
+
     }
 }
