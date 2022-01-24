@@ -150,22 +150,22 @@ class Course extends Model implements Auditable
 
     public function topics()
     {
-        $this->hasMany(Topics::class);
+        return $this->hasMany(Topics::class);
     }
 
     public function planifications()
     {
-        $this->hasMany(Planification::class);
+        return $this->hasMany(Planification::class);
     }
 
     public function prerequisites()
     {
-        $this->hasMany(Prerequisite::class);
+        return $this->hasMany(Prerequisite::class);
     }
 
     public function profileInstructorCourses()
     {
-        $this->hasMany(ProfileInstructorCourses::class);
+        return $this->hasMany(ProfileInstructorCourses::class);
     }
 
     // Mutators

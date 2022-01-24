@@ -55,6 +55,7 @@ class GuachagmiraController extends Controller
                 ]
             ]);
     }
+
     public function getCoursesByName(getCoursesByNameRequest $request)
     {
         $sorts = explode(',', $request->sort);
@@ -72,13 +73,14 @@ class GuachagmiraController extends Controller
                 ]
             ]);
     }
+
     /*
         Obtener la información personal de cada instructor que dicta dado un curso
     */
-    public function getInstructorsInformationByCourse(GetInstructorsInformationByCourseRequest $request)
+    public function getInstructorsInformationByCourse(GetInstructorsInformationByCourseRequest $request,Course $course)
     {
-        $planification = Planification::where('course_id', $request->input('course.id'));
-        $instructors  = $planification
+        $planification = $course->planifications();
+        $instructors = $planification
             ->detailPlanification()
             ->instructors()
             ->user();
@@ -92,13 +94,14 @@ class GuachagmiraController extends Controller
                 ]
             ]);
     }
+
     /*
         Obtener los horarios de cada paralelo dado un curso
     */
     public function getDetailPlanificationsByCourse(GetDetailPlanificationsByCourseRequest $request)
     {
         $planification = Planification::where('course_id', $request->input('course.id'));
-        $detailPlanification =  $planification
+        $detailPlanification = $planification
             ->detailPlanification();
 
         return (new DetailPlanificationByCourseCollection($detailPlanification))
@@ -110,6 +113,7 @@ class GuachagmiraController extends Controller
                 ]
             ]);
     }
+
     /*
         Obtener los prerequisitos dado un curso
     */
@@ -126,6 +130,7 @@ class GuachagmiraController extends Controller
                 ]
             ]);
     }
+
     /*
         Obtener los topicos  dado un curso
     */
@@ -145,25 +150,9 @@ class GuachagmiraController extends Controller
             ]);
     }
 
-
-    public function show(Course $course)
-    {
-        $course = Course::find($course);
-
-        return (new CourseCollection($course))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
     public function registerParticipant(StoreParticipantRequest $request)
     {
-
         $participant = new Participant();
-
         $participant->user()->associate(User::find($request->input('user.id')));
         $participant->personType()->associate(Catalogue::find($request->input('personType.id')));
         $participant->state()->associate(Catalogue::find($request->input('state.id')));

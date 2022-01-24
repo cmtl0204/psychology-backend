@@ -30,9 +30,11 @@ class AlvaradoController extends Controller
     //     $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
     // }
 
-    public function getCourses(Course $course)
+    // Devuelve los cursos que le fueron asignados al docente responsable
+    public function getCourses(Instructor $instructor)
     {
-        return (new CourseCollection($course))
+        $courses = $instructor->courses()->get();
+        return (new CourseCollection($courses))
         ->additional([
             'msg' => [
                 'summary' => 'success',
@@ -42,6 +44,7 @@ class AlvaradoController extends Controller
         ]);
     }
 
+    // Actualiza la informacion del diseño curricular
     public function updateCourse(UpdateCourseRequest $request, Course $course)
     {
         $course->area()->associate(Catalogue::find($request->input('area.id')));
@@ -67,7 +70,7 @@ class AlvaradoController extends Controller
         ]);
     }
 
-    // TEMAS Y SUBTEMAS
+    // Devuelve los temas y subtemas de un curso
     public function getTopics(Course $course)
     {
         $topics = $course->topics()->get();
@@ -84,7 +87,7 @@ class AlvaradoController extends Controller
     public function storeTopic(Course $course, StoreTopicRequest $request)
     {
         $topic = new Topic();
-        $topic->course()->associate(Course::find($course));
+        $topic->course()->associate($course);
         $topic->level = $request->input('level');
         if($request->input('level') === '2') {
             $topic->parent()->associate(Topic::find($request->input('parent.id')));
@@ -105,7 +108,6 @@ class AlvaradoController extends Controller
 
     public function updateTopic(Course $course, StoreTopicRequest $request, Topic $topic )
     {
-        $topic->course()->associate(Course::find($course));
         $topic->level = $request->input('level');
         if($request->input('level') === '2') {
             $topic->parent()->associate(Topic::find($request->input('parent.id')));
@@ -124,7 +126,7 @@ class AlvaradoController extends Controller
     }
 
     public function destroyTopic(Topic $topic)
-    {   
+    {
         $topic->delete();
         return (new TopicResource($topic))
         ->additional([
@@ -153,8 +155,8 @@ class AlvaradoController extends Controller
     // PREREQUISITOS
     public function getPrerequisites(Course $course)
     {
-        $prerequisite = $course->prerequisite()->get();
-        return (new PrerequisiteCollection($prerequisite))
+        $prerequisites = $course->prerequisites()->get();
+        return (new PrerequisiteCollection($prerequisites))
         ->additional([
             'msg' => [
                 'summary' => 'success',
@@ -167,7 +169,7 @@ class AlvaradoController extends Controller
     public function storePrerequisite(Course $course, StorePrerequisiteRequest $request)
     {
         $prerequisite = new Prerequisite();
-        $prerequisite->course()->associate(Course::find($course));
+        $prerequisite->course()->associate($course);
         $prerequisite->prerequisite()->associate(Course::find($request->input('prerequisite.id')));
         $prerequisite->save();
         return (new PrerequisiteResource($prerequisite))
@@ -182,7 +184,6 @@ class AlvaradoController extends Controller
 
     public function updatePrerequisite(Course $course, StorePrerequisiteRequest $request, Prerequisite $prerequisite )
     {
-        $prerequisite->course()->associate(Course::find($course));
         $prerequisite->prerequisite()->associate(Course::find($request->input('prerequisite.id')));
         $prerequisite->save();
         return (new PrerequisiteResource($prerequisite))
