@@ -1,0 +1,117 @@
+{
+    "civil_status": {
+        "type": "CIVIL_STATUS",
+        "married": "MARRIED",
+        "female": "FEMALE",
+        "other": "OTHER",
+        "not_say": "NOT_SAY"
+    },
+    "ethnic_origin": {
+        "type": "ETHNIC_ORIGIN"
+    },
+    "entity_certification": {
+        "type": "ENTITY_CERTIFICATION",
+        "senecyt": "SENECYT",
+        "setec": "SETECT",
+        "cecy": "CECY"
+    },
+    "capacitation": {
+        "type": "CAPACITATION",
+        "curso": "CURSO",
+        "workshop": "WORKSHOP",
+        "webinar": "WEBINAR"
+    },
+    "course": {
+        "type": "COURSE",
+        "technical": "TECHNICAL",
+        "administrative": "ADMINISTRATIVE"
+    },
+    "modality": {
+        "type": "ACADEMIC_PERIOD",
+        "first": "FIRST",
+        "second": "SECOND",
+        "third": "THIRD",
+        "fourth": "FOURTH",
+        "fifth": "FIFTH",
+        "sixth": "SIXTH",
+        "seventh": "SEVENTH"
+    },
+    "participant": {
+        "type": "PARTICIPANT",
+        "external": "EXTERNAL",
+        "student": "STUDENT",
+        "teacher": "TEACHER"
+    },
+    "course_state": {
+        "type": "COURSE_STATE",
+        "defeated": "DEFEATED",
+        "to_be_approved": "TO_BE_APPROVED",
+        "approved": "APPROVED",
+        "not_approved": "NOT_APPROVED"
+    },
+    "certificate": {
+        "type": "CERTIFICATE",
+        "assitance": "ASSITANCE",
+        "approval": "APPROVAL"
+    },
+    "category": {
+        "type": "CATEGORY",
+        "technical": "TECHNICAL",
+        "administrative": "ADMINISTRATIVE",
+        "english": "ENGLISH",
+        "teaching_course": "TEACHING_COURSE",
+        "patern_tailoring": "PATERN_TAILORING",
+        "pedagogical": "PEDAGOGICAL"
+    },
+    "compliance": {
+        "type": "COMPLIANCE"
+    },
+    "control": {
+        "type": "CONTROL"
+    },
+    "means_verification": {
+        "type": "MEANS_VERIFICATION"
+    },
+    "frecuency": {
+        "type": "FRECUENCY"
+    },
+    "area": {
+        "type": "AREA"
+    },
+    "speciality_area": {
+        "type": "SPECIALITY_AREA"
+    },
+    "economic_sector": {
+        "type": "ECONOMIC_SECTOR",
+        "cattle_raising": "CATTLE_RAISING",
+        "industry": "INDUSTRY"
+    },
+    "planification_state": {
+        "type": "PLANIFICATION_STATE",
+        "to_be_approved": "TO_BE_APPROVED",
+        "completed": "COMPLETED",
+        "in_process": "IN_PROCESS",
+        "not_approved": "NOT_APPROVED",
+        "approved": "APPROVED"
+    },
+    "classroom_type":{
+        "type":"CLASSROOM_TYPE",
+        "classroom_class":"CLASSROOMCLASS",
+        "office":"OFFICE",
+        "laboratory":"LABORATORY"
+    },
+    "parallel_name":{
+        "type": "PARALLEL_NAME",
+        "a": "A",
+        "b": "B"
+    },
+    "detail_planification_state":{
+        "type": "DETAIL_PLANIFICATION_STATE",
+        "to_be_approved": "TO_BE_APPROVED",
+        "culminated": "CULMINATED",
+        "in_process": "IN_PROCESS",
+        "not_approved": "NOT_APPROVED",
+        "approved": "APPROVED"
+
+    }
+}

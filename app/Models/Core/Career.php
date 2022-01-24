@@ -40,4 +40,9 @@ class Career extends Model implements Auditable
     {
         return $this->belongsTo(Catalogue::class);
     }
+
+    public function courses()
+    {
+        $this->hasMany(Course::class);
+    }
 }

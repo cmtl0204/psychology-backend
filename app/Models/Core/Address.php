@@ -54,5 +54,4 @@ class Address extends Model implements Auditable
     {
         $this->attributes['post_code'] = strtoupper($value);
     }
-
 }

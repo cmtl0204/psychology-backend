@@ -14,17 +14,14 @@ class IndexImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => [
-                'required',
-                'integer',
-            ],
+
         ];
     }
 
     public function attributes()
     {
        return [
-            'id' => 'ID',
+
         ];
     }
 }

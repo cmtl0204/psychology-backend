@@ -2,6 +2,8 @@
 
 namespace App\Models\Authentication;
 
+use App\Models\Cecy\Authority;
+use App\Models\Cecy\Instructor;
 use App\Models\Core\Catalogue;
 use App\Models\Core\Email;
 use App\Models\Core\File;
@@ -131,11 +133,33 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         return $this->belongsTo(Catalogue::class);
     }
 
-    // Scopes
-    public function scopeUsername($query, $username)
+    public function authority()
     {
-        if ($username) {
-            return $query->orWhere('username', 'ILIKE', "%$username%");
+        return $this->hasOne(Authority::class);
+    }
+
+    public function instructor()
+    {
+        $this->hasOne(Instructor::class);
+    }
+
+    public function participant()
+    {
+        $this->hasOne(Participant::class);
+    }
+
+    // Scopes
+    public function scopeEmail($query, $email)
+    {
+        if ($email) {
+            return $query->orWhere('email', 'ILIKE', "%$email%");
+        }
+    }
+
+    public function scopeLastname($query, $lastname)
+    {
+        if ($lastname) {
+            return $query->orWhere('lastname', 'ILIKE', "%$lastname%");
         }
     }
 
@@ -146,10 +170,10 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         }
     }
 
-    public function scopeLastname($query, $lastname)
+    public function scopeUsername($query, $username)
     {
-        if ($lastname) {
-            return $query->orWhere('lastname', 'ILIKE', "%$lastname%");
+        if ($username) {
+            return $query->orWhere('username', 'ILIKE', "%$username%");
         }
     }
 

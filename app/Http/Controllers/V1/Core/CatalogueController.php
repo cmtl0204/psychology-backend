@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\V1\Core;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Core\Catalogues\CatalogueCatalogueRequest;
 use App\Http\Requests\V1\Core\Catalogues\IndexCatalogueRequest;
 use App\Http\Resources\V1\Core\Catalogues\CatalogueCollection;
-use App\Models\Core\Catalogue;
+use App\Models\Cecy\Catalogue;
 
 class CatalogueController extends Controller
 {
@@ -34,9 +35,12 @@ class CatalogueController extends Controller
             ]);
     }
 
-    public function all(IndexCatalogueRequest $request)
+    public function catalogue(CatalogueCatalogueRequest $request)
     {
-        $catalogues = Catalogue::orderBy('name')
+        $sorts = explode(',', $request->sort);
+        $catalogues = Catalogue::customOrderBy($sorts)
+            ->description($request->input('name'))
+            ->name($request->input('name'))
             ->type($request->input('type'))
             ->paginate($request->input('per_page'));
 

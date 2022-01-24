@@ -62,7 +62,7 @@ class File extends Model implements Auditable
 
     public function getFullPathAttribute()
     {
-        return "files/{$this->attributes['id']}.{$this->attributes['extension']}";
+        return "{$this->attributes['directory']}/{$this->attributes['id']}.{$this->attributes['extension']}";
     }
 
     public function getPartialPathAttribute()
