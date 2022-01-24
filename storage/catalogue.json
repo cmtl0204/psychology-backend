@@ -96,8 +96,8 @@
     },
     "classroom_type":{
         "type":"CLASSROOM_TYPE",
-        "classroom_class":"AULACLASE",
-        "office":"OFICINA",
-        "laboratory":"LABORATORIO"
+        "classroom_class":"CLASSROOMCLASS",
+        "office":"OFFICE",
+        "laboratory":"LABORATORY"
     }
 }
