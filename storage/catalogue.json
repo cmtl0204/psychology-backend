@@ -8,5 +8,11 @@
     },
     "ethnic_origin": {
         "type": "ETHNIC_ORIGIN"
+    },
+    "attendances": {
+        "type": "ATTENDANCES",
+        "duration": "DURATION",
+        "registered_at": "REGISTERED_AT"
+
     }
 }
