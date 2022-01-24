@@ -113,5 +113,11 @@
         "not_approved": "NOT_APPROVED",
         "approved": "APPROVED"
 
+    },
+    "type_attendace": {
+        "type": "TYPE_ATTENDANCE",
+        "present": "PRESENT",
+        "backwardness": "BACKWARDNESS",
+        "absent": "ABSENT"
     }
 }

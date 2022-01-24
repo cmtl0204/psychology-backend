@@ -11,12 +11,12 @@ class CreateCecyDetailAttendancesTable extends Migration
         Schema::connection(env('DB_CONNECTION_CECY'))->create('detail_attendances', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('registration_id')
-                ->constrained('cecy.registrations');
-
             $table->foreignId('attendance_id')
                 ->nullable()
                 ->constrained('cecy.attendances');
+
+            $table->foreignId('registration_id')
+                ->constrained('cecy.registrations');
 
             $table->foreignId('type_id')
                 ->nullable()
