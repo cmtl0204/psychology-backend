@@ -9,21 +9,23 @@ use App\Http\Resources\V1\Cecy\Detailregistrations\DetailregistrationResource;
 use App\Http\Resources\V1\Cecy\Detailregistrations\DetailregistrationCollection;
 use App\Models\Cecy\DetailRegistration;
 use App\Http\Requests\V1\Cecy\Certificates\ShowParticipantsRequest;
+use App\Models\Cecy\Course;
 
 class QuemagController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('permission:view-Planifications')->only(['view']);
-        $this->middleware('permission:store-Planifications')->only(['store']);
-        $this->middleware('permission:store-detailPlanifications')->only(['store']);
-        $this->middleware('permission:update-detailPlanifications')->only(['update']);
+    // public function __construct()
+    // {
+    //     $this->middleware('permission:view-Planifications')->only(['view']);
+    //     $this->middleware('permission:store-Planifications')->only(['store']);
+    //     $this->middleware('permission:store-detailPlanifications')->only(['store']);
+    //     $this->middleware('permission:update-detailPlanifications')->only(['update']);
 
-    }
+    // }
 
     public function showParticipants(ShowParticipantsRequest $responsibleCourse)
     {
-    //trae datos de los participantes matriculados
+    
+        //trae participantes matriculados
     $responsibleCourse = course::where('course_id', $request->course()->id)->get();
 
     $detailPlanifications = $responsibleCourse
@@ -46,6 +48,34 @@ class QuemagController extends Controller
         ]);
     }
 
+    //trae todos los cursos
+
+    public function getCourses(Course $course)
+    {
+
+    $course = course::where('course_id', $request->course()->id)->get();
+
+    $detailPlanifications = $course
+        ->detailPlanifications()
+        ->planifications()
+        ->course()
+        ->paginate($request->input('per_page'));
+
+        return (new CourseResource($course))
+        ->additional([
+            'msg' => [
+                'summary' => 'Me trae los cursos',
+                'detail' => '',
+                'code' => '200'
+            ]
+        ]);
+
+    }
+    
+    
+  
+
+    
 
 /*******************************************************************************************************************
         * FILES

@@ -10,6 +10,7 @@ use App\Models\Cecy\AdditionalInformation;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Participant;
 use App\Models\Cecy\Registration;
+use App\Models\Cecy\Requirement;
 use Illuminate\Support\Facades\DB;
 
 class DamianController extends Controller
@@ -68,10 +69,76 @@ class DamianController extends Controller
     {
         return;
     }
+    // ver los requisito
+    public function getAllRequirement(getAllRequirementRequest $request)
+    {
 
-    // crud de requisitos
+        $requirements = Requirement::paginate($request->per_page);
+
+        return (new RequirementCollection($requirements))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    // ver un requisito
+    public function getRequirement(Requirement $requirement)
+    {
+        return (new RequirementResource($requirement))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+    // crear un requisito
+    public function storeRequirement(Requirement $request)
+    {
+        $requirement = new Requirement();
+        $requirement->state()
+            ->associate(Catalogue::find($request->input('state.id')));
+        $requirement-> name = $request -> input('name');
+        $requirement-> required = $request -> input('required');
+        $requirement->save();
+
+        return(new RequirementResource($requirement))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+    // actualizar un requisito
+    public function updateRequirement(Requirement $request, Requirement $requirement){
+
+        $requirement->state()
+            ->associate(Catalogue::find($request->input('state.id')));
+        $requirement-> name = $request -> input('name');
+        $requirement-> required = $request -> input('required');
+        $requirement->save();
+        return(new RequirementResource($requirement))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registro Actualizado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
     // crear un school periods
+
     // mostrar todos los school periods
+
     // crud detail periods
 }
 

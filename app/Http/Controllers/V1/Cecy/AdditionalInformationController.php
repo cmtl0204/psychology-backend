@@ -167,63 +167,6 @@ class AdditionalInformationController extends Controller
      * @return \Illuminate\Http\Response
      */
     // funcionalidades
-    // precargar informacion para mejorar xp de usuario
-    public function getAdditionalInformation(getAdditionalInformationRequest $request)
-    {
-        $sorts = explode(',', $request->sort);
-
-        $additionalInformations = AdditionalInformation::customOrderBy($sorts)
-            ->companyActivity($request->input('company_activity'))
-            ->companyAddress($request->input('company_address'))
-            ->companyEmail($request->input('company_email'))
-            ->companyName($request->input('company_name'))
-            ->companyPhone($request->input('company_phone'))
-            ->contactName($request->input('contactName'))
-            ->levelInstruction($request->input('levelInstruction'))
-            ->paginate($request->per_page);
-
-        return (new AdditionalInformationCollection($additionalInformations))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-    // CREAR INFORMACION ADICIONAL DE UN USUARIO
-    public function storeAdditionalInformation(storeAdditionalInformationRequest $request)
-    {
-        $additionalInformation = new AdditionalInformation();
-
-        $additionalInformation->registration()
-            ->associate(Registration::find($request->input('registration.id')));
-
-        $additionalInformation->worked = $request->input('worked');
-        $additionalInformation->company_activity = $request->input('companyActivity');
-        $additionalInformation->company_address = $request->input('companyAddress');
-        $additionalInformation->company_email = $request->input('companyEmail');
-        $additionalInformation->company_name = $request->input('companyName');
-        $additionalInformation->company_phone = $request->input('companyPhone');
-        $additionalInformation->company_sponsored = $request->input('companySponsored');
-        $additionalInformation->contact_name = $request->input('contactName');
-        $additionalInformation->course_knows = $request->input('courseKnows');
-        $additionalInformation->course_follows = $request->input('courseFollows');
-
-        $additionalInformation->save();
-
-        return (new AdditionalInformationResource($additionalInformation))
-            ->additional([
-                'msg' => [
-                    'summary' => 'Registro Creado',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-
-    //controlador registration requeriments
-    // Actualizar campos de copia cedula y certificado pago en el caso de mal enviados
 
 
     // Files
