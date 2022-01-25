@@ -145,5 +145,11 @@
         "generated":"GENERATED",
         "in_process":"IN PROCESS",
         "signed":"SIGNED"
+    },
+    "state_course": {
+        "type": "STATE_COURSE",
+        "approved": "APPROVED",
+        "not_approved": "NOT_APPROVED",
     }
+
 }
