@@ -100,7 +100,7 @@ class RiveraController extends Controller
              ->course() 
             ->paginate($request->input('per_page')); */
 
-        return (new RegistrationRecordCompetitorResource($course))
+        return (new RegistrationRecordCompetitorResource($registrations))
             ->additional([
                 'msg' => [
                     'summary' => 'success',

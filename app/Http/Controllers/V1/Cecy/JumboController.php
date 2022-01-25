@@ -12,9 +12,11 @@ use App\Http\Resources\V1\Cecy\Instructors\InstructorCollection;
 use App\Http\Resources\V1\Cecy\Instructors\InstructorResource;
 use App\Http\Resources\V1\Core\Users\UserResource;
 use App\Http\Resources\V1\Cecy\Courses\CourseResource;
-use App\Http\Request\V1\Cecy\Instructors\DestroysInstructorRequest;
-use App\Models\Core\File;
-use App\Models\Cecy\User;
+use App\Http\Requests\V1\Cecy\Instructor\DestroysInstructorRequest;
+use App\Http\Requests\V1\Cecy\Instructors\StoreProfileCourseRequest;
+use App\Http\Resources\V1\Cecy\ProfileInstructorCourses\ProfileInstructorCourseResource;
+use App\Models\Authentication\User;
+use App\Models\Cecy\ProfileInstructorCourse;
 
 class JumboController extends Controller
 {
@@ -28,7 +30,7 @@ class JumboController extends Controller
    //visualizar los usuarios de ignug
     public function getUsersIgnug(GetUsersIgnugRequest $request)
     {
-        $users = user::whereIn('type_id', $request->input('ignug'))->get();
+        $users = User::whereIn('type_id', $request->input('ignug'))->get();
         return (new UserResource($users))
         ->additional([
             'msg' => [
@@ -57,7 +59,7 @@ class JumboController extends Controller
         ]);
     }
 
-    // para eliminar un instructor
+    // para eliminar un instructor 
     public function destroysInstructors(DestroysInstructorRequest $request)
     {
        $instructor = Instructor::whereIn('id', $request->input('ids'))->get();
@@ -89,7 +91,7 @@ class JumboController extends Controller
     //Agregar perfil a un curso
     public function storeProfileCourse(StoreProfileCourseRequest $request)
     {
-        $profile = new Profile();
+        $profile = new ProfileInstructorCourse();
 
         $profile->course_id()
             ->associate(Course::find($request->input('course_id')));
