@@ -5,7 +5,9 @@ namespace App\Http\Controllers\V1\Cecy;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Cecy\Courses\GetCoursesByCategoryRequest;
 use App\Http\Requests\V1\Cecy\Courses\GetCoursesByNameRequest;
+use App\Http\Requests\V1\Cecy\Courses\IndexCourseRequest;
 use App\Http\Requests\V1\Cecy\Participants\StoreUserAndParticipantRequest;
+use App\Http\Requests\V1\Cecy\Planifications\IndexPlanificationRequest;
 use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
 use App\Http\Requests\V1\Core\Files\UpdateFileRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
@@ -20,6 +22,7 @@ use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Course;
 use App\Models\Cecy\Instructor;
 use App\Models\Cecy\Participant;
+use App\Models\Cecy\Planification;
 use App\Models\Core\File;
 use App\Models\Core\Image;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +38,24 @@ class GuachagmiraController extends Controller
         // $this->middleware('permission:view-Instructors')->only(['view']);
         // $this->middleware('permission:view-Planifications')->only(['view']);
     }
+    public function getCoursesByApprovedPlanifications(IndexPlanificationRequest $request)
+    {
+        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
+
+        $planifications = Planification::where('code', $catalogue['planification_state']['approved'])->get();
+        $courses =  $planifications->course()->get();
+
+
+        return (new CourseCollection($courses))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ])
+            ->response()->setStatusCode(200);
+    }
 
     public function getCoursesByCategory(getCoursesByCategoryRequest $request)
     {
@@ -42,7 +63,7 @@ class GuachagmiraController extends Controller
 
         $courses = Course::customOrderBy($sorts)
             ->category($request->input('category.id'))
-            ->paginate();
+            ->paginate($request->input('per_page'));
 
         return (new CourseCollection($courses))
             ->additional([
@@ -60,7 +81,7 @@ class GuachagmiraController extends Controller
 
         $courses = Course::customOrderBy($sorts)
             ->name($request->input('name'))
-            ->paginate();
+            ->paginate($request->input('per_page'));
 
         return (new CourseCollection($courses))
             ->additional([
