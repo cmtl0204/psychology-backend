@@ -39,8 +39,8 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->comment('Jornada laboral como matutino, vespertino o nocturno')
                 ->constrained('cecy.catalogues');
 
-            $table->integer('state_id')
-                ->comment('Si el paralelo esta: Proceso, culminado')
+            $table->foreignId('state_id')
+                ->comment('Si el paralelo esta: Proceso, culminado, Aprobado, Por aprobar')
                 ->constrained('cecy.catalogues');
 
             // nombre del campo debe ir en pasado -2
@@ -48,9 +48,9 @@ class CreateCecyDetailPlanificationsTable extends Migration
                 ->nullable()
                 ->comment('Hora de finalización de clases');
 
-            $table->text('observation')
+            $table->text('observations')
                 ->nullable()
-                ->comment('Observación necesaria si las horas de duración de curso no son alcanzadas por las horas de clase');
+                ->comment('Observaciones necesaria si las horas de duración de curso no son alcanzadas por las horas de clase');
 
             $table->date('plan_ended_at')
                 ->comment('Fecha final real de la planificación (que puede variar a la planificación)');
