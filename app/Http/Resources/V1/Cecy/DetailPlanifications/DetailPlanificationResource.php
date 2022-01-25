@@ -19,7 +19,7 @@ class DetailPlanificationResource extends JsonResource
             'workday' => CatalogueResource::collection($this->workday_id),
             'state' => CatalogueResource::collection($this->state_id),
             'endTime' => $this->end_time,
-            'observation' => $this->observation,
+            'observations' => $this->observation,
             'planEndedAt' => $this->plan_ended_at,
             'registrationsLeft' => $this->registrations_left,
             'startTime' => $this->start_time,
