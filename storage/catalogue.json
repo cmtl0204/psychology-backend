@@ -141,5 +141,10 @@
         "type": "STATE_COURSE",
         "approved": "APPROVED",
         "not_approved": "NOT_APPROVED"
+    },
+    "participant_state": {
+        "type": "PARTICIPANT_STATE",
+        "approved": "APPROVED",
+        "not_approved": "NOT_APPROVED"
     }
 }

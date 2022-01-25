@@ -211,11 +211,13 @@ class GuachagmiraController extends Controller
 
     public function storeParticipant(StoreUserAndParticipantRequest $request, User $user)
     {
+        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
+        $state = Catalogue::where('code', $catalogue['detail_planification_state']['to_be_approved'])->get();
+
         $participant = new Participant();
         $participant->user()->associate($user);
         $participant->personType()->associate(Catalogue::find($request->input('personType.id')));
-        $participant->state()->associate(Catalogue::find($request->input('state.id')));
-
+        $participant->state()->associate($state);
         return $participant;
     }
 
