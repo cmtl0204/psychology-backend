@@ -21,6 +21,11 @@ class Certificate extends Model implements Auditable
         'issued_at',
     ];
 
+    public function certificateable()
+    {
+        return $this->morphTo();
+    }
+
     // Relationships
 
     public function state()
