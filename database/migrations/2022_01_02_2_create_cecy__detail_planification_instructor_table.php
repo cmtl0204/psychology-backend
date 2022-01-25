@@ -16,6 +16,11 @@ class CreateCecyDetailPlanificationInstructorTable extends Migration
                 ->comment('trae toda la informacion de la tabla instructor')
                 ->constrained('cecy.instructors');
 
+            $table->foreignId('topic_id')
+                ->nullable()
+                ->comment('Id del tema que va a impartir el instructor')
+                ->constrained('cecy.topics');
+
             $table->foreignId('detail_planification_id')
                 ->nullable()
                 ->comment('trae la informacion del detail_planification')

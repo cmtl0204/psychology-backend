@@ -19,12 +19,12 @@ class Prerequisite extends Model implements Auditable
     protected $fillable = [];
 
     // Relationships
-    public function prerequisite()
+    public function course()
     {
         return $this->belongsTo(Course::class);
     }
 
-    public function course()
+    public function prerequisite()
     {
         return $this->belongsTo(Course::class);
     }

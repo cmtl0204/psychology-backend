@@ -24,7 +24,7 @@ class JumboController extends Controller
         $this->middleware('permission:delete')->only(['destroy', 'destroys']);
     }
 
-   
+   //visualizar los usuarios de ignug
     public function getUsersIgnug(User $users)
     {
         $users = user::whereIn('type_id', $request->input('ignug'))->get();
@@ -37,6 +37,7 @@ class JumboController extends Controller
             ]
         ]);
     }
+
 
     public function updateInstructors(Request $request,Instructor $Instructor )
     {
@@ -55,6 +56,7 @@ class JumboController extends Controller
         ]);
     }
 
+    // para eliminar un instructor 
     public function destroysInstructors(DestroysInstructorRequest $Instructor)
     {
        $instructor = Instructor::whereIn('id', $request->input('ids'))->get();
@@ -70,6 +72,7 @@ class JumboController extends Controller
        
     }
 
+    //visualizar todos los cursos 
     public function getCourses(Course $course)
     {
         return (new CourseResource($course))
@@ -82,6 +85,7 @@ class JumboController extends Controller
         ]);
 
     }
+    //Agregar perfil a un curso 
     public function storeProfileCourse(StoreProfileCourseRequest $profile)
     {
         $profile = new Profile();

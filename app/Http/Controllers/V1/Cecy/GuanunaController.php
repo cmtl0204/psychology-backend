@@ -7,39 +7,50 @@ use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\SchoolPeriods\SchoolPeriodsCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
-use App\Http\Resources\V1\Core\CareerCollection;
-use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResorece;
-use App\Http\Requests\V1\Cecy\Planifications\getPlanificationByCoodinatorRequest;
+use App\Http\Resources\V1\Cecy\Courses\CourseResource;
+use App\Http\Resources\V1\Cecy\Notifications\IndexNotificationResource;
 use App\Http\Requests\V1\Cecy\DetailPlanifications\UpdateDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\Planifications\UpdatePlanificationRequest;
-use App\Http\Requests\V1\Cecy\Planifications\getPlanificationByCoordinatorRequest;
-use App\Http\Requests\V1\Cecy\Planifications\getPlanificationByResponsibleCecyRequest;
-use App\Http\Requests\V1\Cecy\Planifications\StorePlanificationRequest;
+use App\Http\Requests\V1\Cecy\Courses\GetCoursesByCoordinatorRequest ;
+use App\Http\Requests\V1\Cecy\Planifications\GetPlanificationsByResponsibleCecyRequest;
+use App\Http\Requests\V1\Cecy\Planifications\StorePlanificationByCourseRequest ;
+use App\Http\Requests\V1\Cecy\Planifications\IndexPlanificationRequest;
 use App\Models\Cecy\Authority;
 use App\Models\Cecy\Classroom;
 use App\Models\Cecy\Course;
 use App\Models\Cecy\Instructor;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Planification;
-use App\Models\Cecy\SchoolPeriod;
 use App\Models\Core\Catalogue;
-use App\Models\Core\Career;
 
 class GuanunaController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('permission:view-Planifications')->only(['view']);
-        $this->middleware('permission:store-Planifications')->only(['store']);
-        $this->middleware('permission:store-detailPlanifications')->only(['store']);
-        $this->middleware('permission:update-detailPlanifications')->only(['update']);
-        $this->middleware('permission:view-details_planifications')->only(['view']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('permission:view-Planifications')->only(['view']);
+    //     $this->middleware('permission:store-Planifications')->only(['store']);
+    //     $this->middleware('permission:store-detailPlanifications')->only(['store']);
+    //     $this->middleware('permission:update-detailPlanifications')->only(['update']);
+    //     $this->middleware('permission:view-details_planifications')->only(['view']);
+    //}
     /**
      *  Planifications
      */
 
     //--Coordinador de carrera
+<<<<<<< HEAD
+
+ //obtener informacion de los cursos planificacion al coordinadoor de carrera
+    public function getPlanificationByCareer(GetCoursesByCoordinatorRequest  $request)
+    {
+        $user = Authority::where('user_id', $request->user()->id)->get();
+
+        $Planifications = $user
+            ->planifications()
+            ->course()
+            ->instructor()
+            ->paginate($request->input('per_page'));
+=======
 //buscar peridos lectivos y carrera
     public function getCoursesByPeriod(Planification $courses)
     {
@@ -85,9 +96,24 @@ class GuanunaController extends Controller
                 ]
             ]);
     }
+>>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
 
+        return (new PlanificationCollection($Planifications))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+   
 // asignar responsable
+<<<<<<< HEAD
+    public function storePlanificationByCourse(StorePlanificationByCourseRequest $request)
+=======
     public function storePlanificationByCourse(StorePlanificationRequest $request)
+>>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
     {
         $planifications = new Planification();
         $planifications->course()->associate(Course::find($request->input('name')));
@@ -97,7 +123,10 @@ class GuanunaController extends Controller
         $planifications->ended_at = $request->input('fin de la planificación');
         $planifications->started_at = $request->input('inicio de la planificación');
         $planifications->state_id = $request->input('Estado de la planificacion');
+<<<<<<< HEAD
+=======
         $planifications->obervations = $request->input('Observacion de la planificacion no aprobada');
+>>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
         $planifications->save();
 
         return (new PlanificationResource($planifications))
@@ -111,6 +140,31 @@ class GuanunaController extends Controller
     }
 
 //crear curso no existente
+<<<<<<< HEAD
+    public function storePlanificationCourseNew(StorePlanificationByCourseRequest $request)
+    {
+        $courses = new Course();
+        $courses->name = $request -> input('search'); 
+        $courses->participant_type_id = $request -> input('search');
+        $courses->state_id = $request -> input ('estado del curso'); 
+        $courses->duration = $request -> input('search'); 
+        $courses -> started_at()->associate(Planification::find($request->input('fecha inicio de planificacion')));
+        $courses -> ended_at()->associate(Planification::find($request->input('fecha fin de planificacion')));
+        $courses-> save();
+
+        return (new CourseResource($courses))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Curso creado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+    }
+
+//consultar de la planificacion
+    public function getPlanification(IndexPlanificationRequest $planifications)
+=======
     public function storePlanificationCourseNew()
     {
 
@@ -118,6 +172,7 @@ class GuanunaController extends Controller
 
 //consultar de la planificacion
     public function getPlanification(Planification $planifications)
+>>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
     {
         return (new PlanificationCollection ($planifications))
             ->additional([
@@ -131,6 +186,18 @@ class GuanunaController extends Controller
 
 ///Responsable del CECY
 //mostrar informacion al responsable del cecy
+<<<<<<< HEAD
+    public function getPlanificationByResponsibleCecy(GetPlanificationsByResponsibleCecyRequest $request)
+    {
+
+        {
+            $user = Authority::where('user_id', $request->user()->id)->get();
+
+            $Planifications = $user
+                ->Planifications()
+                ->Courses()
+                ->instructors()
+=======
     public function getPlanificationByResponsibleCecy(getPlanificationByResponsibleCecyRequest $request)
     {
 
@@ -139,6 +206,7 @@ class GuanunaController extends Controller
 
             $Planifications = $responsibleCecy
                 ->Planifications()
+>>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
                 ->paginate($request->input('per_page'));
 
             return (new PlanificationCollection($Planifications))
@@ -152,7 +220,11 @@ class GuanunaController extends Controller
         }
     }
 
+<<<<<<< HEAD
+//actualizar informacion de la planificacion
+=======
 //editar informacion de la planificacion
+>>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
     public function updatePlanificationByCecy(UpdatePlanificationRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
@@ -186,7 +258,11 @@ class GuanunaController extends Controller
             ]);
     }
 
+<<<<<<< HEAD
+//actualizar informacion del detalle planificación
+=======
 //editar informacion del detalle planificación
+>>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
     public function updatedetailPlanificationByCecy(UpdateDetailPlanificationRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
@@ -220,6 +296,24 @@ class GuanunaController extends Controller
             ]);
     }
 //recibir notificaciones
+<<<<<<< HEAD
+    public function notification(NotificationRequest $notification)
+    {
+        
+        $notification = Notification::where('id', $request->id)->get();
+        
+        return (new NotificationResource($notification))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
+        $user = Authority::where('user_id', $request->user()->id)->get();
+    }
+}
+=======
 // public function getnotification()
 // {
 //     return (new NotificationCollection($notifications))
@@ -232,3 +326,4 @@ class GuanunaController extends Controller
 //     ]);
 // }
 }
+>>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
