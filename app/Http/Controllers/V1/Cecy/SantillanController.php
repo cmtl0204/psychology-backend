@@ -191,7 +191,7 @@ class SantillanController extends Controller
     }
     //eliminar una asistencia
 
-    public function destroysAttendanceTeacher(DestroysAttendanceTeacherRequest $attendance)
+    public function destroysAttendanceTeacher(DestroysAttendanceTeacherRequest $request)
     {
         $attendance = Attendance::whereIn('id', $request->input('ids'))->get();
         Attendance::destroy($request->input('ids'));
@@ -205,7 +205,6 @@ class SantillanController extends Controller
                 ]
             ]);
     }
-
     /*******************************************************************************************************************
      * FILES
      ******************************************************************************************************************/
