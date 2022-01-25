@@ -16,27 +16,19 @@ class Requirement extends Model
     protected $table = 'cecy.requirements';
 
     protected $fillable = [
-        'company_activity',
-        'company_address',
-        'company_email',
-        'company_name',
-        'company_phone',
-        'company_sponsored',
-        'contact_name',
-        "course_follows",
-        'course_knows',
-        'worked',
+        'name',
+        'required',
     ];
 
     // Relationships
-    public function registration()
-    {
-        return $this->belongsTo(Registration::class);
-    }
 
-    public function registrarionRequeriments()
+    public function registrarionRequirements()
     {
         return $this->hasMany(RegistrationRequirement::class);
+    }
+    public function state()
+    {
+        return $this->belongsTo(Catalogue::class);
     }
 
     // Mutators
