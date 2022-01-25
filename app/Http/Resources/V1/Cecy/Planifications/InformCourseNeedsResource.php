@@ -19,8 +19,8 @@ class InformCourseNeedsResource extends JsonResource
     {
         $course = Course::find($this->id);
         $planification = $course->planifications()
-            ->detailSchoolPeriod()
-            ->responsibleCourse()
+            ->detailSchoolPeriod($request->input('detailSchoolPeriod.id'))
+            ->responsibleCourse($request->input('responsibleCourse.id'))
             ->get();
 
         return [
