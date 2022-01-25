@@ -40,7 +40,6 @@ class JumboController extends Controller
 
     public function updateInstructors(Request $request,Instructor $Instructor )
     {
-        //Me va permitir editar modificar al instructor 
         $Instructor->instructor()->associate(User::find($request->input('user.id')));
         $Instructor->state_id()->associate(Catalogue::find($request->input('state_id')));
         $Instructor->type_id()->associate(Catalogue::find($request->input('type_id')));
