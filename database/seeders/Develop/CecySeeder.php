@@ -3,13 +3,30 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Cecy\AdditionalInformationSeeder;
+use Database\Seeders\Cecy\AdditionalInformationsSeeder;
+use Database\Seeders\Cecy\AttendancesSeeder;
 use Database\Seeders\Cecy\AuthoritiesSeeder;
+use Database\Seeders\Cecy\AuthorizedInstructorsSeeder;
 use Database\Seeders\Cecy\CecyCatalogueSeeder;
+use Database\Seeders\Cecy\CertificatesSeeder;
 use Database\Seeders\Cecy\ClassroomsSeeder;
 use Database\Seeders\Cecy\CoursesSeeder;
+use Database\Seeders\Cecy\DetailAttendancesSeeder;
+use Database\Seeders\Cecy\DetailPlanificationsInstructorSeeder;
+use Database\Seeders\Cecy\DetailPlanificationsSeeder;
+use Database\Seeders\Cecy\DetailSchoolPeriodsSeeder;
+use Database\Seeders\Cecy\InstitutionsSeeder;
 use Database\Seeders\Cecy\InstructorsSeeder;
+use Database\Seeders\Cecy\NotificationsSeeder;
+use Database\Seeders\Cecy\ParticipantsSeeder;
+use Database\Seeders\Cecy\PhotograficRecordsSeeder;
+use Database\Seeders\Cecy\PrerequisitesSeeder;
+use Database\Seeders\Cecy\ProfileInstructorCoursesSeeder;
+use Database\Seeders\Cecy\RegistrationRequerimentsSeeder;
+use Database\Seeders\Cecy\RegistrationsSeeder;
 use Database\Seeders\Cecy\RequirementesSeeder;
 use Database\Seeders\Cecy\SchoolPeriodsSeeder;
+use Database\Seeders\Cecy\TopicsSeeder;
 use Illuminate\Database\Seeder;
 
 
