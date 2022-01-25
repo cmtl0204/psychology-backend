@@ -84,9 +84,7 @@ class MatangoController extends Controller
         $course->modalityId()->associate(Catalogue::find($request->input('modality.id')));
         $course->specialityId()->associate(Catalogue::find($request->input('speciality.id')));
         $course->abbreviation = $request->input('abbreviation');
-        $course->cost = $request->input('cost');
         $course->duration = $request->input('duration');
-        $course->free = $request->input('free');
         $course->needs = $request->input('needs');
         $course->project = $request->input('project');
         $course->sumary = $request->input('sumary');
