@@ -67,7 +67,7 @@ class RiveraController extends Controller
             ->detailPlanifications()
             ->classrooms()
             ->planifications()
-            ->course()
+            ->courses()
             ->paginate($request->input('per_page'));
 
         return (new DetailPlanificationInformNeedResource($planificacion))
@@ -83,10 +83,11 @@ class RiveraController extends Controller
 
     public function showRecordCompetitor(getCoursesByNameRequest $request, Course $course)
     {
+    //trae todos los participantes registrados de un curso en especifico
+
         $planification = $course->planifications()->get();
         $detailPlanification = $planification->detailPlanifications()->get();
         $registrations = $detailPlanification->registrations()->get();
-        //trae todos los participantes registrados de un curso en especifico
        /*  $Course = Planification::where('course_id', $request->course()->id)->get(); */
 
 /*         $registration = $registrations
