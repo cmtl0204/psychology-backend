@@ -51,7 +51,7 @@ class GuachagmiraController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(200);
     }
 
     public function getCoursesByName(getCoursesByNameRequest $request)
@@ -69,7 +69,7 @@ class GuachagmiraController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(200);
     }
 
     /*
@@ -89,7 +89,7 @@ class GuachagmiraController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(200);
     }
 
     /*
@@ -108,7 +108,7 @@ class GuachagmiraController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(200);
     }
 
     /*
@@ -125,7 +125,8 @@ class GuachagmiraController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
 
     /*
@@ -205,17 +206,19 @@ class GuachagmiraController extends Controller
                     'code' => '200'
                 ]
             ])
-            ->response()->setStatusCode(201);
+            ->response()->setStatusCode(200);
     }
 
 
     public function storeParticipant(StoreUserAndParticipantRequest $request, User $user)
     {
+        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
+        $state = Catalogue::where('code', $catalogue['participant_state']['to_be_approved'])->get();
+
         $participant = new Participant();
         $participant->user()->associate($user);
         $participant->personType()->associate(Catalogue::find($request->input('personType.id')));
-        $participant->state()->associate(Catalogue::find($request->input('state.id')));
-
+        $participant->state()->associate($state);
         return $participant;
     }
 

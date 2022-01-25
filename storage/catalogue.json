@@ -149,5 +149,11 @@
         "rectified": "RECTIFIED",
         "cancelled": "CANCELLED",
         "in_review": "IN_REVIEW"
+    },
+    "participant_state": {
+        "type": "PARTICIPANT_STATE",
+        "approved": "APPROVED",
+        "not_approved": "NOT_APPROVED",
+        "to_be_approved": "TO_BE_APPROVED"
     }
 }
