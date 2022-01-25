@@ -51,7 +51,7 @@ class GuachagmiraController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(200);
     }
 
     public function getCoursesByName(getCoursesByNameRequest $request)
@@ -69,7 +69,7 @@ class GuachagmiraController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(200);
     }
 
     /*
@@ -89,7 +89,7 @@ class GuachagmiraController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(200);
     }
 
     /*
@@ -108,7 +108,7 @@ class GuachagmiraController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(200);
     }
 
     /*
@@ -125,7 +125,8 @@ class GuachagmiraController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
 
     /*
@@ -205,7 +206,7 @@ class GuachagmiraController extends Controller
                     'code' => '200'
                 ]
             ])
-            ->response()->setStatusCode(201);
+            ->response()->setStatusCode(200);
     }
 
 
