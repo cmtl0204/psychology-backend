@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\V1\Cecy;
 
+use App\Models\Cecy\Planification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Cecy\Courses\GetCoursesByCoordinatorCecyRequest;
@@ -47,11 +48,11 @@ class PastranaController extends Controller
     /*
     * MOSTRAR LOS KPI DE CURSOS APROBADOS, POR APROBAR Y EN PROCESO
     */
-    public function getCoursesKPI()
+    public function getCoursesKPI(Request $request)
     {
         $courses = DB::table('courses as cr')
         ->join('catalogue as ct', 'ct.id', '=', 'cr.state_id')
-        ->where('ct.name', '=', 'APPROVED, TO_BE_APPROVED, IN_PROCESS' $state_id)
+        ->where('ct.name', '=', 'APPROVED, TO_BE_APPROVED, IN_PROCESS' ,state_id)
         ->select(DB::raw('count(*) as course_count'))
         ->first()
         ->paginate($request->input('per_page'));
@@ -63,7 +64,7 @@ class PastranaController extends Controller
     /*
     * Asignar docente responsable de cecy de la planificación
     */
-    public function updateAssignResponsibleCecy(UpdateAssignResponsibleCecyRequest $request)
+    public function updateAssignResponsibleCecy(UpdateAssignResponsibleCecyRequest $request, Planification $planification)
     {
         $planification->course()->associate(Course::find($request->input('course.id')));
         $planification->detail_school_period()->associate(DetailSchoolPeriod::find($request->input('detail_school_period.id')));
@@ -173,7 +174,7 @@ class PastranaController extends Controller
 
     /*
     * Adjuntar el acta de aprobación
-    */ 
+    */
     public function uploadFile(UploadFileRequest $request, Catalogue $catalogue)
     {
         return $catalogue->uploadFile($request);
