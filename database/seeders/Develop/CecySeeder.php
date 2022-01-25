@@ -13,7 +13,7 @@ use Database\Seeders\Cecy\SchoolPeriodsSeeder;
 use Illuminate\Database\Seeder;
 
 
-class DatabaseSeeder extends Seeder
+class CecySeeder extends Seeder
 {
     public function run()
     {
