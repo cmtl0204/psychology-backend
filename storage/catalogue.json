@@ -9,11 +9,6 @@
     "ethnic_origin": {
         "type": "ETHNIC_ORIGIN"
     },
-    "attendance": {
-        "type": "ATTENDANCES",
-        "duration": "DURATION",
-        "registered_at": "REGISTERED_AT"
-    },
     "entity_certification": {
         "type": "ENTITY_CERTIFICATION",
         "senecyt": "SENECYT",
@@ -141,5 +136,10 @@
         "generated": "GENERATED",
         "in_process": "IN PROCESS",
         "signed": "SIGNED"
+    },
+    "participant_state": {
+        "type": "PARTICIPANT_STATE",
+        "approved": "APPROVED",
+        "reprobate": "REPROBATE"
     }
 }
