@@ -5,9 +5,8 @@ namespace App\Http\Controllers\V1\Cecy;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Cecy\Courses\GetCoursesByCategoryRequest;
 use App\Http\Requests\V1\Cecy\Courses\GetCoursesByNameRequest;
-use App\Http\Requests\V1\Cecy\Participants\StoreParticipantRequest;
+use App\Http\Requests\V1\Cecy\Participants\StoreUserAndParticipantRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
-use App\Http\Resources\V1\Cecy\Courses\InstructorsInformationByCourseCollection;
 use App\Http\Resources\V1\Cecy\Courses\TopicsByCourseCollection;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\Participants\ParticipantResource;
@@ -143,7 +142,7 @@ class GuachagmiraController extends Controller
             ]);
     }
 
-    public function registerParticipant(StoreParticipantRequest $request)
+    public function registerParticipant(StoreUserAndParticipantRequest $request)
     {
         $participant = new Participant();
         $participant->user()->associate(User::find($request->input('user.id')));
