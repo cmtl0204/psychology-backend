@@ -2,50 +2,46 @@
 
 namespace App\Models\Cecy;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as Auditing;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as Auditing;
 
-class Certificate extends Model implements Auditable
+class Requirement extends Model
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.certificates';
+    protected $table = 'cecy.requirements';
 
     protected $fillable = [
-        'code',
-        'issued_at',
+        'name',
+        'required',
     ];
-
-    public function certificateable()
-    {
-        return $this->morphTo();
-    }
 
     // Relationships
 
+    public function registrarionRequirements()
+    {
+        return $this->hasMany(RegistrationRequirement::class);
+    }
     public function state()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
     // Mutators
-
-    public function setCodeAttribute($value)
+    public function setNameAttribute($value)
     {
-        $this->attributes['code'] = strtoupper($value);
+        $this->attributes['name'] = strtoupper($value);
     }
 
     // Scopes
-
-    public function scopeCodeSources($query, $code)
+    public function scopeName($query, $name)
     {
-        if ($code) {
-            return $query->Where('code', $code);
+        if ($name) {
+            return $query->where('name', $name);
         }
     }
 

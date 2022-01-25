@@ -17,16 +17,17 @@ class InformCourseNeedsResource extends JsonResource
 {
     public function toArray($request)
     {
-        $course = Course::find($this->id);
+/*         $course = Course::find($this->id);
         $planification = $course->planifications()
             ->detailSchoolPeriod($request->input('detailSchoolPeriod.id'))
             ->responsibleCourse($request->input('responsibleCourse.id'))
-            ->get();
+            ->get(); */
 
         return [
             'id' => $this->id,
             'course' => CourseResource::make($this->course),
-            'planification' => new PlanificationsInformNeedResource($planification),
+           /*  'planification' => new PlanificationsInformNeedResource($planification), */
+           'planification' => PlanificationsInformNeedResource::make($this->planification),
             'courseType' => CatalogueResource::make($this->course_type),
             'modality' => CatalogueResource::make($this->modality),
             'needs' => $this->needs,

@@ -4,13 +4,9 @@ namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Cecy\Courses\getCoursesByResponsibleRequest;
-use App\Http\Requests\V1\Cecy\Courses\StoreCourseGeneralDataRequest;
+use App\Http\Requests\V1\Cecy\Courses\UpdateCourseGeneralDataRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
-use App\Models\Cecy\Institution;
-use Illuminate\Http\Request;
 use App\Models\Cecy\Catalogue;
-use App\Http\Resources\V1\Cecy\Institution\InstitutionResource;
-use App\Http\Resources\V1\Cecy\Institution\InstitutionCollection;
 use App\Http\Resources\V1\Cecy\Planifications\CoursesByResponsibleResource;
 use App\Http\Resources\V1\Cecy\Prerequisites\CoursesByResponsibleCollection;
 use App\Http\Resources\V1\Core\CareerCollection;
@@ -22,12 +18,10 @@ class MatangoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:store-catalogues')->only(['store']);
-        $this->middleware('permission:update-catalogues')->only(['update']);
-        $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
+
     }
 
-
+    //obtener los cursos asignados a un docente logueado
     public function getCoursesByResponsibleCourse(getCoursesByResponsibleRequest $request)
     {
         $courses = Course::where([
@@ -45,7 +39,7 @@ class MatangoController extends Controller
     }
 
 
-   
+   //obtener todas las carreras
     public function getCarrers(Career $careers)
     {
         return (new CareerCollection($careers))
@@ -58,7 +52,7 @@ class MatangoController extends Controller
             ]);
     }
 
-    //trae toda la info de un curso en especifico
+    //trae toda la info de un curso seleccionado
 
     public function show(Course $course)
     {
@@ -75,8 +69,9 @@ class MatangoController extends Controller
     }
 
 
+    //actualiza datos generales de un curso seleccionado
     
-    public function updateGeneralData(StoreCourseGeneralDataRequest $request, Course $course)
+    public function updateGeneralData(UpdateCourseGeneralDataRequest $request, Course $course)
     {
         $course->carrerId()->associate(Career::find($request->input('carrer.id')));
         $course->category()->associate(Catalogue::find($request->input('category.id')));
@@ -85,9 +80,7 @@ class MatangoController extends Controller
         $course->modalityId()->associate(Catalogue::find($request->input('modality.id')));
         $course->specialityId()->associate(Catalogue::find($request->input('speciality.id')));
         $course->abbreviation = $request->input('abbreviation');
-        $course->cost = $request->input('cost');
         $course->duration = $request->input('duration');
-        $course->free = $request->input('free');
         $course->needs = $request->input('needs');
         $course->project = $request->input('project');
         $course->sumary = $request->input('sumary');
