@@ -22,12 +22,10 @@ class MatangoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:store-catalogues')->only(['store']);
-        $this->middleware('permission:update-catalogues')->only(['update']);
-        $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
+
     }
 
-
+    //obtener los cursos asignados a un docente logueado
     public function getCoursesByResponsibleCourse(getCoursesByResponsibleRequest $request)
     {
         $courses = Course::where([
@@ -45,7 +43,7 @@ class MatangoController extends Controller
     }
 
 
-   
+   //obtener todas las carreras
     public function getCarrers(Career $careers)
     {
         return (new CareerCollection($careers))
@@ -58,7 +56,7 @@ class MatangoController extends Controller
             ]);
     }
 
-    //trae toda la info de un curso en especifico
+    //trae toda la info de un curso seleccionado
 
     public function show(Course $course)
     {
@@ -75,6 +73,7 @@ class MatangoController extends Controller
     }
 
 
+    //actualiza datos generales de un curso seleccionado
     
     public function updateGeneralData(StoreCourseGeneralDataRequest $request, Course $course)
     {
