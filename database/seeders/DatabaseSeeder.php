@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             $this->call([
                 AuthenticationSeeder::class,
                 CoreSeeder::class,
-                CecySeeder::class
+                //CecySeeder::class
             ]);
         } else {
             $this->call([
