@@ -4,13 +4,9 @@ namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Cecy\Courses\getCoursesByResponsibleRequest;
-use App\Http\Requests\V1\Cecy\Courses\StoreCourseGeneralDataRequest;
+use App\Http\Requests\V1\Cecy\Courses\UpdateCourseGeneralDataRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
-use App\Models\Cecy\Institution;
-use Illuminate\Http\Request;
 use App\Models\Cecy\Catalogue;
-use App\Http\Resources\V1\Cecy\Institution\InstitutionResource;
-use App\Http\Resources\V1\Cecy\Institution\InstitutionCollection;
 use App\Http\Resources\V1\Cecy\Planifications\CoursesByResponsibleResource;
 use App\Http\Resources\V1\Cecy\Prerequisites\CoursesByResponsibleCollection;
 use App\Http\Resources\V1\Core\CareerCollection;
@@ -75,7 +71,7 @@ class MatangoController extends Controller
 
     //actualiza datos generales de un curso seleccionado
     
-    public function updateGeneralData(StoreCourseGeneralDataRequest $request, Course $course)
+    public function updateGeneralData(UpdateCourseGeneralDataRequest $request, Course $course)
     {
         $course->carrerId()->associate(Career::find($request->input('carrer.id')));
         $course->category()->associate(Catalogue::find($request->input('category.id')));

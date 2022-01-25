@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Cecy\Courses;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCourseGeneralDataRequest extends FormRequest
+class UpdateCourseGeneralDataRequest extends FormRequest
 {
   public function authorize()
   {
