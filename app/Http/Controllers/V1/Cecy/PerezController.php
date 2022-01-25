@@ -236,9 +236,9 @@ class PerezController extends Controller
             ->response()->setStatusCode(200);
     }
     /**
-     * Update start_at and ended_at in planification 
+     * Update start_at and ended_at and needs in planification 
      */
-    public function updateDatesAndNeedsinPlanificationRequest(UpdateDatesinPlanificationRequest $request, Planification $planification)
+    public function updateDatesAndNeedsinPlanification(UpdateDatesinPlanificationRequest $request, Planification $planification)
     {
         $planification->started_at = $request->input('startedAt');
         $planification->started_time = $request->input('startedTime');
