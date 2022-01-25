@@ -10,24 +10,26 @@ use App\Models\Cecy\AdditionalInformation;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Participant;
 use App\Models\Cecy\Registration;
+use Illuminate\Support\Facades\DB;
 
 class DamianController extends Controller
 {
     //inscripcion a un curso
     public function registerStudent(RegisterStudentRequest $request)
     {
+        $participant = Participant::firstWhere('user_id', $request->user()->id);
+
         $registration = new Registration();
-
-        $registration->participant()
-            ->associate(Participant::find($request->input('participant.id')));
-
-        $registration->type()
-            ->associate(Catalogue::find($request->input('type.id')));
-
+        $registration->participant()->associate($participant);
+        $registration->type()->associate(Catalogue::find($request->input('type.id')));
         $registration->number = $request->input('number');
         $registration->registered_at = $request->input('registeredAt');
 
-        $registration->save();
+        DB::transaction(function ($registration, $request) {
+            $registration->save();
+            $additionalInformation = $this->storeAdditionalInformation($request, $registration);
+            $additionalInformation->save();
+        });
 
         return (new RegisterStudentResource($registration))
             ->additional([
@@ -40,12 +42,11 @@ class DamianController extends Controller
     }
 
     // llenar informacion adicional de la solicitud de matricula
-    private function storeAdditionalInformation(storeAdditionalInformationRequest $request, Registration $registration)
+    private function storeAdditionalInformation(RegisterStudentRequest $request, Registration $registration)
     {
         $additionalInformation = new AdditionalInformation();
 
-        $additionalInformation->registration()
-            ->associate(Registration::find($request->input('registration.id')));
+        $additionalInformation->registration()->associate($registration);
 
         $additionalInformation->worked = $request->input('worked');
         $additionalInformation->company_activity = $request->input('companyActivity');
@@ -58,27 +59,20 @@ class DamianController extends Controller
         $additionalInformation->course_knows = $request->input('courseKnows');
         $additionalInformation->course_follows = $request->input('courseFollows');
 
-        $additionalInformation->save();
-
-        return (new AdditionalInformationResource($additionalInformation))
-            ->additional([
-                'msg' => [
-                    'summary' => 'Registro Creado',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
+        return $additionalInformation;
     }
+
     // enviar documentacion
 
-    public function addFilesrequired(){
+    public function addFilesrequired()
+    {
         return;
     }
+
     // crud de requisitos
     // crear un school periods
     // mostrar todos los school periods
     // crud detail periods
-
 }
 
 

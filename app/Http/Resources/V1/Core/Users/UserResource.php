@@ -35,6 +35,7 @@ class UserResource extends JsonResource
             'civilStatus' => CatalogueResource::make($this->civilStatus),
             'emailVerifiedAt' => $this->email_verified_at,
             'passwordChanged' => $this->password_changed,
+            'updatedAt' => $this->updated_at,
         ];
     }
 
