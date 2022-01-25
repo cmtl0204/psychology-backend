@@ -241,7 +241,7 @@ class PerezController extends Controller
     public function updateDatesAndNeedsinPlanification(UpdateDatesinPlanificationRequest $request, Planification $planification)
     {
         $planification->started_at = $request->input('startedAt');
-        $planification->started_time = $request->input('startedTime');
+        $planification->ended_at = $request->input('endedAt');
         $planification->needs = $request->input('needs');
 
         return (new PlanificationResource($planification))
