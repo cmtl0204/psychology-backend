@@ -2,43 +2,48 @@
 
 namespace App\Models\Cecy;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as Auditing;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Authentication\User;
+use OwenIt\Auditing\Auditable as Auditing;
 
-class Participant extends Model implements Auditable
+class Requirement extends Model
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.participants';
+    protected $table = 'cecy.requirements';
 
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'required',
+    ];
 
     // Relationships
 
-    public function personType()
+    public function registrarionRequirements()
     {
-        return $this->belongsTo(Catalogue::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(RegistrationRequirement::class);
     }
     public function state()
     {
         return $this->belongsTo(Catalogue::class);
     }
-    public function registration()
+
+    // Mutators
+    public function setNameAttribute($value)
     {
-        $this->hasMany(Registration::class);
+        $this->attributes['name'] = strtoupper($value);
     }
 
+    // Scopes
+    public function scopeName($query, $name)
+    {
+        if ($name) {
+            return $query->where('name', $name);
+        }
+    }
 
     public function scopeCustomOrderBy($query, $sorts)
     {

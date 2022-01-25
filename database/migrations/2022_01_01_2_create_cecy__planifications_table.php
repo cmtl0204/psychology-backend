@@ -43,7 +43,7 @@ class CreateCecyPlanificationsTable extends Migration
                 ->comment('Por aprobar, culminada ...')
                 ->constrained('cecy.catalogues');
 
-            $table->date('aproved_at')
+            $table->date('approved_at')
                 ->comment('Fecha de aprobación de la planificación');
 
             $table->string('code')

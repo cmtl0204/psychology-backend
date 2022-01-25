@@ -9,13 +9,14 @@
     "ethnic_origin": {
         "type": "ETHNIC_ORIGIN"
     },
-<<<<<<< HEAD
+
+    //Molina este catagolo no existe
     "attendances": {
         "type": "ATTENDANCES",
         "duration": "DURATION",
         "registered_at": "REGISTERED_AT"
+    },
 
-=======
     "entity_certification": {
         "type": "ENTITY_CERTIFICATION",
         "senecyt": "SENECYT",
@@ -144,6 +145,5 @@
         "generated":"GENERATED",
         "in_process":"IN PROCESS",
         "signed":"SIGNED"
->>>>>>> 54993b2046dc22126511b2f0f6271e7f5e11e882
     }
 }
