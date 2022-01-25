@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\Cecy\AdditionalInformationSeeder;
 use Database\Seeders\Cecy\AdditionalInformationsSeeder;
 use Database\Seeders\Cecy\AttendancesSeeder;
 use Database\Seeders\Cecy\AuthoritiesSeeder;
@@ -35,7 +34,6 @@ class CecySeeder extends Seeder
     public function run()
     {
         $this->call([
-            AdditionalInformationSeeder::class,
             CecyCatalogueSeeder::class,
             ClassroomsSeeder::class,
             InstructorsSeeder::class,
