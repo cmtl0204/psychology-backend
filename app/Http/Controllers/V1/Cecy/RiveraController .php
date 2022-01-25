@@ -34,20 +34,19 @@ class RiveraController extends Controller
     }
 
 
-    public function showInformCourseNeeds(GetCoursesByCategoryRequest $request, Course $course)
+    public function showInformCourseNeeds(Course $course)
     {
         //trae un informe de nececidades de una planificacion, un curso en especifico por el docente que se logea
-        $planificacion = DetailPlanification::where('panification_id', $request->planification()->id)->get();
 
-        $planifications =  $planificacion
-        ->instructors()
-        ->detailPlanifications()
-        ->classrooms()
-        ->planifications()
-        ->course()
-        ->paginate($request->input('per_page'));
 
-        return (new InformCourseNeedsResource($course))
+        $planification = $course->planifications()->get()
+            ->detailPlanifications()
+            ->instructors()
+            ->classrooms()
+            /*         ->planifications() */
+            ->course();
+
+        return (new InformCourseNeedsResource($planification))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -61,9 +60,9 @@ class RiveraController extends Controller
     public function showYearSchedule(GetDateByshowYearScheduleRequest $request)
     {
         //trae todos los cursos planificados de un año en especifico
-        $instructor = Instructor::where('user_id', $request->user()->id)->get();
+        $year = Planification::whereYear('started_at', $request->input('startedAt'))->get();
 
-        $Instructor = $instructor
+        $planificacion = $year
             ->instructors()
             ->detailPlanifications()
             ->classrooms()
@@ -71,7 +70,7 @@ class RiveraController extends Controller
             ->course()
             ->paginate($request->input('per_page'));
 
-        return (new DetailPlanificationInformNeedResource($Instructor))
+        return (new DetailPlanificationInformNeedResource($planificacion))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -84,18 +83,21 @@ class RiveraController extends Controller
 
     public function showRecordCompetitor(getCoursesByNameRequest $request, Course $course)
     {
+        $planification = $course->planifications()->get();
+        $detailPlanification = $planification->detailPlanifications()->get();
+        $registrations = $detailPlanification->registrations()->get();
         //trae todos los participantes registrados de un curso en especifico
-        $Course = Planification::where('course_id', $request->course()->id)->get();
+       /*  $Course = Planification::where('course_id', $request->course()->id)->get(); */
 
-        $course = $Course
-            ->registrations()
-            ->participants()
-            ->users()
-            ->additionalInformations()
-            ->detailPlanifications()
+/*         $registration = $registrations
             ->planifications()
-            ->course()
-            ->paginate($request->input('per_page'));
+            ->detailPlanifications()
+            ->additionalInformations()
+            ->users()
+            ->participants()
+            ->registrations()
+             ->course() 
+            ->paginate($request->input('per_page')); */
 
         return (new RegistrationRecordCompetitorResource($course))
             ->additional([
@@ -108,17 +110,27 @@ class RiveraController extends Controller
             ->response()->setStatusCode(200);
     }
 
-    public function showPhotographicRecord(GetDetailPlanificationsByResponsibleCourseRequest $request)
+    public function showPhotographicRecord(GetDetailPlanificationsByResponsibleCourseRequest $request, Course $course)
     {
         //trae el registro fotografico de un curso en especifico por el docente que se loguea
-        $responsibleCourse = Instructor::where('user_id', $request->user()->id)->get();
+        $planification = $course->planifications()->get();
+        $detailPlanification = $planification->detailPlanifications()->get();
+        $detailPlanificationInstructor = $detailPlanification->instructors()->get();
+        $instructor = $detailPlanificationInstructor->users()->get();
+        /* $detailPlanificationInstructor = $detailPlanification->certificateable()->get; */
+
+  /*       $Planifications = $responsibleCourse
+            ->detailPlanifications()
+            ->photographicRecords()
+            ->paginate($request->input('per_page')); */
+     /*    $responsibleCourse = Instructor::where('user_id', $request->user()->id)->get();
 
         $Planifications = $responsibleCourse
             ->detailPlanifications()
             ->photographicRecords()
-            ->paginate($request->input('per_page'));
+            ->paginate($request->input('per_page')); */
 
-        return (new PhotographicRecordResource($Planifications))
+        return (new PhotographicRecordResource($instructor))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
