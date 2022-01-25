@@ -69,6 +69,7 @@ class CreateCecyCoursesTable extends Migration
                 ->constrained('cecy.catalogues')
                 ->nullable();
 
+            //un curso tiene varios tipos de partipantes
             $table->foreignId('participant_type_id')
                 ->comment('Adultos, Estudiantes, Profesores')
                 ->constrained('cecy.catalogues');
