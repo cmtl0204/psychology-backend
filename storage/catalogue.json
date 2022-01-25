@@ -9,13 +9,6 @@
     "ethnic_origin": {
         "type": "ETHNIC_ORIGIN"
     },
-<<<<<<< HEAD
-    "attendances": {
-        "type": "ATTENDANCES",
-        "duration": "DURATION",
-        "registered_at": "REGISTERED_AT"
-
-=======
     "entity_certification": {
         "type": "ENTITY_CERTIFICATION",
         "senecyt": "SENECYT",
@@ -101,25 +94,24 @@
         "not_approved": "NOT_APPROVED",
         "approved": "APPROVED"
     },
-    "classroom_type":{
-        "type":"CLASSROOM_TYPE",
-        "classroom_class":"CLASSROOMCLASS",
-        "office":"OFFICE",
-        "laboratory":"LABORATORY"
+    "classroom_type": {
+        "type": "CLASSROOM_TYPE",
+        "classroom_class": "CLASSROOMCLASS",
+        "office": "OFFICE",
+        "laboratory": "LABORATORY"
     },
-    "parallel_name":{
+    "parallel_name": {
         "type": "PARALLEL_NAME",
         "a": "A",
         "b": "B"
     },
-    "detail_planification_state":{
+    "detail_planification_state": {
         "type": "DETAIL_PLANIFICATION_STATE",
         "to_be_approved": "TO_BE_APPROVED",
         "culminated": "CULMINATED",
         "in_process": "IN_PROCESS",
         "not_approved": "NOT_APPROVED",
         "approved": "APPROVED"
-
     },
     "type_attendace": {
         "type": "TYPE_ATTENDANCE",
@@ -127,23 +119,41 @@
         "backwardness": "BACKWARDNESS",
         "absent": "ABSENT"
     },
-    "instructor_state":{
+    "instructor_state": {
         "type": "INSTRUCTOR_STATE",
         "active": "ACTIVE",
         "inactive": "INACTIVE"
     },
-    "instructor_type":{
+    "instructor_type": {
         "type": "INSTRUCTOR_TYPE",
-        "senescyt":"SENESCYT",
-        "setec":"SETECT",
-        "external":"EXTERNAL"
+        "senescyt": "SENESCYT",
+        "setec": "SETECT",
+        "external": "EXTERNAL"
     },
-    "certified_state":{
-        "type":"CERTIFIED_STATE",
-        "with_code":"WITH_CODE",
-        "generated":"GENERATED",
-        "in_process":"IN PROCESS",
-        "signed":"SIGNED"
->>>>>>> 54993b2046dc22126511b2f0f6271e7f5e11e882
+    "certified_state": {
+        "type": "CERTIFIED_STATE",
+        "with_code": "WITH_CODE",
+        "generated": "GENERATED",
+        "in_process": "IN PROCESS",
+        "signed": "SIGNED"
+    },
+    "state_course": {
+        "type": "STATE_COURSE",
+        "approved": "APPROVED",
+        "not_approved": "NOT_APPROVED"
+    },
+    "registration_state": {
+        "type": "REGISTRATION_STATE",
+        "signed_up": "SIGNED_UP",
+        "registered": "REGISTERED",
+        "rectified": "RECTIFIED",
+        "cancelled": "CANCELLED",
+        "in_review": "IN_REVIEW"
+    },
+    "participant_state": {
+        "type": "PARTICIPANT_STATE",
+        "approved": "APPROVED",
+        "not_approved": "NOT_APPROVED",
+        "to_be_approved": "TO_BE_APPROVED"
     }
 }
