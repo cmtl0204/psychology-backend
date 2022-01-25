@@ -142,6 +142,14 @@
         "approved": "APPROVED",
         "not_approved": "NOT_APPROVED"
     },
+    "registration_state": {
+        "type": "REGISTRATION_STATE",
+        "signed_up": "SIGNED_UP",
+        "registered": "REGISTERED",
+        "rectified": "RECTIFIED",
+        "cancelled": "CANCELLED",
+        "in_review": "IN_REVIEW"
+    },
     "participant_state": {
         "type": "PARTICIPANT_STATE",
         "approved": "APPROVED",
