@@ -18,6 +18,7 @@ use App\Http\Requests\V1\Cecy\Planifications\IndexPlanificationRequest;
 use App\Models\Cecy\Authority;
 use App\Models\Cecy\Classroom;
 use App\Models\Cecy\Course;
+use App\Models\Cecy\DetailSchoolPeriod;
 use App\Models\Cecy\Instructor;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Planification;
@@ -143,44 +144,25 @@ class GuanunaController extends Controller
     }
 
 //actualizar informacion de la planificacion
-    public function updatePlanificationByCecy(UpdatePlanificationRequest $request)
+    public function updatePlanificationByCecy(UpdatePlanificationRequest $request,  Planification $planification)
     {
-        $classroom = Classroom::find($request->input('classroom.id'));
-        $code = Course::find($request->input('code.id'));
-        $days = Catalogue::find($request->input('day.id'));
-        $planification = Planification::find($request->input('planification.id'));
-        $workday = Catalogue::find($request->input('workday.id'));
-        $state = Catalogue::find($request->input('state.id'));
-
-        $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
-
-        $detailPlanification->classroom()->associate($classroom);
-        $detailPlanification->code()->associate($code);
-        $detailPlanification->day()->associate($days);
-        $detailPlanification->planification()->associate($planification);
-        $detailPlanification->workday()->associate($workday);
-
-        $detailPlanification->days_number = $request->input('days_number');
-        $detailPlanification->ended_at = $request->input('ended_at');
-        $detailPlanification->plan_ended_at = $request->input('plan_ended_at');
-        $detailPlanification->started_at = $request->input('started_at');
-        $detailPlanification->save();
-
-        return (new PlanificationResource ($detailPlanification))
-            ->additional([
-                'msg' => [
-                    'summary' => 'Actualizado correctamente',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
+        $planification->course()->associate(Course::find($request->input('course.id')));
+        $planification->detail_school_period()->associate(DetailSchoolPeriod::find($request->input('detail_school_period.id')));
+        $planification->vicerrector()->associate(Authority::find($request->input('vicerrector.id')));
+        $planification->responsible_ocs()->associate(Catalogue::find($request->input('responsible_ocs.id')));
+        $planification->aproved_at = $request->input('aproved_at');
+        $planification->code = $request->input('code');
+        $planification->ended_at = $request->input('ended_at');
+        $planification->needs = $request->input('needs');
+        $planification->observation = $request->input('observation');
+        $planification->started_at = $request->input('started_at');
+        $planification->save();
     }
 
 //actualizar informacion del detalle planificación
     public function updatedetailPlanificationByCecy(UpdateDetailPlanificationRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
-        $code = Course::find($request->input('code.id'));
         $days = Catalogue::find($request->input('day.id'));
         $planification = Planification::find($request->input('planification.id'));
         $workday = Catalogue::find($request->input('workday.id'));
@@ -189,7 +171,6 @@ class GuanunaController extends Controller
         $detailPlanification = DetailPlanification::find($request->input('detailPlanification.id'));
 
         $detailPlanification->classroom()->associate($classroom);
-        $detailPlanification->code()->associate($code);
         $detailPlanification->day()->associate($days);
         $detailPlanification->planification()->associate($planification);
         $detailPlanification->workday()->associate($workday);
