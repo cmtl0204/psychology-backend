@@ -106,7 +106,7 @@ class PerezController extends Controller
     /**
      * Store a detail planification record  
      */
-    public function registerDetailPlanificationByResponsibleCourse(RegisterDetailPlanificationByResponsibleCourseRequest $request)
+    public function registerDetailPlanification(RegisterDetailPlanificationByResponsibleCourseRequest $request)
     {
         $loggedInstructor = Instructor::where('user_id', $request->user()->id)->get();
 
@@ -173,7 +173,7 @@ class PerezController extends Controller
     /**
      * Return a detailPlanification record
      */
-    public function showDetailPlanificationByResponsibleCourse(ShowDetailPlanificationByResponsibleCourseRequest $request, DetailPlanification $detailPlanification)
+    public function showDetailPlanification(ShowDetailPlanificationByResponsibleCourseRequest $request, DetailPlanification $detailPlanification)
     {
         return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
             ->additional([
@@ -188,7 +188,7 @@ class PerezController extends Controller
     /**
      * Update a detail planification record
      */
-    public function updateDetailPlanificationByResponsibleCourse(UpdateDetailPlanificationByResponsibleCourseRequest $request, DetailPlanification $detailPlanification)
+    public function updateDetailPlanification(UpdateDetailPlanificationByResponsibleCourseRequest $request, DetailPlanification $detailPlanification)
     {
         $loggedInstructor = Instructor::where('user_id', $request->user()->id)->get();
         $planification = Planification::find($request->input('planification.id'));
@@ -238,7 +238,7 @@ class PerezController extends Controller
     /**
      * Update start_at and ended_at and needs in planification 
      */
-    public function updateDatesAndNeedsinPlanification(UpdateDatesinPlanificationRequest $request, Planification $planification)
+    public function updateDatesAndNeedsInPlanification(UpdateDatesinPlanificationRequest $request, Planification $planification)
     {
         $planification->started_at = $request->input('startedAt');
         $planification->ended_at = $request->input('endedAt');
@@ -257,7 +257,7 @@ class PerezController extends Controller
     /**
      * Delete a detail planification record
      */
-    public function deleteDetailPlanificationByResponsibleCourse(DeleteDetailPlanificationByResponsibleCourseRequest $request, DetailPlanification $detailPlanification)
+    public function deleteDetailPlanification(DeleteDetailPlanificationByResponsibleCourseRequest $request, DetailPlanification $detailPlanification)
     {
         $detailPlanification->delete();
 
