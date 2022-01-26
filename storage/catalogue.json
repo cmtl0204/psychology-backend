@@ -96,7 +96,7 @@
     },
     "classroom_type": {
         "type": "CLASSROOM_TYPE",
-        "classroom_class": "CLASSROOMCLASS",
+        "classroom_class": "CLASSROOM_CLASS",
         "office": "OFFICE",
         "laboratory": "LABORATORY"
     },
@@ -155,5 +155,16 @@
         "approved": "APPROVED",
         "not_approved": "NOT_APPROVED",
         "to_be_approved": "TO_BE_APPROVED"
+    },
+    "school_period":{
+        "type": "SCHOOL_PERIODS",
+        "current":"CURRENT",
+        "historical":"HISTORICAL"
+    },
+    "notification":{
+        "type":"NOTIFICATION",
+        "read":"READ",
+        "unread":"UNREAD"
     }
+
 }

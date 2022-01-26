@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers\V1\Cecy;
 
-use App\Http\Controllers\Controller;    
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Cecy\Attendance\GetUsersIgnugRequest;
 use Illuminate\Http\Request;
-use App\Models\Cecy\Catalogue;    
+use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Instructor;
 use App\Models\Cecy\Course;
 use App\Http\Resources\V1\Cecy\Instructors\InstructorCollection;
 use App\Http\Resources\V1\Cecy\Instructors\InstructorResource;
 use App\Http\Resources\V1\Core\Users\UserResource;
 use App\Http\Resources\V1\Cecy\Courses\CourseResource;
-use App\Http\Request\V1\Cecy\Instructors\DestroysInstructorRequest;
-use App\Models\Core\File;
-use App\Models\Cecy\User;
+use App\Http\Requests\V1\Cecy\Instructor\DestroysInstructorRequest;
+use App\Http\Requests\V1\Cecy\Instructors\StoreProfileCourseRequest;
+use App\Http\Resources\V1\Cecy\ProfileInstructorCourses\ProfileInstructorCourseResource;
+use App\Models\Authentication\User;
+use App\Models\Cecy\ProfileInstructorCourse;
 
 class JumboController extends Controller
 {
@@ -25,9 +28,9 @@ class JumboController extends Controller
     }
 
    //visualizar los usuarios de ignug
-    public function getUsersIgnug(User $users)
+    public function getUsersIgnug(GetUsersIgnugRequest $request)
     {
-        $users = user::whereIn('type_id', $request->input('ignug'))->get();
+        $users = User::whereIn('type_id', $request->input('ignug'))->get();
         return (new UserResource($users))
         ->additional([
             'msg' => [
@@ -39,14 +42,14 @@ class JumboController extends Controller
     }
 
 
-    public function updateInstructors(Request $request,Instructor $Instructor )
+    public function updateInstructors(Request $request,Instructor $instructor )
     {
-        $Instructor->instructor()->associate(User::find($request->input('user.id')));
-        $Instructor->state_id()->associate(Catalogue::find($request->input('state_id')));
-        $Instructor->type_id()->associate(Catalogue::find($request->input('type_id')));
-        $Instructor->save();
+        $instructor->instructor()->associate(User::find($request->input('user.id')));
+        $instructor->state_id()->associate(Catalogue::find($request->input('state_id')));
+        $instructor->type_id()->associate(Catalogue::find($request->input('type_id')));
+        $instructor->save();
 
-        return (new InstructorResource($detailInstructor)) 
+        return (new InstructorResource($instructor))
         ->additional([
             'msg' => [
                 'summary' => 'Instructor Actualizado',
@@ -57,7 +60,7 @@ class JumboController extends Controller
     }
 
     // para eliminar un instructor 
-    public function destroysInstructors(DestroysInstructorRequest $Instructor)
+    public function destroysInstructors(DestroysInstructorRequest $request)
     {
        $instructor = Instructor::whereIn('id', $request->input('ids'))->get();
         Instructor::destroy($request->input('ids'));
@@ -69,10 +72,10 @@ class JumboController extends Controller
                 'code' => '200'
             ]
         ]);
-       
+
     }
 
-    //visualizar todos los cursos 
+    //visualizar todos los cursos
     public function getCourses(Course $course)
     {
         return (new CourseResource($course))
@@ -85,10 +88,10 @@ class JumboController extends Controller
         ]);
 
     }
-    //Agregar perfil a un curso 
-    public function storeProfileCourse(StoreProfileCourseRequest $profile)
+    //Agregar perfil a un curso
+    public function storeProfileCourse(StoreProfileCourseRequest $request)
     {
-        $profile = new Profile();
+        $profile = new ProfileInstructorCourse();
 
         $profile->course_id()
             ->associate(Course::find($request->input('course_id')));
@@ -100,7 +103,7 @@ class JumboController extends Controller
         $profile->required_skills = $request->input('required_skills');
 
         $profile->save();
-        
+
         return (new ProfileInstructorCourseResource($profile))
             ->additional([
                 'msg' => [

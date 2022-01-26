@@ -4,7 +4,7 @@ namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Cecy\Catalogue;    
+use App\Models\Cecy\Catalogue;
 use App\Http\Resources\V1\Cecy\Detailregistrations\DetailregistrationResource;
 use App\Http\Resources\V1\Cecy\Detailregistrations\DetailregistrationCollection;
 use App\Models\Cecy\DetailRegistration;
@@ -22,9 +22,9 @@ class QuemagController extends Controller
 
     // }
 
-    public function showParticipants(ShowParticipantsRequest $responsibleCourse)
+    public function showParticipants(ShowParticipantsRequest $request)
     {
-    
+
         //trae participantes matriculados
     $responsibleCourse = course::where('course_id', $request->course()->id)->get();
 
@@ -50,7 +50,7 @@ class QuemagController extends Controller
 
     //trae todos los cursos
 
-    public function getCourses(Course $course)
+    public function getCourses(Course $course,Request $request)
     {
 
     $course = course::where('course_id', $request->course()->id)->get();
@@ -71,11 +71,11 @@ class QuemagController extends Controller
         ]);
 
     }
-    
-    
-  
 
-    
+
+
+
+
 
 /*******************************************************************************************************************
         * FILES
@@ -93,7 +93,7 @@ class QuemagController extends Controller
            return $catalogue->downloadFileTemplate($file);
        }
 
-     //subir certificado Firmado 
+     //subir certificado Firmado
 
      public function uploadFileCertificateFirm(UploadFileRequest $request, Catalogue $catalogue)
     {
@@ -114,11 +114,11 @@ class QuemagController extends Controller
            return $catalogue->downloadFileCertificates($file);
        }
 
-     //previsualizar la platilla 
+     //previsualizar la platilla
      public function showFile(Catalogue $catalogue, File $file)
      {
          return $catalogue->showFile($file);
      }
 
-   
+
 }
