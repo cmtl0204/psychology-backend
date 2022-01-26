@@ -36,7 +36,7 @@
         "sixth": "SIXTH",
         "seventh": "SEVENTH"
     },
-    "participant": {
+    "participant_course": {
         "type": "PARTICIPANT",
         "external": "EXTERNAL",
         "student": "STUDENT",
