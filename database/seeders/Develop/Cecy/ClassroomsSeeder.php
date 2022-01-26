@@ -26,9 +26,9 @@ class ClassroomsSeeder extends Seeder
                     'type' => $catalogues['catalogue']['classroom_type']['type'],
                 ],
                 [
-                    'code' => $catalogues['catalogue']['location']['classroom_class'],
+                    'code' => $catalogues['catalogue']['classroom_type']['classroom_class'],
                     'name' => 'CLASSROOM_CLASS',
-                    'type' => $catalogues['catalogue']['location']['type'],
+                    'type' => $catalogues['catalogue']['classroom_type']['type'],
                 ],
                 [
                     'code' => $catalogues['catalogue']['classroom_type']['laboratory'],
