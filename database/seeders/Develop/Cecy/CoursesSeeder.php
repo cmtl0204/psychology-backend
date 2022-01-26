@@ -13,6 +13,14 @@ class CoursesSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA COURSES
+        $this->createCoursesCatalogue();
+        $this->createCourses();
+    }
+
+    public function createCoursesCatalogue()
+    {
+    }
+    public function createCourses()
+    {
     }
 }

@@ -15,6 +15,16 @@ class DetailPlanificationsInstructorSeeder extends Seeder
      */
     public function run()
     {
+
+        $this->createDetailPlanificationsInstructorCatalogue();
+        $this->createDetailPlanificationsInstructor();
+    }
+
+    public function createDetailPlanificationsInstructorCatalogue()
+    {
+    }
+    public function createDetailPlanificationsInstructor()
+    {
         //CREAR AQUI LAS SEMILLAS PARA DETAILPLANIFICATIONS
         /* Instructor::factory(10)->create();
         DetailPlanification::factory(10)->create();

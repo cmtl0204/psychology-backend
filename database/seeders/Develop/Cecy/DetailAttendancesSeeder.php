@@ -28,11 +28,11 @@ class DetailAttendancesSeeder extends Seeder
         DB::statement("SET foreign_key_checks=1");
 
         //ejemplo con inserts
-       $this->createDetailAttendance();
-       $this->createTypeAttendance();
+        $this->createDetailAttendances();
+        $this->createDetailAttendancesCatalogue();
     }
 
-    public function createTypeAttendance()
+    public function createDetailAttendancesCatalogue()
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         Catalogue::factory()->sequence(
@@ -53,7 +53,7 @@ class DetailAttendancesSeeder extends Seeder
             ],
         )->create();
     }
-    public function createDetailAttendance()
+    public function createDetailAttendances()
     {
         DetailAttendance::factory(50)->create();
     }
