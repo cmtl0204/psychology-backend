@@ -96,7 +96,7 @@
     },
     "classroom_type": {
         "type": "CLASSROOM_TYPE",
-        "classroom_class": "CLASSROOMCLASS",
+        "classroom_class": "CLASSROOM_CLASS",
         "office": "OFFICE",
         "laboratory": "LABORATORY"
     },
