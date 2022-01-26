@@ -178,5 +178,11 @@
         "monday-sunday": "MONDAY-SUNDAY",
         "sunday": "SUNDAY",
         "saturday": "SATURDAY"
+    },
+    "participant": {
+        "type": "participant",
+        "egresade": "EGRESADE",
+        "graduate": "GRADUATE",
+        "external": "EXTERNAL"
     }
 }
