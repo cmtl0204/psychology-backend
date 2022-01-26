@@ -16,6 +16,7 @@ class ClassroomsSeeder extends Seeder
     public function run()
     {
         //CREAR AQUI LAS SEMILLAS PARA ClLASSROOMS
+
         $this->createTypeClassrooms();
         $this->createClassrooms();
 
@@ -60,5 +61,6 @@ class ClassroomsSeeder extends Seeder
         DB::select("insert into cecy.classroom(state_id, description, capacity, code, name)VALUES('','Este laboratorio esta en el edificio del Yavirac','10','L004','Laboratorio4')");
         DB::select("insert into cecy.classroom(state_id, description, capacity, code, name)VALUES('','Esta oficina esta en el edificio del Yavirac','30','O001','Oficina1')");
         DB::select("insert into cecy.classroom(state_id, description, capacity, code, name)VALUES('','Esta oficina esta en el edificio del Yavirac','30','O002','Oficina2')");
+
     }
 }
