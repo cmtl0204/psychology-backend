@@ -13,6 +13,17 @@ class AuthoritiesSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA AUTHORITIES
+        $this->createAuthoritiesCatalogue();
+        $this->createAuthoritiess();
+    }
+
+    public function createAuthoritiesCatalogue()
+    {
+        //Campos que son de catalogo
+        //state_id
+        //position_id
+    }
+    public function createAuthoritiess()
+    {
     }
 }

@@ -94,8 +94,8 @@
         "not_approved": "NOT_APPROVED",
         "approved": "APPROVED"
     },
-    "classroom_type": {
-        "type": "CLASSROOM_TYPE",
+    "classroom": {
+        "type": "CLASSROOM",
         "classroom_class": "CLASSROOM_CLASS",
         "office": "OFFICE",
         "laboratory": "LABORATORY"
@@ -113,8 +113,8 @@
         "not_approved": "NOT_APPROVED",
         "approved": "APPROVED"
     },
-    "type_attendace": {
-        "type": "TYPE_ATTENDANCE",
+    "attendance": {
+        "type": "ATTENDANCE",
         "present": "PRESENT",
         "backwardness": "BACKWARDNESS",
         "absent": "ABSENT"

@@ -29,7 +29,7 @@ class ParticipantsFactory extends Factory
         $internal = Catalogue::where('code', $catalogue['participant']['internal']);
 
         return [
-            'participant_type_id' => $this->faker->randomElement([$egresade, $graduate, $external, $internal]),
+            'type_id' => $this->faker->randomElement([$egresade, $graduate, $external, $internal]),
             'user_id' => $this->faker->randomElement($users),
             'state_id' => $this->faker->randomElement([$approved, $not_approved, $to_be_approved]),
         ];

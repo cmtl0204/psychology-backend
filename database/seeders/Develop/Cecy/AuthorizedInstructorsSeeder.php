@@ -13,6 +13,15 @@ class AuthorizedInstructorsSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA AUTHORIZEDINSTRUCTORS
+        $this->createAuthorizedInstructorsCatalogue();
+        $this->createAuthorizedInstructors();
+    }
+
+    public function createAuthorizedInstructorsCatalogue()
+    {
+        //Campos que son de catalogo
+    }
+    public function createAuthorizedInstructors()
+    {
     }
 }

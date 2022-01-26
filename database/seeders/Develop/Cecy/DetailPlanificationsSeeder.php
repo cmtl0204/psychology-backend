@@ -18,6 +18,20 @@ class DetailPlanificationsSeeder extends Seeder
      */
     public function run()
     {
+        $this->createDetailPlanificationsCatalogue();
+        $this->createDetailPlanifications();
+    }
+
+    public function createDetailPlanificationsCatalogue()
+    {
+        //Campos que son de catalogo
+        //workday_id
+        //paralel_id
+        //day_id
+        //state_id
+    }
+    public function createDetailPlanifications()
+    {
         $faker = Factory::create();
         $classrooms = Classroom::all();
         $days = Catalogue::where('type', 'DAY')->get();

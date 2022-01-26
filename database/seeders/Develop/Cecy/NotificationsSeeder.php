@@ -13,6 +13,16 @@ class NotificationsSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA NOTIFICATIONS
+        $this->createNotificationsCatalogue();
+        $this->createNotifications();
+    }
+
+    public function createNotificationsCatalogue()
+    {
+        //Campos que son de catalogo
+        //state_id
+    }
+    public function createNotifications()
+    {
     }
 }

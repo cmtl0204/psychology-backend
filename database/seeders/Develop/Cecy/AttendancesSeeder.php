@@ -15,9 +15,16 @@ class AttendancesSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA ATTENDANCE
+        $this->createAttendancesCatalogue();
+        $this->createAttendances();
+    }
+
+    public function createAttendancesCatalogue()
+    {
+        //Campos que son de catalogo
+    }
+    public function createAttendances()
+    {
         Attendance::factory(150)->create();
-
-
     }
 }

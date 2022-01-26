@@ -17,18 +17,18 @@ class DetailAttendancesFactory extends Factory
     public function definition()
     {
 
-        $registration = Registration::where('state_id','REGISTERED')->values('id');
+        $registration = Registration::where('state_id', 'REGISTERED')->values('id');
         $attendance = Attendance::get();
 
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
 
-        $present = Catalogue::where('code', $catalogue['type_attendace']['present']);
-        $backwardness = Catalogue::where('code', $catalogue['type_attendace']['backwardness']);
-        $absent = Catalogue::where('code', $catalogue['type_attendace']['absent']);
+        $present = Catalogue::where('code', $catalogue['attendance']['present']);
+        $backwardness = Catalogue::where('code', $catalogue['attendance']['backwardness']);
+        $absent = Catalogue::where('code', $catalogue['attendance']['absent']);
 
         return [
             'attendance_id' => $this->faker->randomElement($attendance),
-            'registration_id' =>$this->faker->randomElement($registration),
+            'registration_id' => $this->faker->randomElement($registration),
             'type_id' => $this->faker->randomElement([$present, $backwardness, $absent]),
         ];
     }

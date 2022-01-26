@@ -21,7 +21,7 @@ class Participant extends Model implements Auditable
 
     // Relationships
 
-    public function participantType()
+    public function type()
     {
         return $this->belongsTo(Catalogue::class);
     }

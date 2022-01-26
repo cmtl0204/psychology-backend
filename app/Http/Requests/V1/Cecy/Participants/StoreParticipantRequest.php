@@ -14,7 +14,7 @@ class StoreParticipantRequest extends FormRequest
     {
         return [
             'user_id' => ['required', 'integer'],
-            'person_type.id' => ['required', 'integer'],
+            'type.id' => ['required', 'integer'],
             'state.id' => ['required', 'integer'],
         ];
     }
@@ -23,7 +23,7 @@ class StoreParticipantRequest extends FormRequest
     {
         return [
             'user_id' => 'Id del usuario',
-            'person_type_id' => 'Id del tipo de persona',
+            'type.id' => 'Id del tipo de participante',
             'state.id' => 'Id del estado del participante'
         ];
     }

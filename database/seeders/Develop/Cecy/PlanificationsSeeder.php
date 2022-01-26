@@ -20,6 +20,17 @@ class PlanificationsSeeder extends Seeder
      */
     public function run()
     {
+        $this->createPlanificationsCatalogue();
+        $this->createPlanifications();
+    }
+
+    public function createPlanificationsCatalogue()
+    {
+        //Campos que son de catalogo
+        //state_id
+    }
+    public function createPlanifications()
+    {
         $faker = Factory::create();
         $courses = Course::all();
         $states = Catalogue::where('type', 'PLANIFICATION_STATE')->get();
@@ -31,7 +42,7 @@ class PlanificationsSeeder extends Seeder
         $vicerectors = Authority::where('position_id', $vicerectorposition)->get();
         $responsablesCourse = Instructor::all();
         $detailSchoolPeriods = DetailSchoolPeriod::all();
-        
+
         foreach ($courses as $course) {
             Planification::factory()->create(
                 [

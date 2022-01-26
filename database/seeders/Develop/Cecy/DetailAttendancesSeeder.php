@@ -28,32 +28,34 @@ class DetailAttendancesSeeder extends Seeder
         DB::statement("SET foreign_key_checks=1");
 
         //ejemplo con inserts
-       $this->createDetailAttendance();
-       $this->createTypeAttendance();
+        $this->createDetailAttendances();
+        $this->createDetailAttendancesCatalogue();
     }
 
-    public function createTypeAttendance()
+    public function createDetailAttendancesCatalogue()
     {
+        //Campos que son de catalogo
+        //type_id
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         Catalogue::factory()->sequence(
             [
-                'code' => $catalogues['catalogue']['type_attendace']['present'],
+                'code' => $catalogues['catalogue']['attendance']['present'],
                 'name' => 'PRESENT',
-                'type' => $catalogues['catalogue']['type_attendace']['type'],
+                'type' => $catalogues['catalogue']['attendance']['type'],
             ],
             [
-                'code' => $catalogues['catalogue']['type_attendace']['backwardness'],
+                'code' => $catalogues['catalogue']['attendance']['backwardness'],
                 'name' => 'BACKWARDNESS',
-                'type' => $catalogues['catalogue']['type_attendace']['type'],
+                'type' => $catalogues['catalogue']['attendance']['type'],
             ],
             [
-                'code' => $catalogues['catalogue']['type_attendace']['absent'],
+                'code' => $catalogues['catalogue']['attendance']['absent'],
                 'name' => 'ABSENT',
-                'type' => $catalogues['catalogue']['type_attendace']['type'],
+                'type' => $catalogues['catalogue']['attendance']['type'],
             ],
         )->create();
     }
-    public function createDetailAttendance()
+    public function createDetailAttendances()
     {
         DetailAttendance::factory(50)->create();
     }

@@ -4,7 +4,7 @@ namespace Database\Seeders\Cecy;
 
 use Illuminate\Database\Seeder;
 
-class DetailSchoolPeriodsSeeder extends Seeder
+class RequirementesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,15 +13,16 @@ class DetailSchoolPeriodsSeeder extends Seeder
      */
     public function run()
     {
-        $this->createDetailSchoolPeriodsCatalogue();
-        $this->createDetailSchoolPeriods();
+        $this->createRequirementsCatalogue();
+        $this->createRequirements();
     }
 
-    public function createDetailSchoolPeriodsCatalogue()
+    public function createRequirementsCatalogue()
     {
         //Campos que son de catalogo
+        //state_id
     }
-    public function createDetailSchoolPeriods()
+    public function createRequirements()
     {
     }
 }

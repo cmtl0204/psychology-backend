@@ -44,6 +44,11 @@ class Registration extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
+    public function stateCourse()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
     public function type()
     {
         return $this->belongsTo(Catalogue::class);
