@@ -14,15 +14,14 @@ class RegistrationRequerimentsSeeder extends Seeder
      *
      * @return void
      */
-    //CREAR AQUI LAS SEMILLAS PARA REGISTRATIONREQUIREMENTSS
     public function run()
     {
-        $registration=Registration::factory()->count(5)->create();
-        $requirement=Requirement::factory()->count(5)->create();
+        $registration = Registration::factory()->count(5)->create();
+        $requirement = Requirement::factory()->count(5)->create();
         RegistrationRequirement::factory()
-        ->count(10)
-        ->for($registration)
-        ->for($requirement)
-        ->create();
+            ->count(10)
+            ->for($registration)
+            ->for($requirement)
+            ->create();
     }
 }

@@ -13,6 +13,14 @@ class AdditionalInformationsSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA ADDTIONALINFORMATIONS
+        $this->createAdditionalInformationsCatalogue();
+        $this->createAdditionalInformations();
+    }
+
+    public function createAdditionalInformationsCatalogue()
+    {
+    }
+    public function createAdditionalInformations()
+    {
     }
 }

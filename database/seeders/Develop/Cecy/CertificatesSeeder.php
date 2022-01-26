@@ -13,6 +13,14 @@ class CertificatesSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA CERTIFICATES
+        $this->createCertificatesCatalogue();
+        $this->createCertificates();
+    }
+
+    public function createCertificatesCatalogue()
+    {
+    }
+    public function createCertificates()
+    {
     }
 }

@@ -17,34 +17,31 @@ class ClassroomsSeeder extends Seeder
     {
         //CREAR AQUI LAS SEMILLAS PARA ClLASSROOMS
 
-        $this->createTypeClassrooms();
+        $this->createClassroomsCatalogue();
         $this->createClassrooms();
-
     }
-    public function createTypeClassrooms()
+    public function createClassroomsCatalogue()
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         Catalogue::factory(3)->sequence(
             [
                 'code' => $catalogues['catalogue']['classroom_type']['office'],
-                'name' => 'OFFICE',
+                'name' => 'Oficina',
                 'type' => $catalogues['catalogue']['classroom_type']['type'],
-                'description' => ''
-
+                'description' => 'Tipo de aula de clase de oficina'
             ],
             [
                 'code' => $catalogues['catalogue']['classroom_type']['classroom_class'],
-                'name' => 'CLASSROOM_CLASS',
+                'name' => 'Aula de clase presencial',
                 'type' => $catalogues['catalogue']['classroom_type']['type'],
-                'description' => 'Laboratorio donde se van hacer practicas del curso'
+                'description' => 'Tipo de aula de clase aula de clase presencial'
 
             ],
             [
                 'code' => $catalogues['catalogue']['classroom_type']['laboratory'],
-                'name' => 'LABORATORY',
+                'name' => 'Laboratorio',
                 'type' => $catalogues['catalogue']['classroom_type']['type'],
-                'description' => 'Laboratorio donde se van hacer practicas del curso'
-
+                'description' => 'Tipo de aula de clase laboratorio'
             ],
         )->create();
     }
@@ -61,6 +58,5 @@ class ClassroomsSeeder extends Seeder
         DB::select("insert into cecy.classroom(state_id, description, capacity, code, name)VALUES('','Este laboratorio esta en el edificio del Yavirac','10','L004','Laboratorio4')");
         DB::select("insert into cecy.classroom(state_id, description, capacity, code, name)VALUES('','Esta oficina esta en el edificio del Yavirac','30','O001','Oficina1')");
         DB::select("insert into cecy.classroom(state_id, description, capacity, code, name)VALUES('','Esta oficina esta en el edificio del Yavirac','30','O002','Oficina2')");
-
     }
 }

@@ -15,16 +15,15 @@ class RegistrationsSeeder extends Seeder
      *
      * @return void
      */
-    //CREAR AQUI LAS SEMILLAS PARA REGISTRATIONS
     public function run()
     {
-        $participant=Participant::factory()->count(5)->create();
-        $detailPlanification=DetailPlanification::factory()->count(5)->create();
+        $participant = Participant::factory()->count(5)->create();
+        $detailPlanification = DetailPlanification::factory()->count(5)->create();
         Registration::factory()
-        ->count(10)
-        ->has(RegistrationRequirement::factory()->count(10))
-        ->for($participant)
-        ->for($detailPlanification)
-        ->create();
+            ->count(10)
+            ->has(RegistrationRequirement::factory()->count(10))
+            ->for($participant)
+            ->for($detailPlanification)
+            ->create();
     }
 }
