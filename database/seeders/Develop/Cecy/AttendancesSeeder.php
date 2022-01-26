@@ -21,6 +21,7 @@ class AttendancesSeeder extends Seeder
 
     public function createAttendancesCatalogue()
     {
+        //Campos que son de catalogo
     }
     public function createAttendances()
     {

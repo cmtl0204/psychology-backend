@@ -19,6 +19,8 @@ class CertificatesSeeder extends Seeder
 
     public function createCertificatesCatalogue()
     {
+        //Campos que son de catalogo
+        //state_id
     }
     public function createCertificates()
     {

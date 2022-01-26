@@ -24,6 +24,8 @@ class ClassroomsSeeder extends Seeder
     }
     public function createClassroomsCatalogue()
     {
+        //Campos que son de catalogo
+        //type_id
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         Catalogue::factory(3)->sequence(
             [

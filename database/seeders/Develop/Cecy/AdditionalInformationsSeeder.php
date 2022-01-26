@@ -19,6 +19,8 @@ class AdditionalInformationsSeeder extends Seeder
 
     public function createAdditionalInformationsCatalogue()
     {
+        //Campos que son de catalogo
+        //level_instruction_id
     }
     public function createAdditionalInformations()
     {

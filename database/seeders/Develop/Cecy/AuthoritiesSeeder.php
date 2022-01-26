@@ -19,6 +19,9 @@ class AuthoritiesSeeder extends Seeder
 
     public function createAuthoritiesCatalogue()
     {
+        //Campos que son de catalogo
+        //state_id
+        //position_id
     }
     public function createAuthoritiess()
     {

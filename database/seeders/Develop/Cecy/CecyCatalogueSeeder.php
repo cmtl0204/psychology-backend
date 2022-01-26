@@ -13,6 +13,6 @@ class CecyCatalogueSeeder extends Seeder
      */
     public function run()
     {
-        //Aqui se va guardar cuando todos los registros de catalogo cuando se tenga todos
+        //Aqui se va guardar cuando todos los registros de catalogo cuando se tenga TODO DE TODOS
     }
 }

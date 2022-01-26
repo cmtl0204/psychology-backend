@@ -19,6 +19,7 @@ class AuthorizedInstructorsSeeder extends Seeder
 
     public function createAuthorizedInstructorsCatalogue()
     {
+        //Campos que son de catalogo
     }
     public function createAuthorizedInstructors()
     {
