@@ -24,7 +24,10 @@ class Registration extends Model implements Auditable
         'number',
         'registered_at',
     ];
-
+    public function certificates()
+    {
+        return $this->morphMany(Certificate::class, 'certificateable');
+    }
     // Relationships
     public function detailPlanification()
     {
@@ -63,7 +66,7 @@ class Registration extends Model implements Auditable
     {
         return $this->morphMany(File::class, 'fileable');
     }
-    
+
 
     // Mutators
 

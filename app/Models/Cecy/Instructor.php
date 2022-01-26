@@ -19,9 +19,15 @@ class Instructor extends Model implements Auditable
     protected $fillable = [];
 
     // Relationships
-    public function user()
+
+    public function certificates()
     {
-        return $this->belongsTo(User::class);
+        return $this->morphMany(Certificate::class, 'certificateable');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
     }
 
     public function state()
@@ -34,6 +40,10 @@ class Instructor extends Model implements Auditable
         return $this->belongsTo(Type::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function detailInstructors()
     {
         $this->hasMany(DetailInstructor::class);
@@ -44,20 +54,17 @@ class Instructor extends Model implements Auditable
         return $this->hasMany(Planification::class);
     }
 
-    public function courses()
-    {
-        return $this->hasMany(Course::class);
-    }
 
     public function detailPlanifications()
     {
-        return $this->belongsToMany(DetailPlanification::class,'detail_planification_instructor','instructor_id','detail_planification_id');
+        return $this->belongsToMany(DetailPlanification::class, 'detail_planification_instructor', 'instructor_id', 'detail_planification_id');
     }
 
     public function profileInstructorCourses()
     {
         return $this->belongsToMany(ProfileInstructorCourse::class, 'authorized_instructors', 'profile_instructor_id', 'instructor_id');
     }
+
 
     // Mutators
 
