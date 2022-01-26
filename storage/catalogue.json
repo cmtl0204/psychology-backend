@@ -94,8 +94,8 @@
         "not_approved": "NOT_APPROVED",
         "approved": "APPROVED"
     },
-    "classroom_type": {
-        "type": "CLASSROOM_TYPE",
+    "classroom": {
+        "type": "CLASSROOM",
         "classroom_class": "CLASSROOM_CLASS",
         "office": "OFFICE",
         "laboratory": "LABORATORY"
