@@ -138,15 +138,6 @@ class RivasController extends Controller
     /*DDRC-C: Anulas varias Matriculas */
     public function nullifyRegistrations(DestroysRegistrationRequest $request)
     {
-        if (in_array($request->registration()->id, $request->ids)) {
-            return response()->json([
-                'msg' => [
-                    'summary' => 'Error al eliminar',
-                    'detail' => 'El usuario se encuentra logueado',
-                    'code' => '400'
-                ],
-            ], 400);
-        }
 
         $registration = Registration::whereIn('id', $request->input('ids'))->get();
 
