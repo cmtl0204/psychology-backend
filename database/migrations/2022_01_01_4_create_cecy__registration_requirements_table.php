@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCecyRegistrationRequerimentsTable extends Migration
+class CreateCecyRegistrationRequirementsTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_CECY'))->create('registration_requeriments', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CECY'))->create('registration_requirements', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -18,10 +18,10 @@ class CreateCecyRegistrationRequerimentsTable extends Migration
                 ->comment('fk de registro de estudiante')
                 ->constrained('cecy.registrations');
 
-            $table->foreignId('requeriment_id')
+            $table->foreignId('requirement_id')
                 ->nullable()
                 ->comment('fk de requisitos para registro del estudiante')
-                ->constrained('cecy.requeriments');
+                ->constrained('cecy.requirements');
 
             $table->string('url')
                 ->nullable()
@@ -30,6 +30,6 @@ class CreateCecyRegistrationRequerimentsTable extends Migration
     }
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('registration_requeriments');
+        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('registration_requirements');
     }
 }

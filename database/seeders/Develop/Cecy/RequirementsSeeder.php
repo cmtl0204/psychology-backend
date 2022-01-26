@@ -4,7 +4,7 @@ namespace Database\Seeders\Cecy;
 
 use Illuminate\Database\Seeder;
 
-class RequirementesSeeder extends Seeder
+class RequirementsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

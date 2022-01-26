@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Cecy\CatalogueController;
+use App\Http\Controllers\V1\Cecy\GuachagmiraController;
+use App\Http\Controllers\V1\Cecy\GuanunaController;
 
 /***********************************************************************************************************************
  * CATALOGUES
@@ -52,6 +54,7 @@ Route::prefix('planification/{planification}')->group(function () {
 Route::prefix('detailPlanification')->group(function () {
     Route::get('', [PerezController::class, 'getDetailPlanificationsByPlanification']);
     Route::post('', [PerezController::class, 'registerDetailPlanificationByResponsibleCourse']);
+    Route::get('/{course}', [GuachagmiraController::class, 'getDetailPlanificationsByCourse']);
 });
 
 Route::prefix('detailPlanification/{detailPlanification}')->group(function () {
@@ -88,3 +91,14 @@ Route::prefix('prerequisites')->group(function () {
     Route::delete('', [AlvaradoController::class, 'DestroyPrerequisite']);
     Route::patch('', [AlvaradoController::class, 'destroysPrerequisites']);
 });
+
+/***********************************************************************************************************************
+ * USERS
+ **********************************************************************************************************************/
+Route::prefix('users')->group(function () {
+    Route::get('/{course}', [GuanunaController::class, 'getInstructorsInformationByCourse']);
+});
+
+/***********************************************************************************************************************
+ * USERS
+ **********************************************************************************************************************/

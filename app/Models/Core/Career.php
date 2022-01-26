@@ -45,4 +45,39 @@ class Career extends Model implements Auditable
     {
         $this->hasMany(Course::class);
     }
+
+    public function scopeAcronym($query, $acronym)
+    {
+        if ($acronym) {
+            return $query->orWhere('acronym', 'ILIKE', "%$acronym%");
+        }
+    }
+
+    public function scopeDescription($query, $description)
+    {
+        if ($description) {
+            return $query->orWhere('description', 'ILIKE', "%$description%");
+        }
+    }
+
+    public function scopeName($query, $name)
+    {
+        if ($name) {
+            return $query->orWhere('name', 'ILIKE', "%$name%");
+        }
+    }
+
+    public function scopeResolutionNumber($query, $resolutionNumber)
+    {
+        if ($resolutionNumber) {
+            return $query->orWhere('resolutionNumber', 'ILIKE', "%$resolutionNumber%");
+        }
+    }
+
+    public function scopeTitle($query, $title)
+    {
+        if ($title) {
+            return $query->orWhere('title', 'ILIKE', "%$title%");
+        }
+    }
 }

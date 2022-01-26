@@ -4,6 +4,7 @@ namespace Database\Seeders\Cecy;
 
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Instructor;
+use App\Models\Cecy\Topic;
 use Illuminate\Database\Seeder;
 
 class DetailPlanificationsInstructorSeeder extends Seeder
@@ -24,21 +25,20 @@ class DetailPlanificationsInstructorSeeder extends Seeder
     {
         //Campos que son de catalogo
     }
+
     public function createDetailPlanificationsInstructor()
     {
         //CREAR AQUI LAS SEMILLAS PARA DETAILPLANIFICATIONS
-        /* Instructor::factory(10)->create();
-        DetailPlanification::factory(10)->create();
-        $Instructors= Instructor::get();
-        $DetailPlanifications= DetailPlanification::get();
+        Instructor::factory(10)->create();
+        $detailPlanifications = DetailPlanification::factory(10)->create();
+        $instructors = Instructor::get();
+        $topics = Topic::get();
 
-
-        DetailPlanificationsInstructor::factory(10)->create(
-            [
-                'detail_planification_id'=>$DetailPlanifications[rand(0, $DetailPlanifications->count()-1)],
-                'Instructors'=>$Instructors[rand(0, $Instructors->count()-1)],
-
-            ]
-        ); */
+        foreach ($instructors as $instructor) {
+            foreach ($detailPlanifications as $detailPlanification) {
+                $instructor->detailPlanifications()->attach($detailPlanification->id,
+                    ['topic_id' => $topics[rand(0, sizeof($topics) - 1)]]);
+            }
+        }
     }
 }
