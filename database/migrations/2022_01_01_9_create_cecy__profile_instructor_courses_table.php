@@ -20,7 +20,7 @@ class CreateCecyProfileInstructorCoursesTable extends Migration
                 ->constrained('cecy.courses');
 
             // El nombre debe estar en plural -2
-            $table->json('require_experience')
+            $table->json('require_experiences')
                 ->comment('experiencia del instrucotr para impartir un curso');
 
             // El nombre debe estar en plural -2

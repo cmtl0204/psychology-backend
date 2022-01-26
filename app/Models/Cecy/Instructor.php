@@ -58,7 +58,11 @@ class Instructor extends Model implements Auditable
 
     public function detailPlanifications()
     {
-        return $this->belongsToMany(DetailPlanification::class, 'detail_planification_instructor', 'instructor_id', 'detail_planification_id');
+        return $this->belongsToMany(DetailPlanification::class,
+            'detail_planification_instructor',
+            'instructor_id',
+            'detail_planification_id')
+            ->withPivot('topic_id');;
     }
 
     public function profileInstructorCourses()

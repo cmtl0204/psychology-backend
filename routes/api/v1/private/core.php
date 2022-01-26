@@ -12,6 +12,7 @@ use App\Http\Controllers\V1\Core\CareerController;
 Route::apiResource('users', UserController::class);
 
 Route::prefix('user')->group(function () {
+    Route::patch('catalogue', [UserController::class, 'catalogue']);
     Route::patch('destroys', [UserController::class, 'destroys']);
 });
 

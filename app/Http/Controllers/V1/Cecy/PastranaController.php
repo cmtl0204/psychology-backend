@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\V1\Cecy;
 
+use App\Http\Resources\V1\Cecy\Courses\CourseResource;
 use App\Models\Cecy\Planification;
+use App\Models\Core\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -26,13 +28,13 @@ class PastranaController extends Controller
 {
     //public function __construct()
     //{
-        //$this->middleware('permission:view-courses')->only(['view']);
-        //$this->middleware('permission:view-planification')->only(['view']);
+    //$this->middleware('permission:view-courses')->only(['view']);
+    //$this->middleware('permission:view-planification')->only(['view']);
     //}
     /**
      * Obtener cursos y Filtrarlos por peridos lectivos , carrera o estado
      */
-    public function getCoursesByCoordinatorCecy(GetCoursesByCoordinatorCecyRequest $request)
+    public function getCourses(GetCoursesByCoordinatorCecyRequest $request)
     {
         $sorts = explode(',', $request->sort);
 
@@ -58,11 +60,11 @@ class PastranaController extends Controller
     public function getCoursesKPI(Request $request)
     {
         $courses = DB::table('courses as cr')
-        ->join('catalogue as ct', 'ct.id', '=', 'cr.state_id')
-        ->where('ct.name', '=', 'APPROVED, TO_BE_APPROVED, IN_PROCESS' ,state_id)
-        ->select(DB::raw('count(*) as course_count'))
-        ->first()
-        ->paginate($request->input('per_page'));
+            ->join('catalogue as ct', 'ct.id', '=', 'cr.state_id')
+            ->where('ct.name', '=', 'APPROVED, TO_BE_APPROVED, IN_PROCESS', state_id)
+            ->select(DB::raw('count(*) as course_count'))
+            ->first()
+            ->paginate($request->input('per_page'));
 
 
         echo $courses->course_count;
@@ -78,7 +80,7 @@ class PastranaController extends Controller
         $planification->vicerrector()->associate(Authority::find($request->input('vicerrector.id')));
         $planification->responsible_course_period()->associate(Instructor::find($request->input('responsible_course_period.id')));
         $planification->responsible_ocs()->associate(Catalogue::find($request->input('responsible_ocs.id')));
-        $planification->responsible_cecy()->associate(Authority::find($request->input('responsible_cecy.id')));
+        $planification->responsibleCecy()->associate(Authority::find($request->input('responsibleCecy.id')));
         $planification->aproved_at = $request->input('aproved_at');
         $planification->code = $request->input('code');
         $planification->ended_at = $request->input('ended_at');
@@ -88,14 +90,15 @@ class PastranaController extends Controller
         $planification->save();
 
         return (new PlanificationResource($planification))
-        ->additional([
-            'msg' => [
-                'summary' => 'success',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ]);
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
+
     /*
     * Asignar código al curso
     */
@@ -140,36 +143,13 @@ class PastranaController extends Controller
     /*
     * Ingresar el motivo del por cual el curso no esta aprobado
     */
-    public function insertObservations(Course $course, $request)
+    public function approveCourse($request, Course $course)
     {
-        $course->carrerId()->associate(Career::find($request->input('carrer.id')));
-        $course->category()->associate(Catalogue::find($request->input('category.id')));
-        $course->certifiedTypeId()->associate(Catalogue::find($request->input('certifiedType.id')));
-        $course->courseTypeId()->associate(Catalogue::find($request->input('courseType.id')));
-        $course->modalityId()->associate(Catalogue::find($request->input('modality.id')));
-        $course->specialityId()->associate(Catalogue::find($request->input('speciality.id')));
-        $course->area()->associate(Catalogue::find($request->input('area.id')));
-        $course->speciality()->associate(Catalogue::find($request->input('speciality.id')));
-        $course->abbreviation = $request->input('abbreviation');
-        $course->cost = $request->input('cost');
-        $course->duration = $request->input('duration');
-        $course->free = $request->input('free');
-        $course->needs = $request->input('needs');
-        $course->project = $request->input('project');
-        $course->sumary = $request->input('sumary');
-        $course->alignment = $request->input('alignment');
-        $course->objective = $request->input('objective');
-        $course->techniques_requisites = $request->input('techniquesRequisites');
-        $course->teaching_strategies = $request->input('teachingStrategies');
-        $course->evaluation_mechanism = $request->input('evaluationMechanisms');
-        $course->learning_environment = $request->input('learningEnvironments');
-        $course->practice_hours = $request->input('practiceHours');
-        $course->theory_hours = $request->input('theoryHours');
-        $course->bibliographies = $request->input('bibliographies');
-        $course->code = $request->input('code');
+        $course->state()->associate(State::FirstWhere('code', State::APPROVED));
         $course->observation = $request->input('observation');
+        $course->save();
 
-        return (new CourseCollection($course))
+        return (new CourseResource($course))
             ->additional([
                 'msg' => [
                     'summary' => 'Curso actualizado',
