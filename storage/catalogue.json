@@ -113,7 +113,7 @@
         "not_approved": "NOT_APPROVED",
         "approved": "APPROVED"
     },
-    "attendace": {
+    "attendance": {
         "type": "ATTENDANCE",
         "present": "PRESENT",
         "backwardness": "BACKWARDNESS",
