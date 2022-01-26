@@ -4,6 +4,7 @@ namespace Database\Seeders\Cecy;
 
 use App\Models\Cecy\Attendance;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AttendancesSeeder extends Seeder
 {
@@ -16,5 +17,7 @@ class AttendancesSeeder extends Seeder
     {
         //CREAR AQUI LAS SEMILLAS PARA ATTENDANCE
         Attendance::factory(150)->create();
+
+
     }
 }

@@ -36,7 +36,7 @@
         "sixth": "SIXTH",
         "seventh": "SEVENTH"
     },
-    "participant": {
+    "participant_course": {
         "type": "PARTICIPANT",
         "external": "EXTERNAL",
         "student": "STUDENT",
@@ -156,15 +156,27 @@
         "not_approved": "NOT_APPROVED",
         "to_be_approved": "TO_BE_APPROVED"
     },
-    "school_period":{
+    "school_period": {
         "type": "SCHOOL_PERIODS",
-        "current":"CURRENT",
-        "historical":"HISTORICAL"
+        "current": "CURRENT",
+        "historical": "HISTORICAL"
     },
-    "notification":{
-        "type":"NOTIFICATION",
-        "read":"READ",
-        "unread":"UNREAD"
+    "notification": {
+        "type": "NOTIFICATION",
+        "read": "READ",
+        "unread": "UNREAD"
+    },
+    "workday": {
+        "type": "WORKDAY",
+        "evening": "EVENING",
+        "morning": "MORNING",
+        "nocturnal": "NOCTURNAL"
+    },
+    "day": {
+        "type": "DAY",
+        "monday-friday": "MONDAY-FRIDAY",
+        "monday-sunday": "MONDAY-SUNDAY",
+        "sunday": "SUNDAY",
+        "saturday": "SATURDAY"
     }
-
 }
