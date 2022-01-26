@@ -44,6 +44,7 @@ class Instructor extends Model implements Auditable
     {
         return $this->belongsTo(User::class);
     }
+
     public function detailInstructors()
     {
         $this->hasMany(DetailInstructor::class);
