@@ -3,6 +3,7 @@
 namespace Database\Seeders\Cecy;
 
 use App\Models\Cecy\Catalogue;
+use App\Models\Cecy\Instructor;
 use Illuminate\Database\Seeder;
 
 class InstructorsSeeder extends Seeder
@@ -56,5 +57,6 @@ class InstructorsSeeder extends Seeder
     }
     public function  createInstructors()
     {
+        Instructor::factory(50)->create();
     }
 }
