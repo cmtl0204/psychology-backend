@@ -22,6 +22,7 @@ class RegistrationRequerimentsSeeder extends Seeder
 
     public function createRegistrationRequerimentsCatalogue()
     {
+        //Campos que son de catalogo
     }
     public function createRegistrationRequeriments()
     {

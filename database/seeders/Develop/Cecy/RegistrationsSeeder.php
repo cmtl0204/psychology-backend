@@ -23,6 +23,10 @@ class RegistrationsSeeder extends Seeder
 
     public function createRegistrationsCatalogue()
     {
+        //Campos que son de catalogo
+        //type_id
+        //state_id
+        //state_course_id
     }
     public function createRegistrations()
     {

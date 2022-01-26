@@ -19,6 +19,7 @@ class InstitutionsSeeder extends Seeder
     }
     public function createInstitutionsCatalogue()
     {
+        //Campos que son de catalogo
     }
     public function createInstitutions()
     {

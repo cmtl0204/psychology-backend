@@ -13,6 +13,15 @@ class TopicsSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA TOPICS
+        $this->createTopicsCatalogue();
+        $this->createTopics();
+    }
+
+    public function createTopicsCatalogue()
+    {
+        //Campos que son de catalogo
+    }
+    public function createTopics()
+    {
     }
 }

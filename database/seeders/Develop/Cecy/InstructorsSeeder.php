@@ -21,6 +21,9 @@ class InstructorsSeeder extends Seeder
 
     public function createInstructorsCatalogue()
     {
+        //Campos que son de catalogo
+        //type_id
+        //state_id
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         Catalogue::factory()->sequence(
             [

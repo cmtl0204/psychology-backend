@@ -19,6 +19,8 @@ class RequirementesSeeder extends Seeder
 
     public function createRequirementsCatalogue()
     {
+        //Campos que son de catalogo
+        //state_id
     }
     public function createRequirements()
     {

@@ -26,7 +26,7 @@ class PlanificationsSeeder extends Seeder
 
     public function createPlanificationsCatalogue()
     {
-        //Aqui falta crear los registros de catalogo para planifications
+        //Campos que son de catalogo
         //state_id
     }
     public function createPlanifications()

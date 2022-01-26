@@ -22,6 +22,7 @@ class DetailPlanificationsInstructorSeeder extends Seeder
 
     public function createDetailPlanificationsInstructorCatalogue()
     {
+        //Campos que son de catalogo
     }
     public function createDetailPlanificationsInstructor()
     {

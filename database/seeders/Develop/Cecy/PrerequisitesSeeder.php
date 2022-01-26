@@ -19,6 +19,7 @@ class PrerequisitesSeeder extends Seeder
 
     public function createPrerequisitesCatalogue()
     {
+        //Campos que son de catalogo
     }
     public function createPrerequisites()
     {

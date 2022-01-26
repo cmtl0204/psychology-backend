@@ -19,6 +19,7 @@ class DetailSchoolPeriodsSeeder extends Seeder
 
     public function createDetailSchoolPeriodsCatalogue()
     {
+        //Campos que son de catalogo
     }
     public function createDetailSchoolPeriods()
     {

@@ -19,6 +19,8 @@ class NotificationsSeeder extends Seeder
 
     public function createNotificationsCatalogue()
     {
+        //Campos que son de catalogo
+        //state_id
     }
     public function createNotifications()
     {

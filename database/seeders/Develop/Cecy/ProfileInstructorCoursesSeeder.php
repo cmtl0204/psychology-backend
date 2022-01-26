@@ -20,6 +20,7 @@ class ProfileInstructorCoursesSeeder extends Seeder
 
     public function createProfileInstructorCoursesCatalogue()
     {
+        //Campos que son de catalogo
     }
     public function createProfileInstructorCourses()
     {

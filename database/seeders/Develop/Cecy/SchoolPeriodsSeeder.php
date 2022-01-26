@@ -13,6 +13,15 @@ class SchoolPeriodsSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA SCHOOLPERIODS
+        $this->createSchoolPeriodsCatalogue();
+        $this->createSchoolPeriods();
+    }
+
+    public function createSchoolPeriodsCatalogue()
+    {
+        //Campos que son de catalogo
+    }
+    public function createSchoolPeriods()
+    {
     }
 }

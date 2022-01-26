@@ -24,7 +24,7 @@ class DetailPlanificationsSeeder extends Seeder
 
     public function createDetailPlanificationsCatalogue()
     {
-        //Aqui falta crear los registros de catalogo para detail planifications
+        //Campos que son de catalogo
         //workday_id
         //paralel_id
         //day_id

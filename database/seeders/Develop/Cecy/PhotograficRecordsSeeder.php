@@ -19,6 +19,7 @@ class PhotograficRecordsSeeder extends Seeder
 
     public function createPhotograficRecordsCatalogue()
     {
+        //Campos que son de catalogo
     }
     public function createPhotograficRecords()
     {
