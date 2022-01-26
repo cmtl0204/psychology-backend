@@ -174,10 +174,10 @@
     },
     "day": {
         "type": "DAY",
-        "monday-friday": "MONDAY-FRIDAY",
-        "monday-sunday": "MONDAY-SUNDAY",
-        "sunday": "SUNDAY",
-        "saturday": "SATURDAY"
+        "monday_friday": "MONDAY-FRIDAY",
+        "monday_sunday": "MONDAY-SUNDAY",
+        "sundays": "SUNDAYS",
+        "saturdays": "SATURDAYS"
     },
     "participant": {
         "type": "participant",
