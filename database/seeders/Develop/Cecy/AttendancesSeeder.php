@@ -18,13 +18,6 @@ class AttendancesSeeder extends Seeder
         //CREAR AQUI LAS SEMILLAS PARA ATTENDANCE
         Attendance::factory(150)->create();
 
-        //ejemplo con insert
-        $this->createDetailAttendance();
 
-    }
-    public function createDetailAttendance()
-    {
-        DB::select("insert into cecy.attendances(detail_planification_id, duration, registered_at)
-                                VALUES('El id del detalle planficiacion de un curso','duracion de la clase','fecha de la asistencia')");
     }
 }
