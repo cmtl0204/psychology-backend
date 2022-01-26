@@ -3,6 +3,7 @@
 namespace Database\Seeders\Cecy;
 
 use App\Models\Cecy\Attendance;
+use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Registration;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -24,5 +25,36 @@ class DetailAttendancesSeeder extends Seeder
         Attendance::truncate();
         Registration::truncate();
         DB::statement("SET foreign_key_checks=1");
+
+        //ejemplo con inserts
+       $this->createDetailAttendance();
+       $this->createTypeAttendance();
+    }
+
+    public function createTypeAttendance()
+    {
+        $catalogues = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
+        Catalogue::factory()->sequence(
+            [
+                'code' => $catalogues['catalogue']['type_attendace']['present'],
+                'name' => 'PRESENT',
+                'type' => $catalogues['catalogue']['type_attendace']['type'],
+            ],
+            [
+                'code' => $catalogues['catalogue']['type_attendace']['backwardness'],
+                'name' => 'BACKWARDNESS',
+                'type' => $catalogues['catalogue']['type_attendace']['type'],
+            ],
+            [
+                'code' => $catalogues['catalogue']['type_attendace']['absent'],
+                'name' => 'ABSENT',
+                'type' => $catalogues['catalogue']['type_attendace']['type'],
+            ],
+        )->create();
+    }
+    public function createDetailAttendance()
+    {
+        DB::select("insert into cecy.detail_attendances(attendance_id, registration_id, type_id)
+                                VALUES('El id de la asistencia','id del registro al curso','estado de la asistencia')");
     }
 }
