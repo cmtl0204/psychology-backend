@@ -14,7 +14,7 @@ class ClassroomResource extends JsonResource
         return [
             'id' => $this->id,
             'additionalInformation' => AdditionalInformationResource::make($this->additionalInformation),
-            'personType' => CatalogueResource::make($this->personType),
+            'type' => CatalogueResource::make($this->personType),
         ];
     }
 }

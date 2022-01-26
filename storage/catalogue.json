@@ -41,7 +41,7 @@
         "sixth": "SIXTH",
         "seventh": "SEVENTH"
     },
-    "participant": {
+    "participant_course": {
         "type": "PARTICIPANT",
         "external": "EXTERNAL",
         "student": "STUDENT",
@@ -99,38 +99,37 @@
         "not_approved": "NOT_APPROVED",
         "approved": "APPROVED"
     },
-    "classroom_type":{
-        "type":"CLASSROOM_TYPE",
-        "classroom_class":"CLASSROOMCLASS",
-        "office":"OFFICE",
-        "laboratory":"LABORATORY"
+    "classroom": {
+        "type": "CLASSROOM",
+        "classroom_class": "CLASSROOM_CLASS",
+        "office": "OFFICE",
+        "laboratory": "LABORATORY"
     },
-    "parallel_name":{
+    "parallel_name": {
         "type": "PARALLEL_NAME",
         "a": "A",
         "b": "B"
     },
-    "detail_planification_state":{
+    "detail_planification_state": {
         "type": "DETAIL_PLANIFICATION_STATE",
         "to_be_approved": "TO_BE_APPROVED",
         "culminated": "CULMINATED",
         "in_process": "IN_PROCESS",
         "not_approved": "NOT_APPROVED",
         "approved": "APPROVED"
-
     },
-    "type_attendace": {
-        "type": "TYPE_ATTENDANCE",
+    "attendance": {
+        "type": "ATTENDANCE",
         "present": "PRESENT",
         "backwardness": "BACKWARDNESS",
         "absent": "ABSENT"
     },
-    "instructor_state":{
+    "instructor_state": {
         "type": "INSTRUCTOR_STATE",
         "active": "ACTIVE",
         "inactive": "INACTIVE"
     },
-    "instructor_type":{
+    "instructor_type": {
         "type": "INSTRUCTOR_TYPE",
         "senescyt":"SENESCYT",
         "setec":"SETECT",
@@ -141,6 +140,65 @@
         "with_code":"WITH_CODE",
         "generated":"GENERATED",
         "in_process":"IN PROCESS",
-        "signed":"SIGNED"
+        "signed":"SIGNED",
+        "senescyt": "SENESCYT",
+        "setec": "SETECT",
+        "external": "EXTERNAL"
+    },
+    "certified_state": {
+        "type": "CERTIFIED_STATE",
+        "with_code": "WITH_CODE",
+        "generated": "GENERATED",
+        "in_process": "IN PROCESS",
+        "signed": "SIGNED"
+    },
+    "state_course": {
+        "type": "STATE_COURSE",
+        "approved": "APPROVED",
+        "not_approved": "NOT_APPROVED"
+    },
+    "registration_state": {
+        "type": "REGISTRATION_STATE",
+        "signed_up": "SIGNED_UP",
+        "registered": "REGISTERED",
+        "rectified": "RECTIFIED",
+        "cancelled": "CANCELLED",
+        "in_review": "IN_REVIEW"
+    },
+    "participant_state": {
+        "type": "PARTICIPANT_STATE",
+        "approved": "APPROVED",
+        "not_approved": "NOT_APPROVED",
+        "to_be_approved": "TO_BE_APPROVED"
+    },
+    "school_period": {
+        "type": "SCHOOL_PERIODS",
+        "current": "CURRENT",
+        "historical": "HISTORICAL"
+    },
+    "notification": {
+        "type": "NOTIFICATION",
+        "read": "READ",
+        "unread": "UNREAD"
+    },
+    "workday": {
+        "type": "WORKDAY",
+        "evening": "EVENING",
+        "morning": "MORNING",
+        "nocturnal": "NOCTURNAL"
+    },
+    "day": {
+        "type": "DAY",
+        "monday-friday": "MONDAY-FRIDAY",
+        "monday-sunday": "MONDAY-SUNDAY",
+        "sunday": "SUNDAY",
+        "saturday": "SATURDAY"
+    },
+    "participant": {
+        "type": "participant",
+        "egresade": "EGRESADE",
+        "graduate": "GRADUATE",
+        "external": "EXTERNAL",
+        "internal": "INTERNAL"
     }
 }

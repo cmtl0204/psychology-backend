@@ -22,11 +22,6 @@ class CreateCecyTopicsTable extends Migration
             ->comment('Id del tema principal')
             ->constrained('cecy.topics');
 
-            $table->foreignId('instructor_id')
-            ->nullable()
-            ->comment('Id del instructor que va impartir el tema')
-            ->constrained('cecy.instructors');
-                
             $table->integer('level')
                 ->nullable()
                 ->comment('Nivel de los temas Ej: 1 y 2');

@@ -1,27 +1,28 @@
 <?php
 
-namespace App\Http\Requests\V1\Cecy\Courses;
+namespace App\Http\Requests\V1\Cecy\Attendance;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetTopicsByCourseRequest extends FormRequest
+class GetUsersIgnugRequest extends FormRequest
 {
     public function authorize()
     {
         return true;
     }
-
     public function rules()
     {
         return [
-            'courses.id' => ['required', 'integer'],
+            'duration' => ['required'],
+            'registered_at' => ['required']
         ];
     }
 
     public function attributes()
     {
         return [
-            'courses.id' => 'Id del curso'
+            'duration' => 'duracion',
+            'registered_at' => 'fecha'
         ];
     }
 }

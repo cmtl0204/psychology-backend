@@ -16,6 +16,7 @@ class SchoolPeriodResource extends JsonResource
             'name'=> $this->id,
             'startedAt'=> $this->started_at,
             'state' => CatalogueResource::make($this->state),
+            'minimumNote' => $this->minimum_note,
 
         ];
     }

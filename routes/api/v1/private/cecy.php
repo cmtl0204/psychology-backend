@@ -37,6 +37,28 @@ Route::prefix('catalogue/{catalogue}')->group(function () {
 /***********************************************************************************************************************
  * PLANIFICATIONS
  **********************************************************************************************************************/
+Route::prefix('planification')->group(function () {
+    Route::get('', [PerezController::class, 'getPlanificationsByCourse']);
+});
+
+
+Route::prefix('planification/{planification}')->group(function () {
+    Route::put('', [PerezController::class, 'updateDatesAndNeedsinPlanification']);
+});
+
+/***********************************************************************************************************************
+ * DETAIL PLANIFICATIONS
+ **********************************************************************************************************************/
+Route::prefix('detailPlanification')->group(function () {
+    Route::get('', [PerezController::class, 'getDetailPlanificationsByPlanification']);
+    Route::post('', [PerezController::class, 'registerDetailPlanificationByResponsibleCourse']);
+});
+
+Route::prefix('detailPlanification/{detailPlanification}')->group(function () {
+    Route::get('', [PerezController::class, 'showDetailPlanificationByResponsibleCourse']);
+    Route::put('', [PerezController::class, 'updateDetailPlanificationByResponsibleCourse']);
+    Route::delete('', [PerezController::class, 'deleteDetailPlanificationByResponsibleCourse']);
+});
 
 /***********************************************************************************************************************
  * COURSE

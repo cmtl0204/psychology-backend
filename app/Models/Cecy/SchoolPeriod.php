@@ -21,6 +21,7 @@ class SchoolPeriod extends Model implements Auditable
         'ended_at',
         'name',
         'started_at',
+        'minimum_note'
     ];
 
     // Relationships

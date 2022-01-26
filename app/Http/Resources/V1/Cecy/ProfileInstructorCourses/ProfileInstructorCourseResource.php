@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1\Cecy\ProfileInstructorCourses;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AuthorityResource extends JsonResource
+class ProfileInstructorCourseResource extends JsonResource
 {
     public function toArray($request)
     {

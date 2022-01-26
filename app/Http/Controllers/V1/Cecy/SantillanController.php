@@ -32,7 +32,7 @@ class SantillanController extends Controller
     }
 
     //ver todas las asistencias
-    public function getAttendanceTeacher(GetAttendanceTeacherRequest $attendance)
+    public function getAttendanceTeacher(GetAttendanceTeacherRequest $request)
     {
         $attendance =  Planification::where([['course_id', $request->input('course.id')]])->get();
 
@@ -46,7 +46,7 @@ class SantillanController extends Controller
             ]);
     }
     //asistencias de los estudiantes de un curso
-    public  function ShowParticipantCourse(ShowParticipantsRequest $participants){
+    public  function ShowParticipantCourse(ShowParticipantsRequest $request){
 
         $participants = course::where('course_id', $request->course()->id)->get();
 
@@ -71,7 +71,7 @@ class SantillanController extends Controller
             ]);
     }
     //estudiantes de un curso y sus notas
-    public  function ShowParticipantGrades(ShowParticipantsRequest $participants){
+    public  function ShowParticipantGrades(ShowParticipantsRequest $request){
 
         $participants = course::where('course_id', $request->course()->id)->get();
 
@@ -94,7 +94,7 @@ class SantillanController extends Controller
             ]);
     }
     //cursos de un docente instructor
-    public function showInstructorCourse(GetPlanificationByResponsableCourseRequest $responsableCorse){
+    public function showInstructorCourse(GetPlanificationByResponsableCourseRequest $request){
 
         $responsableCourse = planification::where('responsable_course_id', $request->planification()->id)->get();
 
@@ -153,7 +153,7 @@ class SantillanController extends Controller
     }
 
     //ver asistencia una por una
-    public function showAttendanceTeacher(ShowAttendanceTeacherRequest $attendance)
+    public function showAttendanceTeacher(ShowAttendanceTeacherRequest $request )
     {
         $attendance =  Attendance::where([['registered_at', $request->input('registered_at')]])->get();
 
@@ -191,7 +191,7 @@ class SantillanController extends Controller
     }
     //eliminar una asistencia
 
-    public function destroysAttendanceTeacher(DestroysAttendanceTeacherRequest $attendance)
+    public function destroysAttendanceTeacher(DestroysAttendanceTeacherRequest $request)
     {
         $attendance = Attendance::whereIn('id', $request->input('ids'))->get();
         Attendance::destroy($request->input('ids'));
@@ -205,7 +205,6 @@ class SantillanController extends Controller
                 ]
             ]);
     }
-
     /*******************************************************************************************************************
      * FILES
      ******************************************************************************************************************/

@@ -13,7 +13,6 @@ class GetPlanificationsByCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'responsibleCourse.id' => ['required', 'integer'],
             'course.id' => ['required', 'integer'],
         ];
     }
@@ -21,7 +20,6 @@ class GetPlanificationsByCourseRequest extends FormRequest
     public function attributes()
     {
         return [
-            'responsibleCourse.id' => 'Responsable del curso',
             'course.id' => 'Curso'
         ];
     }

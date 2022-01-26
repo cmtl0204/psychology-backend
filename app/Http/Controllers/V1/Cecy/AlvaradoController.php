@@ -30,9 +30,11 @@ class AlvaradoController extends Controller
     //     $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
     // }
 
-    public function getCourses(Course $course)
+    // Devuelve los cursos que le fueron asignados al docente responsable
+    public function getCourses(Instructor $instructor)
     {
-        return (new CourseCollection($course))
+        $courses = $instructor->courses()->get();
+        return (new CourseCollection($courses))
         ->additional([
             'msg' => [
                 'summary' => 'success',
@@ -42,6 +44,7 @@ class AlvaradoController extends Controller
         ]);
     }
 
+    // Actualiza la informacion del diseño curricular
     public function updateCourse(UpdateCourseRequest $request, Course $course)
     {
         $course->area()->associate(Catalogue::find($request->input('area.id')));
@@ -67,7 +70,7 @@ class AlvaradoController extends Controller
         ]);
     }
 
-    // TEMAS Y SUBTEMAS
+    // Devuelve los temas y subtemas de un curso
     public function getTopics(Course $course)
     {
         $topics = $course->topics()->get();
@@ -81,17 +84,15 @@ class AlvaradoController extends Controller
         ]);
     }
 
-    public function storeTopic(Course $course, StoreTopicRequest $request)
+    // Crea un nuevo tema o subtema para un curso
+    public function storeTopic(StoreTopicRequest $request, Course $course, Topic $topic)
     {
         $topic = new Topic();
-        $topic->course()->associate(Course::find($course));
+        $topic->course()->associate($course);
         $topic->level = $request->input('level');
-        if($request->input('level') === '2') {
-            $topic->parent()->associate(Topic::find($request->input('parent.id')));
-        }
+        $topic->parent()->associate($topic);
         $topic->description = $request->input('description');
         $topic->save();
-
         return (new TopicResource($topic))
         ->additional([
             'msg' => [
@@ -102,17 +103,13 @@ class AlvaradoController extends Controller
         ]);
     }
 
-
-    public function updateTopic(Course $course, StoreTopicRequest $request, Topic $topic )
+    // Actualiza el tema o subtema de un curso
+    public function updateTopic(StoreTopicRequest $request, Course $course, Topic $topic )
     {
-        $topic->course()->associate(Course::find($course));
         $topic->level = $request->input('level');
-        if($request->input('level') === '2') {
-            $topic->parent()->associate(Topic::find($request->input('parent.id')));
-        }
+        $topic->parent()->associate($topic);
         $topic->description = $request->input('description');
         $topic->save();
-
         return (new TopicResource($topic))
         ->additional([
             'msg' => [
@@ -123,8 +120,9 @@ class AlvaradoController extends Controller
         ]);
     }
 
-    public function destroyTopic(Topic $topic)
-    {   
+    // Elimina un tema o subtema
+    public function destroyTopic(Course $course, Topic $topic)
+    {
         $topic->delete();
         return (new TopicResource($topic))
         ->additional([
@@ -136,7 +134,7 @@ class AlvaradoController extends Controller
         ]);
     }
 
-    public function destroysTopics(DestroysTopicRequest $request)
+    public function destroysTopics(DestroysTopicRequest $request, Course $course)
     {
         $topic = Topic::whereIn('id', $request->input('ids'))->get();
         Topic::destroy($request->input('ids'));
@@ -151,10 +149,11 @@ class AlvaradoController extends Controller
             ]);
     }
     // PREREQUISITOS
+    // Obtiene todos los prerequisitos para un curso
     public function getPrerequisites(Course $course)
     {
-        $prerequisite = $course->prerequisite()->get();
-        return (new PrerequisiteCollection($prerequisite))
+        $prerequisites = $course->prerequisites()->get();
+        return (new PrerequisiteCollection($prerequisites))
         ->additional([
             'msg' => [
                 'summary' => 'success',
@@ -163,11 +162,11 @@ class AlvaradoController extends Controller
             ]
         ]);
     }
-
-    public function storePrerequisite(Course $course, StorePrerequisiteRequest $request)
+    // Agrega prerequsitos para un curso
+    public function storePrerequisite(StorePrerequisiteRequest $request, Course $course)
     {
         $prerequisite = new Prerequisite();
-        $prerequisite->course()->associate(Course::find($course));
+        $prerequisite->course()->associate($course);
         $prerequisite->prerequisite()->associate(Course::find($request->input('prerequisite.id')));
         $prerequisite->save();
         return (new PrerequisiteResource($prerequisite))
@@ -179,11 +178,10 @@ class AlvaradoController extends Controller
             ]
         ]);
     }
-
-    public function updatePrerequisite(Course $course, StorePrerequisiteRequest $request, Prerequisite $prerequisite )
+    // Actualiza el prerequisito para un curso
+    public function updatePrerequisite(StorePrerequisiteRequest $request, Course $course, Prerequisite $prerequisite )
     {
-        $prerequisite->course()->associate(Course::find($course));
-        $prerequisite->prerequisite()->associate(Course::find($request->input('prerequisite.id')));
+        $prerequisite->prerequisite()->associate($prerequisite);
         $prerequisite->save();
         return (new PrerequisiteResource($prerequisite))
         ->additional([
@@ -194,8 +192,8 @@ class AlvaradoController extends Controller
             ]
         ]);
     }
-
-    public function DestroyPrerequisite(Prerequisite $prerequisite)
+    // Eliminda los prerequisitos para un curso
+    public function DestroyPrerequisite(Course $course, Prerequisite $prerequisite)
     {
         $prerequisite->delete();
         return (new PrerequisiteResource($prerequisite))
@@ -207,8 +205,8 @@ class AlvaradoController extends Controller
             ]
         ]);
     }
-
-    public function destroysPrerequisites(DestroyPrerequisiteRequest $request)
+    //Elimina varios prerequisitos de un curso
+    public function destroysPrerequisites(DestroyPrerequisiteRequest $request, Course $course)
     {
         $prerequisite = Prerequisite::whereIn('id', $request->input('ids'))->get();
         Prerequisite::destroy($request->input('ids'));

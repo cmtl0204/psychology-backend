@@ -13,7 +13,7 @@ class CreateCecyClassroomsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('state_id')
+            $table->foreignId('type_id')
                 ->nullable()
                 ->comment('Estado si esta disponible o no disponible')
                 ->constrained('cecy.catalogues');

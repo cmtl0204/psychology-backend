@@ -26,7 +26,7 @@ class Classroom extends Model implements Auditable
 
     // Relationships
 
-    public function state()
+    public function type()
     {
         return $this->belongsTo(Catalogue::class);
     }

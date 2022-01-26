@@ -23,7 +23,7 @@ class CreateCecyNotificationsTable extends Migration
 
             // El comentario no corresponde -3
             $table->foreignId('state_id')
-                ->comment('Id del tema principal')
+                ->comment('leido, no leido')
                 ->constrained('cecy.catalogues');
 
             $table->text('description')

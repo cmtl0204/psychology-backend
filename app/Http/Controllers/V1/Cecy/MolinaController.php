@@ -20,12 +20,12 @@ use Illuminate\Http\Client\Request;
 
 class MolinaController extends Controller
 {
-    public function __construct()
+   /*public function __construct()
     {
         $this->middleware('permission:view-courses')->only(['view']);
         $this->middleware('permission:view-attendances')->only(['view']);
         $this->middleware('permission:view-grades')->only(['view']);
-    }
+    }*/
 
     //Ver todas las asistencias del estudiante
     public function getAttendacesByParticipant(GetAttendanceByParticipantRequest $request)

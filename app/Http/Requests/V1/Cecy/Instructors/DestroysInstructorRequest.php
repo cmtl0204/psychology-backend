@@ -1,27 +1,26 @@
 <?php
 
-namespace App\Http\Requests\V1\Cecy\Courses;
+namespace App\Http\Requests\V1\Cecy\Instructor;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetInstructorsInformationByCourseRequest extends FormRequest
+class DestroysInstructorRequest  extends FormRequest
 {
     public function authorize()
     {
         return true;
     }
-
     public function rules()
     {
         return [
-            'courses.id' => ['required', 'integer'],
+            'ids' => ['required'],
         ];
     }
 
     public function attributes()
     {
         return [
-            'courses.id' => 'Id del curso'
+            'ids' => 'ID`s de los instructores',
         ];
     }
 }
