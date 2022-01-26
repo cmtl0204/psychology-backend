@@ -37,7 +37,7 @@ class ClassroomsSeeder extends Seeder
                 ],
             )->create();
         }
-    
+
          function createClassrooms()
         {
             DB::select("insert into cecy.classroom(state_id, description, capacity, code, name)VALUES('','Este aula esta en el edificio del Yavirac','40','A001','Aula1')");
