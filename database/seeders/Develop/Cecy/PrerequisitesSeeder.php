@@ -13,6 +13,14 @@ class PrerequisitesSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA PREREQUISISITES
+        $this->createPrerequisitesCatalogue();
+        $this->createPrerequisites();
+    }
+
+    public function createPrerequisitesCatalogue()
+    {
+    }
+    public function createPrerequisites()
+    {
     }
 }

@@ -13,6 +13,14 @@ class PhotograficRecordsSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA PHOTOGRAFICRECORDS
+        $this->createPhotograficRecordsCatalogue();
+        $this->createPhotograficRecords();
+    }
+
+    public function createPhotograficRecordsCatalogue()
+    {
+    }
+    public function createPhotograficRecords()
+    {
     }
 }

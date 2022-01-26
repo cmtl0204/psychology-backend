@@ -16,6 +16,15 @@ class RegistrationRequerimentsSeeder extends Seeder
      */
     public function run()
     {
+        $this->createRegistrationRequerimentsCatalogue();
+        $this->createRegistrationRequeriments();
+    }
+
+    public function createRegistrationRequerimentsCatalogue()
+    {
+    }
+    public function createRegistrationRequeriments()
+    {
         $registration = Registration::factory()->count(5)->create();
         $requirement = Requirement::factory()->count(5)->create();
         RegistrationRequirement::factory()

@@ -19,7 +19,6 @@ class InstitutionsSeeder extends Seeder
     }
     public function createInstitutionsCatalogue()
     {
-        //Aqui en el caso que luego se requiera añadir un catalogo
     }
     public function createInstitutions()
     {

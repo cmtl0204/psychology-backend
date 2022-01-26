@@ -17,6 +17,15 @@ class RegistrationsSeeder extends Seeder
      */
     public function run()
     {
+        $this->createRegistrationsCatalogue();
+        $this->createRegistrations();
+    }
+
+    public function createRegistrationsCatalogue()
+    {
+    }
+    public function createRegistrations()
+    {
         $participant = Participant::factory()->count(5)->create();
         $detailPlanification = DetailPlanification::factory()->count(5)->create();
         Registration::factory()

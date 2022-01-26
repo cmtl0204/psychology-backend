@@ -13,6 +13,14 @@ class RequirementesSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA REQUIREMENTS
+        $this->createRequirementsCatalogue();
+        $this->createRequirements();
+    }
+
+    public function createRequirementsCatalogue()
+    {
+    }
+    public function createRequirements()
+    {
     }
 }

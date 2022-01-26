@@ -13,6 +13,14 @@ class DetailSchoolPeriodsSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA DETAILSCHOOLPERIOD
+        $this->createDetailSchoolPeriodsCatalogue();
+        $this->createDetailSchoolPeriods();
+    }
+
+    public function createDetailSchoolPeriodsCatalogue()
+    {
+    }
+    public function createDetailSchoolPeriods()
+    {
     }
 }
