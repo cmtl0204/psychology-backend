@@ -26,11 +26,12 @@ class ParticipantsFactory extends Factory
         $egresade = Catalogue::where('code', $catalogue['participant']['egresade']);
         $graduate = Catalogue::where('code', $catalogue['participant']['graduate']);
         $external = Catalogue::where('code', $catalogue['participant']['external']);
+        $internal = Catalogue::where('code', $catalogue['participant']['internal']);
 
         return [
+            'participant_type_id' => $this->faker->randomElement([$egresade, $graduate, $external, $internal]),
             'user_id' => $this->faker->randomElement($users),
-            'state_id' => $this->faker->randomElement([$active, $inactive]),
-            'type_id' => $this->faker->randomElement([$senescyt, $setec, $external])
+            'state_id' => $this->faker->randomElement([$approved, $not_approved, $to_be_approved]),
         ];
     }
 }

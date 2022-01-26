@@ -53,6 +53,12 @@ class ParticipantsSeeder extends Seeder
                 'description' => 'Cuando un participante de un curso es graduado de alguna carrera'
             ],
             [
+                'code' => $catalogue['participant']['internal'],
+                'name' => 'Interno',
+                'type' => $catalogue['participant']['type'],
+                'description' => 'Cuando un participante de un curso es propio de la institución'
+            ],
+            [
                 'code' => $catalogue['participant']['external'],
                 'name' => 'Externo',
                 'type' => $catalogue['participant']['type'],

@@ -183,6 +183,7 @@
         "type": "participant",
         "egresade": "EGRESADE",
         "graduate": "GRADUATE",
-        "external": "EXTERNAL"
+        "external": "EXTERNAL",
+        "internal": "INTERNAL"
     }
 }
