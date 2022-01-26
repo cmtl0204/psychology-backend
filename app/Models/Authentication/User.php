@@ -255,7 +255,8 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
                     'summary' => 'Oops! Su usuario ha sido bloqueado!',
                     'detail' => 'Demasiados intentos de inicio de sesión',
                     'code' => '429'
-                ]], 429);
+                ]
+            ], 429);
         }
 
         return response()->json([
@@ -264,7 +265,8 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
                 'summary' => 'Contrasaña incorrecta',
                 'detail' => "Oops! le quedan {$this->max_attempts} intentos",
                 'code' => '401',
-            ]], 401);
+            ]
+        ], 401);
     }
 
     public function resetMaxAttempts()
@@ -278,6 +280,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
                 'summary' => 'success',
                 'detail' => '',
                 'code' => '201',
-            ]], 201);
+            ]
+        ], 201);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Cecy;
 
+use App\Models\Cecy\Institution;
 use Illuminate\Database\Seeder;
 
 class InstitutionsSeeder extends Seeder
@@ -13,6 +14,22 @@ class InstitutionsSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA INSTITUTIONS
+        $this->createInstitutionsCatalogue();
+        $this->createInstitutions();
+    }
+    public function createInstitutionsCatalogue()
+    {
+        //Aqui en el caso que luego se requiera añadir un catalogo
+    }
+    public function createInstitutions()
+    {
+        Institution::factory()->sequence(
+            [
+                'code' => 'CECY2022',
+                'name' => 'CENTRO DE FORMACIÓN INTEGRAL y SERVICIOS ESPECIALZADOS YAVIRAC',
+                'logo' => 'CECY',
+                'slogan' => 'Formando profesionales'
+            ]
+        )->create();
     }
 }

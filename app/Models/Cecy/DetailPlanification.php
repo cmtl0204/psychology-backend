@@ -25,6 +25,11 @@ class DetailPlanification extends Model implements Auditable
     ];
 
     // Relationships
+    public function certificates()
+    {
+        return $this->morphMany(Certificate::class, 'certificateable');
+    }
+
     public function classroom()
     {
         return $this->belongsTo(Classroom::class);
@@ -69,7 +74,7 @@ class DetailPlanification extends Model implements Auditable
     {
         return $this->belongsToMany(Instructor::class, 'detail_planification_instructor', 'detail_planification_id', 'instructor_id');
     }
-    
+
     public function registrations()
     {
         return $this->hasMany(Registration::class);

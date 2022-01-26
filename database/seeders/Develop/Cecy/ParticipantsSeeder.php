@@ -3,6 +3,7 @@
 namespace Database\Seeders\Cecy;
 
 use App\Models\Cecy\Catalogue;
+use App\Models\Cecy\Participant;
 use Illuminate\Database\Seeder;
 
 class ParticipantsSeeder extends Seeder
@@ -38,10 +39,35 @@ class ParticipantsSeeder extends Seeder
                 'name' => 'Por aprobar',
                 'type' => $catalogue['participant_state']['type'],
                 'description' => 'Estado del estudiante de reprobado en el curso'
+            ],
+            [
+                'code' => $catalogue['participant']['egresade'],
+                'name' => 'Egresado',
+                'type' => $catalogue['participant']['type'],
+                'description' => 'Cuando un participante de un curso es egresado de alguna carrera'
+            ],
+            [
+                'code' => $catalogue['participant']['graduate'],
+                'name' => 'Graduado',
+                'type' => $catalogue['participant']['type'],
+                'description' => 'Cuando un participante de un curso es graduado de alguna carrera'
+            ],
+            [
+                'code' => $catalogue['participant']['internal'],
+                'name' => 'Interno',
+                'type' => $catalogue['participant']['type'],
+                'description' => 'Cuando un participante de un curso es propio de la institución'
+            ],
+            [
+                'code' => $catalogue['participant']['external'],
+                'name' => 'Externo',
+                'type' => $catalogue['participant']['type'],
+                'description' => 'Cuando un participante de un curso es externo a la institución'
             ]
         )->create();
     }
     public function createParticipants()
     {
+        Participant::factory(100)->create();
     }
 }
