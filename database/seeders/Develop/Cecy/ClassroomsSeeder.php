@@ -24,7 +24,7 @@ class ClassroomsSeeder extends Seeder
     public function createTypeClassrooms()
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
-        Catalogue::factory(3)->sequence(
+        Catalogue::factory()->sequence(
             [
                 'code' => $catalogues['catalogue']['classroom_type']['office'],
                 'name' => 'OFFICE',
