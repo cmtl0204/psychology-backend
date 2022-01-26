@@ -3,6 +3,7 @@
 namespace Database\Seeders\Cecy;
 
 use App\Models\Cecy\Catalogue;
+use App\Models\Cecy\Participant;
 use Illuminate\Database\Seeder;
 
 class ParticipantsSeeder extends Seeder
@@ -61,5 +62,6 @@ class ParticipantsSeeder extends Seeder
     }
     public function createParticipants()
     {
+        Participant::factory(100)->create();
     }
 }

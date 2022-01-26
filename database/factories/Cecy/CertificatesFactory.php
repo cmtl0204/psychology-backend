@@ -23,10 +23,10 @@ class CertificatesFactory extends Factory
         $generated = Catalogue::where('code', $catalogue['certified_state']['generated']);
         $in_process = Catalogue::where('code', $catalogue['certified_state']['in_process']);
         $signed = Catalogue::where('code', $catalogue['certified_state']['signed']);
-        
+
         return [
             'certificable_id' => $this->faker->randomElement($certificable),
-            'state_id' => $this->faker->randomElement([$with_code, $generated, $in_process,$signed]),
+            'state_id' => $this->faker->randomElement([$with_code, $generated, $in_process, $signed]),
             'code' => $this->faker->regexify('[A-Z]{5}[0-4]{1}'),
             'issued_at' => $this->faker->date(),
 
