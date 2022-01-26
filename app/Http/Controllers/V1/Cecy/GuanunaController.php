@@ -38,8 +38,6 @@ class GuanunaController extends Controller
      */
 
     //--Coordinador de carrera
-<<<<<<< HEAD
-
  //obtener informacion de los cursos planificacion al coordinadoor de carrera
     public function getPlanificationByCareer(GetCoursesByCoordinatorRequest  $request)
     {
@@ -50,53 +48,6 @@ class GuanunaController extends Controller
             ->course()
             ->instructor()
             ->paginate($request->input('per_page'));
-=======
-//buscar peridos lectivos y carrera
-    public function getCoursesByPeriod(Planification $courses)
-    {
-        return (new SchoolPeriodsCollection($courses))
-            ->additional([
-                'msg' => [
-                    'summary' => '',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-
-//mostrar  carreras
-    public function getCarrers()
-    {
-        $careers = Career::get();
-        return (new CareerCollection($careers))
-            ->additional([
-                'msg' => [
-                    'summary' => '',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-
-//mostrar informacion de la planificacion al coordinadoor de carrera
-    public function getPlanificationByCoordinator(getPlanificationByCoordinatorRequest $request)
-    {
-        $sorts = explode(',', $request->sort);
-
-        $catalogues = Planification::customOrderBy($sorts)
-            ->type($request->input('code'))
-            ->paginate();
-
-        return (new PlanificationCollection($catalogues))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
->>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
 
         return (new PlanificationCollection($Planifications))
             ->additional([
@@ -109,11 +60,7 @@ class GuanunaController extends Controller
     }
    
 // asignar responsable
-<<<<<<< HEAD
     public function storePlanificationByCourse(StorePlanificationByCourseRequest $request)
-=======
-    public function storePlanificationByCourse(StorePlanificationRequest $request)
->>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
     {
         $planifications = new Planification();
         $planifications->course()->associate(Course::find($request->input('name')));
@@ -123,10 +70,6 @@ class GuanunaController extends Controller
         $planifications->ended_at = $request->input('fin de la planificación');
         $planifications->started_at = $request->input('inicio de la planificación');
         $planifications->state_id = $request->input('Estado de la planificacion');
-<<<<<<< HEAD
-=======
-        $planifications->obervations = $request->input('Observacion de la planificacion no aprobada');
->>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
         $planifications->save();
 
         return (new PlanificationResource($planifications))
@@ -140,7 +83,6 @@ class GuanunaController extends Controller
     }
 
 //crear curso no existente
-<<<<<<< HEAD
     public function storePlanificationCourseNew(StorePlanificationByCourseRequest $request)
     {
         $courses = new Course();
@@ -164,15 +106,6 @@ class GuanunaController extends Controller
 
 //consultar de la planificacion
     public function getPlanification(IndexPlanificationRequest $planifications)
-=======
-    public function storePlanificationCourseNew()
-    {
-
-    }
-
-//consultar de la planificacion
-    public function getPlanification(Planification $planifications)
->>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
     {
         return (new PlanificationCollection ($planifications))
             ->additional([
@@ -186,7 +119,6 @@ class GuanunaController extends Controller
 
 ///Responsable del CECY
 //mostrar informacion al responsable del cecy
-<<<<<<< HEAD
     public function getPlanificationByResponsibleCecy(GetPlanificationsByResponsibleCecyRequest $request)
     {
 
@@ -197,16 +129,6 @@ class GuanunaController extends Controller
                 ->Planifications()
                 ->Courses()
                 ->instructors()
-=======
-    public function getPlanificationByResponsibleCecy(getPlanificationByResponsibleCecyRequest $request)
-    {
-
-        {
-            $responsibleCecy = Authority::where('user_id', $request->user()->id)->get();
-
-            $Planifications = $responsibleCecy
-                ->Planifications()
->>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
                 ->paginate($request->input('per_page'));
 
             return (new PlanificationCollection($Planifications))
@@ -220,11 +142,7 @@ class GuanunaController extends Controller
         }
     }
 
-<<<<<<< HEAD
 //actualizar informacion de la planificacion
-=======
-//editar informacion de la planificacion
->>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
     public function updatePlanificationByCecy(UpdatePlanificationRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
@@ -258,11 +176,7 @@ class GuanunaController extends Controller
             ]);
     }
 
-<<<<<<< HEAD
 //actualizar informacion del detalle planificación
-=======
-//editar informacion del detalle planificación
->>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
     public function updatedetailPlanificationByCecy(UpdateDetailPlanificationRequest $request)
     {
         $classroom = Classroom::find($request->input('classroom.id'));
@@ -296,7 +210,6 @@ class GuanunaController extends Controller
             ]);
     }
 //recibir notificaciones
-<<<<<<< HEAD
     public function notification(NotificationRequest $notification)
     {
         
@@ -313,17 +226,3 @@ class GuanunaController extends Controller
         $user = Authority::where('user_id', $request->user()->id)->get();
     }
 }
-=======
-// public function getnotification()
-// {
-//     return (new NotificationCollection($notifications))
-//     ->additional([
-//         'msg' => [
-//             'summary' => '',
-//             'detail' => '',
-//             'code' => '200'
-//         ]
-//     ]);
-// }
-}
->>>>>>> 3919ade7ae88b428b0df86fc64c5048a204fa8ff
