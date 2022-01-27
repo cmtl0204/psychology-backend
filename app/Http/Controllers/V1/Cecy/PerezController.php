@@ -20,8 +20,8 @@ use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateDetail
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeleteDetailPlanificationByResponsibleCourseRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeleteDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetPlanificationsByCourseRequest;
-use App\Http\Resources\V1\Cecy\DetailPlanifications\ResponsibleCourseDetailPlanificationResource;
-use App\Http\Resources\V1\Cecy\DetailsPlanifications\ResponsibleCourseDetailPlanificationCollection;
+use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
+use App\Http\Resources\V1\Cecy\DetailsPlanifications\DetailPlanificationCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationByCourseCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
 
@@ -68,7 +68,7 @@ class PerezController extends Controller
             ->detailPlanifications()
             ->paginate($request->input('per_page'));
 
-        return (new ResponsibleCourseDetailPlanificationCollection($detailPlanifications))
+        return (new DetailPlanificationCollection($detailPlanifications))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -94,7 +94,7 @@ class PerezController extends Controller
             ->detailPlanifications()
             ->paginate($request->input('per_page'));
 
-        return (new ResponsibleCourseDetailPlanificationCollection($detailPlanifications))
+        return (new DetailPlanificationCollection($detailPlanifications))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -161,7 +161,7 @@ class PerezController extends Controller
 
         $detailPlanification->save();
 
-        return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
+        return (new DetailPlanificationResource($detailPlanification))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Creado',
@@ -176,7 +176,7 @@ class PerezController extends Controller
      */
     public function showDetailPlanification(ShowDetailPlanificationRequest $request, DetailPlanification $detailPlanification)
     {
-        return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
+        return (new DetailPlanificationResource($detailPlanification))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -226,7 +226,7 @@ class PerezController extends Controller
 
         $detailPlanification->save();
 
-        return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
+        return (new DetailPlanificationResource($detailPlanification))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro Creado',
@@ -262,7 +262,7 @@ class PerezController extends Controller
     {
         $detailPlanification->delete();
 
-        return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
+        return (new DetailPlanificationResource($detailPlanification))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro eliminado',
