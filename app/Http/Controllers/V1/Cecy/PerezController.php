@@ -19,6 +19,7 @@ use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowDetailPl
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeleteDetailPlanificationByResponsibleCourseRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeleteDetailPlanificationRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DestroysDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetPlanificationsByCourseRequest;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\DetailPlanificationCollection;
@@ -229,7 +230,7 @@ class PerezController extends Controller
         return (new DetailPlanificationResource($detailPlanification))
             ->additional([
                 'msg' => [
-                    'summary' => 'Registro Creado',
+                    'summary' => 'Registro actualizado',
                     'detail' => '',
                     'code' => '200'
                 ]
@@ -248,7 +249,7 @@ class PerezController extends Controller
         return (new PlanificationResource($planification))
             ->additional([
                 'msg' => [
-                    'summary' => 'Registro Creado',
+                    'summary' => 'Registro actualizado',
                     'detail' => '',
                     'code' => '200'
                 ]
@@ -266,6 +267,25 @@ class PerezController extends Controller
             ->additional([
                 'msg' => [
                     'summary' => 'Registro eliminado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ])
+            ->response()->setStatusCode(200);
+    }
+
+    /**
+     * Delete a detail planification record
+     */
+    public function destroysDetailPlanifications(DestroysDetailPlanificationRequest $request)
+    {
+        $detailPlanifications = DetailPlanification::whereIn('id', $request->input('ids'))->get();
+        DetailPlanification::destroy($request->input('ids'));
+
+        return (new DetailPlanificationCollection($detailPlanifications))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Registros eliminados',
                     'detail' => '',
                     'code' => '200'
                 ]
