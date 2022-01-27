@@ -24,6 +24,7 @@ use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\DetailPlanificationCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationByCourseCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
+use App\Models\Core\State;
 
 class PerezController extends Controller
 {
@@ -126,8 +127,7 @@ class PerezController extends Controller
         }
 
         //validar que la planification ha culminado
-        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
-        if ($planification->state()->code === $catalogue['detail_planification_state']['culminated']) {
+        if ($planification->state()->code === State::CULMINATED) {
             return response()->json([
                 'msg' => [
                     'summary' => 'La planificación ha culminado.',
@@ -137,7 +137,7 @@ class PerezController extends Controller
             ], 400);
         }
         
-        $state = Catalogue::where('code', $catalogue['detail_planification_state']['to_be_approved'])->get();
+        $state = Catalogue::where('code', State::TO_BE_APPROVED)->get();
         $classroom = Classroom::find($request->input('classroom.id'));
         $days = Catalogue::find($request->input('day.id'));
         $workday = Catalogue::find($request->input('workday.id'));
