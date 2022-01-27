@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Core;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Core\Users\CatalogueUserRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\V1\Core\Files\DestroysFileRequest;
@@ -207,6 +208,27 @@ class UserController extends Controller
                 ]
             ])
             ->response()->setStatusCode(201);
+    }
+
+    public function catalogue(CatalogueUserRequest $request)
+    {
+        $sorts = explode(',', $request->input('sort'));
+        $users = User::customOrderBy($sorts)
+            ->email($request->input('search'))
+            ->lastname($request->input('search'))
+            ->name($request->input('search'))
+            ->username($request->input('search'))
+            ->paginate($request->input('per_page'));
+
+        return (new UserResource($users))
+            ->additional([
+                'msg' => [
+                    'summary' => 'usuarios traidos de ignug',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ])
+            ->response()->setStatusCode(200);
     }
 
     // Images

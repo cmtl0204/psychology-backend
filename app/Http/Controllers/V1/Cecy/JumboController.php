@@ -3,50 +3,30 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Cecy\Attendance\GetUsersIgnugRequest;
+use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
 use Illuminate\Http\Request;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Instructor;
 use App\Models\Cecy\Course;
-use App\Http\Resources\V1\Cecy\Instructors\InstructorCollection;
 use App\Http\Resources\V1\Cecy\Instructors\InstructorResource;
-use App\Http\Resources\V1\Core\Users\UserResource;
-use App\Http\Resources\V1\Cecy\Courses\CourseResource;
 use App\Http\Requests\V1\Cecy\Instructor\DestroysInstructorRequest;
 use App\Http\Requests\V1\Cecy\Instructors\StoreProfileCourseRequest;
 use App\Http\Resources\V1\Cecy\ProfileInstructorCourses\ProfileInstructorCourseResource;
-use App\Models\Authentication\User;
 use App\Models\Cecy\ProfileInstructorCourse;
 
 class JumboController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:store')->only(['store']);
-        $this->middleware('permission:update')->only(['update']);
-        $this->middleware('permission:delete')->only(['destroy', 'destroys']);
-    }
-
-   //visualizar los usuarios de ignug
-    public function getUsersIgnug(GetUsersIgnugRequest $request)
-    {
-        $users = User::whereIn('type_id', $request->input('ignug'))->get();
-        return (new UserResource($users))
-        ->additional([
-            'msg' => [
-                'summary' => 'usuarios traidos de ignug',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ]);
+//        $this->middleware('permission:store')->only(['store']);
+//        $this->middleware('permission:update')->only(['update']);
+//        $this->middleware('permission:delete')->only(['destroy', 'destroys']);
     }
 
 
-    public function updateInstructors(Request $request,Instructor $instructor )
+    public function updateTypeInstructors(Request $request,Instructor $instructor )
     {
-        $instructor->instructor()->associate(User::find($request->input('user.id')));
-        $instructor->state_id()->associate(Catalogue::find($request->input('state_id')));
-        $instructor->type_id()->associate(Catalogue::find($request->input('type_id')));
+        $instructor->type()->associate(Catalogue::find($request->input('type.id')));
         $instructor->save();
 
         return (new InstructorResource($instructor))
@@ -59,8 +39,8 @@ class JumboController extends Controller
         ]);
     }
 
-    // para eliminar un instructor 
-    public function destroysInstructors(DestroysInstructorRequest $request)
+    // para eliminar un instructor
+    public function destroyInstructors(DestroysInstructorRequest $request)
     {
        $instructor = Instructor::whereIn('id', $request->input('ids'))->get();
         Instructor::destroy($request->input('ids'));
@@ -76,9 +56,11 @@ class JumboController extends Controller
     }
 
     //visualizar todos los cursos
-    public function getCourses(Course $course)
+    public function getCourses()
     {
-        return (new CourseResource($course))
+        $courses = Course::get();
+
+        return (new CourseCollection($courses))
         ->additional([
             'msg' => [
                 'summary' => 'Me trae los cursos',
@@ -93,12 +75,12 @@ class JumboController extends Controller
     {
         $profile = new ProfileInstructorCourse();
 
-        $profile->course_id()
-            ->associate(Course::find($request->input('course_id')));
+        $profile->course()
+            ->associate(Course::find($request->input('course.id')));
 
         $profile->required_knowledge = $request->input('required_knowledge');
 
-        $profile->required_experience = $request->input('required_experience');
+        $profile->required_experience = $request->input('required_experiences');
 
         $profile->required_skills = $request->input('required_skills');
 

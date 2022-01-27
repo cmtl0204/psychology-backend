@@ -113,7 +113,7 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function frecuency()
+    public function frequency()
     {
         return $this->belongsTo(Catalogue::class);
     }

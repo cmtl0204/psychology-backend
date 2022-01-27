@@ -3,29 +3,29 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Cecy\Catalogue;
-use App\Http\Resources\V1\Cecy\Detailregistrations\DetailregistrationResource;
-use App\Http\Resources\V1\Cecy\Detailregistrations\DetailregistrationCollection;
-use App\Models\Cecy\DetailRegistration;
 use App\Http\Requests\V1\Cecy\Certificates\ShowParticipantsRequest;
+use App\Http\Requests\V1\Core\Files\UploadFileRequest;
+use App\Http\Resources\V1\Cecy\Certificates\CertificateResource;
+use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
 use App\Models\Cecy\Course;
+use App\Models\Core\File;
 
 class QuemagController extends Controller
 {
-    // public function __construct()
-    // {
+     public function __construct()
+    {
     //     $this->middleware('permission:view-Planifications')->only(['view']);
     //     $this->middleware('permission:store-Planifications')->only(['store']);
     //     $this->middleware('permission:store-detailPlanifications')->only(['store']);
     //     $this->middleware('permission:update-detailPlanifications')->only(['update']);
 
-    // }
+    }
 
     public function showParticipants(ShowParticipantsRequest $request)
     {
 
-        //trae participantes matriculados
+    //trae participantes matriculados
     $responsibleCourse = course::where('course_id', $request->course()->id)->get();
 
     $detailPlanifications = $responsibleCourse
@@ -48,73 +48,62 @@ class QuemagController extends Controller
         ]);
     }
 
-    //trae todos los cursos
 
-    public function getCourses(Course $course,Request $request)
+    //Trae todos los cursos
+    
+    public function getCourses()
     {
+    $courses = Course::get();
 
-    $course = course::where('course_id', $request->course()->id)->get();
-
-    $detailPlanifications = $course
-        ->detailPlanifications()
-        ->planifications()
-        ->course()
-        ->paginate($request->input('per_page'));
-
-        return (new CourseResource($course))
-        ->additional([
-            'msg' => [
-                'summary' => 'Me trae los cursos',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ]);
+    return (new CourseCollection($courses))
+    ->additional([
+        'msg' => [
+            'summary' => 'Me trae los cursos',
+            'detail' => '',
+            'code' => '200'
+        ]
+    ]);
 
     }
-
-
-
-
-
 
 /*******************************************************************************************************************
         * FILES
 ******************************************************************************************************************/
 
-     //descargar matriz A7
+     //Descargar matriz 
      public function downloadFile(Catalogue $catalogue, File $file)
      {
          return $catalogue->downloadFile($file);
      }
 
-    //descarga de plantilla
+    //Descarga de plantilla
     public function downloadFileTemplate(Catalogue $catalogue, File $file)
        {
            return $catalogue->downloadFileTemplate($file);
        }
 
-     //subir certificado Firmado
+     //Subir certificado Firmado
 
      public function uploadFileCertificateFirm(UploadFileRequest $request, Catalogue $catalogue)
     {
         return $catalogue->uploadFileCertificateFirm($request);
     }
 
-    //carga de codigos certificado excel
+    //Carga de codigos certificado excel
 
     public function uploadFileCertificate(UploadFileRequest $request, Catalogue $catalogue)
     {
         return $catalogue->uploadFileCertificate($request);
     }
 
-    //descarga de certificados generados
+    //Descarga de certificados generados
 
     public function downloadFileCertificates(Catalogue $catalogue, File $file)
        {
            return $catalogue->downloadFileCertificates($file);
        }
 
-     //previsualizar la platilla
+     //Previsualizar la platilla
      public function showFile(Catalogue $catalogue, File $file)
      {
          return $catalogue->showFile($file);
