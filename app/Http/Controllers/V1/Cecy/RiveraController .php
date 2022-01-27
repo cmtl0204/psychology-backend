@@ -24,6 +24,7 @@ use App\Http\Resources\V1\Cecy\Registrations\RegistrationRecordCompetitorResourc
 
 use App\Http\Resources\V1\Cecy\PhotographicRecords\PhotographicRecordResource;
 use App\Models\Cecy\DetailPlanification;
+use App\Models\Cecy\PhotograficRecord;
 use App\Models\Cecy\Planification;
 
 class RiveraController extends Controller
@@ -45,6 +46,11 @@ class RiveraController extends Controller
             ->classrooms()
             /*         ->planifications() */
             ->course();
+
+
+/*             $planification = $course->planifications()->instructors()->users()->get()
+            ->detailPlanifications()
+            ->classrooms(); */
 
         return (new InformCourseNeedsResource($planification))
             ->additional([
@@ -118,6 +124,12 @@ class RiveraController extends Controller
         $detailPlanification = $planification->detailPlanifications()->get();
         $detailPlanificationInstructor = $detailPlanification->instructors()->get();
         $instructor = $detailPlanificationInstructor->users()->get();
+
+/*         $planification = $course->planifications()->get();
+        $detailPlanification = $planification->detailPlanifications()->photograpicRecord()->get(); */
+       
+
+
         /* $detailPlanificationInstructor = $detailPlanification->certificateable()->get; */
 
   /*       $Planifications = $responsibleCourse
