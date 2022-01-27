@@ -24,8 +24,9 @@ class CreateCecyCertificatesTable extends Migration
             ->constrained('cecy.detail_planification_instructor');
 
             // El comentario o el campo no estan corectos -3
+
             $table->foreignId('state_id')
-                ->comment('Id del tema principal')
+                ->comment('Estado del certificado [Firmado,Con codigo,Generado,En Proceso, Firmado]')
                 ->constrained('cecy.catalogues');
 
             $table->string('code')
@@ -33,6 +34,7 @@ class CreateCecyCertificatesTable extends Migration
 
             $table->text('issued_at')
                 ->comment('Fecha de emisión del certificado');
+                
         });
     }
 
