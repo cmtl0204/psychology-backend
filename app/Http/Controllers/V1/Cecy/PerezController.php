@@ -14,10 +14,11 @@ use App\Models\Cecy\Instructor;
 use App\Models\Core\Catalogue;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetDetailPlanificationsByPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetDetailPlanificationsByResponsibleCourseRequest;
-use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\RegisterDetailPlanificationByResponsibleCourseRequest;
-use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowDetailPlanificationByResponsibleCourseRequest;
-use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateDetailPlanificationByResponsibleCourseRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\RegisterDetailPlanificationRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\ShowDetailPlanificationRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeleteDetailPlanificationByResponsibleCourseRequest;
+use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeleteDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetPlanificationsByCourseRequest;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\ResponsibleCourseDetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\ResponsibleCourseDetailPlanificationCollection;
@@ -78,11 +79,11 @@ class PerezController extends Controller
             ->response()->setStatusCode(200);
     }
     /**
-     * Get all detail planifications filtered by planification and course
+     * Get all detail planifications filtered by planification
      */
     public function getDetailPlanificationsByPlanification(GetDetailPlanificationsByPlanificationRequest $request)
     {
-        $sorts = explode(',', $request->sort);
+        // $sorts = explode(',', $request->sort);
 
         // $detailPlanifications = DetailPlanification::customOrderBy($sorts)
         // ->planification($request->input('planification.id'))
@@ -106,7 +107,7 @@ class PerezController extends Controller
     /**
      * Store a detail planification record  
      */
-    public function registerDetailPlanification(RegisterDetailPlanificationByResponsibleCourseRequest $request)
+    public function registerDetailPlanification(RegisterDetailPlanificationRequest $request)
     {
         $loggedInstructor = Instructor::where('user_id', $request->user()->id)->get();
 
@@ -173,7 +174,7 @@ class PerezController extends Controller
     /**
      * Return a detailPlanification record
      */
-    public function showDetailPlanification(ShowDetailPlanificationByResponsibleCourseRequest $request, DetailPlanification $detailPlanification)
+    public function showDetailPlanification(ShowDetailPlanificationRequest $request, DetailPlanification $detailPlanification)
     {
         return (new ResponsibleCourseDetailPlanificationResource($detailPlanification))
             ->additional([
@@ -188,7 +189,7 @@ class PerezController extends Controller
     /**
      * Update a detail planification record
      */
-    public function updateDetailPlanification(UpdateDetailPlanificationByResponsibleCourseRequest $request, DetailPlanification $detailPlanification)
+    public function updateDetailPlanification(UpdateDetailPlanificationRequest $request, DetailPlanification $detailPlanification)
     {
         $loggedInstructor = Instructor::where('user_id', $request->user()->id)->get();
         $planification = Planification::find($request->input('planification.id'));
@@ -257,7 +258,7 @@ class PerezController extends Controller
     /**
      * Delete a detail planification record
      */
-    public function deleteDetailPlanification(DeleteDetailPlanificationByResponsibleCourseRequest $request, DetailPlanification $detailPlanification)
+    public function deleteDetailPlanification(DeleteDetailPlanificationRequest $request, DetailPlanification $detailPlanification)
     {
         $detailPlanification->delete();
 
