@@ -30,7 +30,7 @@ class ParticipantsFactory extends Factory
 
         return [
             'type_id' => $this->faker->randomElement([$egresade, $graduate, $external, $internal]),
-            'user_id' => $this->faker->randomElement($users),
+            'user_id' => $this->faker->randomElement(2, 51),
             'state_id' => $this->faker->randomElement([$approved, $not_approved, $to_be_approved]),
         ];
     }
