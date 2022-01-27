@@ -24,6 +24,7 @@ use App\Http\Resources\V1\Cecy\Registrations\RegistrationRecordCompetitorResourc
 
 use App\Http\Resources\V1\Cecy\PhotographicRecords\PhotographicRecordResource;
 use App\Models\Cecy\DetailPlanification;
+use App\Models\Cecy\PhotograficRecord;
 use App\Models\Cecy\Planification;
 
 class RiveraController extends Controller
@@ -45,6 +46,11 @@ class RiveraController extends Controller
             ->classrooms()
             /*         ->planifications() */
             ->course();
+
+
+/*             $planification = $course->planifications()->instructors()->users()->get()
+            ->detailPlanifications()
+            ->classrooms(); */
 
         return (new InformCourseNeedsResource($planification))
             ->additional([
@@ -114,10 +120,18 @@ class RiveraController extends Controller
     public function showPhotographicRecord(GetDetailPlanificationsByResponsibleCourseRequest $request, Course $course)
     {
         //trae el registro fotografico de un curso en especifico por el docente que se loguea
-        $planification = $course->planifications()->get();
+        
+/*         $planification = $course->planifications()->get();
         $detailPlanification = $planification->detailPlanifications()->get();
         $detailPlanificationInstructor = $detailPlanification->instructors()->get();
-        $instructor = $detailPlanificationInstructor->users()->get();
+        $instructor = $detailPlanificationInstructor->users()->get(); */
+
+        $planification = $course->planifications()->get();
+        $detailPlanification = $planification->detailPlanifications()->get();
+        $photograpicRecord = $detailPlanification->photograpicRecord()->get();
+       
+
+
         /* $detailPlanificationInstructor = $detailPlanification->certificateable()->get; */
 
   /*       $Planifications = $responsibleCourse
@@ -131,7 +145,7 @@ class RiveraController extends Controller
             ->photographicRecords()
             ->paginate($request->input('per_page')); */
 
-        return (new PhotographicRecordResource($instructor))
+        return (new PhotographicRecordResource($photograpicRecord))
             ->additional([
                 'msg' => [
                     'summary' => 'success',

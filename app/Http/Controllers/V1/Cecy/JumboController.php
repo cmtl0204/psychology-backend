@@ -36,7 +36,9 @@ class JumboController extends Controller
                 'detail' => '',
                 'code' => '200'
             ]
-        ]);
+        ])
+        ->response()->setStatusCode(200);
+        
     }
 
     // para eliminar un instructor
@@ -51,7 +53,8 @@ class JumboController extends Controller
                 'detail' => '',
                 'code' => '200'
             ]
-        ]);
+        ])
+        ->response()->setStatusCode(200);
 
     }
 
@@ -67,7 +70,8 @@ class JumboController extends Controller
                 'detail' => '',
                 'code' => '200'
             ]
-        ]);
+        ])
+        ->response()->setStatusCode(200);
 
     }
     //Agregar perfil a un curso
@@ -93,7 +97,8 @@ class JumboController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
 
     }
 

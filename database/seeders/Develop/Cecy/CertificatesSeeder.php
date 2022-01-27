@@ -20,15 +20,17 @@ class CertificatesSeeder extends Seeder
 
     public function createCertificatesCatalogue()
     {
+        //Campos que son de catalogo
+        //state_id
+    }
+
+    public function createCertificates()
+    {
         $instructors = Instructor::get();
         foreach ($instructors as $instructor) {
             foreach ($instructor->detailPlanifications as $detailPlanification) {
                 echo $detailPlanification->pivot->id;
             }
         }
-    }
-
-    public function createCertificates()
-    {
     }
 }

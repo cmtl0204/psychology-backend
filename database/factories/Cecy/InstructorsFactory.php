@@ -26,7 +26,7 @@ class InstructorsFactory extends Factory
         $external = Catalogue::where('code', $catalogue['instructor_type']['external']);
 
         return [
-            'user_id' => $this->faker->randomElement($users),
+            'user_id' => $this->faker->randomElement(52, 81),
             'state_id' => $this->faker->randomElement([$active, $inactive]),
             'type_id' => $this->faker->randomElement([$senescyt, $setec, $external])
         ];

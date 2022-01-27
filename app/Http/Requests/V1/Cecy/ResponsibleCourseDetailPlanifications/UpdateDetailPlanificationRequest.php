@@ -4,12 +4,13 @@ namespace App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterDetailPlanificationByResponsibleCourseRequest extends FormRequest
+class UpdateDetailPlanificationRequest extends FormRequest
 {
     public function authorize()
     {
         return true;
     }
+
     public function rules()
     {
         return [
@@ -23,7 +24,7 @@ class RegisterDetailPlanificationByResponsibleCourseRequest extends FormRequest
             'observations' => ['required'],
         ];
     }
-
+    
     public function attributes()
     {
         return [
@@ -33,6 +34,7 @@ class RegisterDetailPlanificationByResponsibleCourseRequest extends FormRequest
             'workday.id' => 'Jornada',
             'paralel.id' => 'Paralelo del aula o clase',
             'endedTime' => ['required', 'time'],
+            // 'planEndedAt' => 'Fecha real de finalización de clases',
             'startedTime' => ['required', 'time'],
         ];
     }
