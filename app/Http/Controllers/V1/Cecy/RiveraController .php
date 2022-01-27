@@ -120,13 +120,15 @@ class RiveraController extends Controller
     public function showPhotographicRecord(GetDetailPlanificationsByResponsibleCourseRequest $request, Course $course)
     {
         //trae el registro fotografico de un curso en especifico por el docente que se loguea
-        $planification = $course->planifications()->get();
+        
+/*         $planification = $course->planifications()->get();
         $detailPlanification = $planification->detailPlanifications()->get();
         $detailPlanificationInstructor = $detailPlanification->instructors()->get();
-        $instructor = $detailPlanificationInstructor->users()->get();
+        $instructor = $detailPlanificationInstructor->users()->get(); */
 
-/*         $planification = $course->planifications()->get();
-        $detailPlanification = $planification->detailPlanifications()->photograpicRecord()->get(); */
+        $planification = $course->planifications()->get();
+        $detailPlanification = $planification->detailPlanifications()->get();
+        $photograpicRecord = $detailPlanification->photograpicRecord()->get();
        
 
 
@@ -143,7 +145,7 @@ class RiveraController extends Controller
             ->photographicRecords()
             ->paginate($request->input('per_page')); */
 
-        return (new PhotographicRecordResource($instructor))
+        return (new PhotographicRecordResource($photograpicRecord))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
