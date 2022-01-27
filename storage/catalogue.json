@@ -185,5 +185,20 @@
         "graduate": "GRADUATE",
         "external": "EXTERNAL",
         "internal": "INTERNAL"
+    },
+    "position": {
+        "type": "participant",
+        "rector": "RECTOR",
+        "vicerector": "VICERECTOR",
+        "representative_ocs": "REPRESENTATIVE_OCS",
+        "logistics": "LOGISTICS",
+        "cecy": "CECY"
+    },
+    "authority_state": {
+        "type": "participant",
+        "on_vocation": "ON_VOCATION",
+        "medical_consent": "MEDICAL_CONSENT",
+        "active": "ACTIVE",
+        "inactive": "INACTIVE"
     }
 }
