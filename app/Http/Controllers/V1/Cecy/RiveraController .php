@@ -94,6 +94,11 @@ class RiveraController extends Controller
         $planification = $course->planifications()->get();
         $detailPlanification = $planification->detailPlanifications()->get();
         $registrations = $detailPlanification->registrations()->get();
+ /*        $aditionalInformation= $registrations->aditionalInformations()->get();
+        $participant = $aditionalInformation->registrations()->get()
+        ->participants()
+        ->users();
+ */
        /*  $Course = Planification::where('course_id', $request->course()->id)->get(); */
 
 /*         $registration = $registrations
@@ -120,7 +125,7 @@ class RiveraController extends Controller
     public function showPhotographicRecord(GetDetailPlanificationsByResponsibleCourseRequest $request, Course $course)
     {
         //trae el registro fotografico de un curso en especifico por el docente que se loguea
-        
+
 /*         $planification = $course->planifications()->get();
         $detailPlanification = $planification->detailPlanifications()->get();
         $detailPlanificationInstructor = $detailPlanification->instructors()->get();
