@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Cecy\Certificates\ShowParticipantsRequest;
-use App\Http\Requests\V1\Cecy\Participants\IndexParticipantRequest;
-use App\Http\Requests\V1\Cecy\Participants\UpdateParticipantRequest;
+use App\Http\Requests\V1\Cecy\Courses\getCoursesByResponsibleRequest;
+use App\Http\Requests\V1\Cecy\DetailPlanifications\DetailPlanificationRequest;
+use App\Http\Requests\V1\Cecy\Instructors\InstructorRequest;
 use App\Http\Requests\V1\Cecy\Registrations\IndexRegistrationRequest;
-use App\Http\Requests\V1\Core\Users\IndexUserRequest;
-use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
+use App\Http\Requests\V1\Cecy\Registrations\UpdateRegistrationRequest;
+use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
 use App\Http\Resources\V1\Cecy\Participants\ParticipantCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationCollection;
 use App\Http\Resources\V1\Cecy\Registrations\RegistrationCollection;
 use App\Http\Resources\V1\Cecy\Registrations\RegistrationResource;
 use App\Http\Resources\V1\Cecy\SchoolPeriods\SchoolPeriodsCollection;
 use App\Http\Resources\V1\Core\Users\UserResource;
-use App\Models\Authentication\User;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Instructor;
-use App\Models\Cecy\Notification;
 use App\Models\Cecy\Participant;
 use App\Models\Cecy\Planification;
 use App\Models\Cecy\Registration;
@@ -96,7 +94,7 @@ class RivasController extends Controller
     }
 
     /*DDRC-C: actualiza una inscripcion, cambiando la observacion,y estado de una inscripción de un participante en un curso especifico  */
-    public function updateParticipantRegistration(updateRegistrationRequest $request, Registration $registration)
+    public function updateParticipantRegistration(UpdateRegistrationRequest $request, Registration $registration)
     {
         $registration->observation = $request->input('observation');
         $registration->state()->associate(Catalogue::find($request->input('state.id')));
@@ -129,7 +127,7 @@ class RivasController extends Controller
             ])
             ->response()->setStatusCode(201);
     }
-    /*DDRC-C: Anulas varias Matriculas */
+    /*DDRC-C: Anular varias Matriculas */
     public function nullifyRegistrations(Request $request)
     {
 
@@ -139,7 +137,7 @@ class RivasController extends Controller
         return (new RegistrationCollection($registration))
             ->additional([
                 'msg' => [
-                    'summary' => 'Usuarios Eliminados',
+                    'summary' => 'Matriculas Anuladas',
                     'detail' => '',
                     'code' => '201'
                 ]
@@ -166,15 +164,15 @@ class RivasController extends Controller
     }
 
     /*DDRC-C: Trae una lista de nombres de cursos, paralelos y jornadas*/
-    public function getCoursesParallelsWorkdays(CourseInfoRequest $request)
+    public function getCoursesParallelsWorkdays(getCoursesByResponsibleRequest $request)
     {
         $sorts = explode(',', $request->sort);
-        $cpw = Planification::customOrderBy($sorts)
+        $courseParallelWorkday = Planification::customOrderBy($sorts)
             ->detailplanifications()
             ->course()
             ->get();
 
-        return (new CourseParallelWorkdayCollection($cpw))
+        return (new CourseCollection($courseParallelWorkday))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -198,7 +196,7 @@ class RivasController extends Controller
         return (new UserResource($registration))
             ->additional([
                 'msg' => [
-                    'summary' => 'Matrícula Eliminada',
+                    'summary' => 'Matrícula Anulada',
                     'detail' => '',
                     'code' => '201'
                 ]
