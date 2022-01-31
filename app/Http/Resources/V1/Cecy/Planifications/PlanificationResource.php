@@ -17,9 +17,9 @@ class PlanificationResource extends JsonResource
         return [
             'id' => $this->id,
             // 'area' => CatalogueResource::make($this->area),
-            'course' => CourseResource::collection($this->course_id),
-            'responsibleCourse' => InstructorResource::collection($this->responsible_course_id),
-            'responsibleCecy' => AuthorityResource::make($this->responsible_cecy_id),
+            'course' => CourseResource::make($this->course),
+            'responsibleCourse' => InstructorResource::make($this->responsibleCourse),
+            'responsibleCecy' => AuthorityResource::make($this->responsibleCecy),
             'detailSchoolPeriods' => DetailSchoolPeriodResource::make($this->detail_school_period_id),
             // 'sector' => CatalogueResource::make($this->sector_id),
             'state' => CatalogueResource::make($this->state_id),
