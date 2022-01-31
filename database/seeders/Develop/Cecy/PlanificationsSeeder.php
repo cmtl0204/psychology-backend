@@ -26,8 +26,36 @@ class PlanificationsSeeder extends Seeder
 
     public function createPlanificationsCatalogue()
     {
+        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         //Campos que son de catalogo
         //state_id
+        Catalogue::create(
+            [
+                'code' => $catalogue['planification_state']['to_be_approved'],
+                'name' => 'POR APROBADO',
+                'type' => $catalogue['planification_state']['type'],
+            ],
+            [
+                'code' => $catalogue['planification_state']['completed'],
+                'name' => 'COMPLETADO',
+                'type' => $catalogue['planification_state']['type'],
+            ],
+            [
+                'code' => $catalogue['planification_state']['in_process'],
+                'name' => 'EN PROCESO',
+                'type' => $catalogue['planification_state']['type'],
+            ],
+            [
+                'code' => $catalogue['planification_state']['not_approved'],
+                'name' => 'NO APROBADO',
+                'type' => $catalogue['planification_state']['type'],
+            ],
+            [
+                'code' => $catalogue['planification_state']['approved'],
+                'name' => 'APROBADO',
+                'type' => $catalogue['planification_state']['type'],
+            ]
+        );
     }
     public function createPlanifications()
     {
@@ -44,7 +72,7 @@ class PlanificationsSeeder extends Seeder
         $detailSchoolPeriods = DetailSchoolPeriod::all();
 
         foreach ($courses as $course) {
-            Planification::factory()->create(
+            Planification::create(
                 [
                     'course_id' => $course,
                     'detail_school_period_id' => $detailSchoolPeriods[rand(0, sizeof($detailSchoolPeriods) - 1)],

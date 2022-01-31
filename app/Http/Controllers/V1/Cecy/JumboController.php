@@ -3,20 +3,15 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Cecy\Attendance\GetUsersIgnugRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
 use Illuminate\Http\Request;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Instructor;
 use App\Models\Cecy\Course;
-use App\Http\Resources\V1\Cecy\Instructors\InstructorCollection;
 use App\Http\Resources\V1\Cecy\Instructors\InstructorResource;
-use App\Http\Resources\V1\Core\Users\UserResource;
-use App\Http\Resources\V1\Cecy\Courses\CourseResource;
 use App\Http\Requests\V1\Cecy\Instructor\DestroysInstructorRequest;
 use App\Http\Requests\V1\Cecy\Instructors\StoreProfileCourseRequest;
 use App\Http\Resources\V1\Cecy\ProfileInstructorCourses\ProfileInstructorCourseResource;
-use App\Models\Authentication\User;
 use App\Models\Cecy\ProfileInstructorCourse;
 
 class JumboController extends Controller
@@ -41,7 +36,9 @@ class JumboController extends Controller
                 'detail' => '',
                 'code' => '200'
             ]
-        ]);
+        ])
+        ->response()->setStatusCode(200);
+        
     }
 
     // para eliminar un instructor
@@ -56,7 +53,8 @@ class JumboController extends Controller
                 'detail' => '',
                 'code' => '200'
             ]
-        ]);
+        ])
+        ->response()->setStatusCode(200);
 
     }
 
@@ -72,7 +70,8 @@ class JumboController extends Controller
                 'detail' => '',
                 'code' => '200'
             ]
-        ]);
+        ])
+        ->response()->setStatusCode(200);
 
     }
     //Agregar perfil a un curso
@@ -98,7 +97,8 @@ class JumboController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
 
     }
 

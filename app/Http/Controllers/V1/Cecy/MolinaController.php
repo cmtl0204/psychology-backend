@@ -20,7 +20,7 @@ use Illuminate\Http\Client\Request;
 
 class MolinaController extends Controller
 {
-   /*public function __construct()
+    /*public function __construct()
     {
         $this->middleware('permission:view-courses')->only(['view']);
         $this->middleware('permission:view-attendances')->only(['view']);
@@ -35,6 +35,7 @@ class MolinaController extends Controller
         $detailAttendances = $registrations->detailAttendances();
         $registrations = $detailAttendances->registrations();
         $attendances = $detailAttendances->attendance();
+            //->paginate($request->input('per_page'));
 
         return (new GetAttendanceByParticipantCollection($attendances))
             ->additional([
@@ -43,7 +44,8 @@ class MolinaController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
     //Ver todos los cursos del estudiante en el cual esta matriculado
     public function getCoursesByParticipant(GetCoursesByParticipantRequest $request)
@@ -53,6 +55,7 @@ class MolinaController extends Controller
         $detailPlanifications = $registrations->detailPlanification();
         $planifications = $detailPlanifications->planification();
         $courses = $planifications->course();
+            //->paginate($request->input('per_page'));
 
         return (new CoursesByParticipantCollection($courses))
             ->additional([
@@ -61,7 +64,8 @@ class MolinaController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
     //Ver las notas del estudiante en curso que se encuentra
     public function showGradesByParticipant(ShowGradesByParticipantRequest $request)
@@ -70,6 +74,7 @@ class MolinaController extends Controller
         $registrations = $participant->registrations();
         $registrations = $registrations->registrations();
         $grades = $registrations->grade();
+            //->paginate($request->input('per_page'));
 
         return (new ShowGradeByParticipantCollection($grades))
             ->additional([
@@ -78,25 +83,28 @@ class MolinaController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+
+            ->response()->setStatusCode(200);
     }
     //Descargar certificado del curso
     public function dowloadCertificateByParticipant(DowloadCertificateByParticipantRequest $request)
     {
         $participant = Participant::where('user_id', $request->user()->id)->get();
         $registrations = $participant->registrations();
-        $certificates=  $registrations->state();
+        $certificates =  $registrations->state();
         $certificates = $registrations->certificate();
 
 
-        return (new DetailAttendanceResource ($certificates))
-        ->additional([
-            'msg' => [
-                'sumary' => 'consulta exitosa',
-                'detail' => '',
-                'code' => '200'
-            ]
-        ]);
+        return (new DetailAttendanceResource($certificates))
+            ->additional([
+                'msg' => [
+                    'sumary' => 'consulta exitosa',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ])
+            ->response()->setStatusCode(200);
     }
     // Guardar asistencia
     public function saveDetailAttendances(SaveDetailAttendanceRequest $request)
@@ -112,6 +120,7 @@ class MolinaController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
 }

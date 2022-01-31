@@ -8,7 +8,7 @@ use App\Http\Resources\V1\Cecy\Classrooms\ClassroomResource;
 use App\Http\Resources\V1\Cecy\Instructors\InstructorResource;
 use App\Models\Cecy\Instructor;
 
-class ResponsibleCourseDetailPlanificationResource extends JsonResource
+class DetailPlanificationResource extends JsonResource
 {
     public function toArray($request)
     {

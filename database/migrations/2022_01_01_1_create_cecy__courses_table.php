@@ -22,7 +22,7 @@ class CreateCecyCoursesTable extends Migration
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('entity_certification_id')
-                ->comment('Institución que lo avala')
+                ->comment('Institución que lo avala, Senecyt, Setec, Setec')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('career_id')
@@ -30,7 +30,7 @@ class CreateCecyCoursesTable extends Migration
                 ->constrained('core.careers');
 
             $table->foreignId('category_id')
-                ->comment('Categoría a la cual pertenece el curso')
+                ->comment('Categoría a la cual pertenece el curso, ingles, pedagógico, programación ')
                 ->constrained('cecy.catalogues');
 
             $table->foreignId('capacitation_type')

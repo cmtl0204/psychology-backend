@@ -189,16 +189,34 @@
     },
     "day": {
         "type": "DAY",
-        "monday-friday": "MONDAY-FRIDAY",
-        "monday-sunday": "MONDAY-SUNDAY",
-        "sunday": "SUNDAY",
-        "saturday": "SATURDAY"
+        "monday_friday": "MONDAY-FRIDAY",
+        "monday_sunday": "MONDAY-SUNDAY",
+        "sundays": "SUNDAYS",
+        "saturdays": "SATURDAYS"
     },
     "participant": {
         "type": "participant",
-        "egresade": "EGRESADE",
-        "graduate": "GRADUATE",
+        "teacher": "TEACHER",
+        "public_company": "PUBLIC_COMPANY",
+        "private_company": "PRIVATE_COMPANY",
         "external": "EXTERNAL",
-        "internal": "INTERNAL"
+        "internal": "INTERNAL",
+        "senecyt": "SENESCYT",
+        "gad": "GAD"
+    },
+    "position": {
+        "type": "participant",
+        "rector": "RECTOR",
+        "vicerector": "VICERECTOR",
+        "representative_ocs": "REPRESENTATIVE_OCS",
+        "logistics": "LOGISTICS",
+        "cecy": "CECY"
+    },
+    "authority_state": {
+        "type": "participant",
+        "on_vocation": "ON_VOCATION",
+        "medical_consent": "MEDICAL_CONSENT",
+        "active": "ACTIVE",
+        "inactive": "INACTIVE"
     }
 }

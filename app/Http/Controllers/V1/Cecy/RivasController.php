@@ -3,23 +3,20 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Cecy\Courses\IndexCourseRequest;
-use App\Http\Requests\V1\Cecy\Participants\IndexParticipantRequest;
-use App\Http\Requests\V1\Cecy\Participants\StoreParticipantRequest;
-use App\Http\Requests\V1\Cecy\Participants\UpdateParticipantRequest;
-use App\Http\Requests\V1\Cecy\Planifications\IndexPlanificationRequest;
+use App\Http\Requests\V1\Cecy\Courses\getCoursesByResponsibleRequest;
+use App\Http\Requests\V1\Cecy\DetailPlanifications\DetailPlanificationRequest;
+use App\Http\Requests\V1\Cecy\Instructors\InstructorRequest;
 use App\Http\Requests\V1\Cecy\Registrations\IndexRegistrationRequest;
-use App\Http\Requests\V1\Core\Users\IndexUserRequest;
-use App\Http\Resources\V1\Cecy\Courses\CourseResource;
-use App\Http\Resources\V1\Cecy\Participants\ParticipantResource;
-use App\Http\Resources\V1\Cecy\Planifications\PlanificationByResponsibleCourseCollection;
-use App\Http\Resources\V1\Cecy\Planifications\PlanificationCollection as PlanificationsPlanificationCollection;
-use App\Http\Resources\V1\Cecy\Prerequisites\PlanificationCollection;
+use App\Http\Requests\V1\Cecy\Registrations\UpdateRegistrationRequest;
+use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
+use App\Http\Resources\V1\Cecy\Participants\ParticipantCollection;
+use App\Http\Resources\V1\Cecy\Planifications\PlanificationCollection;
 use App\Http\Resources\V1\Cecy\Registrations\RegistrationCollection;
 use App\Http\Resources\V1\Cecy\Registrations\RegistrationResource;
 use App\Http\Resources\V1\Cecy\SchoolPeriods\SchoolPeriodsCollection;
 use App\Http\Resources\V1\Core\Users\UserResource;
-use App\Models\Cecy\Notification;
+use App\Models\Cecy\DetailPlanification;
+use App\Models\Cecy\Instructor;
 use App\Models\Cecy\Participant;
 use App\Models\Cecy\Planification;
 use App\Models\Cecy\Registration;
@@ -35,118 +32,112 @@ class RivasController extends Controller
     //     $this->middleware('permission:update-catalogues')->only(['update']);
     //     $this->middleware('permission:delete-catalogues')->only(['destroy', 'destroys']);
     // }
-    /*DDRC-C: Busca planificaciones vigentes por periodo */
-    public function getPlanificationsByPeriod(InstructorRequest $request)
+    /*DDRC-C: Busca planificaciones vigentes por periodo asignadas al usuario logueado(responsable del CECY)*/
+    public function getPlanificationsByPeriodState(InstructorRequest $request)
     {
-        $user = Instructor::where('user_id', $request->user()->id)->get();
-
-        $Planifications = $user
+        $instructor = Instructor::FirstWhere('user_id', $request->user()->id)->get();
+        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
+        $planifications = $instructor
             ->planifications()
-            ->course()
+            ->courses()
+            ->where('code', $catalogue['planification_state']['approved'])
             ->paginate($request->input('per_page'));
 
-        return (new PlanificationByResponsibleCourseCollection($Planifications))
+        return (new PlanificationCollection($planifications))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(200);
     }
-    /*DDRC-C: Busca participantes de un curso especifico*/
-    public function getCourseParticipants(IndexRegistrationRequest $request)
-    {
-        $registrations = Registration::find($request->input('registrations.id'))
-        ->participant()
-        ->get();
 
-        return (new RegistrationCollection($registrations))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-    }
-    /*DDRC-C: Busca informacion de un participante y de registro a un curso especifico */
-    public function getParticipantInfo(IndexUserRequest $request)
+    /*DDRC-C: Busca los participantes inscritos a una planificación especifica*/
+    public function getPlanificationParticipants(DetailPlanificationRequest $request)
     {
-        $sorts = explode(',', $request->sort);
+        $detailPlanification = DetailPlanification::FirstWhere('planification_id',$request->input('planification.id'));
 
-        $registrations = Registration::find($request->input('registrations.id'))
+        $participants=Registration::Where('detail_planification_id',$detailPlanification->id)
         ->participant()
-        ->AdditionalInformation()
         ->paginate($request->input('per_page'));
-        
 
-        return (new RegistrationCollection($registrations))
+        return (new ParticipantCollection($participants))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(200);
     }
-    /*DDRC-C: actualiza una inscripcion, cambiando la observacion de una inscripción de un participante en un curso especifico  */
+
+    /*DDRC-C: Busca informacion de un participante(datos del usuario) y de registro a un curso especifico(informacion adicional y archivos)*/
+    public function getParticipantInformation(IndexRegistrationRequest $request)
+    {
+        // para traer informacion del estudiante
+        // $user = User::FirstWhere('id', $request->participant()->id)->get();
+        $registrations = Registration::where('id',$request->input('registrations.id'))
+            ->participant()
+            ->AdditionalInformation() 
+            ->paginate($request->input('per_page'));
+
+
+        return (new ParticipantInformationResource($registrations))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ])->response()->setStatusCode(200);
+    }
+
+    /*DDRC-C: actualiza una inscripcion, cambiando la observacion,y estado de una inscripción de un participante en un curso especifico  */
     public function updateParticipantRegistration(UpdateRegistrationRequest $request, Registration $registration)
     {
-        
-        
         $registration->observation = $request->input('observation');
+        $registration->state()->associate(Catalogue::find($request->input('state.id')));
         $registration->save();
-        
+
         return (new RegistrationResource($registration))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
                     'detail' => '',
-                    'code' => '200'
+                    'code' => '201'
                 ]
-            ]);
+            ])->response()->setStatusCode(201);
     }
 
-    /*DDRC-C: Matricula a varios participantes */
-    public function RegisterParticipants(RegistrationRequest $request)
+    /*DDRC-C: Matricula un participante */
+    public function registerParticipant(Request $request,Participant $participant)
     {
-        if (in_array($request->registration()->id, $request->ids)) {
-            return response()->json([
-                'msg' => [
-                    'summary' => 'Error al eliminar',
-                    'detail' => 'El usuario se encuentra logueado',
-                    'code' => '400'
-                ],
-            ], 400);
-        }
-
-        $registration = Registration::whereIn('id', $request->input('ids'))->get();
-
+        $registration=Registration::where('participant_id',$participant->id);
+        $registration->state()->associate(Catalogue::find($request->input('state.id')));
         $registration->save();
 
-        return (new RegistrationCollection($registration))
+        return (new RegistrationResource($registration))
             ->additional([
                 'msg' => [
-                    'summary' => 'Usuarios Eliminados',
+                    'summary' => 'Participantes matriculados',
                     'detail' => '',
                     'code' => '201'
                 ]
             ])
             ->response()->setStatusCode(201);
     }
-    /*DDRC-C: Anulas varias Matriculas */
-    public function nullifyRegistrations(DestroysRegistrationRequest $request)
+    /*DDRC-C: Anular varias Matriculas */
+    public function nullifyRegistrations(Request $request)
     {
 
         $registration = Registration::whereIn('id', $request->input('ids'))->get();
-
         Registration::destroy($request->input('ids'));
 
         return (new RegistrationCollection($registration))
             ->additional([
                 'msg' => [
-                    'summary' => 'Usuarios Eliminados',
+                    'summary' => 'Matriculas Anuladas',
                     'detail' => '',
                     'code' => '201'
                 ]
@@ -169,52 +160,43 @@ class RivasController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(201);
     }
 
     /*DDRC-C: Trae una lista de nombres de cursos, paralelos y jornadas*/
-    public function getCoursesParallelsWorkdays(CourseInfoRequest $request)
+    public function getCoursesParallelsWorkdays(getCoursesByResponsibleRequest $request)
     {
         $sorts = explode(',', $request->sort);
-        $cpw = Planification::customOrderBy($sorts)
-        ->detailplanifications()
-        ->course()
-        ->get();
-        
-        return (new CourseParallelWorkdayCollection($cpw))
+        $courseParallelWorkday = Planification::customOrderBy($sorts)
+            ->detailplanifications()
+            ->course()
+            ->get();
+
+        return (new CourseCollection($courseParallelWorkday))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])->response()->setStatusCode(201);
     }
+
     /*DDRC-C: notifica a un participante de una observacion en su inscripcion*/
-    public function notifyParticipant(NotificationRequest $notification)
+    public function notifyParticipant()
     {
-        
-        $notification = Notification::where('id', $request->id)->get();
-        
-        return (new NotificationResource($notification))
-            ->additional([
-                'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
-                ]
-            ]);
-        $user = Instructor::where('user_id', $request->user()->id)->get();
+        //TODO: revisar sobre el envio de notificaciones
+        return 'por revisar';
     }
     /*DDRC-C: elimina una matricula de un participante en un curso especifico */
-    public function nullifyRegistration(Request $request,Registration $registration)
+    public function nullifyRegistration(Registration $registration)
     {
         $registration->delete();
 
         return (new UserResource($registration))
             ->additional([
                 'msg' => [
-                    'summary' => 'Usuario Eliminado',
+                    'summary' => 'Matrícula Anulada',
                     'detail' => '',
                     'code' => '201'
                 ]

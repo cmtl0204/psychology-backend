@@ -15,6 +15,11 @@ class State extends Model implements Auditable
     use SoftDeletes;
 
     const APPROVED = 'APPROVED';
+    const TO_BE_APPROVED = 'TO_BE_APPROVED';
+    const NOT_APPROVED = 'NOT_APPROVED';
+    const CULMINATED = 'CULMINATED';
+    const COMPLETED = 'COMPLETED';
+    const IN_PROCESS = 'IN_PROCESS';
 
     protected $table = 'core.states';
 
