@@ -24,7 +24,7 @@ class SchoolPeriodsSeeder extends Seeder
     {
         //Campos que son de catalogo
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
-        Catalogue::factory(2)->sequence(
+        Catalogue::factory()->sequence(
             [
                 'code' => $catalogues['catalogue']['school_periods']['current'],
                 'name' => 'CURRENT',
@@ -35,15 +35,15 @@ class SchoolPeriodsSeeder extends Seeder
                 'name' => 'HISTORICAL',
                 'type' => $catalogues['catalogue']['school_periods']['type'],
             ],
-            
+
         )->create();
     }
     public function createSchoolPeriods()
     {
         SchoolPeriod::factory()->create();
-         DB::select("insert into cecy.school_periods(state_id, code, name,minimun_note, ended_at, started_at)VALUES('','2021-1','70','2021-04-01','2021-01-04')");
-         DB::select("insert into cecy.school_periods(state_id, code, name,minimun_note, ended_at, started_at)VALUES('','2021-2','70','2021-04-01','2021-01-04')");
-         DB::select("insert into cecy.school_periods(state_id, code, name,minimun_note, ended_at, started_at)VALUES('','2022-1','70','2021-04-01','2021-01-04')");
-         DB::select("insert into cecy.school_periods(state_id, code, name,minimun_note, ended_at, started_at)VALUES('','2022-2','70','2021-04-01','2021-01-04')");
+        DB::select("insert into cecy.school_periods(state_id, code, name,minimun_note, ended_at, started_at)VALUES('','2021-1','70','2021-04-01','2021-01-04')");
+        DB::select("insert into cecy.school_periods(state_id, code, name,minimun_note, ended_at, started_at)VALUES('','2021-2','70','2021-04-01','2021-01-04')");
+        DB::select("insert into cecy.school_periods(state_id, code, name,minimun_note, ended_at, started_at)VALUES('','2022-1','70','2021-04-01','2021-01-04')");
+        DB::select("insert into cecy.school_periods(state_id, code, name,minimun_note, ended_at, started_at)VALUES('','2022-2','70','2021-04-01','2021-01-04')");
     }
 }
