@@ -181,10 +181,13 @@
     },
     "participant": {
         "type": "participant",
-        "egresade": "EGRESADE",
-        "graduate": "GRADUATE",
+        "teacher": "TEACHER",
+        "public_company": "PUBLIC_COMPANY",
+        "private_company": "PRIVATE_COMPANY",
         "external": "EXTERNAL",
-        "internal": "INTERNAL"
+        "internal": "INTERNAL",
+        "senecyt": "SENESCYT",
+        "gad": "GAD"
     },
     "position": {
         "type": "participant",

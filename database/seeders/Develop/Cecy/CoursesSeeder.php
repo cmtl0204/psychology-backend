@@ -35,6 +35,7 @@ class CoursesSeeder extends Seeder
         //participant_type_id
         //speciality_id
         //state_id
+        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
     }
     public function createCourses()
     {

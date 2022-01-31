@@ -23,13 +23,16 @@ class ParticipantsFactory extends Factory
         $not_approved =  Catalogue::where('code', $catalogue['participant_state']['not_approved']);
         $to_be_approved =  Catalogue::where('code', $catalogue['participant_state']['to_be_approved']);
 
-        $egresade = Catalogue::where('code', $catalogue['participant']['egresade']);
-        $graduate = Catalogue::where('code', $catalogue['participant']['graduate']);
+        $teacher = Catalogue::where('code', $catalogue['participant']['teacher']);
+        $public_company = Catalogue::where('code', $catalogue['participant']['public_company']);
+        $private_company = Catalogue::where('code', $catalogue['participant']['teacher']);
         $external = Catalogue::where('code', $catalogue['participant']['external']);
         $internal = Catalogue::where('code', $catalogue['participant']['internal']);
+        $senecyt = Catalogue::where('code', $catalogue['participant']['external']);
+        $gad = Catalogue::where('code', $catalogue['participant']['internal']);
 
         return [
-            'type_id' => $this->faker->randomElement([$egresade, $graduate, $external, $internal]),
+            'type_id' => $this->faker->randomElement([$teacher, $public_company, $private_company, $external, $internal, $senecyt, $gad]),
             'user_id' => $this->faker->randomElement(2, 51),
             'state_id' => $this->faker->randomElement([$approved, $not_approved, $to_be_approved]),
         ];
