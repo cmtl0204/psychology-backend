@@ -161,7 +161,7 @@
         "not_approved": "NOT_APPROVED",
         "to_be_approved": "TO_BE_APPROVED"
     },
-    "school_period": {
+    "school_period_state": {
         "type": "SCHOOL_PERIODS",
         "current": "CURRENT",
         "historical": "HISTORICAL"
