@@ -4,6 +4,7 @@ namespace Database\Seeders\Cecy;
 
 use App\Models\Cecy\Instructor;
 use Illuminate\Database\Seeder;
+use Faker\Factory;
 
 class CertificatesSeeder extends Seeder
 {
@@ -16,6 +17,15 @@ class CertificatesSeeder extends Seeder
     {
         $this->createCertificatesCatalogue();
         $this->createCertificates();
+        $faker = Factory::create();
+        $certificates = [];
+        for($i=0; $i<=14;$i++){
+            $certificates[] = [
+                'code'=> $faker->swiftBicNumber,
+                'issued_at'=> $faker->dateTime()
+            ];
+        }
+        
     }
 
     public function createCertificatesCatalogue()
