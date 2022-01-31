@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\Cecy\DetailAttendances\DetailAttendanceResource;
 use App\Http\Resources\V1\Cecy\Registrations\RegisterStudentCollection;
 use App\Http\Resources\V1\Cecy\Topics\TopicCollection;
 use App\Models\Cecy\Attendance;
@@ -11,25 +12,20 @@ use App\Models\Cecy\Course;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Instructor;
 use App\Models\Cecy\PhotograficRecord;
-use App\Models\Cecy\Planification;
 use App\Models\Core\File;
 use App\Http\Requests\V1\Cecy\Attendance\DestroysAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\Attendance\GetAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\Attendance\ShowAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\Attendance\StoreAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\Attendance\UpdateAttendanceTeacherRequest;
-use App\Http\Requests\V1\Cecy\Attendances\GetAttendanceDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\Certificates\ShowParticipantsRequest;
 use App\Http\Requests\V1\Cecy\Planifications\GetPlanificationByResponsableCourseRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
 use App\Http\Requests\V1\Core\Images\UploadImageRequest;
 use App\Http\Resources\V1\Cecy\Attendances\AttendanceCollection;
-use App\Http\Resources\V1\Cecy\Attendances\AttendanceDetailPlanificationCollection;
 use App\Http\Resources\V1\Cecy\Attendances\AttendanceResource;
 use App\Http\Resources\V1\Cecy\Authorities\DetailAttendanceCollection;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationCollection;
-use App\Http\Resources\V1\Cecy\Registrations\RegisterStudentResource;
-
 use Illuminate\Http\Client\Request;
 
 class SantillanController extends Controller
@@ -60,18 +56,6 @@ class SantillanController extends Controller
     public function ShowParticipantCourse(ShowParticipantsRequest $request, Attendance $attendance)
     {
 
-        /*$participants = Course::where('course_id', $request->course()->id)->get();
-
-        $registration = $participants
-            ->detailAttendaces()
-            ->registrations()
-            ->attendances()
-            ->participants()
-            ->users()
-            ->detailPlanifications()
-            ->planifications()
-            ->course()
-            ->paginate($request->input('per_page'));*/
         $detailAttendances = $attendance->detailAttendances()->paginate();
 
 
@@ -91,20 +75,6 @@ class SantillanController extends Controller
     {
         $registrations = $detailPlanification->registrations()->paginate();
 
-        $planification = Course::whereIN('course_id', $request->course()->id)->get();
-        $detailPlanifications = $planification->detailPlanifications()->get();
-        $registrations = $detailPlanifications->registration()->get();
-        $participants = $registrations->participant()->get();
-        $users = $participants->user()->get();
-        /*$registration = $participants
-            ->registrations()
-            ->participants()
-            ->users()
-            ->detailPlanifications()
-            ->planifications()
-            ->course()
-            ->paginate($request->input('per_page'));*/
-
         return (new RegisterStudentCollection($registrations))
             ->additional([
                 'msg' => [
@@ -118,16 +88,6 @@ class SantillanController extends Controller
     //cursos de un docente instructor
     public function getCoursesByInstructor(GetPlanificationByResponsableCourseRequest $request)
     {
-
-        //$responsableCourse = Planification::where('responsable_course_id', $request->planification()->id)->get();
-        /*$detailPlanification = $responsableCourse
-            ->detailPlanifications()
-            ->classRooms()
-            ->planifications()
-            ->intructors()
-            ->users()
-            ->course()
-            ->paginate($request->input('per_page'));*/
 
         $instructor = Instructor::FirstWhere('user_id', $request->user()->id);
         $planifications = $instructor->planifications()->get();
@@ -145,7 +105,7 @@ class SantillanController extends Controller
     }
 
     //traer fechas y horarios de un curso
-    public function getDetailPlanification(GetAttendanceDetailPlanificationRequest $request)
+   /* public function getDetailPlanification(GetAttendanceDetailPlanificationRequest $request)
     {
         $planification = Course::whereIN('course_id', $request->course()->id)->get();
         $detailPlanifications = $planification->detailPlanifications()->get();
@@ -160,7 +120,7 @@ class SantillanController extends Controller
             ])
             ->response()->setStatusCode(200);
 
-    }
+    }*/
 
     //crear una asistencia a partir de las fechas y horarios de detalle planificacion.
     public function storeAttendanceTeacher(StoreAttendanceTeacherRequest $request)
@@ -206,16 +166,13 @@ class SantillanController extends Controller
     }
 
     //editar o actualizar una asistencia
-    public function updateAttendanceTeacher(UpdateAttendanceTeacherRequest $request, DetailAttendance $detailAttendance)
+    public function updatDetailAttendanceTeacher(UpdateAttendanceTeacherRequest $request, DetailAttendance $detailAttendance)
     {
-
-        $detailAttendance->duration = $request->input('duration');
-
-        $detailAttendance->register_at = $request->input('register_at');
+        $detailAttendance->type_id = $request->input('type.id');
 
         $detailAttendance->save();
 
-        return (new AttendanceResource($attendance))
+        return (new DetailAttendanceResource($detailAttendance))
             ->additional([
                 'msg' => [
                     'summary' => 'Registro actualizado',
