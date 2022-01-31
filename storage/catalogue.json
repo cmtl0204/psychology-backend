@@ -134,18 +134,18 @@
         "active": "ACTIVE",
         "inactive": "INACTIVE"
     },
-    "instructor_type": {
-        "type": "INSTRUCTOR_TYPE",
-        "senescyt":"SENESCYT",
-        "setec":"SETECT",
-        "external":"EXTERNAL"
+    "instructor": {
+        "type": "INSTRUCTOR",
+        "senescyt": "SENESCYT",
+        "setec": "SETECT",
+        "external": "EXTERNAL"
     },
-    "certified_state":{
-        "type":"CERTIFIED_STATE",
-        "with_code":"WITH_CODE",
-        "generated":"GENERATED",
-        "in_process":"IN PROCESS",
-        "signed":"SIGNED",
+    "certified_state": {
+        "type": "CERTIFIED_STATE",
+        "with_code": "WITH_CODE",
+        "generated": "GENERATED",
+        "in_process": "IN PROCESS",
+        "signed": "SIGNED",
         "senescyt": "SENESCYT",
         "setec": "SETECT",
         "external": "EXTERNAL"
@@ -200,7 +200,7 @@
         "saturdays": "SATURDAYS"
     },
     "participant": {
-        "type": "participant",
+        "type": "PARTICIPANT",
         "teacher": "TEACHER",
         "public_company": "PUBLIC_COMPANY",
         "private_company": "PRIVATE_COMPANY",

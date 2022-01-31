@@ -25,7 +25,7 @@ class ParticipantsSeeder extends Seeder
         //type_id
         //state_id
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
-        Catalogue::factory()->sequence(
+        Catalogue::factory(10)->sequence(
             [
                 'code' => $catalogue['participant_state']['approved'],
                 'name' => 'Aprobado',
@@ -90,27 +90,18 @@ class ParticipantsSeeder extends Seeder
     }
     public function createParticipants()
     {
-        //Participant::factory(100)->create();
-        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         $faker = Factory::create();
 
-        $approved =  Catalogue::where('code', $catalogue['participant_state']['approved']);
-        $not_approved =  Catalogue::where('code', $catalogue['participant_state']['not_approved']);
-        $to_be_approved =  Catalogue::where('code', $catalogue['participant_state']['to_be_approved']);
 
-        $teacher = Catalogue::where('code', $catalogue['participant']['teacher']);
-        $public_company = Catalogue::where('code', $catalogue['participant']['public_company']);
-        $private_company = Catalogue::where('code', $catalogue['participant']['teacher']);
-        $external = Catalogue::where('code', $catalogue['participant']['external']);
-        $internal = Catalogue::where('code', $catalogue['participant']['internal']);
-        $senecyt = Catalogue::where('code', $catalogue['participant']['external']);
-        $gad = Catalogue::where('code', $catalogue['participant']['internal']);
+        $states = Catalogue::where('type', 'PARTICIPANT_STATE')->get();
+        $types = Catalogue::where('type', 'PARTICIPANT')->get();
+
 
         for ($i = 36; $i <= 85; $i++) {
-            Participant::factory()->sequence(
+            Participant::factory()->create(
                 [
-                    'state_id' => $this->faker->randomElement([$approved, $not_approved, $to_be_approved]),
-                    'type_id' => $this->faker->randomElement([$teacher, $public_company, $private_company, $external, $internal, $senecyt, $gad]),
+                    'state_id' => $this->$faker->randomElement($states->id()),
+                    'type_id' => $this->$faker->randomElement($types->id()),
                     'user_id' => $i
                 ]
             )->create();

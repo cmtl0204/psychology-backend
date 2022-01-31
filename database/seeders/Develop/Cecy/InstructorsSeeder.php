@@ -26,7 +26,7 @@ class InstructorsSeeder extends Seeder
         //type_id (hecho)
         //state_id (hecho)
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
-        Catalogue::factory()->sequence(
+        Catalogue::factory(5)->sequence(
             [
                 'code' => $catalogue['instructor_state']['active'],
                 'name' => 'Activo',
@@ -61,22 +61,16 @@ class InstructorsSeeder extends Seeder
     }
     public function  createInstructors()
     {
-        //Instructor::factory(30)->create();
-
-        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         $faker = Factory::create();
-        $active =  Catalogue::where('code', $catalogue['instructor_state']['active']);
-        $inactive =  Catalogue::where('code', $catalogue['instructor_state']['inactive']);
 
-        $senescyt = Catalogue::where('code', $catalogue['instructor_type']['senescyt']);
-        $setec = Catalogue::where('code', $catalogue['instructor_type']['setec']);
-        $external = Catalogue::where('code', $catalogue['instructor_type']['external']);
+        $states = Catalogue::where('type', 'INSTRUCTOR_STATE')->get();
+        $types = Catalogue::where('type', 'INSTRUCTOR')->get();
 
         for ($i = 6; $i <= 35; $i++) {
-            Instructor::factory()->sequence(
+            Instructor::factory()->create(
                 [
-                    'state_id' =>  $this->$faker->randomElement([$active, $inactive]),
-                    'type_id' => $this->faker->randomElement([$senescyt, $setec, $external]),
+                    'state_id' =>  $this->$faker->randomElement($states->id()),
+                    'type_id' => $this->$faker->randomElement($types->id()),
                     'user_id' => $i
                 ]
             )->create();

@@ -27,7 +27,7 @@ class AuthoritiesSeeder extends Seeder
         //state_id
         //position_id
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
-        Catalogue::factory()->sequence(
+        Catalogue::factory(9)->sequence(
             [
                 'code' => $catalogue['authority_state']['on_vocation'],
                 'name' => 'Vacaciones',
@@ -96,7 +96,7 @@ class AuthoritiesSeeder extends Seeder
         $position_cecy = Catalogue::where('code', $catalogue['position']['cecy']);
         $state = Catalogue::where('code', $catalogue['authority_state']['active']);
 
-        Authority::factory()->sequence(
+        Authority::factory(4)->sequence(
             //RECTOR
             [
                 'intitution_id' => $this->$faker->randomElement($institutions),
