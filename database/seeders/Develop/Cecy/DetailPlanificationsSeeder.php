@@ -6,6 +6,7 @@ use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Classroom;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Planification;
+use App\Models\Core\State;
 use Illuminate\Database\Seeder;
 use Faker\Factory;
 
@@ -83,27 +84,27 @@ class DetailPlanificationsSeeder extends Seeder
         //detail_planification_states
         Catalogue::create(
             [
-                'code' => $catalogue['detail_planification_state']['to_be_approved'],
+                'code' => State::TO_BE_APPROVED,
                 'name' => 'POR APROBAR',
                 'type' => $catalogue['detail_planification_state']['type'],
             ],
             [
-                'code' => $catalogue['detail_planification_state']['culminated'],
+                'code' => State::CULMINATED,
                 'name' => 'CULMINADO',
                 'type' => $catalogue['detail_planification_state']['type'],
             ],
             [
-                'code' => $catalogue['detail_planification_state']['in_process'],
+                'code' => State::IN_PROCESS,
                 'name' => 'EN PROCESO',
                 'type' => $catalogue['detail_planification_state']['type'],
             ],
             [
-                'code' => $catalogue['detail_planification_state']['not_approved'],
+                'code' => State::NOT_APPROVED,
                 'name' => 'NO APROBADO',
                 'type' => $catalogue['detail_planification_state']['type'],
             ],
             [
-                'code' => $catalogue['detail_planification_state']['approved'],
+                'code' => State::APPROVED,
                 'name' => 'APROBADO',
                 'type' => $catalogue['detail_planification_state']['type'],
             ]
