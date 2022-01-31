@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\Cecy\Registrations\RegisterStudentCollection;
+use App\Http\Resources\V1\Cecy\Topics\TopicCollection;
 use App\Models\Cecy\Attendance;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Course;
@@ -244,6 +245,21 @@ class SantillanController extends Controller
             ])
             ->response()->setStatusCode(200);
 
+    }
+
+    //traer temas y subtemas de un curso
+
+    public function getTopicsCourse(Course $course)
+    {
+        $topics = $course->topics()->get();
+        return (new TopicCollection($topics))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ]);
     }
     /*******************************************************************************************************************
      * FILES

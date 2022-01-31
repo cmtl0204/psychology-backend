@@ -13,6 +13,10 @@ class CreateCecyParticipantsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreignId('state_id')
+                ->comment('Estado de un participante, ejemplo: aprobado, rechazado')
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('type_id')
                 ->comment('Obtiene el tipo de participante que se inscribe a un curso, ejemplo: externo, interno , egresado, graduado')
                 ->constrained('cecy.catalogues');
@@ -20,10 +24,6 @@ class CreateCecyParticipantsTable extends Migration
             $table->foreignId('user_id')
                 ->comment('Información de un usuario que se relaciona a un participante de un curso')
                 ->constrained('authentication.users');
-
-            $table->foreignId('state_id')
-                ->comment('Estado de un participante, ejemplo: aprobado, rechazado')
-                ->constrained('cecy.catalogues');
         });
     }
 

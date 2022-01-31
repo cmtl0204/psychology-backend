@@ -30,33 +30,38 @@ class PlanificationsSeeder extends Seeder
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         //Campos que son de catalogo
         //state_id
-        Catalogue::create(
+        Catalogue::factory()->secuence(
             [
                 'code' => State::TO_BE_APPROVED,
                 'name' => 'POR APROBADO',
                 'type' => $catalogue['planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
                 'code' => State::COMPLETED,
                 'name' => 'COMPLETADO',
                 'type' => $catalogue['planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
                 'code' => State::IN_PROCESS,
                 'name' => 'EN PROCESO',
                 'type' => $catalogue['planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
                 'code' => State::NOT_APPROVED,
                 'name' => 'NO APROBADO',
                 'type' => $catalogue['planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
                 'code' => State::APPROVED,
                 'name' => 'APROBADO',
                 'type' => $catalogue['planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ]
-        );
+        )->create();
     }
     public function createPlanifications()
     {

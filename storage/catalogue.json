@@ -9,6 +9,11 @@
     "ethnic_origin": {
         "type": "ETHNIC_ORIGIN"
     },
+    "attendances": {
+        "type": "ATTENDANCES",
+        "duration": "DURATION",
+        "registered_at": "REGISTERED_AT"
+    },
     "entity_certification": {
         "type": "ENTITY_CERTIFICATION",
         "senecyt": "SENECYT",
@@ -17,7 +22,7 @@
     },
     "capacitation": {
         "type": "CAPACITATION",
-        "curso": "CURSO",
+        "course": "COURSE",
         "workshop": "WORKSHOP",
         "webinar": "WEBINAR"
     },
@@ -26,7 +31,7 @@
         "technical": "TECHNICAL",
         "administrative": "ADMINISTRATIVE"
     },
-    "modality": {
+    "academic_period": {
         "type": "ACADEMIC_PERIOD",
         "first": "FIRST",
         "second": "SECOND",
@@ -51,7 +56,7 @@
     },
     "certificate": {
         "type": "CERTIFICATE",
-        "assitance": "ASSITANCE",
+        "assistance": "ASSISTANCE",
         "approval": "APPROVAL"
     },
     "category": {
@@ -62,6 +67,11 @@
         "teaching_course": "TEACHING_COURSE",
         "patern_tailoring": "PATERN_TAILORING",
         "pedagogical": "PEDAGOGICAL"
+    },
+    "modality": {
+        "type": "MODALITY",
+        "presencial": "PRESENCIAL",
+        "virtual": "VIRTUAL"
     },
     "compliance": {
         "type": "COMPLIANCE"
@@ -124,8 +134,18 @@
         "active": "ACTIVE",
         "inactive": "INACTIVE"
     },
-    "instructor_type": {
-        "type": "INSTRUCTOR_TYPE",
+    "instructor": {
+        "type": "INSTRUCTOR",
+        "senescyt": "SENESCYT",
+        "setec": "SETECT",
+        "external": "EXTERNAL"
+    },
+    "certified_state": {
+        "type": "CERTIFIED_STATE",
+        "with_code": "WITH_CODE",
+        "generated": "GENERATED",
+        "in_process": "IN PROCESS",
+        "signed": "SIGNED",
         "senescyt": "SENESCYT",
         "setec": "SETECT",
         "external": "EXTERNAL"
@@ -156,7 +176,7 @@
         "not_approved": "NOT_APPROVED",
         "to_be_approved": "TO_BE_APPROVED"
     },
-    "school_period": {
+    "school_period_state": {
         "type": "SCHOOL_PERIODS",
         "current": "CURRENT",
         "historical": "HISTORICAL"
@@ -180,11 +200,14 @@
         "saturdays": "SATURDAYS"
     },
     "participant": {
-        "type": "participant",
-        "egresade": "EGRESADE",
-        "graduate": "GRADUATE",
+        "type": "PARTICIPANT",
+        "teacher": "TEACHER",
+        "public_company": "PUBLIC_COMPANY",
+        "private_company": "PRIVATE_COMPANY",
         "external": "EXTERNAL",
-        "internal": "INTERNAL"
+        "internal": "INTERNAL",
+        "senecyt": "SENESCYT",
+        "gad": "GAD"
     },
     "position": {
         "type": "participant",

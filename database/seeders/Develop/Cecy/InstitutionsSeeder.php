@@ -23,7 +23,7 @@ class InstitutionsSeeder extends Seeder
     }
     public function createInstitutions()
     {
-        Institution::factory()->sequence(
+        Institution::factory(1)->sequence(
             [
                 'code' => 'CECY2022',
                 'name' => 'CENTRO DE FORMACIÓN INTEGRAL y SERVICIOS ESPECIALZADOS YAVIRAC',
