@@ -24,6 +24,7 @@ class PlanificationResource extends JsonResource
             'responsibleOcs' => AuthorityResource::make($this->responsibleOcs),
             'state' => CatalogueResource::make($this->state),
             'aprovedAt' => $this->aproved_at,
+
             'code' => $this->code,
             'endedAt' => $this->ended_at,
             'needs' => $this->needs,
