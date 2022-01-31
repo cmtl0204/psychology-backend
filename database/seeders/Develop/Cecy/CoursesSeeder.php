@@ -248,7 +248,7 @@ class CoursesSeeder extends Seeder
                 'code' => $catalogue['course_state']['not_approved'],
                 'name' => 'No aprobado',
                 'type' => $catalogue['course_state']['type'],
-                'description' => 'Cuando el estado del curso es no aprobado'
+                'description' => 'Cuando el estado del curso es no parobado'
             ]
         );
     }
