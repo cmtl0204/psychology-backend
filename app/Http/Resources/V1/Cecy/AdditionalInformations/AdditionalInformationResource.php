@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1\Cecy\AdditionalInformations;
 
+use App\Http\Resources\V1\Cecy\Catalogues\CatalogueResource;
 use App\Http\Resources\V1\Cecy\Registrations\RegistrationResource;
 use App\Models\Cecy\Registration;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,16 +19,16 @@ class AdditionalInformationResource extends JsonResource
     {
         return [
             'registration' => RegistrationResource::make($this->registration),
+            'levelInstruction' => CatalogueResource::make($this->levelInstruction),
             'companyActivity' => $this->company_activity,
             'companyAddress' => $this->company_address,
             'companyEmail' => $this->company_email,
             'companyAddress' => $this->company_name,
             'companyPhone' => $this->company_phone,
-            'companySponsor' => $this->company_sponsor,
+            'companySponsored' => $this->company_sponsored,
             'contactName' => $this->contact_name,
-            'levelInstruction' => $this->level_instruction,
-            'courseKnow' => $this->course_know,
-            'courseFollow' => $this->course_follow,
+            'courseFollows' => $this->course_follows,
+            'courseKnows' => $this->course_knows,
             'worked' => $this->worked,
         ];
     }
