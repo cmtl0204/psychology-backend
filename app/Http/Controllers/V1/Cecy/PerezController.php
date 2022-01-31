@@ -110,21 +110,21 @@ class PerezController extends Controller
      */
     public function registerDetailPlanification(RegisterDetailPlanificationRequest $request)
     {
-        $loggedInstructor = Instructor::where('user_id', $request->user()->id)->get();
+        $loggedInInstructor = Instructor::where('user_id', $request->user()->id)->get();
 
         $planification = Planification::find($request->input('planification.id'));
         $responsibleCourse = $planification->reponsibleCourse();
 
         //validar que la planification le pertenezca al docente logeado
-        if ($loggedInstructor->id !== $responsibleCourse->id) {
-            return response()->json([
-                'msg' => [
-                    'summary' => 'No le pertenece esta planificación',
-                    'detail' => '',
-                    'code' => '400'
-                ]
-            ], 400);
-        }
+        // if ($loggedInInstructor->id !== $responsibleCourse->id) {
+        //     return response()->json([
+        //         'msg' => [
+        //             'summary' => 'No le pertenece esta planificación',
+        //             'detail' => '',
+        //             'code' => '400'
+        //         ]
+        //     ], 400);
+        // }
 
         //validar que la planification ha culminado
         if ($planification->state()->code === State::CULMINATED) {
