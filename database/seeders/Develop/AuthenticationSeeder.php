@@ -100,7 +100,7 @@ class AuthenticationSeeder extends Seeder
                 ]
             );
         Email::factory(2)->for($userFactory, 'emailable')->create();
-        for ($i = 1; $i <= 82; $i++) {
+        for ($i = 1; $i <= 84; $i++) {
             $userFactory = User::factory()
                 ->create([
                     'identification_type_id' => $identificationTypes[rand(0, $identificationTypes->count() - 1)],

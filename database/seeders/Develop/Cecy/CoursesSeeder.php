@@ -250,7 +250,7 @@ class CoursesSeeder extends Seeder
                 'type' => $catalogue['course_state']['type'],
                 'description' => 'Cuando el estado del curso es no parobado'
             ]
-        );
+        )->create();
     }
     public function createCourses()
     {

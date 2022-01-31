@@ -21,7 +21,7 @@ class Authority extends Model
     protected $fillable = [
         'position_started_at',
         'position_ended_at',
-        'firm'
+        'electronic_signature'
     ];
 
     // Relationships
@@ -67,10 +67,10 @@ class Authority extends Model
             return $query->orWhere('position_ended_at', $positionEndedAt);
         }
     }
-    public function scopeFirm($query, $firm)
+    public function scopeFirm($query, $electronicSignature)
     {
-        if ($firm) {
-            return $query->orWhere('firm', $firm);
+        if ($electronicSignature) {
+            return $query->orWhere('electronic_signature', $electronicSignature);
         }
     }
 
