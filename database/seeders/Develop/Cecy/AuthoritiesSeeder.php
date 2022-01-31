@@ -22,6 +22,7 @@ class AuthoritiesSeeder extends Seeder
         //Campos que son de catalogo
         //state_id
         //position_id
+
     }
     public function createAuthoritiess()
     {
