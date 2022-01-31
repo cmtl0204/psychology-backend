@@ -58,10 +58,12 @@ class Registration extends Model implements Auditable
     {
         $this->hasOne(AdditionalInformation::class);
     }
+
     public function attendances()
     {
         return $this->belongsToMany(Attendance::class);
     }
+
     public function detailAttendances()
     {
         return $this->belongsTo(DetailAttendance::class);

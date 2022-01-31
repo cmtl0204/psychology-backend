@@ -12,8 +12,8 @@ class PrerequisiteResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'course.id' => Course::make($this->course),
-            'prerequisite.id' => Course::make($this->prerequisite_id)
+            'course' => Course::make($this->course),
+            'prerequisite' => Course::make($this->prerequisite_id)
         ];
     }
 }

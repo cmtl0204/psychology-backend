@@ -11,6 +11,7 @@ use App\Models\Cecy\Prerequisite;
 use App\Http\Resources\V1\Cecy\Topics\TopicResource;
 use App\Http\Resources\V1\Cecy\Topics\TopicCollection;
 use App\Http\Requests\V1\Cecy\Topics\StoreTopicRequest;
+use App\Http\Requests\V1\Cecy\Topics\UpdateTopicRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseResource;
 use App\Http\Resources\V1\Cecy\Courses\CoursePrerequisiteResource;
 use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
@@ -19,6 +20,7 @@ use App\Http\Resources\V1\Cecy\Prerequisites\PrerequisiteCollection;
 use App\Http\Resources\V1\Cecy\Prerequisites\PrerequisiteResource;
 use App\Http\Requests\V1\Cecy\Prerequisites\DestroyPrerequisiteRequest;
 use App\Http\Requests\V1\Cecy\Prerequisites\StorePrerequisiteRequest;
+use App\Http\Requests\V1\Cecy\Prerequisites\UpdatePrerequisiteRequest;
 
 
 class AlvaradoController extends Controller
@@ -104,10 +106,8 @@ class AlvaradoController extends Controller
     }
 
     // Actualiza el tema o subtema de un curso
-    public function updateTopic(StoreTopicRequest $request, Course $course, Topic $topic )
+    public function updateTopic(UpdateTopicRequest $request, Course $course, Topic $topic )
     {
-        $topic->level = $request->input('level');
-        $topic->parent()->associate($topic);
         $topic->description = $request->input('description');
         $topic->save();
         return (new TopicResource($topic))
@@ -121,7 +121,7 @@ class AlvaradoController extends Controller
     }
 
     // Elimina un tema o subtema
-    public function destroyTopic(Course $course, Topic $topic)
+    public function destroyTopic(Topic $topic)
     {
         $topic->delete();
         return (new TopicResource($topic))
@@ -134,7 +134,7 @@ class AlvaradoController extends Controller
         ]);
     }
 
-    public function destroysTopics(DestroysTopicRequest $request, Course $course)
+    public function destroysTopics(DestroysTopicRequest $request)
     {
         $topic = Topic::whereIn('id', $request->input('ids'))->get();
         Topic::destroy($request->input('ids'));
@@ -163,11 +163,11 @@ class AlvaradoController extends Controller
         ]);
     }
     // Agrega prerequsitos para un curso
-    public function storePrerequisite(StorePrerequisiteRequest $request, Course $course)
+    public function storePrerequisite(StorePrerequisiteRequest $request, Course $course, Prerequisite $prerequisite)
     {
         $prerequisite = new Prerequisite();
         $prerequisite->course()->associate($course);
-        $prerequisite->prerequisite()->associate(Course::find($request->input('prerequisite.id')));
+        $prerequisite->prerequisite()->associate($prerequisite);
         $prerequisite->save();
         return (new PrerequisiteResource($prerequisite))
         ->additional([
@@ -179,7 +179,7 @@ class AlvaradoController extends Controller
         ]);
     }
     // Actualiza el prerequisito para un curso
-    public function updatePrerequisite(StorePrerequisiteRequest $request, Course $course, Prerequisite $prerequisite )
+    public function updatePrerequisite(UpdatePrerequisiteRequest $request, Course $course, Prerequisite $prerequisite)
     {
         $prerequisite->prerequisite()->associate($prerequisite);
         $prerequisite->save();
@@ -193,7 +193,7 @@ class AlvaradoController extends Controller
         ]);
     }
     // Eliminda los prerequisitos para un curso
-    public function DestroyPrerequisite(Course $course, Prerequisite $prerequisite)
+    public function DestroyPrerequisite(Prerequisite $prerequisite)
     {
         $prerequisite->delete();
         return (new PrerequisiteResource($prerequisite))
@@ -206,7 +206,7 @@ class AlvaradoController extends Controller
         ]);
     }
     //Elimina varios prerequisitos de un curso
-    public function destroysPrerequisites(DestroyPrerequisiteRequest $request, Course $course)
+    public function destroysPrerequisites(DestroyPrerequisiteRequest $request)
     {
         $prerequisite = Prerequisite::whereIn('id', $request->input('ids'))->get();
         Prerequisite::destroy($request->input('ids'));
