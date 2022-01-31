@@ -22,7 +22,7 @@
     },
     "capacitation": {
         "type": "CAPACITATION",
-        "curso": "CURSO",
+        "course": "COURSE",
         "workshop": "WORKSHOP",
         "webinar": "WEBINAR"
     },
@@ -31,7 +31,7 @@
         "technical": "TECHNICAL",
         "administrative": "ADMINISTRATIVE"
     },
-    "modality": {
+    "academic_period": {
         "type": "ACADEMIC_PERIOD",
         "first": "FIRST",
         "second": "SECOND",
@@ -56,7 +56,7 @@
     },
     "certificate": {
         "type": "CERTIFICATE",
-        "assitance": "ASSITANCE",
+        "assistance": "ASSISTANCE",
         "approval": "APPROVAL"
     },
     "category": {
@@ -67,6 +67,11 @@
         "teaching_course": "TEACHING_COURSE",
         "patern_tailoring": "PATERN_TAILORING",
         "pedagogical": "PEDAGOGICAL"
+    },
+    "modality": {
+        "type": "MODALITY",
+        "presencial": "PRESENCIAL",
+        "virtual": "VIRTUAL"
     },
     "compliance": {
         "type": "COMPLIANCE"
@@ -171,7 +176,7 @@
         "not_approved": "NOT_APPROVED",
         "to_be_approved": "TO_BE_APPROVED"
     },
-    "school_period": {
+    "school_period_state": {
         "type": "SCHOOL_PERIODS",
         "current": "CURRENT",
         "historical": "HISTORICAL"
