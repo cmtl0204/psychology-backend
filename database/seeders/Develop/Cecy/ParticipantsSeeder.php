@@ -4,6 +4,7 @@ namespace Database\Seeders\Cecy;
 
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Participant;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class ParticipantsSeeder extends Seeder
@@ -89,6 +90,30 @@ class ParticipantsSeeder extends Seeder
     }
     public function createParticipants()
     {
-        Participant::factory(100)->create();
+        //Participant::factory(100)->create();
+        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
+        $faker = Factory::create();
+
+        $approved =  Catalogue::where('code', $catalogue['participant_state']['approved']);
+        $not_approved =  Catalogue::where('code', $catalogue['participant_state']['not_approved']);
+        $to_be_approved =  Catalogue::where('code', $catalogue['participant_state']['to_be_approved']);
+
+        $teacher = Catalogue::where('code', $catalogue['participant']['teacher']);
+        $public_company = Catalogue::where('code', $catalogue['participant']['public_company']);
+        $private_company = Catalogue::where('code', $catalogue['participant']['teacher']);
+        $external = Catalogue::where('code', $catalogue['participant']['external']);
+        $internal = Catalogue::where('code', $catalogue['participant']['internal']);
+        $senecyt = Catalogue::where('code', $catalogue['participant']['external']);
+        $gad = Catalogue::where('code', $catalogue['participant']['internal']);
+
+        for ($i = 36; $i <= 85; $i++) {
+            Participant::factory()->sequence(
+                [
+                    'state_id' => $this->faker->randomElement([$approved, $not_approved, $to_be_approved]),
+                    'type_id' => $this->faker->randomElement([$teacher, $public_company, $private_company, $external, $internal, $senecyt, $gad]),
+                    'user_id' => $i
+                ]
+            )->create();
+        }
     }
 }

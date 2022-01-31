@@ -4,6 +4,7 @@ namespace Database\Seeders\Cecy;
 
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Instructor;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class InstructorsSeeder extends Seeder
@@ -60,6 +61,25 @@ class InstructorsSeeder extends Seeder
     }
     public function  createInstructors()
     {
-        Instructor::factory(50)->create();
+        //Instructor::factory(30)->create();
+
+        $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
+        $faker = Factory::create();
+        $active =  Catalogue::where('code', $catalogue['instructor_state']['active']);
+        $inactive =  Catalogue::where('code', $catalogue['instructor_state']['inactive']);
+
+        $senescyt = Catalogue::where('code', $catalogue['instructor_type']['senescyt']);
+        $setec = Catalogue::where('code', $catalogue['instructor_type']['setec']);
+        $external = Catalogue::where('code', $catalogue['instructor_type']['external']);
+
+        for ($i = 6; $i <= 35; $i++) {
+            Instructor::factory()->sequence(
+                [
+                    'state_id' =>  $this->$faker->randomElement([$active, $inactive]),
+                    'type_id' => $this->faker->randomElement([$senescyt, $setec, $external]),
+                    'user_id' => $i
+                ]
+            )->create();
+        }
     }
 }
