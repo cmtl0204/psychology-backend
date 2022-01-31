@@ -43,9 +43,10 @@ class RiveraController extends Controller
         $planification = $course->planifications()->get()
             ->detailPlanifications()
             ->instructors()
-            ->classrooms()
+            ->classrooms();
             /*         ->planifications() */
-            ->course();
+            //->course()
+            
 
 
 /*             $planification = $course->planifications()->instructors()->users()->get()
