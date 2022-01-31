@@ -17,11 +17,11 @@ class DetailPlanification extends Model implements Auditable
     protected $table = 'cecy.detail_planifications';
 
     protected $fillable = [
-        'end_time',
+        'ended_time',
         'observation',
         'plan_ended_at',
         'registrations_left',
-        'start_time',
+        'started_time',
     ];
 
     // Relationships
