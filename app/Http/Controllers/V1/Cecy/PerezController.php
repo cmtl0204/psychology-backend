@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Cecy\Planifications\UpdateDatesinPlanificationRequest;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\DetailPlanificationChanged;
 use App\Models\Cecy\Authority;
 use App\Models\Cecy\Classroom;
 use App\Models\Cecy\DetailPlanification;
-use App\Models\Cecy\Planification;
 use App\Models\Cecy\Instructor;
+use App\Models\Cecy\Planification;
 use App\Models\Core\Catalogue;
+use App\Models\Core\State;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetDetailPlanificationsByPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetDetailPlanificationsByResponsibleCourseRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\RegisterDetailPlanificationRequest;
@@ -20,11 +21,11 @@ use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateDetail
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeleteDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DestroysDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetPlanificationsByCourseRequest;
+use App\Http\Requests\V1\Cecy\Planifications\UpdateDatesinPlanificationRequest;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\DetailPlanificationCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationByCourseCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
-use App\Models\Core\State;
 
 class PerezController extends Controller
 {
@@ -136,15 +137,15 @@ class PerezController extends Controller
                 ]
             ], 400);
         }
-        
+
         $state = Catalogue::where('code', State::TO_BE_APPROVED)->get();
         $classroom = Classroom::find($request->input('classroom.id'));
         $days = Catalogue::find($request->input('day.id'));
         $workday = Catalogue::find($request->input('workday.id'));
         $paralel = Catalogue::find($request->input('paralel.id'));
-        
+
         $detailPlanification = new DetailPlanification();
-        
+
         $detailPlanification->state()->associate($state);
         $detailPlanification->classroom()->associate($classroom);
         $detailPlanification->day()->associate($days);
@@ -194,7 +195,7 @@ class PerezController extends Controller
         $loggedInstructor = Instructor::where('user_id', $request->user()->id)->get();
         $planification = Planification::find($request->input('planification.id'));
         $responsibleCourse = $planification->reponsibleCourse();
-        
+
         if ($loggedInstructor->id !== $responsibleCourse->id) {
             return response()->json([
                 'msg' => [
@@ -290,5 +291,44 @@ class PerezController extends Controller
                 ]
             ])
             ->response()->setStatusCode(200);
+    }
+    /**
+     * KPI of planificationsToBeApproved
+     */
+    public function planificationsToBeApproved($request)
+    {
+        $planifications = Planification::withCount([
+            'id as planifications_to_be_approved' => function (Builder $query) {
+                $query->where('state_id', State::TO_BE_APPROVED);
+            },
+        ])->get();
+
+        return $planifications[0]->planifications_to_be_approved;
+    }
+    /**
+     * KPI of planificationsInProcess
+     */
+    public function planificationsInProcess($request)
+    {
+        $planifications = Planification::withCount([
+            'id as planifications_in_process' => function (Builder $query) {
+                $query->where('state_id', State::IN_PROCESS);
+            },
+        ])->get();
+
+        return $planifications[0]->planifications_in_process;
+    }
+    /**
+     * KPI of planificationsCulminated
+     */
+    public function planificationsCulminated($request)
+    {
+        $planifications = Planification::withCount([
+            'id as planifications_culminated' => function (Builder $query) {
+                $query->where('state_id', State::CULMINATED);
+            },
+        ])->get();
+
+        return $planifications[0]->planifications_culminated;
     }
 }
