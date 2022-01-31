@@ -143,11 +143,11 @@ class DetailPlanificationsSeeder extends Seeder
                         'planification_id' => $planification,
                         'workday_id' => $workdays[rand(0, sizeof($workdays) - 1)],
                         'state_id' => $states[rand(0, sizeof($states) - 1)],
-                        'end_time' => $faker->$faker->time(),
+                        'ended_time' => $faker->$faker->time(),
                         'observations' => $faker->sentences(3),
                         'plan_ended_at' => $faker->date(),
                         'registrations_left' => $faker->randomDigit(),
-                        'start_time' => $faker->time()
+                        'started_time' => $faker->time()
                     ]
                 );
             }

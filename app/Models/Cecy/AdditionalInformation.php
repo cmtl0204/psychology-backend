@@ -33,7 +33,10 @@ class AdditionalInformation extends Model
     {
         return $this->belongsTo(Registration::class);
     }
-
+    public function levelInstruction()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
     // Mutators
     public function setCompanyActivityAttribute($value)
     {

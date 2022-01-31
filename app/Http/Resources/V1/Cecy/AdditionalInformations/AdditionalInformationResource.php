@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\V1\Cecy\AdditionalInformations;
 
+use App\Http\Resources\V1\Cecy\Registrations\RegistrationResource;
+use App\Models\Cecy\Registration;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AdditionalInformationResource extends JsonResource
@@ -15,6 +17,7 @@ class AdditionalInformationResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'registration' => RegistrationResource::make($this->registration),
             'companyActivity' => $this->company_activity,
             'companyAddress' => $this->company_address,
             'companyEmail' => $this->company_email,
