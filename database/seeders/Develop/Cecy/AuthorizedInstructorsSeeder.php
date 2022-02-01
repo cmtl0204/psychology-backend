@@ -13,15 +13,7 @@ class AuthorizedInstructorsSeeder extends Seeder
      */
     public function run()
     {
-        $this->createAuthorizedInstructorsCatalogue();
-        $this->createAuthorizedInstructors();
+        AuthorizedInstructors::factory()->create();
     }
 
-    public function createAuthorizedInstructorsCatalogue()
-    {
-        //Campos que son de catalogo
-    }
-    public function createAuthorizedInstructors()
-    {
-    }
 }
