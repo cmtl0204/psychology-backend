@@ -24,8 +24,8 @@ class StoreAdditionalInformationRequest extends FormRequest
     public function rules()
     {
         return [
-            'registration.id' => ['required', 'integer'],
             'levelInstruction.id' => ['required', 'integer'],
+            'registration.id' => ['required', 'integer'],
             'companyActivity' => ['required'],
             'companyAddress' => ['required'],
             'companyEmail' => ['required'],
@@ -42,8 +42,8 @@ class StoreAdditionalInformationRequest extends FormRequest
     public function attributes()
     {
         return [
-            'registration.id' => 'Id del registro',
             'levelInstruction.id' => 'Id del nivel de instrucción',
+            'registration.id' => 'Id del registro',
             'companyActivity' => 'Actividad de la empresa',
             'companyAddress' => 'Direccion fisica de empresa',
             'companyEmail' => 'Correo de empresa',
