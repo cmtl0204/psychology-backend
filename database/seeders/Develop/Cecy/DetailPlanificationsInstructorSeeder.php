@@ -29,15 +29,16 @@ class DetailPlanificationsInstructorSeeder extends Seeder
     public function createDetailPlanificationsInstructor()
     {
         //CREAR AQUI LAS SEMILLAS PARA DETAILPLANIFICATIONS
-        Instructor::factory(10)->create();
-        $detailPlanifications = DetailPlanification::factory(10)->create();
+        $detailPlanifications = DetailPlanification::get();
         $instructors = Instructor::get();
         $topics = Topic::get();
 
         foreach ($instructors as $instructor) {
             foreach ($detailPlanifications as $detailPlanification) {
-                $instructor->detailPlanifications()->attach($detailPlanification->id,
-                    ['topic_id' => $topics[rand(0, sizeof($topics) - 1)]]);
+                $instructor->detailPlanifications()->attach(
+                    $detailPlanification->id,
+                    ['topic_id' => $topics[rand(0, sizeof($topics) - 1)]]
+                );
             }
         }
     }
