@@ -25,7 +25,6 @@ class StorePlanificationRequest extends FormRequest
       'endedAt' => ['required', 'date'],
       'needs' => ['required', 'json'],
       'observations' => ['required', 'json'],
-      'numberDays' => ['required', 'integer'],
       'startedAt' => ['required', 'date']
     ];
   }
@@ -45,7 +44,6 @@ class StorePlanificationRequest extends FormRequest
       'endedAt' => 'Fecha fin',
       'needs' => 'necesidades',
       'observations' => 'Observaciones',
-      'numberDays' => 'Número de dias',
       'startedAt' => 'Fecha inicio'
     ];
   }

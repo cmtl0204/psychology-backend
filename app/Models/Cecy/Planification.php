@@ -35,12 +35,6 @@ class Planification extends Model implements Auditable
     {
         return $this->belongsTo(DetailSchoolPeriod::class);
     }
-
-    public function vicerrector()
-    {
-        return $this->belongsTo(Authority::class);
-    }
-
     public function responsibleCourse()
     {
         return $this->belongsTo(Instructor::class);
@@ -59,6 +53,11 @@ class Planification extends Model implements Auditable
     public function state()
     {
         return $this->belongsTo(Catalogue::class);
+    }
+
+    public function vicerrector()
+    {
+        return $this->belongsTo(Authority::class);
     }
 
     public function detailplanifications()
@@ -80,17 +79,18 @@ class Planification extends Model implements Auditable
         }
     }
 
-    public function scopeResponsibleCourse($query, $responsibleCourse)
-    {
-        if ($responsibleCourse) {
-            return $query->orWhere('responsible_course_id', $responsibleCourse->id);
-        }
-    }
 
     public function scopeCourse($query, $course)
     {
         if ($course) {
             return $query->orWhere('course_id', $course->id);
+        }
+    }
+
+    public function scopeResponsibleCourse($query, $responsibleCourse)
+    {
+        if ($responsibleCourse) {
+            return $query->orWhere('responsible_course_id', $responsibleCourse->id);
         }
     }
 
