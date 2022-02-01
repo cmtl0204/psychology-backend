@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Cecy;
+namespace Database\Seeders\Develop\Cecy;
 
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Classroom;

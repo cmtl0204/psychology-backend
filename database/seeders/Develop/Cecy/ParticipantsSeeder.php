@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Cecy;
+namespace Database\Seeders\Develop\Cecy;
 
 use App\Models\Authentication\User;
 use App\Models\Cecy\Catalogue;

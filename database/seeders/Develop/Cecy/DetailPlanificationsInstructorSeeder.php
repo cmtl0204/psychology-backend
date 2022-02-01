@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Cecy;
+namespace Database\Seeders\Develop\Cecy;
 
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Instructor;

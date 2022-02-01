@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Cecy;
+namespace Database\Seeders\Develop\Cecy;
 
 use Illuminate\Database\Seeder;
 use App\Models\Cecy\SchoolPeriod;
