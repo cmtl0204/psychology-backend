@@ -67,7 +67,8 @@ class PlanificationsSeeder extends Seeder
     {
         $faker = Factory::create();
         $courses = Course::all();
-        $states = Catalogue::where('type', 'PLANIFICATION_STATE')->get();
+        $culminatedState = Catalogue::where('code', State::CULMINATED)->get();
+        $approvedState = Catalogue::where('code', State::APPROVED)->get();
         $cecy = Catalogue::where('code', 'CECY')->get();
         $ocs = Catalogue::where('code', 'REPRESENTATIVE_OCS')->get();
         $vicerectorposition = Catalogue::where('code', 'VICERECTOR')->get();
@@ -77,16 +78,24 @@ class PlanificationsSeeder extends Seeder
         $responsablesCourse = Instructor::all();
         $detailSchoolPeriods = DetailSchoolPeriod::all();
 
-        foreach ($courses as $course) {
+        for ($i = 1; $i < 6; $i++) {
+            $schoolPeriod = $detailSchoolPeriods[$i]->schoolPeriod();
+            $state = $schoolPeriod->state();
+            $planificationState =  $approvedState;
+            
+            if ($state->code === State::HISTORICAL) {
+                $planificationState =  $culminatedState;
+            }
+
             Planification::create(
                 [
-                    'course_id' => $course,
-                    'detail_school_period_id' => $detailSchoolPeriods[rand(0, sizeof($detailSchoolPeriods) - 1)],
-                    'vicerrector_id' => $vicerector->id(),
+                    'course_id' => $courses[$i],
+                    'detail_school_period_id' => $detailSchoolPeriods[$i],
+                    'vicerector_id' => $vicerector->id(),
                     'responsible_course_id' => $responsablesCourse[rand(0, sizeof($responsablesCourse) - 1)],
                     'responsible_ocs_id' => $responsableOcs->id(),
                     'responsible_cecy_id' => $responsableCecy->id(),
-                    'state_id' => $states[rand(0, sizeof($states) - 1)],
+                    'state_id' => $planificationState->id,
                     'approved_at' => $faker->date(),
                     'code' => $faker->word(),
                     'ended_at' => $faker->date('+2 months', '+3 months'),

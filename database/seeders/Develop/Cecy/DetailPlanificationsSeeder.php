@@ -131,26 +131,32 @@ class DetailPlanificationsSeeder extends Seeder
         $days = Catalogue::where('type', 'DAY')->get();
         $workdays = Catalogue::where('type', 'WORKDAY')->get();
         $paralels = Catalogue::where('type', 'PARALLEL_NAME')->get();
-        $states = Catalogue::where('type', 'DETAIL_PLANIFICATION_STATE')->get();
+        $culminatedState = Catalogue::where('code', State::CULMINATED)->get();
+        $approvedState = Catalogue::where('code', State::APPROVED)->get();
         $planifications = Planification::all();
-        foreach ($planifications as $planification) {
-            for ($i = 0; $i <= 1; $i++) {
-                DetailPlanification::create(
-                    [
-                        'classroom_id' => $classrooms[rand(0, sizeof($classrooms) - 1)],
-                        'day_id' => $days[rand(0, sizeof($days) - 1)],
-                        'paralel_id' => $paralels[rand(0, sizeof($paralels) - 1)],
-                        'planification_id' => $planification,
-                        'workday_id' => $workdays[rand(0, sizeof($workdays) - 1)],
-                        'state_id' => $states[rand(0, sizeof($states) - 1)],
-                        'ended_time' => $faker->$faker->time(),
-                        'observations' => $faker->sentences(3),
-                        'plan_ended_at' => $faker->date(),
-                        'registrations_left' => $faker->randomDigit(),
-                        'started_time' => $faker->time()
-                    ]
-                );
+
+        for ($i = 0; $i <= 5; $i++) {
+            $planificationState = $planifications[$i]->state();
+            $detailPlanificationState =  $approvedState;
+
+            if ($planificationState->code === State::CULMINATED) {
+                $detailPlanificationState =  $culminatedState;
             }
+            DetailPlanification::create(
+                [
+                    'classroom_id' => $classrooms[$i],
+                    'day_id' => $days[rand(0, sizeof($days) - 1)],
+                    'paralel_id' => $paralels[rand(0, sizeof($paralels) - 1)],
+                    'planification_id' => $planifications[$i],
+                    'workday_id' => $workdays[rand(0, sizeof($workdays) - 1)],
+                    'state_id' => $detailPlanificationState,
+                    'ended_time' => $faker->$faker->time(),
+                    'observations' => $faker->sentences(3),
+                    'plan_ended_at' => $faker->date(),
+                    'registrations_left' => $faker->randomDigit(),
+                    'started_time' => $faker->time()
+                ]
+            );
         }
     }
 }
