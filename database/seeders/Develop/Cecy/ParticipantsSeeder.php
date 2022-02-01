@@ -4,6 +4,7 @@ namespace Database\Seeders\Cecy;
 
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Participant;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class ParticipantsSeeder extends Seeder
@@ -24,7 +25,7 @@ class ParticipantsSeeder extends Seeder
         //type_id
         //state_id
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
-        Catalogue::factory()->sequence(
+        Catalogue::factory(10)->sequence(
             [
                 'code' => $catalogue['participant_state']['approved'],
                 'name' => 'Aprobado',
@@ -89,6 +90,21 @@ class ParticipantsSeeder extends Seeder
     }
     public function createParticipants()
     {
-        Participant::factory(100)->create();
+        $faker = Factory::create();
+
+
+        $states = Catalogue::where('type', 'PARTICIPANT_STATE')->get();
+        $types = Catalogue::where('type', 'PARTICIPANT')->get();
+
+
+        for ($i = 36; $i <= 85; $i++) {
+            Participant::factory()->create(
+                [
+                    'state_id' => $this->$faker->randomElement($states->id()),
+                    'type_id' => $this->$faker->randomElement($types->id()),
+                    'user_id' => $i
+                ]
+            )->create();
+        }
     }
 }

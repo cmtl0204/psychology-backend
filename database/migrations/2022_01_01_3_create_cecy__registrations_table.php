@@ -28,15 +28,21 @@ class CreateCecyRegistrationsTable extends Migration
                 ->comment('Estado de la matrícula. Inscrito, en revisión, matriculado, anulado')
                 ->constrained('cecy.catalogues');
 
+            $table->foreignId('state_course_id')
+                ->nullable()
+                ->comment('Estado del estudiante en el curso: Aprovado o Reprovado')
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('type_id')
                 ->nullable()
                 ->comment('Tipo de matrícula: Ordinaria, extraordinaria, o especial')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('state_course_id')
+            $table->foreignId('type_participant_id')
                 ->nullable()
-                ->comment('Estado del estudiante en el curso: Aprovado o Reprovado')
+                ->comment('Tipo de participante: Externo, docente, GAD, senecyt')
                 ->constrained('cecy.catalogues');
+
 
             $table->unsignedFloat('final_grade')
                 ->nullable()

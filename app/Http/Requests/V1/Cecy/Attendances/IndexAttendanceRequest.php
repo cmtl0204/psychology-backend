@@ -1,10 +1,9 @@
 <?php
-
-namespace App\Http\Requests\V1\Cecy\Attendance;
+namespace App\Http\Requests\V1\Cecy\Participants;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroysAttendanceTeacherRequest  extends FormRequest
+class IndexAttendanceRequest extends FormRequest
 {
     public function authorize()
     {
@@ -13,14 +12,21 @@ class DestroysAttendanceTeacherRequest  extends FormRequest
     public function rules()
     {
         return [
-            'ids' => ['required'],
+
         ];
     }
 
     public function attributes()
     {
         return [
-            'ids' => 'ID`s de todas las asistencia de ese dia',
+
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+
         ];
     }
 }

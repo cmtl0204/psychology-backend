@@ -20,10 +20,16 @@ class Registration extends Model implements Auditable
         'final_grade',
         'grade1',
         'grade2',
-        'observations',
         'number',
+        'observations',
         'registered_at',
     ];
+
+    public function additionalInformation()
+    {
+        $this->hasOne(AdditionalInformation::class);
+    }
+
     public function certificates()
     {
         return $this->morphMany(Certificate::class, 'certificateable');
@@ -37,6 +43,11 @@ class Registration extends Model implements Auditable
     public function participant()
     {
         return $this->belongsTo(Participant::class);
+    }
+
+    public function requirements()
+    {
+        $this->belongsToMany(Requirement::class);
     }
 
     public function state()
@@ -54,28 +65,59 @@ class Registration extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function additionalInformation()
+    public function typeParticipant()
     {
-        $this->hasOne(AdditionalInformation::class);
+        return $this->belongsTo(Catalogue::class);
     }
-    public function attendances()
-    {
-        return $this->belongsToMany(Attendance::class);
-    }
-    public function detailAttendances()
-    {
-        return $this->belongsTo(DetailAttendance::class);
-    }
-
-    public function files()
-    {
-        return $this->morphMany(File::class, 'fileable');
-    }
-
 
     // Mutators
-
+    public function setObservationsAttribute($value)
+    {
+        $this->attributes['observations'] = strtoupper($value);
+    }
     // Scopes
+    public function scopeCode($query, $observations)
+    {
+        if ($observations) {
+            return $query->orWhere('observations', $observations);
+        }
+    }
+    public function scopeDetailPlanification($query, $detailPlanification)
+    {
+        if ($detailPlanification) {
+            return $query->orWhere('detail_planification_id', $detailPlanification->id);
+        }
+    }
+    public function scopeParticipant($query, $participant)
+    {
+        if ($participant) {
+            return $query->orWhere('participant_id', $participant->id);
+        }
+    }
+    public function scopeState($query, $state)
+    {
+        if ($state) {
+            return $query->orWhere('state_id', $state->id);
+        }
+    }
+    public function scopeStateCourse($query, $stateCourse)
+    {
+        if ($stateCourse) {
+            return $query->orWhere('state_course_id', $stateCourse->id);
+        }
+    }
+    public function scopeType($query, $type)
+    {
+        if ($type) {
+            return $query->orWhere('type_id', $type->id);
+        }
+    }
+    public function scopeTypeParticipant($query, $typeParticipant)
+    {
+        if ($typeParticipant) {
+            return $query->orWhere('type_participant_id', $typeParticipant->id);
+        }
+    }
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {

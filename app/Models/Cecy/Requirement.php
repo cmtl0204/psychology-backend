@@ -22,9 +22,9 @@ class Requirement extends Model
 
     // Relationships
 
-    public function registrarionRequirements()
+    public function registrations()
     {
-        return $this->hasMany(RegistrationRequirement::class);
+        return $this->belongsToMany(Registration::class);
     }
     public function state()
     {
@@ -38,13 +38,6 @@ class Requirement extends Model
     }
 
     // Scopes
-    public function scopeName($query, $name)
-    {
-        if ($name) {
-            return $query->where('name', $name);
-        }
-    }
-
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {
@@ -59,4 +52,20 @@ class Requirement extends Model
             return $query;
         }
     }
+    
+    public function scopeName($query, $name)
+    {
+        if ($name) {
+            return $query->where('name', $name);
+        }
+    }
+
+    public function scopeState($query, $requirement)
+    {
+        if ($requirement) {
+            return $query->where('state_id', $requirement->state);
+        }
+    }
+
+   
 }

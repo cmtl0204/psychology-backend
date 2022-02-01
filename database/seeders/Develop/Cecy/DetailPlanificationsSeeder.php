@@ -6,6 +6,7 @@ use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Classroom;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Planification;
+use App\Models\Core\State;
 use Illuminate\Database\Seeder;
 use Faker\Factory;
 
@@ -27,87 +28,101 @@ class DetailPlanificationsSeeder extends Seeder
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
 
         //workdays
-        Catalogue::create(
+        Catalogue::factory()->secuence(
             [
                 'code' => $catalogue['workday']['evening'],
                 'name' => 'VESPERTINA',
                 'type' => $catalogue['workday']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
                 'code' => $catalogue['location']['morning'],
                 'name' => 'MATUTINA',
                 'type' => $catalogue['workday']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
                 'code' => $catalogue['location']['nocturnal'],
                 'name' => 'NOCTURNA',
                 'type' => $catalogue['workday']['type'],
+                'description' => 'Falta poner una descripción'
             ]
-        );
+        )->create();
         //paralels
-        Catalogue::create(
+        Catalogue::factory()->secuence(
             [
                 'code' => $catalogue['parallel_name']['a'],
                 'name' => 'A',
                 'type' => $catalogue['parallel_name']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
                 'code' => $catalogue['parallel_name']['b'],
                 'name' => 'B',
                 'type' => $catalogue['parallel_name']['type'],
+                'description' => 'Falta poner una descripción'
             ]
-        );
+        )->create();
         //days
-        Catalogue::create(
+        Catalogue::factory()->secuence(
             [
                 'code' => $catalogue['day']['monday-friday'],
                 'name' => 'LUNES_VIERNES',
                 'type' => $catalogue['day']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
                 'code' => $catalogue['day']['monday-sunday'],
                 'name' => 'LUNES_DOMINGO',
                 'type' => $catalogue['day']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
                 'code' => $catalogue['day']['sundays'],
                 'name' => 'DOMINGOS',
                 'type' => $catalogue['day']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
                 'code' => $catalogue['day']['saturdays'],
                 'name' => 'SABADOS',
                 'type' => $catalogue['day']['type'],
+                'description' => 'Falta poner una descripción'
             ]
-        );
+        )->create();
         //detail_planification_states
-        Catalogue::create(
+        Catalogue::factory()->secuence(
             [
-                'code' => $catalogue['detail_planification_state']['to_be_approved'],
+                'code' => State::TO_BE_APPROVED,
                 'name' => 'POR APROBAR',
                 'type' => $catalogue['detail_planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
-                'code' => $catalogue['detail_planification_state']['culminated'],
+                'code' => State::CULMINATED,
                 'name' => 'CULMINADO',
                 'type' => $catalogue['detail_planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
-                'code' => $catalogue['detail_planification_state']['in_process'],
+                'code' => State::IN_PROCESS,
                 'name' => 'EN PROCESO',
                 'type' => $catalogue['detail_planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
-                'code' => $catalogue['detail_planification_state']['not_approved'],
+                'code' => State::NOT_APPROVED,
                 'name' => 'NO APROBADO',
                 'type' => $catalogue['detail_planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
-                'code' => $catalogue['detail_planification_state']['approved'],
+                'code' => State::APPROVED,
                 'name' => 'APROBADO',
                 'type' => $catalogue['detail_planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ]
-        );
+        )->create();
     }
     public function createDetailPlanifications()
     {
@@ -128,11 +143,11 @@ class DetailPlanificationsSeeder extends Seeder
                         'planification_id' => $planification,
                         'workday_id' => $workdays[rand(0, sizeof($workdays) - 1)],
                         'state_id' => $states[rand(0, sizeof($states) - 1)],
-                        'end_time' => $faker->$faker->time(),
+                        'ended_time' => $faker->$faker->time(),
                         'observations' => $faker->sentences(3),
                         'plan_ended_at' => $faker->date(),
                         'registrations_left' => $faker->randomDigit(),
-                        'start_time' => $faker->time()
+                        'started_time' => $faker->time()
                     ]
                 );
             }

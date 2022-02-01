@@ -24,15 +24,17 @@ class UpdateAdditionalInformationRequest extends FormRequest
     public function rules()
     {
         return [
-            'company_activity' => ['required'],
-            'company_address' => ['required'],
-            'company_email' => ['required'],
-            'company_name' => ['required'],
-            'company_phone' => ['required'],
-            'company_sponsor' => ['required'],
-            'contact_name' => ['required'],
-            'course_know' => ['required'],
-            'course_follow' => ['required'],
+            'levelInstruction.id' => ['required', 'integer'],
+            'registration.id' => ['required', 'integer'],
+            'companyActivity' => ['required'],
+            'companyAddress' => ['required'],
+            'companyEmail' => ['required'],
+            'companyName' => ['required'],
+            'companyPhone' => ['required'],
+            'companySponsored' => ['required'],
+            'contactName' => ['required'],
+            'courseFollows' => ['required'],
+            'courseKnows' => ['required'],
             'worked' => ['required'],
         ];
     }
@@ -40,16 +42,18 @@ class UpdateAdditionalInformationRequest extends FormRequest
     public function attributes()
     {
         return [
-            'company_activity' => 'actividad de la empresa',
-            'company_address' => 'direccion fisica de empresa',
-            'company_email' => 'correo de empresa',
-            'company_name' => 'nombre de empresa',
-            'company_phone' => 'telefono de empresa',
-            'company_sponsor' => 'la empresa patrocina',
-            'contact_name' => 'nombre de contacto que patrocina',
-            'course_know' => 'Entorno de aprendizaje',
-            'course_follow' => 'Horas prácticas',
-            'worked' => 'el participante trabaja, true -> trabaja',
+            'levelInstruction.id' => 'Id del nivel de instrucción',
+            'registration.id' => 'Id del registro',
+            'companyActivity' => 'Actividad de la empresa',
+            'companyAddress' => 'Direccion fisica de empresa',
+            'companyEmail' => 'Correo de empresa',
+            'companyName' => 'Nombre de empresa',
+            'companyPhone' => 'Teléfono de empresa',
+            'companySponsored' => 'La empresa patrocina',
+            'contactName' => 'Nombre de contacto que patrocina',
+            'courseFollows' => 'Horas prácticas',
+            'courseKnows' => 'Entorno de aprendizaje',
+            'worked' => 'Participante trabaja',
         ];
     }
 }

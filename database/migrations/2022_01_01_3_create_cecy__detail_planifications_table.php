@@ -55,7 +55,6 @@ class CreateCecyDetailPlanificationsTable extends Migration
             $table->date('plan_ended_at')
                 ->comment('Fecha final real de la planificación (que puede variar a la planificación)');
 
-            // Esto deberia ser calculado
             $table->integer('registrations_left')
                 ->comment('Capacidad restante del paralelo');
 

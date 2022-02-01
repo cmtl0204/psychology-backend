@@ -39,19 +39,19 @@ class DetailAttendancesSeeder extends Seeder
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         Catalogue::factory()->sequence(
             [
-                'code' => $catalogues['catalogue']['attendance']['present'],
+                'code' => $catalogues['attendance']['present'],
                 'name' => 'PRESENT',
-                'type' => $catalogues['catalogue']['attendance']['type'],
+                'type' => $catalogues['attendance']['type'],
             ],
             [
-                'code' => $catalogues['catalogue']['attendance']['backwardness'],
+                'code' => $catalogues['attendance']['backwardness'],
                 'name' => 'BACKWARDNESS',
-                'type' => $catalogues['catalogue']['attendance']['type'],
+                'type' => $catalogues['attendance']['type'],
             ],
             [
-                'code' => $catalogues['catalogue']['attendance']['absent'],
+                'code' => $catalogues['attendance']['absent'],
                 'name' => 'ABSENT',
-                'type' => $catalogues['catalogue']['attendance']['type'],
+                'type' => $catalogues['attendance']['type'],
             ],
         )->create();
     }

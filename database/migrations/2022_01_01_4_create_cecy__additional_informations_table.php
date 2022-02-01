@@ -18,9 +18,13 @@ class CreateCecyAdditionalInformationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreignId('level_instruction_id')
+                ->comment('Informacion acerca del nivel de instrucción para el registro')
+                ->constrained('cecy.catalogues');
+
             $table->foreignId('registration_id')
                 ->comment('Informacion adicional de trabajo para el registro')
-                ->constrained('cecy.registrations');
+                ->constrained('cecy.registrations');   
 
             $table->string('company_activity')
                 ->comment('actividad de la empresa');

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Cecy\Instructors;
+namespace App\Http\Requests\V1\Cecy\AdditionalInformations;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InstructorRequest extends FormRequest
+class DestroyAdditionalInformationRequest  extends FormRequest
 {
     public function authorize()
     {
@@ -13,15 +13,14 @@ class InstructorRequest extends FormRequest
     public function rules()
     {
         return [
-
-            'user.id' => ['required']
+            'id' => ['required'],
         ];
     }
 
     public function attributes()
     {
         return [
-            'user.id' => 'Id responsable del cecy'
+            'id' => 'Id del additional information',
         ];
     }
 }

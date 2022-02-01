@@ -23,25 +23,25 @@ class CreateCecyPlanificationsTable extends Migration
                 ->comment('Id del periodo escolar')
                 ->constrained('cecy.detail_school_periods');
 
-            $table->foreignId('vicerrector_id')
-                ->comment('Id del periodo escolar')
-                ->constrained('cecy.authorities');
-
             $table->foreignId('responsible_course_id')
                 ->comment('Id del docente responsable del curso')
-                ->constrained('cecy.instructors');
-
-            $table->foreignId('responsible_ocs_id')
-                ->comment('Id de responsable del ocs')
                 ->constrained('cecy.instructors');
 
             $table->foreignId('responsible_cecy_id')
                 ->comment('Id del responsable del cecy')
                 ->constrained('cecy.authorities');
 
+            $table->foreignId('responsible_ocs_id')
+                ->comment('Id de responsable del ocs')
+                ->constrained('cecy.authorities');
+
             $table->foreignId('state_id')
                 ->comment('Por aprobar, culminada ...')
                 ->constrained('cecy.catalogues');
+
+            $table->foreignId('vicerector_id')
+                ->comment('Id del periodo escolar')
+                ->constrained('cecy.authorities');
 
             $table->date('approved_at')
                 ->comment('Fecha de aprobación de la planificación');

@@ -17,9 +17,9 @@ class ProfileInstructorCourse extends Model implements Auditable
     protected $table = 'cecy.profile_instructor_courses';
 
     protected $fillable = [
-        'require_experience',
-        'require_knowledge',
-        'require_skills',
+        'required_experiences',
+        'required_knowledges',
+        'required_skills',
     ];
 
     // Relationships
@@ -27,18 +27,19 @@ class ProfileInstructorCourse extends Model implements Auditable
     {
         return $this->belongsTo(Course::class);
     }
+
     public function instructors()
     {
-        return $this->belongsToMany(Instructor::class, 'authorized_instructors', 'instructor_id', 'profile_instructor_id');
+        return $this->belongsToManyy(Instructor::class, 'authorized_instructors', 'instructor_id', 'profile_instructor_id');
     }
     // Mutators
 
     //Mis campos son de tipo JSON
 
     // Scopes
-    
+
     // Mis campos son de  tipo JSON 
-    
+
 
     public function scopeCustomOrderBy($query, $sorts)
     {
@@ -52,6 +53,13 @@ class ProfileInstructorCourse extends Model implements Auditable
                 }
             }
             return $query;
+        }
+    }
+
+    public function scopeCourse($query, $profile)
+    {
+        if ($profile) {
+            return $query->Where('course_id', $profile->course);
         }
     }
 }

@@ -64,12 +64,12 @@ class Institution extends Model implements Auditable
         }
     }
 
-    public function scopeLogo($query, $logo)
-    {
-        if ($logo) {
-            return $query->where('logo', $logo);
-        }
-    }
+    // public function scopeLogo($query, $logo)
+    // {
+    //     if ($logo) {
+    //         return $query->where('logo', $logo);
+    //     }
+    // }
 
     public function scopeSlogan($query, $slogan)
     {

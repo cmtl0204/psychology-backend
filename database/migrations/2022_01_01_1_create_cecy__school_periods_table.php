@@ -32,8 +32,6 @@ class CreateCecySchoolPeriodsTable extends Migration
 
             $table->date('started_at')
                 ->comment('Fecha de inicio del perido lectivo');
-
-
         });
     }
 

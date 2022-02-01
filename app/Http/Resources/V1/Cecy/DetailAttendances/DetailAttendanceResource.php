@@ -5,6 +5,7 @@ namespace App\Http\Resources\V1\Cecy\DetailAttendances;
 
 use App\Http\Resources\V1\Cecy\Attendances\AttendanceResource;
 use App\Http\Resources\V1\Cecy\Registrations\RegistrationResource;
+use App\Models\Cecy\Catalogue;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DetailAttendanceResource extends JsonResource
@@ -13,8 +14,10 @@ class DetailAttendanceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'registration_id' => RegistrationResource::collection($this->registration_id),
-            'attendance_id' => AttendanceResource::collection($this->attendance_id)
+            'attendance' => AttendanceResource::make($this->attendance),
+            'catalogue' => Catalogue::make($this->catalogue),
+            'registrations' => RegistrationResource::make($this->registrations),
+
         ];
     }
 }

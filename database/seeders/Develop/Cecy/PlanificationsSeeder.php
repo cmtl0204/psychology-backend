@@ -8,6 +8,7 @@ use App\Models\Cecy\Course;
 use App\Models\Cecy\DetailSchoolPeriod;
 use App\Models\Cecy\Instructor;
 use App\Models\Cecy\Planification;
+use App\Models\Core\State;
 use Illuminate\Database\Seeder;
 use Faker\Factory;
 
@@ -29,33 +30,38 @@ class PlanificationsSeeder extends Seeder
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         //Campos que son de catalogo
         //state_id
-        Catalogue::create(
+        Catalogue::factory()->secuence(
             [
-                'code' => $catalogue['planification_state']['to_be_approved'],
+                'code' => State::TO_BE_APPROVED,
                 'name' => 'POR APROBADO',
                 'type' => $catalogue['planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
-                'code' => $catalogue['planification_state']['completed'],
+                'code' => State::COMPLETED,
                 'name' => 'COMPLETADO',
                 'type' => $catalogue['planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
-                'code' => $catalogue['planification_state']['in_process'],
+                'code' => State::IN_PROCESS,
                 'name' => 'EN PROCESO',
                 'type' => $catalogue['planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
-                'code' => $catalogue['planification_state']['not_approved'],
+                'code' => State::NOT_APPROVED,
                 'name' => 'NO APROBADO',
                 'type' => $catalogue['planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ],
             [
-                'code' => $catalogue['planification_state']['approved'],
+                'code' => State::APPROVED,
                 'name' => 'APROBADO',
                 'type' => $catalogue['planification_state']['type'],
+                'description' => 'Falta poner una descripción'
             ]
-        );
+        )->create();
     }
     public function createPlanifications()
     {
@@ -65,9 +71,9 @@ class PlanificationsSeeder extends Seeder
         $cecy = Catalogue::where('code', 'CECY')->get();
         $ocs = Catalogue::where('code', 'REPRESENTATIVE_OCS')->get();
         $vicerectorposition = Catalogue::where('code', 'VICERECTOR')->get();
-        $responsablesCecy = Authority::where('position_id', $cecy)->get();
-        $responsablesOcs = Authority::where('position_id', $ocs)->get();
-        $vicerectors = Authority::where('position_id', $vicerectorposition)->get();
+        $responsableCecy = Authority::where('position_id', $cecy)->get();
+        $responsableOcs = Authority::where('position_id', $ocs)->get();
+        $vicerector = Authority::where('position_id', $vicerectorposition)->get();
         $responsablesCourse = Instructor::all();
         $detailSchoolPeriods = DetailSchoolPeriod::all();
 
@@ -76,17 +82,17 @@ class PlanificationsSeeder extends Seeder
                 [
                     'course_id' => $course,
                     'detail_school_period_id' => $detailSchoolPeriods[rand(0, sizeof($detailSchoolPeriods) - 1)],
-                    'vicerrector_id' => $vicerectors[rand(0, sizeof($vicerectors) - 1)],
+                    'vicerrector_id' => $vicerector->id(),
                     'responsible_course_id' => $responsablesCourse[rand(0, sizeof($responsablesCourse) - 1)],
-                    'responsible_ocs_id' => $responsablesOcs[rand(0, sizeof($responsablesOcs) - 1)],
-                    'responsible_cecy_id' => $responsablesCecy[rand(0, sizeof($responsablesCecy) - 1)],
+                    'responsible_ocs_id' => $responsableOcs->id(),
+                    'responsible_cecy_id' => $responsableCecy->id(),
                     'state_id' => $states[rand(0, sizeof($states) - 1)],
                     'approved_at' => $faker->date(),
                     'code' => $faker->word(),
-                    'ended_at' => $faker->date(),
-                    'needs' => $faker->sentences(),
-                    'observations' => $faker->sentences(),
-                    'started_at' => $faker->date(),
+                    'ended_at' => $faker->date('+2 months', '+3 months'),
+                    'needs' => json_encode(["necesidad_1" => $faker->sentences(), "necesidad_2" => $faker->sentences()]),
+                    'observations' => json_encode(["observación_1" => $faker->sentences(), "observación_2" => $faker->sentences()]),
+                    'started_at' => $faker->dateTimeBetween('-1 months', '+1 months'),
                 ]
             );
         }

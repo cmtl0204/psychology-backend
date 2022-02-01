@@ -20,18 +20,17 @@ class SalazarController extends Controller
         $this->middleware('permission:show')->only(['show']);
     }
 
-      public function showCurricularDesign()
+      public function showCurricularDesign(Course $course)
       {
         // trae la informacion de diseño curricular 
-        $course = Course::where('course_id', $request->course()->id)->get();
 
-    $detailPlanifications = $course
+    $planification = $course->planifications()->get()
         ->detailPlanifications()
         ->planifications()
         ->course()
         ->paginate($request->input('per_page'));
 
-    return (new InformCourseNeedsResource($detailPlanifications))
+    return (new InformCourseNeedsResource($planification))
         ->additional([
             'msg' => [
                 'summary' => 'success',
@@ -42,7 +41,7 @@ class SalazarController extends Controller
     }
 
       
-      public function showAttendenceEvaluationRecord()
+      public function showAttendenceEvaluationRecord(Course $course)
       {
          // trae la informacion de registro asistencia-evaluacion
          $course = Course::where('course_id', $request->course()->id)->get();
@@ -69,6 +68,17 @@ class SalazarController extends Controller
       public function showFinalCourseReport(Course $course)
       {
        // trae la informacion del informe final del curso 
+
+       $course = Course::where('course_id', $request->course()->id)->get();
+
+       $detailPlanifications = $course
+        ->detailPlanifications()
+        ->planifications()
+        ->instructors()
+        ->course()
+        ->registration()
+        ->paginate($request->input('per_page'));
+
        
         return (new InformCourseNeedsResource($course))
         ->additional([

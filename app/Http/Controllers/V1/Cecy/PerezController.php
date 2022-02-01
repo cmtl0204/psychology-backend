@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Cecy\Planifications\UpdateDatesinPlanificationRequest;
+use App\Http\Requests\V1\Cecy\KPI\Planifications\ShowKpiRequest;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\DetailPlanificationChanged;
 use App\Models\Cecy\Authority;
+use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Classroom;
 use App\Models\Cecy\DetailPlanification;
-use App\Models\Cecy\Planification;
 use App\Models\Cecy\Instructor;
+use App\Models\Cecy\Planification;
 use App\Models\Core\Catalogue;
+use App\Models\Core\State;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetDetailPlanificationsByPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetDetailPlanificationsByResponsibleCourseRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\RegisterDetailPlanificationRequest;
@@ -20,11 +23,11 @@ use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\UpdateDetail
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DeleteDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\DestroysDetailPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetPlanificationsByCourseRequest;
+use App\Http\Requests\V1\Cecy\Planifications\UpdateDatesinPlanificationRequest;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\DetailPlanificationCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationByCourseCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
-use App\Models\Core\State;
 
 class PerezController extends Controller
 {
@@ -37,15 +40,15 @@ class PerezController extends Controller
         // $this->middleware('permission:update-detailPlanifications')->only(['update']);
         // $this->middleware('permission:delete-detailPlanifications')->only(['destroy']);
     }
+
     /**
      * Get all planifications filtered by and course
      */
-    public function getPlanificationsByCourse(GetPlanificationsByCourseRequest $request)
+    public function getPlanificationsByCourse(GetPlanificationsByCourseRequest $request, Course $course)
     {
         $sorts = explode(',', $request->sort);
 
-        $planifications = Planification::customOrderBy($sorts)
-            ->course($request->input('course.id'))
+        $planifications = $course->planifications()->customOrderBy($sorts)
             ->paginate($request->input('per_page'));
 
         return (new PlanificationByCourseCollection($planifications))
@@ -58,6 +61,7 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
      * Get all detail planifications filtered by responsible_course
      */
@@ -79,6 +83,7 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
      * Get all detail planifications filtered by planification
      */
@@ -105,8 +110,9 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
-     * Store a detail planification record  
+     * Store a detail planification record
      */
     public function registerDetailPlanification(RegisterDetailPlanificationRequest $request)
     {
@@ -136,15 +142,15 @@ class PerezController extends Controller
                 ]
             ], 400);
         }
-        
-        $state = Catalogue::where('code', State::TO_BE_APPROVED)->get();
+
+        $state = Catalogue::firstWhere('code', State::TO_BE_APPROVED);
         $classroom = Classroom::find($request->input('classroom.id'));
         $days = Catalogue::find($request->input('day.id'));
         $workday = Catalogue::find($request->input('workday.id'));
         $paralel = Catalogue::find($request->input('paralel.id'));
-        
+
         $detailPlanification = new DetailPlanification();
-        
+
         $detailPlanification->state()->associate($state);
         $detailPlanification->classroom()->associate($classroom);
         $detailPlanification->day()->associate($days);
@@ -155,7 +161,7 @@ class PerezController extends Controller
         $detailPlanification->ended_time = $request->input('endedTime');
         $detailPlanification->started_time = $request->input('startedTime');
 
-        if ($request->input('observations')) {
+        if ($request->has('observations')) {
             $detailPlanification->observations = $request->input('observations');
         }
 
@@ -171,6 +177,7 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(201);
     }
+
     /**
      * Return a detailPlanification record
      */
@@ -186,6 +193,7 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
      * Update a detail planification record
      */
@@ -194,7 +202,7 @@ class PerezController extends Controller
         $loggedInstructor = Instructor::where('user_id', $request->user()->id)->get();
         $planification = Planification::find($request->input('planification.id'));
         $responsibleCourse = $planification->reponsibleCourse();
-        
+
         if ($loggedInstructor->id !== $responsibleCourse->id) {
             return response()->json([
                 'msg' => [
@@ -220,7 +228,7 @@ class PerezController extends Controller
 
         $detailPlanification->ended_time = $request->input('endedTime');
         $detailPlanification->started_time = $request->input('startedTime');
-        if ($request->input('observations')) {
+        if ($request->has('observations')) {
             $detailPlanification->observations = $request->input('observations');
         }
 
@@ -236,8 +244,9 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
-     * Update start_at and ended_at and needs in planification 
+     * Update start_at and ended_at and needs in planification
      */
     public function updateDatesAndNeedsInPlanification(UpdateDatesinPlanificationRequest $request, Planification $planification)
     {
@@ -255,6 +264,7 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
      * Delete a detail planification record
      */
@@ -290,5 +300,63 @@ class PerezController extends Controller
                 ]
             ])
             ->response()->setStatusCode(200);
+    }
+
+    /**
+     * KPI of planifications
+     */
+    public function kpi(ShowKpiRequest $request)
+    {
+        $planifications = Planification::withCount([
+            'id' => function (Builder $query) {
+                $query->where(
+                    'state_id',
+                    Catalogue::firstWhere('id', request()->input('state.id'))->id
+                );
+            },
+        ])->get();
+
+        return $planifications[0]->id_count;
+    }
+    /**
+     * KPI of planificationsToBeApproved
+     */
+    public function planificationsToBeApproved($request)
+    {
+        $planifications = Planification::withCount([
+            'id as planifications_to_be_approved' => function (Builder $query) {
+                $query->where('state_id', State::TO_BE_APPROVED);
+            },
+        ])->get();
+
+        return $planifications[0]->planifications_to_be_approved;
+    }
+
+    /**
+     * KPI of planificationsInProcess
+     */
+    public function planificationsInProcess($request)
+    {
+        $planifications = Planification::withCount([
+            'id as planifications_in_process' => function (Builder $query) {
+                $query->where('state_id', State::IN_PROCESS);
+            },
+        ])->get();
+
+        return $planifications[0]->planifications_in_process;
+    }
+
+    /**
+     * KPI of planificationsCulminated
+     */
+    public function planificationsCulminated($request)
+    {
+        $planifications = Planification::withCount([
+            'id as planifications_culminated' => function (Builder $query) {
+                $query->where('state_id', State::CULMINATED);
+            },
+        ])->get();
+
+        return $planifications[0]->planifications_culminated;
     }
 }

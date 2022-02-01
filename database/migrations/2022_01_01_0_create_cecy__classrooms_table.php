@@ -15,7 +15,7 @@ class CreateCecyClassroomsTable extends Migration
 
             $table->foreignId('type_id')
                 ->nullable()
-                ->comment('Estado si esta disponible o no disponible')
+                ->comment('Tipo de aula donde se va impartir el curso: Aula, Laboratorio, Oficina')
                 ->constrained('cecy.catalogues');
 
             $table->text('description')

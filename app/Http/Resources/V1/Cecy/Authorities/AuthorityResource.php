@@ -12,7 +12,7 @@ class AuthorityResource extends JsonResource
             'id' => $this->id,
             'position_started_at' => $this->position_started_at,
             'position_ended_at' => $this->position_ended_at,
-            'firm' => $this->firm
+            'electronic_signature' => $this->electronicSignature
         ];
     }
 }

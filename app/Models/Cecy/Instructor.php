@@ -30,24 +30,14 @@ class Instructor extends Model implements Auditable
         return $this->hasMany(Course::class);
     }
 
-    public function state()
-    {
-        return $this->belongsTo(State::class);
-    }
-
-    public function type()
-    {
-        return $this->belongsTo(Type::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function detailInstructors()
     {
         $this->hasMany(DetailInstructor::class);
+    }
+
+    public function detailPlanifications()
+    {
+        return $this->belongsToMany(DetailPlanification::class, 'detail_planification_instructor', 'instructor_id', 'detail_planification_id')->withPivot('topic_id');;
     }
 
     public function planifications()
@@ -55,25 +45,51 @@ class Instructor extends Model implements Auditable
         return $this->hasMany(Planification::class);
     }
 
-
-    public function detailPlanifications()
-    {
-        return $this->belongsToMany(DetailPlanification::class,
-            'detail_planification_instructor',
-            'instructor_id',
-            'detail_planification_id')
-            ->withPivot('topic_id');;
-    }
-
     public function profileInstructorCourses()
     {
         return $this->belongsToMany(ProfileInstructorCourse::class, 'authorized_instructors', 'profile_instructor_id', 'instructor_id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 
     // Mutators
 
     // Scopes
+
+    public function scopeType($query, $type)
+    {
+        if ($type) {
+            return $query->orWhere('type', $type->id);
+        }
+    }
+
+    public function scopeUser($query, $user)
+    {
+        if ($user) {
+            return $query->orWhere('user', $user->id);
+        }
+    }
+
+    public function scopeState($query, $state)
+    {
+        if ($state) {
+            return $query->orWhere('state', $state->id);
+        }
+    }
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {

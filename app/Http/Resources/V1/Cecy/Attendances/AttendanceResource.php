@@ -11,9 +11,9 @@ class AttendanceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'detail_planification_id' => DetailPlanificationResource::collection($this->detail_planification_id),
+            'detailPlanification' => DetailPlanificationResource::make($this->detailPlanification),
             'duration' => $this->duration,
-            'registered_at' => $this->registered_at,
+            'registeredAt' => $this->registered_at,
         ];
     }
 }
