@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as Auditing;
 
-class PhotograficRecord extends Model
+class PhotographicRecord extends Model
 {
     use HasFactory;
     use Auditing;
     use SoftDeletes;
 
-    protected $table = 'cecy.photografic_records';
+    protected $table = 'cecy.photographic_records';
 
     protected $fillable = [
-        'url_imagen',
         'description',
         'number_week',
+        'url_image',
         'week_at'
     ];
 
@@ -40,6 +40,22 @@ class PhotograficRecord extends Model
 
 
     // Scopes
+
+    public function scopeDescription($query, $description)
+    {
+        if ($description) {
+            return $query->orWhere('description', $description->id);
+        }
+    }
+
+    public function scopeUrlImage($query, $urlImage)
+    {
+        if ($urlImage) {
+            return $query->orWhere('url_image', $urlImage->id);
+        }
+    }
+
+
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {

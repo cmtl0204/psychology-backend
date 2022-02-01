@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCecyPhotograficRecordsTable extends Migration
+class CreateCecyPhotographicRecordsTable extends Migration
 {
     public function up()
     {
@@ -24,11 +24,11 @@ class CreateCecyPhotograficRecordsTable extends Migration
                 ->comment('numero de la semana que se impartio el curso');
 
             // Debe ir solo image o url
-            $table->string('url_imagen')
+            $table->string('url_image')
                 ->comment('direccion de la imagen(evidencia fotografica)');
 
             // Deberia ir registered_at
-            $table->date('week')
+            $table->date('week_at')
                 ->comment('fecha del dia que se guardo la evidencia fotografica');
         });
     }

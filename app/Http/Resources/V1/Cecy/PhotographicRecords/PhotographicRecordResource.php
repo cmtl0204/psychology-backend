@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\V1\Cecy\PhotographicRecords;
 
-use App\Http\Resources\V1\Cecy\DetailInstructors\DetailInstructorResource;
+use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationPhotographicRecordResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PhotographicRecordResource extends JsonResource
@@ -11,10 +11,10 @@ class PhotographicRecordResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'detailPlanificacion' => DetailPlanificationPhotographicRecordResource::collection($this->detail_planification),
             'description' => $this->description,
             'numberWeek'=>$this->number_week,
             'weekAt' =>$this->week_at,
-            'detailPlanificacion' => DetailPlanificationPhotographicRecordResource::collection($this->detail_planification),
 
         ];
     }
