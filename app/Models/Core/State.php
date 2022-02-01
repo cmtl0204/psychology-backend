@@ -20,6 +20,8 @@ class State extends Model implements Auditable
     const CULMINATED = 'CULMINATED';
     const COMPLETED = 'COMPLETED';
     const IN_PROCESS = 'IN_PROCESS';
+    const CURRENT = 'CURRENT';
+    const HISTORICAL = 'HISTORICAL';
 
     protected $table = 'core.states';
 
