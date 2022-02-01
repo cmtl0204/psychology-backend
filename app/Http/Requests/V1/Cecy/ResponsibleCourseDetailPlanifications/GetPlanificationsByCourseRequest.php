@@ -13,14 +13,12 @@ class GetPlanificationsByCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'course.id' => ['required', 'integer'],
         ];
     }
 
     public function attributes()
     {
         return [
-            'course.id' => 'Curso'
         ];
     }
 }
