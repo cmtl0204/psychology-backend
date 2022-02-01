@@ -33,7 +33,7 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Categoría a la cual pertenece el curso, ingles, pedagógico, programación ')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('capacitation_type')
+            $table->foreignId('formation_type')
                 ->comment('Tipo de capacitación puede ser webinar, taller, curso')
                 ->constrained('cecy.catalogues');
 
@@ -41,7 +41,7 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Curso, Taller, Webinar')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('compliance_indicators_id')
+            $table->foreignId('compliance_indicator_id')
                 ->comment('Por averigurar campo añadido 21/01')
                 ->constrained('cecy.catalogues')
                 ->nullable();
@@ -55,7 +55,7 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Ténico, Administrativo')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('frecuency_id')
+            $table->foreignId('frequency_id')
                 ->comment('Por averigurar campo añadido 21/01')
                 ->constrained('cecy.catalogues')
                 ->nullable();
@@ -64,15 +64,10 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Presencial, Virtual')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('means_verification_id')
+            $table->foreignId('mean_verification_id')
                 ->comment('Por averigurar campo añadido 21/01')
                 ->constrained('cecy.catalogues')
                 ->nullable();
-
-            //un curso tiene varios tipos de partipantes
-            $table->foreignId('participant_type_id')
-                ->comment('Adultos, Estudiantes, Profesores')
-                ->constrained('cecy.catalogues');
 
             $table->foreignId('responsible_id')
                 ->comment('Id del docente responsable del curso')
@@ -176,6 +171,9 @@ class CreateCecyCoursesTable extends Migration
             $table->string('project')
                 ->comment('Si el curso persigue generar un proyecto que nombre tiene')
                 ->nullable();
+
+            $table->boolean('public')
+                ->comment('Si el curso el público o no');
 
             $table->string('required_installing_sources')
                 ->comment('Fuentes de instación necesaria')

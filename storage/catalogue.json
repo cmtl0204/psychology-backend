@@ -20,8 +20,8 @@
         "setec": "SETECT",
         "cecy": "CECY"
     },
-    "capacitation": {
-        "type": "CAPACITATION",
+    "formation": {
+        "type": "FORMATION",
         "course": "COURSE",
         "workshop": "WORKSHOP",
         "webinar": "WEBINAR"

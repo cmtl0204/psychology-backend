@@ -41,10 +41,11 @@ class Course extends Model implements Auditable
         'practice_hours',
         'proposed_at',
         'project',
+        'public',
         'required_installing_sources',
         'setec_name',
         'summary',
-        'target_group',
+        'target_groups',
         'teaching_strategies',
         'techniques_requisites',
         'theoretical_phase',
@@ -52,16 +53,6 @@ class Course extends Model implements Auditable
     ];
 
     // Relationships
-
-    public function files()
-    {
-        return $this->morphMany(File::class, 'fileable');
-    }
-
-    public function images()
-    {
-        return $this->morphMany(Image::class, 'imageable');
-    }
 
     public function academicPeriod()
     {
@@ -83,22 +74,23 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Career::class);
     }
 
+    public function catalogue()
+    {
+        return $this->belongsToMany(Catalogue::class, 'participant_course', 'course_id' . 'participant_type_id');
+    }
+
     public function category()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function capacitationType()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
 
     public function certifiedType()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function complianceIndicators()
+    public function complianceIndicator()
     {
         return $this->belongsTo(Catalogue::class);
     }
@@ -113,6 +105,11 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
+    public function formationType()
+    {
+        return $this->belongsTo(Catalogue::class);
+    }
+
     public function frequency()
     {
         return $this->belongsTo(Catalogue::class);
@@ -123,14 +120,24 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function meansVerification()
+    public function meanVerification()
     {
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function participantType()
+    public function planifications()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->hasMany(Planification::class);
+    }
+
+    public function prerequisites()
+    {
+        return $this->hasMany(Prerequisite::class);
+    }
+
+    public function profileInstructorCourses()
+    {
+        return $this->hasMany(ProfileInstructorCourses::class);
     }
 
     public function responsible()
@@ -153,21 +160,15 @@ class Course extends Model implements Auditable
         return $this->hasMany(Topics::class);
     }
 
-    public function planifications()
+    public function files()
     {
-        return $this->hasMany(Planification::class);
+        return $this->morphMany(File::class, 'fileable');
     }
 
-    public function prerequisites()
+    public function images()
     {
-        return $this->hasMany(Prerequisite::class);
+        return $this->morphMany(Image::class, 'imageable');
     }
-
-    public function profileInstructorCourses()
-    {
-        return $this->hasMany(ProfileInstructorCourses::class);
-    }
-
     // Mutators
     public function setAbbreviationAttribute($value)
     {
@@ -278,6 +279,13 @@ class Course extends Model implements Auditable
         }
     }
 
+    public function scopeFree($query, $free)
+    {
+        if ($free) {
+            return $query->orWhere('free', $free);
+        }
+    }
+
     public function scopeName($query, $name)
     {
         if ($name) {
@@ -327,6 +335,13 @@ class Course extends Model implements Auditable
         }
     }
 
+    public function scopePublic($query, $public)
+    {
+        if ($public) {
+            return $query->orWhere('year', $public);
+        }
+    }
+
     public function scopeRequiredInstallingSources($query, $required_installing_sources)
     {
         if ($required_installing_sources) {
@@ -352,13 +367,6 @@ class Course extends Model implements Auditable
     {
         if ($summary) {
             return $query->orWhere('summary', $summary);
-        }
-    }
-    //pendiente
-    public function scopeYear($query, $year)
-    {
-        if ($year) {
-            return $query->orWhere('year', $year);
         }
     }
 
