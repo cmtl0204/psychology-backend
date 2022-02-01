@@ -20,8 +20,8 @@ class CreateCecyInstitutionsTable extends Migration
             $table->string('name')
                 ->comment('Nombre de la institucion');
 
-            $table->string('logo')
-                ->comment('Logo de insitutcion');
+            $table->integer('logo')
+                ->comment('Logo de insitucion');
 
             $table->text('slogan')
                 ->comment('Slogan del instituto');
