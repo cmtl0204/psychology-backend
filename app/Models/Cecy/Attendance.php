@@ -24,12 +24,12 @@ class Attendance extends Model
 
     public function detailAttendance()
     {
-        return $this->belongsToMany(DetailAttendance::class);
+        return $this->hasMany(DetailAttendance::class);
     }
 
     public function detailPlanification()
     {
-        return $this->belongsToMany(DetailPlanification::class);
+        return $this->hasMany(DetailPlanification::class);
     }
 
 
