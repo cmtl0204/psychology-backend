@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Cecy\Certificates;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DowloadCertificateByParticipantRequest extends FormRequest
+class UpdateCertificateRequest extends FormRequest
 {
     public function authorize()
     {
@@ -16,8 +16,6 @@ class DowloadCertificateByParticipantRequest extends FormRequest
             'certificate_type' => ['required','integer'],
             'state_id' => ['required','integer'],
             'code' => ['required']
-
-
         ];
     }
 

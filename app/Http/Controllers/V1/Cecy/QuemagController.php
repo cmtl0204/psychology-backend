@@ -41,7 +41,8 @@ class QuemagController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
 
     //Trae todos los cursos
@@ -49,7 +50,7 @@ class QuemagController extends Controller
     {
         $planifications = Planification::where(['state' => function ($state) {
             $state->where('code', State::APPROVED);
-        }])->paginate...;
+        }])->paginate();
 
         return (new CourseCollection($planifications))
             ->additional([
@@ -58,7 +59,8 @@ class QuemagController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
 
     }
 
