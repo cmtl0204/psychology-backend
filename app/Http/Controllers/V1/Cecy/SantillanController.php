@@ -17,7 +17,7 @@ use App\Http\Requests\V1\Cecy\Attendance\DestroysAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\Attendance\GetAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\Attendance\ShowAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\Attendance\StoreAttendanceTeacherRequest;
-use App\Http\Requests\V1\Cecy\Attendance\UpdateAttendanceTeacherRequest;
+use App\Http\Requests\V1\Cecy\Attendance\UpdateDetailAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\Certificates\ShowParticipantsRequest;
 use App\Http\Requests\V1\Cecy\Planifications\GetPlanificationByResponsableCourseRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
@@ -166,7 +166,7 @@ class SantillanController extends Controller
     }
 
     //editar o actualizar una asistencia
-    public function updatDetailAttendanceTeacher(UpdateAttendanceTeacherRequest $request, DetailAttendance $detailAttendance)
+    public function updatDetailAttendanceTeacher(UpdateDetailAttendanceTeacherRequest $request, DetailAttendance $detailAttendance)
     {
         $detailAttendance->type_id = $request->input('type.id');
 
