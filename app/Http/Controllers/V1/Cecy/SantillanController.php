@@ -13,11 +13,11 @@ use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Instructor;
 use App\Models\Cecy\PhotograficRecord;
 use App\Models\Core\File;
-use App\Http\Requests\V1\Cecy\Attendance\DestroysAttendanceTeacherRequest;
+use App\Http\Requests\V1\Cecy\Attendance\DestroysAttendanceRequest;
 use App\Http\Requests\V1\Cecy\Attendance\GetAttendanceTeacherRequest;
 use App\Http\Requests\V1\Cecy\Attendance\ShowAttendanceTeacherRequest;
-use App\Http\Requests\V1\Cecy\Attendance\StoreAttendanceTeacherRequest;
-use App\Http\Requests\V1\Cecy\Attendance\UpdateDetailAttendanceTeacherRequest;
+use App\Http\Requests\V1\Cecy\Attendance\StoreAttendanceRequest;
+use App\Http\Requests\V1\Cecy\Attendance\UpdateDetailAttendanceRequest;
 use App\Http\Requests\V1\Cecy\Certificates\ShowParticipantsRequest;
 use App\Http\Requests\V1\Cecy\Planifications\GetPlanificationByResponsableCourseRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
@@ -123,7 +123,7 @@ class SantillanController extends Controller
     }*/
 
     //crear una asistencia a partir de las fechas y horarios de detalle planificacion.
-    public function storeAttendanceTeacher(StoreAttendanceTeacherRequest $request)
+    public function storeAttendanceTeacher(StoreAttendanceRequest $request)
     {
         $attendance = new Attendance();
 
@@ -166,7 +166,7 @@ class SantillanController extends Controller
     }
 
     //editar o actualizar una asistencia
-    public function updatDetailAttendanceTeacher(UpdateDetailAttendanceTeacherRequest $request, DetailAttendance $detailAttendance)
+    public function updatDetailAttendanceTeacher(UpdateDetailAttendanceRequest $request, DetailAttendance $detailAttendance)
     {
         $detailAttendance->type_id = $request->input('type.id');
 
@@ -186,7 +186,7 @@ class SantillanController extends Controller
 
     //eliminar una asistencia
 
-    public function destroysAttendanceTeacher(DestroysAttendanceTeacherRequest $request)
+    public function destroysAttendanceTeacher(DestroysAttendanceRequest $request)
     {
         $attendance = Attendance::whereIn('id', $request->input('ids'))->get();
         Attendance::destroy($request->input('ids'));

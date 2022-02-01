@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Cecy\Attendance;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAttendanceTeacherRequest extends FormRequest
+class UpdateAttendanceRequest extends FormRequest
 {
     public function authorize()
     {
@@ -23,8 +23,8 @@ class StoreAttendanceTeacherRequest extends FormRequest
     {
         return [
             'type.id' => 'tipo de asistencia',
-            'duration' => 'duracion',
-            'registeredAt' => 'fecha'
+            'duration' => 'duracion de la clase',
+            'registeredAt' => 'fecha de la clase'
         ];
     }
 }
