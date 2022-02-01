@@ -25,15 +25,14 @@ class Classroom extends Model implements Auditable
     ];
 
     // Relationships
+    public function detailPlanifications()
+    {
+        return $this->hasMany(DetailPlanification::class);
+    }
 
     public function type()
     {
         return $this->belongsTo(Catalogue::class);
-    }
-
-    public function detailPlanifications()
-    {
-        return $this->hasMany(DetailPlanification::class);
     }
 
     // Mutators
@@ -51,29 +50,8 @@ class Classroom extends Model implements Auditable
     {
         $this->attributes['name'] = strtoupper($value);
     }
+
     // Scopes
-
-    public function scopeDescriptionSources($query, $description)
-    {
-        if ($description) {
-            return $query->Where('description', $description);
-        }
-    }
-
-    public function scopeCodeSources($query, $code)
-    {
-        if ($code) {
-            return $query->Where('code', $code);
-        }
-    }
-
-    public function scopeNameSources($query, $name)
-    {
-        if ($name) {
-            return $query->Where('name', $name);
-        }
-    }
-
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {
@@ -86,6 +64,34 @@ class Classroom extends Model implements Auditable
                 }
             }
             return $query;
+        }
+    }
+    
+    public function scopeDescription($query, $description)
+    {
+        if ($description) {
+            return $query->Where('description', $description);
+        }
+    }
+
+    public function scopeCode($query, $code)
+    {
+        if ($code) {
+            return $query->Where('code', $code);
+        }
+    }
+
+    public function scopeName($query, $name)
+    {
+        if ($name) {
+            return $query->Where('name', $name);
+        }
+    }
+
+    public function scopeType($query, $classroom)
+    {
+        if ($classroom) {
+            return $query->Where('type_id', $classroom->type);
         }
     }
 }
