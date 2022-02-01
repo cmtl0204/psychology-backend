@@ -17,14 +17,13 @@ class PlanificationResource extends JsonResource
         return [
             'id' => $this->id,
             'course' => CourseResource::make($this->course),
-            'detailSchoolPeriods' => DetailSchoolPeriodResource::make($this->detailSchoolPeriod),
-            'vicerrector' => AuthorityResource::make($this->vicerrector),
+            'detailSchoolPeriod' => DetailSchoolPeriodResource::make($this->detailSchoolPeriod),
             'responsibleCourse' => InstructorResource::make($this->responsibleCourse),
             'responsibleCecy' => AuthorityResource::make($this->responsibleCecy),
             'responsibleOcs' => AuthorityResource::make($this->responsibleOcs),
             'state' => CatalogueResource::make($this->state),
+            'vicerector' => AuthorityResource::make($this->vicerector),
             'aprovedAt' => $this->aproved_at,
-
             'code' => $this->code,
             'endedAt' => $this->ended_at,
             'needs' => $this->needs,

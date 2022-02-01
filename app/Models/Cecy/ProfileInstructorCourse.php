@@ -17,9 +17,9 @@ class ProfileInstructorCourse extends Model implements Auditable
     protected $table = 'cecy.profile_instructor_courses';
 
     protected $fillable = [
-        'require_experience',
-        'require_knowledge',
-        'require_skills',
+        'required_experiences',
+        'required_knowledges',
+        'required_skills',
     ];
 
     // Relationships
@@ -36,9 +36,9 @@ class ProfileInstructorCourse extends Model implements Auditable
     //Mis campos son de tipo JSON
 
     // Scopes
-    
+
     // Mis campos son de  tipo JSON 
-    
+
 
     public function scopeCustomOrderBy($query, $sorts)
     {
