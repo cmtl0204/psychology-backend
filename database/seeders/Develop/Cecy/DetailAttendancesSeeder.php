@@ -47,6 +47,6 @@ class DetailAttendancesSeeder extends Seeder
     }
     public function createDetailAttendances()
     {
-        DetailAttendance::factory(50)->create();
+        DetailAttendance::factory(3500)->create();
     }
 }
