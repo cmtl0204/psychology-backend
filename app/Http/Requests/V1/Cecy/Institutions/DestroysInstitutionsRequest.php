@@ -20,7 +20,7 @@ class InstitutionsRequest extends FormRequest
   public function attributes()
   {
     return [
-      'ids' => 'ID`s de los instructores',
+      'ids' => 'ID`s de las insitituciones',
     ];
   }
 }
