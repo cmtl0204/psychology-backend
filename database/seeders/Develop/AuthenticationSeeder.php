@@ -100,7 +100,7 @@ class AuthenticationSeeder extends Seeder
                 ]
             );
         Email::factory(2)->for($userFactory, 'emailable')->create();
-        for ($i = 2; $i <= 86; $i++) {
+        for ($i = 1; $i <= 84; $i++) {
             $userFactory = User::factory()
                 ->create([
                     'identification_type_id' => $identificationTypes[rand(0, $identificationTypes->count() - 1)],
@@ -166,12 +166,12 @@ class AuthenticationSeeder extends Seeder
         $user->assignRole('admin');
 
         for ($i = 6; $i <= 35; $i++) {
-            $user = User::where('id', $i);
+            $user = User::find($i);
             $user->assignRole('teacher');
         }
 
         for ($i = 36; $i <= 85; $i++) {
-            $user = User::where('id', $i);
+            $user = User::find($i);
             $user->assignRole(rand(0, $roles->count() - 1));
         }
     }
