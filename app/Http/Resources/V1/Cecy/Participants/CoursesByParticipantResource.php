@@ -18,6 +18,7 @@ class CoursesByParticipantResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'code' => $this->code,
+            'grade1' => $this->grade1,
             'approvedAt' => $this->approved_at,
 
         ];

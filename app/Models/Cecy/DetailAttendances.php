@@ -20,15 +20,15 @@ class DetailAttendance extends Model
     // Relationships
     public function attendance()
     {
-        return $this->belongsTo(Attendance::class);
+        return $this->hasMany(Attendance::class);
     }
     public function registrations()
     {
-        return $this->belongsToMany(Registration::class);
+        return $this->hasMany(Registration::class);
     }
     public function catalogue()
     {
-        return $this->belongsTo(Catalogue::class);
+        return $this->hasMany(Catalogue::class);
     }
 
 

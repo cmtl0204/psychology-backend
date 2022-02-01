@@ -40,15 +40,15 @@ class PerezController extends Controller
         // $this->middleware('permission:update-detailPlanifications')->only(['update']);
         // $this->middleware('permission:delete-detailPlanifications')->only(['destroy']);
     }
+
     /**
      * Get all planifications filtered by and course
      */
-    public function getPlanificationsByCourse(GetPlanificationsByCourseRequest $request)
+    public function getPlanificationsByCourse(GetPlanificationsByCourseRequest $request, Course $course)
     {
         $sorts = explode(',', $request->sort);
 
-        $planifications = Planification::customOrderBy($sorts)
-            ->course($request->input('course.id'))
+        $planifications = $course->planifications()->customOrderBy($sorts)
             ->paginate($request->input('per_page'));
 
         return (new PlanificationByCourseCollection($planifications))
@@ -61,6 +61,7 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
      * Get all detail planifications filtered by responsible_course
      */
@@ -82,6 +83,7 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
      * Get all detail planifications filtered by planification
      */
@@ -108,8 +110,9 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
-     * Store a detail planification record  
+     * Store a detail planification record
      */
     public function registerDetailPlanification(RegisterDetailPlanificationRequest $request)
     {
@@ -174,6 +177,7 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(201);
     }
+
     /**
      * Return a detailPlanification record
      */
@@ -189,6 +193,7 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
      * Update a detail planification record
      */
@@ -239,8 +244,9 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
-     * Update start_at and ended_at and needs in planification 
+     * Update start_at and ended_at and needs in planification
      */
     public function updateDatesAndNeedsInPlanification(UpdateDatesinPlanificationRequest $request, Planification $planification)
     {
@@ -258,6 +264,7 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
      * Delete a detail planification record
      */
@@ -294,6 +301,7 @@ class PerezController extends Controller
             ])
             ->response()->setStatusCode(200);
     }
+
     /**
      * KPI of planifications
      */
@@ -323,6 +331,7 @@ class PerezController extends Controller
 
         return $planifications[0]->planifications_to_be_approved;
     }
+
     /**
      * KPI of planificationsInProcess
      */
@@ -336,6 +345,7 @@ class PerezController extends Controller
 
         return $planifications[0]->planifications_in_process;
     }
+
     /**
      * KPI of planificationsCulminated
      */

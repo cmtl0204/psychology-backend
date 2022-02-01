@@ -39,8 +39,8 @@ class RivasController extends Controller
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);
         $planifications = $instructor
             ->planifications()
-            ->courses()
-            ->where('code', $catalogue['planification_state']['approved'])
+            ->period($request->input('period.id'))
+            ->where('state', $catalogue['planification_state']['approved'])
             ->paginate($request->input('per_page'));
 
         return (new PlanificationCollection($planifications))
@@ -54,13 +54,12 @@ class RivasController extends Controller
     }
 
     /*DDRC-C: Busca los participantes inscritos a una planificación especifica*/
-    public function getPlanificationParticipants(DetailPlanificationRequest $request)
+    public function getPlanificationParticipants(DetailPlanificationRequest $request, Planification $planification)
     {
-        $detailPlanification = DetailPlanification::FirstWhere('planification_id',$request->input('planification.id'));
+        $detailPlanifications = $planification->detailPlanifications()->get();
 
-        $participants=Registration::Where('detail_planification_id',$detailPlanification->id)
-        ->participant()
-        ->paginate($request->input('per_page'));
+        $participants = Registration::whereIn('detail_planification_id', $detailPlanifications)
+            ->paginate($request->input('per_page'));
 
         return (new ParticipantCollection($participants))
             ->additional([
@@ -73,17 +72,13 @@ class RivasController extends Controller
     }
 
     /*DDRC-C: Busca informacion de un participante(datos del usuario) y de registro a un curso especifico(informacion adicional y archivos)*/
-    public function getParticipantInformation(IndexRegistrationRequest $request)
+    public function getParticipantInformation(IndexRegistrationRequest $request, Registration $registration)
     {
         // para traer informacion del estudiante
         // $user = User::FirstWhere('id', $request->participant()->id)->get();
-        $registrations = Registration::where('id',$request->input('registrations.id'))
-            ->participant()
-            ->AdditionalInformation() 
-            ->paginate($request->input('per_page'));
 
 
-        return (new ParticipantInformationResource($registrations))
+        return (new ParticipantInformationResource($registration))
             ->additional([
                 'msg' => [
                     'summary' => 'success',
@@ -111,9 +106,9 @@ class RivasController extends Controller
     }
 
     /*DDRC-C: Matricula un participante */
-    public function registerParticipant(Request $request,Participant $participant)
+    public function registerParticipant(Request $request, Participant $participant)
     {
-        $registration=Registration::where('participant_id',$participant->id);
+        $registration = $participant->registration()->first();
         $registration->state()->associate(Catalogue::find($request->input('state.id')));
         $registration->save();
 
@@ -127,14 +122,14 @@ class RivasController extends Controller
             ])
             ->response()->setStatusCode(201);
     }
+
     /*DDRC-C: Anular varias Matriculas */
     public function nullifyRegistrations(Request $request)
     {
+        $registrations = Registration::whereIn('id', $request->input('ids'))->get();
+        $registrations->state()->associate(Catalogue::find($request->input('state.id')));
 
-        $registration = Registration::whereIn('id', $request->input('ids'))->get();
-        Registration::destroy($request->input('ids'));
-
-        return (new RegistrationCollection($registration))
+        return (new RegistrationCollection($registrations))
             ->additional([
                 'msg' => [
                     'summary' => 'Matriculas Anuladas',
@@ -146,12 +141,12 @@ class RivasController extends Controller
     }
 
     /*DDRC-C: Trae una lista de periodos lectivos*/
-    public function getSchoolPeriods(SchoolPeriod $request)
+    public function catalogue(SchoolPeriod $request)
     {
         $sorts = explode(',', $request->sort);
 
         $schoolPeriods = SchoolPeriod::customOrderBy($sorts)
-            ->paginate();
+            ->get();
 
         return (new SchoolPeriodsCollection($schoolPeriods))
             ->additional([
@@ -168,8 +163,8 @@ class RivasController extends Controller
     {
         $sorts = explode(',', $request->sort);
         $courseParallelWorkday = Planification::customOrderBy($sorts)
-            ->detailplanifications()
-            ->course()
+//            ->detailplanifications()
+//            ->course()
             ->get();
 
         return (new CourseCollection($courseParallelWorkday))
@@ -188,6 +183,7 @@ class RivasController extends Controller
         //TODO: revisar sobre el envio de notificaciones
         return 'por revisar';
     }
+
     /*DDRC-C: elimina una matricula de un participante en un curso especifico */
     public function nullifyRegistration(Registration $registration)
     {

@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\V1\Cecy\Instructors;
 
+use App\Http\Resources\V1\Cecy\Catalogues\CatalogueResource;
+use App\Http\Resources\V1\Cecy\Users\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class InstructorResource extends JsonResource
@@ -10,9 +12,9 @@ class InstructorResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'state' => CatalogueResource::make($this->state_id),
-            'type' => CatalogueResource::make($this->type_id),
-            'user' => UsersResource::make($this->user_id),
+            'state' => CatalogueResource::make($this->state),
+            'type' => CatalogueResource::make($this->type),
+            'user' => UserResource::make($this->user),
         ];
     }
 }

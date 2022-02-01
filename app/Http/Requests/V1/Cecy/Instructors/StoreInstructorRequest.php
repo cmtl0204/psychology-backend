@@ -13,18 +13,18 @@ class StoreInstructorRequest extends FormRequest
     public function rules()
     {
         return [
-            'type_id' => ['required','integer'],
-            'state_id' => ['required'],
-            'user_id' => ['required']
+            'type.id' => ['required', 'integer'],
+            'state.id' => ['required', 'integer'],
+            'user.id' => ['required', 'integer']
         ];
     }
 
     public function attributes()
     {
         return [
-            'type_id' => 'Si el instructor es de la senescyt o de la setec',
-            'state_id' => 'Si esta activo o inactivo ',
-            'user_id' => 'Los usuarios de ignug'
+            'type.id' => 'Id del tipo de instructor',
+            'state.id' => 'Estado del instructor',
+            'user.id' => 'Id del usuario'
         ];
     }
 }
