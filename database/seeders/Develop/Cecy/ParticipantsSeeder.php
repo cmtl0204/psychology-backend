@@ -2,10 +2,12 @@
 
 namespace Database\Seeders\Cecy;
 
+use App\Models\Authentication\User;
 use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Participant;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class ParticipantsSeeder extends Seeder
 {
@@ -63,19 +65,25 @@ class ParticipantsSeeder extends Seeder
                 'description' => 'Cuando un participante de un curso es parte de una empresa pública'
             ],
             [
-                'code' => $catalogue['participant']['internal'],
+                'code' => $catalogue['participant']['training_company'],
+                'name' => 'Empresa formadora',
+                'type' => $catalogue['participant']['type'],
+                'description' => 'Cuando un participante del curso es parte de una empresa formadora'
+            ],
+            [
+                'code' => $catalogue['participant']['internal_student'],
                 'name' => 'Estudiante interno',
                 'type' => $catalogue['participant']['type'],
                 'description' => 'Cuando un participante de un curso es propio de la institución'
             ],
             [
-                'code' => $catalogue['participant']['external'],
+                'code' => $catalogue['participant']['external_student'],
                 'name' => 'Estudiante externo',
                 'type' => $catalogue['participant']['type'],
                 'description' => 'Cuando un participante de un curso es externo a la institución'
             ],
             [
-                'code' => $catalogue['participant']['senecyt'],
+                'code' => $catalogue['participant']['senecyt_staff'],
                 'name' => 'Senecyt',
                 'type' => $catalogue['participant']['type'],
                 'description' => 'Cuando un participante de un curso es parte del personal de la senecyt'
@@ -92,16 +100,17 @@ class ParticipantsSeeder extends Seeder
     {
         $faker = Factory::create();
 
-
         $states = Catalogue::where('type', 'PARTICIPANT_STATE')->get();
         $types = Catalogue::where('type', 'PARTICIPANT')->get();
 
 
         for ($i = 36; $i <= 85; $i++) {
+            $user =  User::where('id', $i);
+            $user_roles =  $user->roles();
             Participant::factory()->create(
                 [
                     'state_id' => $this->$faker->randomElement($states->id()),
-                    'type_id' => $this->$faker->randomElement($types->id()),
+                    'type_id' => $user_roles[0],
                     'user_id' => $i
                 ]
             )->create();

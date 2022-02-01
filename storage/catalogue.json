@@ -194,9 +194,10 @@
         "teacher": "TEACHER",
         "public_company": "PUBLIC_COMPANY",
         "private_company": "PRIVATE_COMPANY",
-        "external": "EXTERNAL",
-        "internal": "INTERNAL",
-        "senecyt": "SENESCYT",
+        "training_company": "TRAINING_COMPANY",
+        "external_student": "EXTERNAL_STUDENT",
+        "internal_student": "INTERNAL_STUDENT",
+        "senecyt_staff": "SENESCYT_STAFF",
         "gad": "GAD"
     },
     "position": {

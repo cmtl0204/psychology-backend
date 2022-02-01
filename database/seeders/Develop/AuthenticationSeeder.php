@@ -100,7 +100,7 @@ class AuthenticationSeeder extends Seeder
                 ]
             );
         Email::factory(2)->for($userFactory, 'emailable')->create();
-        for ($i = 1; $i <= 85; $i++) {
+        for ($i = 2; $i <= 86; $i++) {
             $userFactory = User::factory()
                 ->create([
                     'identification_type_id' => $identificationTypes[rand(0, $identificationTypes->count() - 1)],
@@ -121,7 +121,14 @@ class AuthenticationSeeder extends Seeder
         Role::create(['name' => 'admin']);
         Role::create(['name' => 'guest']);
         Role::create(['name' => 'professional']);
-        Role::create(['name' => 'company']);
+        Role::create(['name' => 'teacher']);
+        Role::create(['name' => 'public_company']);
+        Role::create(['name' => 'private_company']);
+        Role::create(['name' => 'training_company']);
+        Role::create(['name' => 'external_student']);
+        Role::create(['name' => 'internal_student']);
+        Role::create(['name' => 'senecyt_staff']);
+        Role::create(['name' => 'gad']);
     }
 
     private function createPermissions()
@@ -153,8 +160,20 @@ class AuthenticationSeeder extends Seeder
 
     private function assignUserRoles()
     {
+
+        $roles = Role::all();
         $user = User::find(1);
         $user->assignRole('admin');
+
+        for ($i = 6; $i <= 35; $i++) {
+            $user = User::where('id', $i);
+            $user->assignRole('teacher');
+        }
+
+        for ($i = 36; $i <= 85; $i++) {
+            $user = User::where('id', $i);
+            $user->assignRole(rand(0, $roles->count() - 1));
+        }
     }
 
     private function createLocationCatalogues()
