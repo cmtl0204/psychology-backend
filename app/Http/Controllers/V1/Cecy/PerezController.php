@@ -13,7 +13,6 @@ use App\Models\Cecy\Classroom;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Instructor;
 use App\Models\Cecy\Planification;
-use App\Models\Core\Catalogue;
 use App\Models\Core\State;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetDetailPlanificationsByPlanificationRequest;
 use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetDetailPlanificationsByResponsibleCourseRequest;
@@ -26,8 +25,10 @@ use App\Http\Requests\V1\Cecy\ResponsibleCourseDetailPlanifications\GetPlanifica
 use App\Http\Requests\V1\Cecy\Planifications\UpdateDatesinPlanificationRequest;
 use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
 use App\Http\Resources\V1\Cecy\DetailsPlanifications\DetailPlanificationCollection;
+use App\Http\Resources\V1\Cecy\Planifications\Kpi\KpiPlanificationResourse;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationByCourseCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
+use App\Models\Cecy\Course;
 
 class PerezController extends Controller
 {
@@ -316,7 +317,15 @@ class PerezController extends Controller
             },
         ])->get();
 
-        return $planifications[0]->id_count;
+        return (new KpiPlanificationResourse($planifications[0]))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ])
+            ->response()->setStatusCode(200);
     }
     /**
      * KPI of planificationsToBeApproved
