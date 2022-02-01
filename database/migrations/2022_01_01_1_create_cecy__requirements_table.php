@@ -20,12 +20,11 @@ class CreateCecyRequirementsTable extends Migration
 
             $table->string('name')
                 ->nullable()
-                ->comment('Nombr del campo -> copia cedula, comprobante de pago');
+                ->comment('Nombre del campo -> copia cedula, comprobante de pago');
 
-            // El campo debe ser boolenao -2
-            $table->string('required')
+            $table->boolean('required')
                 ->nullable()
-                ->comment('determina el requerimiento del campo true-> es requerido, false-> no es requerido');
+                ->comment('Determina el requerimiento del campo: true-> es requerido, false-> no es requerido');
         });
     }
 
