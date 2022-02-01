@@ -29,7 +29,7 @@ class Attendance extends Model
 
     public function detailPlanification()
     {
-        return $this->hasMany(DetailPlanification::class);
+        return $this->belongsTo(DetailPlanification::class);
     }
 
 
@@ -37,6 +37,7 @@ class Attendance extends Model
 
 
     // Scopes
+
     public function scopeCustomOrderBy($query, $sorts)
     {
         if (!empty($sorts[0])) {

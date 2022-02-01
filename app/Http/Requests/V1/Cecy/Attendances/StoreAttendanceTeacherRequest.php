@@ -13,18 +13,18 @@ class StoreAttendanceTeacherRequest extends FormRequest
     public function rules()
     {
         return [
-            'type_id' => ['required','integer'],
+            'type.id' => ['required', 'integer'],
             'duration' => ['required'],
-            'registered_at' => ['required']
+            'registeredAt' => ['required']
         ];
     }
 
     public function attributes()
     {
         return [
-            'type_id' => 'tipo de asistencia',
+            'type.id' => 'tipo de asistencia',
             'duration' => 'duracion',
-            'registered_at' => 'fecha'
+            'registeredAt' => 'fecha'
         ];
     }
 }

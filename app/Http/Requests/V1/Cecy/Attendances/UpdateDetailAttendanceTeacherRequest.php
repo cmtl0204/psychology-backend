@@ -13,7 +13,7 @@ class UpdateDetailAttendanceTeacherRequest extends FormRequest
     public function rules()
     {
         return [
-            'type_id' => ['required','integer'],
+            'type_id' => ['required', 'integer'],
             'duration' => ['required'],
             'registered_at' => ['required']
         ];

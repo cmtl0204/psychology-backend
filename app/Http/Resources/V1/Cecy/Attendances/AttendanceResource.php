@@ -13,7 +13,7 @@ class AttendanceResource extends JsonResource
             'id' => $this->id,
             'detailPlanification' => DetailPlanificationResource::make($this->detailPlanification),
             'duration' => $this->duration,
-            'registered_at' => $this->registered_at,
+            'registeredAt' => $this->registered_at,
         ];
     }
 }
