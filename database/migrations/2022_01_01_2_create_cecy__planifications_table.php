@@ -29,7 +29,7 @@ class CreateCecyPlanificationsTable extends Migration
 
             $table->foreignId('responsible_ocs_id')
                 ->comment('Id de responsable del ocs')
-                ->constrained('cecy.instructors');
+                ->constrained('cecy.authorities');
 
             $table->foreignId('responsible_cecy_id')
                 ->comment('Id del responsable del cecy')
