@@ -8,7 +8,7 @@ class CreateCecyRegistrationRequirementsTable extends Migration
 {
     public function up()
     {
-        Schema::connection(env('DB_CONNECTION_CECY'))->create('registration_requirements', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_CECY'))->create('registration_requirement', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +30,6 @@ class CreateCecyRegistrationRequirementsTable extends Migration
     }
     public function down()
     {
-        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('registration_requirements');
+        Schema::connection(env('DB_CONNECTION_CECY'))->dropIfExists('registration_requirement');
     }
 }

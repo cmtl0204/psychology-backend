@@ -2,6 +2,7 @@
 
 namespace App\Models\Cecy;
 
+use App\Models\Core\State;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -55,7 +56,7 @@ class Planification extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function vicerrector()
+    public function vicerector()
     {
         return $this->belongsTo(Authority::class);
     }
@@ -85,6 +86,11 @@ class Planification extends Model implements Auditable
         if ($course) {
             return $query->orWhere('course_id', $course->id);
         }
+    }
+
+    public function scopeKpi($query, $planifications, $state)
+    {
+        return $query->orWhere('state_id', $planifications->$state);
     }
 
     public function scopeResponsibleCourse($query, $responsibleCourse)

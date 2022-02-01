@@ -16,19 +16,17 @@ class CreateCecyProfileInstructorCoursesTable extends Migration
             // Pendiente
             $table->foreignId('course_id')
                 ->nullable()
-                ->comment('')
+                ->comment('fk de curso')
                 ->constrained('cecy.courses');
 
-            // El nombre debe estar en plural -2
-            $table->json('require_experiences')
-                ->comment('experiencia del instrucotr para impartir un curso');
+            $table->json('required_experiences')
+                ->comment('Experiencias del instructor para impartir un curso');
 
-            // El nombre debe estar en plural -2
-            $table->json('require_knowledge')
-                ->comment('conocimiento del instructor para impartir un curso');
+            $table->json('required_knowledges')
+                ->comment('Conocimientos del instructor para impartir un curso');
 
-            $table->json('require_skills')
-            ->comment('habilidades del instructor para impartir un curso');
+            $table->json('required_skills')
+            ->comment('Habilidades del instructor para impartir un curso');
         });
     }
 
