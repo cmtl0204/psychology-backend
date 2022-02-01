@@ -5,6 +5,7 @@ namespace App\Http\Resources\V1\Cecy\Courses;
 use App\Http\Resources\V1\Cecy\Catalogues\CatalogueResource;
 use App\Http\Resources\V1\Cecy\Instructors\InstructorResource;
 use App\Http\Resources\V1\Core\CareerResource;
+use App\Models\Cecy\Catalogue;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CourseResource extends JsonResource
@@ -15,15 +16,17 @@ class CourseResource extends JsonResource
             'id' => $this->id,
             'academicPeriod' => CatalogueResource::make($this->academicPeriod),
             'area' => CatalogueResource::make($this->area),
+            'entityCertification' => Catalogue::make($this->entityCertification),
             'career' => CareerResource::make($this->career),
             'category' => CatalogueResource::make($this->category),
-            'capacitationType' => CatalogueResource::make($this->capacitationType),
+            'formationType' => CatalogueResource::make($this->formationType),
             'certifiedType' => CatalogueResource::make($this->certifiedType),
-            'complianceIndicators' => CatalogueResource::make($this->complianceIndicators),
+            'complianceIndicator' => CatalogueResource::make($this->complianceIndicator),
             'control' => CatalogueResource::make($this->control),
             'courseType' => CatalogueResource::make($this->courseType),
+            'frequency' => CatalogueResource::make($this->frequency),
             'modality' => CatalogueResource::make($this->modality),
-            'participantType' => CatalogueResource::make($this->participantType),
+            'meanVerification' => Catalogue::make($this->meanVerification),
             'responsible' => InstructorResource::make($this->responsible),
             'speciality' => CatalogueResource::make($this->speciality),
             'state' => CatalogueResource::make($this->state),
@@ -53,8 +56,9 @@ class CourseResource extends JsonResource
             'requiredInstallingSources' => $this->required_installing_sources,
             'setecName' => $this->setec_name,
             'summary' => $this->summary,
-            'targetGroup' => $this->target_group,
+            'targetGroups' => $this->target_group,
             'teachingStrategies' => $this->teaching_strategies,
+            'techniquesRequisites' => $this->techniques_requisites,
             'theoreticalPhase' => $this->theoretical_phase,
             'theoryHours' => $this->theory_hours
         ];

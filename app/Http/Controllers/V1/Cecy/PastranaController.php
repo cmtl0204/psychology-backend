@@ -51,7 +51,8 @@ class PastranaController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
 
     /*
@@ -75,18 +76,7 @@ class PastranaController extends Controller
     */
     public function updateAssignResponsibleCecy(UpdateAssignResponsibleCecyRequest $request, Planification $planification)
     {
-        $planification->course()->associate(Course::find($request->input('course.id')));
-        $planification->detail_school_period()->associate(DetailSchoolPeriod::find($request->input('detail_school_period.id')));
-        $planification->vicerrector()->associate(Authority::find($request->input('vicerrector.id')));
-        $planification->responsible_course_period()->associate(Instructor::find($request->input('responsible_course_period.id')));
-        $planification->responsible_ocs()->associate(Catalogue::find($request->input('responsible_ocs.id')));
         $planification->responsibleCecy()->associate(Authority::find($request->input('responsibleCecy.id')));
-        $planification->aproved_at = $request->input('aproved_at');
-        $planification->code = $request->input('code');
-        $planification->ended_at = $request->input('ended_at');
-        $planification->needs = $request->input('needs');
-        $planification->observation = $request->input('observation');
-        $planification->started_at = $request->input('started_at');
         $planification->save();
 
         return (new PlanificationResource($planification))
@@ -96,48 +86,27 @@ class PastranaController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
 
     /*
     * Asignar código al curso
     */
-    public function assignCodeToCourse(Course $course, $request)
+    public function assignCodeToCourse($request, Course $course)
     {
-        $course->carrerId()->associate(Career::find($request->input('carrer.id')));
-        $course->category()->associate(Catalogue::find($request->input('category.id')));
-        $course->certifiedTypeId()->associate(Catalogue::find($request->input('certifiedType.id')));
-        $course->courseTypeId()->associate(Catalogue::find($request->input('courseType.id')));
-        $course->modalityId()->associate(Catalogue::find($request->input('modality.id')));
-        $course->specialityId()->associate(Catalogue::find($request->input('speciality.id')));
-        $course->area()->associate(Catalogue::find($request->input('area.id')));
-        $course->speciality()->associate(Catalogue::find($request->input('speciality.id')));
-        $course->abbreviation = $request->input('abbreviation');
-        $course->cost = $request->input('cost');
-        $course->duration = $request->input('duration');
-        $course->free = $request->input('free');
-        $course->needs = $request->input('needs');
-        $course->project = $request->input('project');
-        $course->sumary = $request->input('sumary');
-        $course->alignment = $request->input('alignment');
-        $course->objective = $request->input('objective');
-        $course->techniques_requisites = $request->input('techniquesRequisites');
-        $course->teaching_strategies = $request->input('teachingStrategies');
-        $course->evaluation_mechanism = $request->input('evaluationMechanisms');
-        $course->learning_environment = $request->input('learningEnvironments');
-        $course->practice_hours = $request->input('practiceHours');
-        $course->theory_hours = $request->input('theoryHours');
-        $course->bibliographies = $request->input('bibliographies');
         $course->code = $request->input('code');
+        $course->save();
 
-        return (new CourseCollection($course))
+        return (new CourseResource($course))
             ->additional([
                 'msg' => [
                     'summary' => 'Curso actualizado',
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
 
     /*
@@ -145,7 +114,7 @@ class PastranaController extends Controller
     */
     public function approveCourse($request, Course $course)
     {
-        $course->state()->associate(State::FirstWhere('code', State::APPROVED));
+        $course->state()->associate(State::firstWhere('code', State::APPROVED));
         $course->observation = $request->input('observation');
         $course->save();
 
@@ -156,14 +125,15 @@ class PastranaController extends Controller
                     'detail' => '',
                     'code' => '200'
                 ]
-            ]);
+            ])
+            ->response()->setStatusCode(200);
     }
 
     /*
     * Adjuntar el acta de aprobación
     */
-    public function uploadFile(UploadFileRequest $request, Catalogue $catalogue)
+    public function uploadFile(UploadFileRequest $request, File $file)
     {
-        return $catalogue->uploadFile($request);
+        return $file->uploadFile($request);
     }
 }
