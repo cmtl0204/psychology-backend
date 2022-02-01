@@ -105,7 +105,7 @@ class ParticipantsSeeder extends Seeder
 
 
         for ($i = 36; $i <= 85; $i++) {
-            $user =  User::where('id', $i);
+            $user =  User::find($i);
             $user_roles =  $user->roles();
             Participant::factory()->create(
                 [

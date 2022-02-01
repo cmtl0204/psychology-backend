@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Cecy\Planification;
 use Database\Seeders\Cecy\AdditionalInformationsSeeder;
 use Database\Seeders\Cecy\AttendancesSeeder;
 use Database\Seeders\Cecy\AuthoritiesSeeder;
@@ -19,6 +20,7 @@ use Database\Seeders\Cecy\InstructorsSeeder;
 use Database\Seeders\Cecy\NotificationsSeeder;
 use Database\Seeders\Cecy\ParticipantsSeeder;
 use Database\Seeders\Cecy\PhotograficRecordsSeeder;
+use Database\Seeders\Cecy\PlanificationsSeeder;
 use Database\Seeders\Cecy\PrerequisitesSeeder;
 use Database\Seeders\Cecy\ProfileInstructorCoursesSeeder;
 use Database\Seeders\Cecy\RegistrationRequerimentsSeeder;
@@ -37,18 +39,19 @@ class CecySeeder extends Seeder
             //CecyCatalogueSeeder::class,
             ClassroomsSeeder::class,
             InstructorsSeeder::class,
-            CoursesSeeder::class,
+            //CoursesSeeder::class,
             InstitutionsSeeder::class,
-            //RequirementesSeeder::class,
+            RequirementesSeeder::class,
             SchoolPeriodsSeeder::class,
             AuthoritiesSeeder::class,
             DetailSchoolPeriodsSeeder::class,
             ParticipantsSeeder::class,
+            PlanificationsSeeder::class,
             DetailPlanificationsSeeder::class,
             RegistrationsSeeder::class,
-            //AdditionalInformationsSeeder::class,
-            // RegistrationRequerimentsSeeder::class,
-            //PrerequisitesSeeder::class,
+            AdditionalInformationsSeeder::class,
+            RegistrationRequerimentsSeeder::class,
+            PrerequisitesSeeder::class,
             //ProfileInstructorCoursesSeeder::class,
             //TopicsSeeder::class,
             AttendancesSeeder::class,

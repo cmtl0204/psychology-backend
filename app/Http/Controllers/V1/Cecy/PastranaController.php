@@ -12,17 +12,10 @@ use App\Http\Requests\V1\Cecy\Courses\GetCoursesByCoordinatorCecyRequest;
 use App\Http\Requests\V1\Core\Files\UploadFileRequest;
 use App\Http\Requests\V1\Cecy\Planifications\UpdateAssignResponsibleCecyRequest;
 use App\Http\Resources\V1\Cecy\Courses\CourseByCoordinatorCecyCollection;
-use App\Http\Resources\V1\Cecy\Courses\CourseCollection;
-use App\Models\Cecy\DetailPlanification;
-use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Course;
-use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationResource;
-use App\Http\Resources\V1\Cecy\DetailPlanifications\DetailPlanificationCollection;
 use App\Http\Resources\V1\Cecy\Planifications\PlanificationResource;
 use App\Models\Cecy\Authority;
-use App\Models\Cecy\DetailSchoolPeriod;
-use App\Models\Cecy\Instructor;
-use App\Models\Core\Career;
+use App\Models\Core\File;
 
 class PastranaController extends Controller
 {
