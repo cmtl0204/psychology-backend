@@ -10,7 +10,7 @@ use App\Models\Cecy\Instructor;
 use App\Models\Cecy\Course;
 use App\Http\Resources\V1\Cecy\Instructors\InstructorResource;
 use App\Http\Requests\V1\Cecy\Instructor\DestroysInstructorRequest;
-use App\Http\Requests\V1\Cecy\Instructors\StoreProfileCourseRequest;
+use App\Http\Requests\V1\Cecy\ProfileInstructorCourses\StoreProfileCourseRequest;
 use App\Http\Resources\V1\Cecy\ProfileInstructorCourses\ProfileInstructorCourseResource;
 use App\Models\Cecy\ProfileInstructorCourse;
 
