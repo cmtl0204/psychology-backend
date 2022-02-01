@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\V1\Cecy;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Cecy\KPI\Planifications\ShowKpiRequest;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\DetailPlanificationChanged;
 use App\Models\Cecy\Authority;
+use App\Models\Cecy\Catalogue;
 use App\Models\Cecy\Classroom;
 use App\Models\Cecy\DetailPlanification;
 use App\Models\Cecy\Instructor;
@@ -138,7 +140,7 @@ class PerezController extends Controller
             ], 400);
         }
 
-        $state = Catalogue::where('code', State::TO_BE_APPROVED)->get();
+        $state = Catalogue::firstWhere('code', State::TO_BE_APPROVED);
         $classroom = Classroom::find($request->input('classroom.id'));
         $days = Catalogue::find($request->input('day.id'));
         $workday = Catalogue::find($request->input('workday.id'));
@@ -156,7 +158,7 @@ class PerezController extends Controller
         $detailPlanification->ended_time = $request->input('endedTime');
         $detailPlanification->started_time = $request->input('startedTime');
 
-        if ($request->input('observations')) {
+        if ($request->has('observations')) {
             $detailPlanification->observations = $request->input('observations');
         }
 
@@ -221,7 +223,7 @@ class PerezController extends Controller
 
         $detailPlanification->ended_time = $request->input('endedTime');
         $detailPlanification->started_time = $request->input('startedTime');
-        if ($request->input('observations')) {
+        if ($request->has('observations')) {
             $detailPlanification->observations = $request->input('observations');
         }
 
@@ -291,6 +293,22 @@ class PerezController extends Controller
                 ]
             ])
             ->response()->setStatusCode(200);
+    }
+    /**
+     * KPI of planifications
+     */
+    public function kpi(ShowKpiRequest $request)
+    {
+        $planifications = Planification::withCount([
+            'id' => function (Builder $query) {
+                $query->where(
+                    'state_id',
+                    Catalogue::firstWhere('id', request()->input('state.id'))->id
+                );
+            },
+        ])->get();
+
+        return $planifications[0]->id_count;
     }
     /**
      * KPI of planificationsToBeApproved
