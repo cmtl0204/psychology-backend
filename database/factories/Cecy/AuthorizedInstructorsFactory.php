@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Cecy;
 
 use App\Models\Cecy\Instructor;
 use App\Models\Cecy\ProfileInstructorCourse;

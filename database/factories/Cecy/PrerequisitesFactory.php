@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Cecy;
 
 use App\Models\Cecy\Prerequisite;
 use Illuminate\Database\Eloquent\Factories\Factory;
