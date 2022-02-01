@@ -17,22 +17,17 @@ class DetailSchoolPeriod extends Model implements Auditable
     protected $table = 'cecy.detail_school_periods';
 
     protected $fillable = [
-        'anulation_ended_at',
-        'anulation_started_at',
         'especial_ended_at',
         'especial_started_at',
         'extraordinary_ended_at',
         'extraordinary_started_at',
+        'nullification_ended_at',
+        'nullification_started_at',
         'ordinary_ended_at',
         'ordinary_started_at',
     ];
 
     // Relationships
-
-    public function state()
-    {
-        return $this->belongsTo(Catalogue::class);
-    }
 
     public function planifications()
     {

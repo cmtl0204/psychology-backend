@@ -17,6 +17,14 @@ class DetailSchoolPeriodResource extends JsonResource
         return [
             'id' => $this->id,
             'schoolPeriod' => SchoolPeriodResource::make($this->detailSchoolPeriods),
+            'especialEndedAt'=> $this->especialEndedAt,
+            'especialStartedAt'=> $this->especialStartedAt,
+            'extraordinaryEndedAt'=> $this->extraordinaryEndedAt,
+            'extraordinaryStartedAt'=> $this->extraordinaryStartedAt,
+            'nullificationEndedAt'=> $this->nullificationEndedAt,
+            'nullificationStartedAt'=> $this->nullificationStartedAt,
+            'ordinaryEndedAt'=> $this->ordinaryEndedAt,
+            'ordinaryStartedAt'=> $this->ordinaryStartedAt,
         ];
     }
 }

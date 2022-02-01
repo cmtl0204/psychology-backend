@@ -19,9 +19,9 @@ class SchoolPeriod extends Model implements Auditable
     protected $fillable = [
         'code',
         'ended_at',
+        'minimum_note',
         'name',
         'started_at',
-        'minimum_note'
     ];
 
     // Relationships

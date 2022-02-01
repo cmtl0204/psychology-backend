@@ -12,21 +12,11 @@ class CreateCecyDetailSchoolPeriodsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-
+            
             $table->foreignId('school_period_id')
                 ->comment('Id del periodo escolar')
                 ->constrained('cecy.school_periods');
-
-            // revisar el nombre anulation ver que otro se puede poner
-            $table->date('anulation_ended_at')
-                ->nullable()
-                ->comment('fecha de inicio de anulación de matrícula');
-
-            // revisar el nombre anulation ver que otro se puede poner
-            $table->date('anulation_started_at')
-                ->nullable()
-                ->comment('fecha de fin de anulación de matrícula');
-
+                
             $table->date('especial_ended_at')
                 ->nullable()
                 ->comment('fecha de finalización periodo especial');
@@ -41,12 +31,23 @@ class CreateCecyDetailSchoolPeriodsTable extends Migration
             $table->date('extraordinary_started_at')
                 ->comment('fecha de inicio periodo extraordinario');
 
+            // revisar el nombre anulation ver que otro se puede poner
+            $table->date('nullification_ended_at')
+                ->nullable()
+                ->comment('fecha de inicio de anulación de matrícula');
+
+            // revisar el nombre anulation ver que otro se puede poner
+            $table->date('nullification_started_at')
+                ->nullable()
+                ->comment('fecha de fin de anulación de matrícula');
+
             $table->date('ordinary_ended_at')
                 ->comment('fin del periodo ordinario');
 
             $table->date('ordinary_started_at')
                 ->nullable()
                 ->comment('Inicio del periodo ordinario');
+
         });
     }
 
