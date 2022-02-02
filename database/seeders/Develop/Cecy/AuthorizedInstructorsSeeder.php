@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Cecy;
+namespace Database\Seeders\Develop\Cecy;
 
 use Illuminate\Database\Seeder;
 
@@ -13,15 +13,7 @@ class AuthorizedInstructorsSeeder extends Seeder
      */
     public function run()
     {
-        $this->createAuthorizedInstructorsCatalogue();
-        $this->createAuthorizedInstructors();
+        // AuthorizedInstructor::factory()->create();
     }
 
-    public function createAuthorizedInstructorsCatalogue()
-    {
-        //Campos que son de catalogo
-    }
-    public function createAuthorizedInstructors()
-    {
-    }
 }

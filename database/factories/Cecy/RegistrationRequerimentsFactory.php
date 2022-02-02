@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Cecy;
 
 use App\Models\Cecy\Registration;
 use App\Models\Cecy\RegistrationRequirement;
@@ -22,15 +22,6 @@ class RegistrationRequerimentsFactory extends Factory
      */
     public function definition()
     {
-        return [
-            $registrations = Registration::get();
-            $requirements = Requirement::get();
-            return [
-                'registration_id' => $registrations[rand(0, sizeof($registrations) - 1)],
-                    'requeriment_id'=>$requirements[rand(0, sizeof($requirements) - 1)],
-                    'url'=>$this->faker->url(),
-                    
-            ];
-        ];
+        return [];
     }
 }

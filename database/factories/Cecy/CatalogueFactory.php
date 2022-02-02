@@ -2,17 +2,17 @@
 
 namespace Database\Factories\Cecy;
 
-use App\Models\Cecy\ProfileInstructorCourse;
+use App\Models\Cecy\Catalogue;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProfileInstructorCoursesFactory extends Factory
+class CatalogueFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = ProfileInstructorCourse::class;
+    protected $model = Catalogue::class;
     /**
      * Define the model's default state.
      *

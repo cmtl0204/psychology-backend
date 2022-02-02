@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Cecy;
+namespace Database\Seeders\Develop\Cecy;
 
 use App\Models\Cecy\Attendance;
 use App\Models\Cecy\Catalogue;
@@ -18,16 +18,6 @@ class DetailAttendancesSeeder extends Seeder
      */
     public function run()
     {
-        //CREAR AQUI LAS SEMILLAS PARA DETAILATTENDANCE
-        DB::statement("SET foreign_key_checks=0");
-        DB::table('attendances')->truncate();
-        DB::table('registrations')->truncate();
-        DB::table('catalogues')->truncate();
-        Attendance::truncate();
-        Registration::truncate();
-        DB::statement("SET foreign_key_checks=1");
-
-        //ejemplo con inserts
         $this->createDetailAttendances();
         $this->createDetailAttendancesCatalogue();
     }
@@ -57,6 +47,6 @@ class DetailAttendancesSeeder extends Seeder
     }
     public function createDetailAttendances()
     {
-        DetailAttendance::factory(50)->create();
+        DetailAttendance::factory(3500)->create();
     }
 }

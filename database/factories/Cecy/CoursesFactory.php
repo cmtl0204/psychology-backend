@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Cecy;
 
 use App\Models\Cecy\Catalogue;
 use App\Models\Core\Career;
@@ -10,6 +10,17 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CoursesFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Course::class;
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
     public function definition()
     { 
         $catalogue = json_decode(file_get_contents(storage_path() . "/catalogue.json"), true);

@@ -245,5 +245,16 @@
         "undergraduate": "UNDERGRADUATE",
         "mastery": "MASTERY",
         "doctorate": "DOCTORATE"
+    },
+    "registration": {
+        "type": "REGISTRATION",
+        "special": "SPECIAL",
+        "ordinary": "ORDINARY",
+        "extraordinary": "EXTRAORDINARY"
+    },
+    "requirement_state": {
+        "type": "REQUIREMENT_STATE",
+        "enabled": "ENABLED",
+        "disabled": "DISABLED"
     }
 }

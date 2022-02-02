@@ -1,13 +1,20 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Cecy;
 
 use App\Models\Cecy\Catalogue;
+use App\Models\Cecy\Certificate;
 use App\Models\Cecy\Registration;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CertificatesFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Certificate::class;
     /**
      * Define the model's default state.
      *

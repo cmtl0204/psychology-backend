@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Cecy;
+namespace Database\Seeders\Develop\Cecy;
 
 use App\Models\Cecy\Attendance;
 use Illuminate\Database\Seeder;
@@ -25,6 +25,6 @@ class AttendancesSeeder extends Seeder
     }
     public function createAttendances()
     {
-        Attendance::factory(150)->create();
+        Attendance::factory(70)->create();
     }
 }

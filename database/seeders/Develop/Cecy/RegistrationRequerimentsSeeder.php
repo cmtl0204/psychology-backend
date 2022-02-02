@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Cecy;
+namespace Database\Seeders\Develop\Cecy;
 
 use App\Models\Cecy\Registration;
 use App\Models\Cecy\RegistrationRequirement;
@@ -26,12 +26,16 @@ class RegistrationRequerimentsSeeder extends Seeder
     }
     public function createRegistrationRequeriments()
     {
-        $registration = Registration::factory()->count(5)->create();
-        $requirement = Requirement::factory()->count(5)->create();
-        RegistrationRequirement::factory()
-            ->count(10)
-            ->for($registration)
-            ->for($requirement)
-            ->create();
+        $registrations = Registration::get();
+        $requirements = Requirement::get();
+
+        //por cada registro le asigno entre 1 a 3 requerimientos
+
+        foreach ($registrations as $registro) {
+            $registro->requirements()->attach(
+                $requirements->random(rand(1, 3))->pluck('id')->toArray(),
+                ['url' => '/server/etc/images']
+            );
+        }
     }
 }
