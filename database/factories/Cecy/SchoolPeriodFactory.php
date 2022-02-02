@@ -5,7 +5,7 @@ namespace Database\Factories\Cecy;
 use App\Models\Cecy\SchoolPeriod;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SchoolPeriodsFactory extends Factory
+class SchoolPeriodFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
