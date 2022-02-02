@@ -27,7 +27,7 @@ class Course extends Model implements Auditable
         'duration',
         'evaluation_mechanisms',
         'expired_at',
-        'facilities',
+        // 'facilities',
         'free',
         'name',
         'needs',
@@ -37,18 +37,18 @@ class Course extends Model implements Auditable
         'local_proposal',
         'objective',
         'observation',
-        'practical_phase',
+        // 'practical_phase',
         'practice_hours',
         'proposed_at',
         'project',
         'public',
-        'required_installing_sources',
+        // 'required_installing_sources',
         'setec_name',
         'summary',
         'target_groups',
         'teaching_strategies',
         'techniques_requisites',
-        'theoretical_phase',
+        // 'theoretical_phase',
         'theory_hours'
     ];
 
@@ -120,7 +120,7 @@ class Course extends Model implements Auditable
         return $this->belongsTo(Catalogue::class);
     }
 
-    public function meanVerification()
+    public function meansVerification()
     {
         return $this->belongsTo(Catalogue::class);
     }
@@ -321,12 +321,12 @@ class Course extends Model implements Auditable
         }
     }
 
-    public function scopePracticeRequiredResources($query, $practice_required_resources)
-    {
-        if ($practice_required_resources) {
-            return $query->orWhere('practice_required_resources', $practice_required_resources);
-        }
-    }
+    // public function scopePracticeRequiredResources($query, $practice_required_resources)
+    // {
+    //     if ($practice_required_resources) {
+    //         return $query->orWhere('practice_required_resources', $practice_required_resources);
+    //     }
+    // }
 
     public function scopeProject($query, $project)
     {

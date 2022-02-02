@@ -4,7 +4,7 @@ namespace Database\Seeders\Cecy;
 
 use App\Models\Cecy\Catalogue;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Faker\Factory;
 
 class CoursesSeeder extends Seeder
 {
@@ -75,6 +75,36 @@ class CoursesSeeder extends Seeder
                 'name' => 'SEPTIMO',
                 'type' => $catalogue['academic_period']['type'],
                 'description' => 'Septimo semestre'
+            ],
+            [
+                'code' => $catalogue['area']['a'],
+                'name' => 'ADMINISTRACIÓN Y LEGISLACIÓN',
+                'type' => $catalogue['area']['type'],
+                'description' => null
+            ],
+            [
+                'code' => $catalogue['area']['b'],
+                'name' => 'AGRONOMÍA',
+                'type' => $catalogue['area']['type'],
+                'description' => null
+            ],
+            [
+                'code' => $catalogue['speciality_area']['a.1'],
+                'name' => 'Administración General (Pública, Empresas, Microempresas, Cooperativas, Aduanera, Agrícola, Agropecuaria, Agroindustrial, Bancaria, Financiera, Forestal, Hospitalaria, Hotelera, Inmobiliaria, Pesquera, Minera, Etc.)',
+                'type' => $catalogue['speciality_area']['type'],
+                'description' => null
+            ],
+            [
+                'code' => $catalogue['speciality_area']['a.2'],
+                'name' => 'Gestión del Talento Humano (Manejo de Personal, Desempeño, Motivación, Liderazgo, Coaching, Trabajo en Equipo, Selección por Competencias, Plan Interno de Carrera, Comunicación Organizacional, Profesiogramas)',
+                'type' => $catalogue['speciality_area']['type'],
+                'description' => null
+            ],
+            [
+                'code' => $catalogue['speciality_area']['a.3'],
+                'name' => 'Administración Contable y de Costos (Matemática Financiera, Estadística, Tributaria, Normas de Contabilidad, Auditorías Financieras, Contables, de Costos y Relacionadas, Normas Internacionales de Información Financiera Niif)',
+                'type' => $catalogue['speciality_area']['type'],
+                'description' => null
             ],
             [
                 'code' => $catalogue['entity_certification']['senecyt'],
@@ -254,53 +284,6 @@ class CoursesSeeder extends Seeder
     }
     public function createCourses()
     {
-        DB::table('prerequisites')->insert(
-            [
-                'academic_period_id' => 0,
-                'area_id' => 0,
-                'entity_certification_id' => 0,
-                'career_id' => 0,
-                'category_id' => 0,
-                'capacitation_type' => 0,
-                'certified_type_id' => 0,
-                'compliance_indicators_id' => 0,
-                'control_id' => 0,
-                'course_type_id' => 0,
-                'frecuency_id' => 0,
-                'modality_id' => 0,
-                'means_verification_id' => 0,
-                'abbreviation' => 'LARAVEL',
-                'alignment' => 'Alineación del curso',
-                'approved_at' => '2022-02-20',
-                'bibliographies' => 'contenido',
-                'code' => 'LAR123',
-                'cost' => 0, 00,
-                'duration' => 160,
-                'evaluation_mechanisms' => 'contenido',
-                'expired_at' => '2022-04-20',
-                // 'facilities' => 'contenido'
-                'free' => true,
-                'name' => 'Curso laravel',
-                'needs' => 'necesidades del curso',
-                'needed_at' => 'contenido',
-                'record_number' => 'LAR0001',
-                'learning_environments' => 'contenido',
-                'local_proposal' => 'contenido',
-                'objective' => 'Aprender a desarrollar con laravel',
-                'observation' => 'Primer curso del cecy',
-                // 'practical_phase' => 'contenido',
-                'practice_hours' => 130,
-                'proposed_at' => 'contenido',
-                'project' => 'Sin proyecto',
-                // 'required_installing_sources' => 'contenido',
-                'setec_name' => 'CURSO AVANZADO DE LARAVEL',
-                'summary' => 'Sin resumen',
-                'target_group' => 'contenido',
-                'teaching_strategies' => 'contenido',
-                'techniques_requisites' => 'contenido',
-                // 'theoretical_phase' => ,
-                'theory_hours' => 30,
-            ]
-        );
+        Couser::Factory(6)->create();
     }
 }

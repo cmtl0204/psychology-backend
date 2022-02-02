@@ -64,7 +64,7 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Presencial, Virtual')
                 ->constrained('cecy.catalogues');
 
-            $table->foreignId('mean_verification_id')
+            $table->foreignId('means_verification_id')
                 ->comment('Por averigurar campo añadido 21/01')
                 ->constrained('cecy.catalogues')
                 ->nullable();
@@ -117,9 +117,9 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Fecha de expiración del curso')
                 ->nullable();
 
-            $table->json('facilities')
-                ->comment('instalaciones')
-                ->nullable();
+            // $table->json('facilities')
+            //     ->comment('instalaciones')
+            //     ->nullable();
 
             $table->boolean('free')
                 ->comment('Si el curso es gratuito es true y si no es false')
@@ -156,9 +156,9 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Observación de curso')
                 ->nullable();
 
-            $table->json('practical_phases')
-                ->comment('Fase práctica')
-                ->nullable();
+                // $table->json('practical_phases')
+                // ->comment('Fase práctica')
+            // ->nullable();
 
             $table->integer('practice_hours')
                 ->comment('Cantidad de horas practicas del curso')
@@ -175,9 +175,9 @@ class CreateCecyCoursesTable extends Migration
             $table->boolean('public')
                 ->comment('Si el curso el público o no');
 
-            $table->string('required_installing_sources')
-                ->comment('Fuentes de instación necesaria')
-                ->nullable();
+            // $table->string('required_installing_sources')
+            //     ->comment('Fuentes de instalación necesaria')
+            //     ->nullable();
 
             $table->string('setec_name')
                 ->comment('Nombre del setec')
@@ -199,9 +199,9 @@ class CreateCecyCoursesTable extends Migration
                 ->comment('Requisitos técnicos y generales del curso')
                 ->nullable();
 
-            $table->json('theoretical_phases')
-                ->comment('Fase teórica')
-                ->nullable();
+            // $table->json('theoretical_phases')
+            // ->comment('Fase teórica')
+            // ->nullable();
 
             $table->integer('theory_hours')
                 ->comment('Cantidad de horas del curso en teoria')
