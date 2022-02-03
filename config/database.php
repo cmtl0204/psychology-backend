@@ -93,7 +93,7 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'pgsql-cecy' => [
+        'pgsql-psychology' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -104,7 +104,7 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'schema' => env('DB_SCHEMA_CECY', 'public'),
+            'schema' => env('DB_SCHEMA_PSYCHOLOGY', 'public'),
             'sslmode' => 'prefer',
         ],
 

@@ -28,12 +28,12 @@ class Catalogue extends Model implements Auditable
     // Relationsships
     public function parent()
     {
-        return $this->belongsTo(Catalogue::class,  'parent_id','core.catalogues');
+        return $this->belongsTo(Catalogue::class, 'parent_id', 'core.catalogues');
     }
 
     public function children()
     {
-        return $this->hasMany(Catalogue::class, 'parent_id','core.catalogues');
+        return $this->hasMany(Catalogue::class, 'parent_id', 'core.catalogues');
     }
 
     public function roles()
@@ -50,6 +50,21 @@ class Catalogue extends Model implements Auditable
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper($value);
+    }
+
+
+    public function scopeDescription($query, $description)
+    {
+        if ($description) {
+            return $query->where('description', 'ilike', "%$description%");
+        }
+    }
+
+    public function scopeName($query, $name)
+    {
+        if ($name) {
+            return $query->where('name', 'ilike', "%$name%");
+        }
     }
 
     public function scopeType($query, $type)

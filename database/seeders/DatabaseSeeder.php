@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Database\Seeders\Develop\AuthenticationSeeder;
 use Database\Seeders\Develop\CoreSeeder;
-use Database\Seeders\Develop\CecySeeder;
+use Database\Seeders\Develop\PsychologySeeder;
 
 use Database\Seeders\Production\AuthenticationSeeder as AuthenticationSeederProd;
 use Database\Seeders\Production\CoreSeeder as CoreSeederProd;
@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             $this->call([
                 AuthenticationSeeder::class,
                 CoreSeeder::class,
-                CecySeeder::class
+                PsychologySeeder::class
             ]);
         } else {
             $this->call([

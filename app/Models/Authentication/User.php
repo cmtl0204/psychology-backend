@@ -2,8 +2,8 @@
 
 namespace App\Models\Authentication;
 
-use App\Models\Cecy\Authority;
-use App\Models\Cecy\Instructor;
+use App\Models\Psychology\Authority;
+use App\Models\Psychology\Instructor;
 use App\Models\Core\Catalogue;
 use App\Models\Core\Email;
 use App\Models\Core\File;

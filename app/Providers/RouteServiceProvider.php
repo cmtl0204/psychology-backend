@@ -62,7 +62,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::prefix($prefix)
             ->middleware(['api', 'auth:sanctum'])
-            ->group(base_path("${path}/cecy.php"));
+            ->group(base_path("${path}/psychology.php"));
     }
 
     protected function mapApiRoutesPublic()
@@ -84,7 +84,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::prefix($prefix)
             ->middleware('api')
-            ->group(base_path("${path}/cecy.php"));
+            ->group(base_path("${path}/psychology.php"));
     }
 
     /**

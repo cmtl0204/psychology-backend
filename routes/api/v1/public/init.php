@@ -12,12 +12,12 @@ Route::get('init', function () {
     DB::select('drop schema if exists public cascade;');
     DB::select('drop schema if exists authentication cascade;');
     DB::select('drop schema if exists core cascade;');
-    DB::select('drop schema if exists cecy cascade;');
+    DB::select('drop schema if exists psychology cascade;');
 
 
     DB::select('create schema authentication;');
     DB::select('create schema core;');
-    DB::select('create schema cecy;');
+    DB::select('create schema psychology;');
 
     Artisan::call('migrate', ['--seed' => true]);
 
