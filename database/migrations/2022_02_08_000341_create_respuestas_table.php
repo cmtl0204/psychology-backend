@@ -21,7 +21,7 @@ class CreateRespuestasTable extends Migration
             $table->foreingId('pregunta_id');
             $table->number('value');
             $table->number('score');
-            $table->string'class');
+            $table->string('class');
             $table->string('icon');
 
 
