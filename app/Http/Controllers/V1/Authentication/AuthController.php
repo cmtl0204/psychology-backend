@@ -178,7 +178,7 @@ class AuthController extends Controller
 
     public function requestPasswordReset(RequestPasswordResetRequest $request)
     {
-        $user = $this->validateUser($request->user()->username);
+        $user = $this->validateUser($request->input('username'));
 
         if (!isset($user->id)) {
             return $user;

@@ -58,7 +58,7 @@ class AuthenticationSeeder extends Seeder
             'name' => 'Sistema de Gestión Académico - Administrativo',
             'acronym' => 'IGNUG',
             'version' => '2.2.3',
-            'redirect' => 'https://uic.yavirac.edu.ec/#/',
+            'redirect' => 'https://uic.yavirac.edu.ec/#',
             'date' => '2021-03-10',
             'state' => true
         ]);
