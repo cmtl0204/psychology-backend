@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRespuestasTable extends Migration
+class CreatePsychologyAnswersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,21 @@ class CreateRespuestasTable extends Migration
      */
     public function up()
     {
-        Schema::create('respuestas', function (Blueprint $table) {
+        Schema::create('answers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreingId('pregunta_id');
-            $table->number('value');
-            $table->number('score');
+            $table->foreignId('question_id')
+                ->constrained('psychology.questions');
+
+            $table->text('value');
+
+            $table->integer('score');
+
             $table->string('class');
+
             $table->string('icon');
-
-
         });
     }
 
@@ -35,6 +38,6 @@ class CreateRespuestasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('respuestas');
+        Schema::dropIfExists('answers');
     }
 }
