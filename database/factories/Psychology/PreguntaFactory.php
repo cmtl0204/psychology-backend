@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Psychology;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RespuestaFactory extends Factory
+class QuestionFactory extends Factory
 {
     /**
      * Define the model's default state.

@@ -18,6 +18,10 @@ class CreatePsychologyAnswersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreignId('test_id')
+                ->constrained('psychology.tests');
+
+
             $table->foreignId('question_id')
                 ->constrained('psychology.questions');
 

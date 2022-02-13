@@ -13,11 +13,11 @@ class CreatePsychologyQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_PSYCHOLOGY'))->create('questions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-
+            
             $table->text('value')
                 ->comment('El texto de la pregunta');
 
