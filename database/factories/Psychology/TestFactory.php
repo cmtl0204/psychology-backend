@@ -21,8 +21,10 @@ class TestFactory extends Factory
     public function definition()
     {
         return [
+            'age' => $this->faker->numberBetween(12, 18),
             'code' => $this->faker->ean8(),
             'terms_conditions' => true,
+            'type' => $this->faker->randomElement(['phq9a', 'psc17']),
             'priority_id' => $this->faker->randomElement(Priority::get()),
             'state_id' => $this->faker->randomElement(State::get()),
             'province_id' => $this->faker->randomElement(Location::where('type_id', 2)->get()),

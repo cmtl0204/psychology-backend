@@ -11,8 +11,29 @@ class Question extends Model
 
     protected $table = 'psychology.questions';
 
-    public function answers(){
+    protected $fillable = [
+        'order',
+        'type',
+        'value',
+    ];
+
+    public function answers()
+    {
         return $this->hasMany(Answer::class);
+    }
+
+    public function scopeType($query, $type)
+    {
+        if ($type) {
+            return $query->where('type', '=', $type);
+        }
+    }
+
+    public function scopeValue($query, $value)
+    {
+        if ($value) {
+            return $query->where('value', 'ILIKE', "%$value%");
+        }
     }
 }
 

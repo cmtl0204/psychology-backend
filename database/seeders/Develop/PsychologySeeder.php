@@ -33,8 +33,8 @@ class PsychologySeeder extends Seeder
     {
         State::factory(3)->sequence(
             [
-                'code' => 'GENERATED',
-                'name' => 'GENERADO',
+                'code' => 'NOT_ASSIGNED',
+                'name' => 'SIN ASIGNAR',
                 'order' => 1,
                 'type' => 'App/Models/Psychology/Test'
             ],
@@ -57,15 +57,15 @@ class PsychologySeeder extends Seeder
     {
         Priority::factory(3)->sequence(
             [
-                'name' => 'ALTA',
+                'name' => 'Alta Intensidad',
                 'level' => 1
             ],
             [
-                'name' => 'MEDIA',
+                'name' => 'Baja Intensidad',
                 'level' => 2
             ],
             [
-                'name' => 'BAJA',
+                'name' => 'Sin Problemas',
                 'level' => 3
             ]
         )->create();
@@ -73,47 +73,84 @@ class PsychologySeeder extends Seeder
 
     private function createQuestions()
     {
-        Question::factory(2)->create([
-            'type' => 'phq2'
-        ]);
+        //PHQ2
+        Question::factory(2)->sequence(
+            [
+                'order' => 1,
+                'type' => 'phq2',
+                'value' => '',
+            ],
+            [
+                'order' => 2,
+                'type' => 'phq2'
+                'value' => '',
+            ]
+        )->create();
 
-        Question::factory(9)->create([
-            'type' => 'phq9a'
-        ]);
+        //PHQ9A
+        Question::factory(9)->sequence(
+            [
+                'order' => 1,
+                'type' => 'phq9a',
+                'value' => '',
+            ],
+            [
+                'order' => 2,
+                'type' => 'phq9a',
+                'value' => '',
+            ]
+        )->create();
 
-        Question::factory(17)->create([
-            'type' => 'psc17'
-        ]);
+        //PSC17
+       Question::factory(17)->sequence(
+           [
+               'order' => 1,
+               'type' => 'psc17',
+               'value' => '',
+           ],
+           [
+               'order' => 2,
+               'type' => 'psc17',
+               'value' => '',
+           ]
+       )->create();
 
-        Question::factory(1)->create([
-            'type' => 'duel'
-        ]);
+        //DUEL
+       Question::factory(1)->sequence(
+           [
+               'order' => 1,
+               'type' => 'duel',
+               'value' => '',
+           ]
+       )->create();
     }
 
     private function createAnswers()
     {
-        Answer::factory(2)->sequence(
+        //PHQ2
+        Answer::factory(4)->sequence(
             [
                 'question_id' => 1,
                 'score' => 1,
+                'order' => 1,
                 'value' => 'SI',
             ],
             [
                 'question_id' => 1,
                 'score' => 0,
+                'order' => 2,
                 'value' => 'NO',
-            ]
-        )->create();
-
-        Answer::factory(2)->sequence(
+            ],
             [
                 'question_id' => 2,
                 'score' => 1,
+                'order' => 1,
                 'value' => 'SI',
             ],
             [
                 'question_id' => 2,
                 'score' => 0,
+                'order' => 2,
                 'value' => 'NO',
             ]
         )->create();
@@ -122,19 +159,27 @@ class PsychologySeeder extends Seeder
             Answer::factory(4)->sequence(
                 [
                     'question_id' => $question->id,
+                    'order' => 1,
                     'score' => 0,
+                    'value' => '',
                 ],
                 [
                     'question_id' => $question->id,
+                    'order' => 2,
                     'score' => 1,
+                    'value' => '',
                 ],
                 [
                     'question_id' => $question->id,
+                    'order' => 3,
                     'score' => 2,
+                    'value' => '',
                 ],
                 [
                     'question_id' => $question->id,
+                    'order' => 4,
                     'score' => 3,
+                    'value' => '',
                 ]
             )->create();
         }
@@ -143,15 +188,21 @@ class PsychologySeeder extends Seeder
             Answer::factory(3)->sequence(
                 [
                     'question_id' => $question->id,
+                    'order' => 1,
                     'score' => 0,
+                    'value' => '',
                 ],
                 [
                     'question_id' => $question->id,
+                    'order' => 2,
                     'score' => 1,
+                    'value' => '',
                 ],
                 [
                     'question_id' => $question->id,
+                    'order' => 3,
                     'score' => 2,
+                    'value' => '',
                 ]
             )->create();
         }
@@ -160,11 +211,13 @@ class PsychologySeeder extends Seeder
             Answer::factory(2)->sequence(
                 [
                     'question_id' => $question->id,
-                    'score' => $question->id,
+                    'order' => 2,
+                    'score' => 1,
                     'value' => 'SI',
                 ],
                 [
-                    'question_id' => 1,
+                    'question_id' => $question->id,
+                    'order' => 2,
                     'score' => 0,
                     'value' => 'NO',
                 ]
@@ -291,8 +344,8 @@ class PsychologySeeder extends Seeder
         foreach (Test::get() as $test) {
             Assignment::factory()->create(
                 [
-                    'institution_id'=>$institutions[rand(0,sizeof($institutions)-1)]->id,
-                    'test_id'=>$test->id
+                    'institution_id' => $institutions[rand(0, sizeof($institutions) - 1)]->id,
+                    'test_id' => $test->id
                 ]
             );
         }

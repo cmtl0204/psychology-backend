@@ -22,6 +22,7 @@ class CreatePsychologyTestsTable extends Migration
                 ->constrained('core.locations');
 
             $table->foreignId('priority_id')
+                ->nullable()
                 ->constrained('psychology.priorities');
 
             $table->foreignId('province_id')
@@ -33,11 +34,13 @@ class CreatePsychologyTestsTable extends Migration
             $table->foreignId('user_id')
                 ->constrained('authentication.users');
 
-
+            $table->integer('age');
 
             $table->string('code');
 
             $table->boolean('terms_conditions');
+
+            $table->enum('type', ['phq9a', 'psc17']);
         });
     }
 

@@ -16,6 +16,7 @@ class LocationResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'parent' => LocationResource::make($this->parent),
             'code' => $this->code,
             'name' => $this->name,
             'alpha2Code' => strtolower($this->alpha2_code),

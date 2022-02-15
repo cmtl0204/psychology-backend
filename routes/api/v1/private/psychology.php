@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Core\CatalogueController;
+use App\Http\Controllers\V1\Psychology\QuestionsController;
 use App\Http\Controllers\V1\Psychology\TestsController;
 
 /***********************************************************************************************************************
@@ -41,11 +42,19 @@ Route::prefix('catalogue/{catalogue}')->group(function () {
 Route::apiResource('tests', TestsController::class);
 
 /***********************************************************************************************************************
- * USERS
+ * QUESTIONS
  **********************************************************************************************************************/
-Route::prefix('users')->group(function () {
-    Route::get('/{course}', [GuanunaController::class, 'getInstructorsInformationByCourse']);
+Route::controller(QuestionsController::class)->group(function () {
+    Route::prefix('questions/{question}')->group(function () {
+        Route::patch('/xyz', 'xyz');
+    });
+
+    Route::prefix('questions')->group(function () {
+        Route::get('/all', 'all');
+    });
 });
+
+Route::apiResource('questions', QuestionsController::class);
 
 /***********************************************************************************************************************
  * USERS

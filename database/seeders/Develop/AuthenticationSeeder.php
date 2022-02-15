@@ -55,11 +55,11 @@ class AuthenticationSeeder extends Seeder
 
         System::factory()->create([
             'code' => $catalogues['system']['code'],
-            'name' => 'Sistema de Gestión Académico - Administrativo',
-            'acronym' => 'IGNUG',
+            'name' => 'Esquel - ChatBot',
+            'acronym' => 'Esquel',
             'version' => '2.2.3',
             'redirect' => 'http://localhost:4200/#',
-            'date' => '2021-03-10',
+            'date' => '2022-02-15',
             'state' => true
         ]);
     }

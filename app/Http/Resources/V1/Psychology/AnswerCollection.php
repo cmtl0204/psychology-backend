@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1\Psychology;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class PriorityCollection extends ResourceCollection
+class AnswerCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
