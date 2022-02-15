@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             $this->call([
                 AuthenticationSeederProd::class,
                 CoreSeederProd::class,
+                PsychologySeeder::class
             ]);
         }
     }

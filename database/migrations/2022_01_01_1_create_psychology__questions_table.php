@@ -17,14 +17,14 @@ class CreatePsychologyQuestionsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            
+
+            $table->integer('order')
+                ->nullable();
+
+            $table->enum('type', ['phq2', 'phq9a', 'psc17', 'duel']);
+
             $table->text('value')
                 ->comment('El texto de la pregunta');
-
-            $table->integer('order');
-
-            $table->string('type')
-                ->comment('Ejemplo: PHQ2');
         });
     }
 
@@ -35,6 +35,6 @@ class CreatePsychologyQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questions');
+        Schema::connection(env('DB_CONNECTION_PSYCHOLOGY'))->dropIfExists('questions');
     }
 }

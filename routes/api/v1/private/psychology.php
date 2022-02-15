@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\V1\Psychology\CatalogueController;
-use App\Http\Controllers\V1\Psychology\GuachagmiraController;
-use App\Http\Controllers\V1\Psychology\GuanunaController;
+use App\Http\Controllers\V1\Core\CatalogueController;
+use App\Http\Controllers\V1\Psychology\TestsController;
 
 /***********************************************************************************************************************
  * CATALOGUES
@@ -37,60 +36,9 @@ Route::prefix('catalogue/{catalogue}')->group(function () {
  **********************************************************************************************************************/
 
 /***********************************************************************************************************************
- * PLANIFICATIONS
+ * TESTS
  **********************************************************************************************************************/
-Route::prefix('planification')->group(function () {
-    Route::get('', [PerezController::class, 'getPlanificationsByCourse']);
-});
-
-
-Route::prefix('planification/{planification}')->group(function () {
-    Route::put('', [PerezController::class, 'updateDatesAndNeedsinPlanification']);
-});
-
-/***********************************************************************************************************************
- * DETAIL PLANIFICATIONS
- **********************************************************************************************************************/
-Route::prefix('detailPlanification')->group(function () {
-    Route::get('', [PerezController::class, 'getDetailPlanificationsByPlanification']);
-    Route::post('', [PerezController::class, 'registerDetailPlanificationByResponsibleCourse']);
-    Route::get('/{course}', [GuachagmiraController::class, 'getDetailPlanificationsByCourse']);
-});
-
-Route::prefix('detailPlanification/{detailPlanification}')->group(function () {
-    Route::get('', [PerezController::class, 'showDetailPlanificationByResponsibleCourse']);
-    Route::put('', [PerezController::class, 'updateDetailPlanificationByResponsibleCourse']);
-    Route::delete('', [PerezController::class, 'deleteDetailPlanificationByResponsibleCourse']);
-});
-
-/***********************************************************************************************************************
- * COURSE
- **********************************************************************************************************************/
-Route::prefix('courses')->group(function () {
-    Route::get('', [AlvaradoController::class, 'getCourses']);
-    Route::put('/{course}', [AlvaradoController::class, 'updateCourse']);
-});
-
-/***********************************************************************************************************************
- * TOPICS
- **********************************************************************************************************************/
-Route::prefix('topics')->group(function () {
-    Route::get('/{course}', [AlvaradoController::class, 'getTopics']);
-    Route::post('/{course}', [AlvaradoController::class, 'storeTopic']);
-    Route::put('/{course}', [AlvaradoController::class, 'updateTopic']);
-    Route::delete('', [AlvaradoController::class, 'destroyTopic']);
-    Route::patch('', [AlvaradoController::class, 'destroysTopics']);
-});
-/***********************************************************************************************************************
- * PREREQUISITES
- **********************************************************************************************************************/
-Route::prefix('prerequisites')->group(function () {
-    Route::get('/{course}', [AlvaradoController::class, 'getPrerequisites']);
-    Route::post('/{course}', [AlvaradoController::class, 'storePrerequisite']);
-    Route::put('/{course}', [AlvaradoController::class, 'updatePrerequisite']);
-    Route::delete('', [AlvaradoController::class, 'DestroyPrerequisite']);
-    Route::patch('', [AlvaradoController::class, 'destroysPrerequisites']);
-});
+Route::apiResource('tests', TestsController::class);
 
 /***********************************************************************************************************************
  * USERS

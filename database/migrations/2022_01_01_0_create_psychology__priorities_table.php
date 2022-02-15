@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePsychologyResultsTable extends Migration
+class CreatePsychologyPrioritiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,20 @@ class CreatePsychologyResultsTable extends Migration
      */
     public function up()
     {
-        Schema::create('answers', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_PSYCHOLOGY'))->create('priorities', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('test_id')
-                ->constrained('psychology.tests');
+            $table->text('description')
+            ->nullable();
 
-            $table->foreignId('question_id')
-                ->constrained('psychology.questions');
+            $table->integer('level');
 
-            $table->foreignId('answer_id')
-                ->constrained('psychology.answers');
+            $table->string('name');
+
+            $table->boolean('state')
+                ->default(true);
         });
     }
 
@@ -36,6 +37,6 @@ class CreatePsychologyResultsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('respuestas');
+        Schema::connection(env('DB_CONNECTION_PSYCHOLOGY'))->dropIfExists('priorities');
     }
 }

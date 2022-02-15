@@ -13,25 +13,28 @@ class CreatePsychologyAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('answers', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_PSYCHOLOGY'))->create('answers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('test_id')
-                ->constrained('psychology.tests');
-
-
             $table->foreignId('question_id')
                 ->constrained('psychology.questions');
 
+            $table->string('class')
+            ->nullable();
+
+            $table->string('icon')
+                ->nullable();
+
+            $table->integer('order')
+                ->unsigned()
+                ->nullable();
+
+            $table->integer('score')
+                ->unsigned();
+
             $table->text('value');
-
-            $table->integer('score');
-
-            $table->string('class');
-
-            $table->string('icon');
         });
     }
 
@@ -42,6 +45,6 @@ class CreatePsychologyAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answers');
+        Schema::connection(env('DB_CONNECTION_PSYCHOLOGY'))->dropIfExists('answers');
     }
 }

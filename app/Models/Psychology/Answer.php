@@ -9,6 +9,8 @@ class Answer extends Model
 {
     use HasFactory;
 
+    protected $table = 'psychology.answers';
+
     public function question()
     {
         return $this->belongsTo(Question::class);

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePsychologyAssignmentsTable extends Migration
+class CreatePsychologyAgentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,23 @@ class CreatePsychologyAssignmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('assignments', function (Blueprint $table) {
+        Schema::connection(env('DB_CONNECTION_PSYCHOLOGY'))->create('agents', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreignId('institution_id')
-                ->constrained('psychology.institutions');
-
             $table->foreignId('test_id')
                 ->constrained('psychology.tests');
 
-            $table->date('started_at');
+            $table->string('email');
 
-            $table->date('ended_at');
+            $table->string('identification');
 
-            $table->json('observations');
+            $table->string('lastname');
+
+            $table->string('name');
+
+            $table->string('phone');
         });
     }
 
@@ -39,6 +40,6 @@ class CreatePsychologyAssignmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assignments');
+        Schema::connection(env('DB_CONNECTION_PSYCHOLOGY'))->dropIfExists('agents');
     }
 }

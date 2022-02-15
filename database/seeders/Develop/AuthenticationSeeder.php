@@ -304,7 +304,8 @@ class AuthenticationSeeder extends Seeder
         DB::select("insert into core.locations(type_id,code,name,alpha2_code,alpha3_code,calling_code) values(1,'97','IRÁN','IM','SN','SN');");
         DB::select("insert into core.locations(type_id,code,name,alpha2_code,alpha3_code,calling_code) values(1,'98','IRLANDA','NF','SN','SN');");
         DB::select("insert into core.locations(type_id,code,name,alpha2_code,alpha3_code,calling_code) values(1,'99','ISLA DE MAN','IS','IMN','+44');");
-        DB::select("insert into core.locations(type_id,code,name,alpha2_code,alpha3_code,calling_code) values(1,'100','ISLA NORFOLK','IS','NFK','+672');");
+        DB::select("insert into core.locations(type_id,code,name,alpha2_code,alpha3_code,calling_code) values(1,'100' ||
+                                                                                            '','ISLA NORFOLK','IS','NFK','+672');");
         DB::select("insert into core.locations(type_id,code,name,alpha2_code,alpha3_code,calling_code) values(1,'101','ISLANDIA','KY','ISL','+354');");
         DB::select("insert into core.locations(type_id,code,name,alpha2_code,alpha3_code,calling_code) values(1,'102','ISLAS ÅLAND','CK','ISL','+354');");
         DB::select("insert into core.locations(type_id,code,name,alpha2_code,alpha3_code,calling_code) values(1,'103','ISLAS CAIMÁN','FO','CYM','+1345');");
