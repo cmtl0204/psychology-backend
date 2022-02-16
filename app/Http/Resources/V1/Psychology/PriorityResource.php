@@ -20,6 +20,7 @@ class PriorityResource extends JsonResource
             'level' => $this->level,
             'name' => $this->name,
             'state' => $this->state,
+            'testsCount' => $this->tests_count,
         ];
     }
 }

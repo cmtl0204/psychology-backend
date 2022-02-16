@@ -47,6 +47,7 @@ Route::controller(TestsController::class)->group(function () {
     Route::prefix('tests')->group(function () {
         Route::post('/generate-transactional-code', 'generateTransactionalCode');
         Route::post('/verify-transactional-code', 'verifyTransactionalCode');
+        Route::get('/count-priorities', 'countPriorities');
     });
 });
 Route::apiResource('tests', TestsController::class);

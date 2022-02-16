@@ -10,4 +10,8 @@ class Priority extends Model
     use HasFactory;
 
     protected $table = 'psychology.priorities';
+
+    public function tests(){
+        return $this->hasMany(Test::class);
+    }
 }

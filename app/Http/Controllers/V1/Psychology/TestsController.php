@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1\Psychology;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Authentication\GenerateTransactionalCodeAuthRequest;
 use App\Http\Requests\V1\Authentication\VerifyTransactionalCodeAuthRequest;
+use App\Http\Resources\V1\Psychology\PriorityCollection;
 use App\Mail\Authentication\TransactionalCodeMailable;
 use App\Mail\Psychology\TestResultsMailable;
 use App\Mail\Psychology\TestYoungerResultsMailable;
@@ -37,7 +38,10 @@ class TestsController extends Controller
     {
         $sorts = explode(',', $request->input('sort'));
 
-        $tests = Test::with('state')->paginate($request->input('per_page'));
+        $tests = Test::select('tests.*')
+            ->join('psychology.states', 'states.id', '=', 'tests.state_id')->orderBy('order')
+            ->join('psychology.priorities', 'priorities.id', '=', 'tests.priority_id')->orderBy('level')
+            ->paginate($request->input('per_page'));
 
         return (new TestCollection($tests))
             ->additional([
@@ -139,6 +143,25 @@ class TestsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function countPriorities()
+    {
+        $prioritiesCount = Priority::withCount(['tests' => function ($tests) {
+            $tests->whereHas('state', function ($state) {
+                $state->where('code', '=', 'NOT_ASSIGNED');
+            });
+        }])->get();
+
+        return (new PriorityCollection($prioritiesCount))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ])
+            ->response()->setStatusCode(200);
     }
 
     private function saveUser(Request $request)
