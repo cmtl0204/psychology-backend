@@ -13,7 +13,9 @@ class Test extends Model
 
     protected $table = 'psychology.tests';
     protected $fillable = [
-        'terms_conditions'
+        'terms_conditions',
+        'type',
+        'score',
     ];
 
     public function user()

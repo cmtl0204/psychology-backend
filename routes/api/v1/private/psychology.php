@@ -39,6 +39,16 @@ Route::prefix('catalogue/{catalogue}')->group(function () {
 /***********************************************************************************************************************
  * TESTS
  **********************************************************************************************************************/
+Route::controller(TestsController::class)->group(function () {
+    Route::prefix('tests/{test}')->group(function () {
+        Route::patch('/xyz', 'xyz');
+    });
+
+    Route::prefix('tests')->group(function () {
+        Route::post('/generate-transactional-code', 'generateTransactionalCode');
+        Route::post('/verify-transactional-code', 'verifyTransactionalCode');
+    });
+});
 Route::apiResource('tests', TestsController::class);
 
 /***********************************************************************************************************************

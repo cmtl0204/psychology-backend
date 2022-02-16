@@ -38,6 +38,10 @@ class CreatePsychologyTestsTable extends Migration
 
             $table->string('code');
 
+            $table->integer('score')
+                ->unsigned()
+                ->default(0);
+
             $table->boolean('terms_conditions');
 
             $table->enum('type', ['phq9a', 'psc17']);
