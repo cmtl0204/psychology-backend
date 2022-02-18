@@ -11,7 +11,8 @@ class Priority extends Model
 
     protected $table = 'psychology.priorities';
 
-    public function tests(){
+    public function tests()
+    {
         return $this->hasMany(Test::class);
     }
 }

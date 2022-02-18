@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Authentication\GenerateTransactionalCodeAuthRequest;
 use App\Http\Requests\V1\Authentication\VerifyTransactionalCodeAuthRequest;
 use App\Http\Resources\V1\Psychology\PriorityCollection;
-use App\Mail\Authentication\TransactionalCodeMailable;
+use App\Mail\Psychology\TransactionalCodeTestMailable;
 use App\Mail\Psychology\TestResultsMailable;
 use App\Mail\Psychology\TestYoungerResultsMailable;
 use App\Models\Authentication\TransactionalCode;
@@ -37,10 +37,19 @@ class TestsController extends Controller
     public function index(Request $request)
     {
         $sorts = explode(',', $request->input('sort'));
+        $dates = array($request->input('startedAt'), $request->input('endedAt'));
+        $provinceIds = explode(",", $request->input('provinces'));
+        $states = explode(",", $request->input('states'));
+        $priorities = explode(",", $request->input('priorities'));
 
         $tests = Test::select('tests.*')
+            ->provinces($provinceIds)
+            ->date($dates)
+            ->states($states)
+            ->priorities($priorities)
             ->join('psychology.states', 'states.id', '=', 'tests.state_id')->orderBy('order')
             ->join('psychology.priorities', 'priorities.id', '=', 'tests.priority_id')->orderBy('level')
+            ->orderByDesc('created_at')
             ->paginate($request->input('per_page'));
 
         return (new TestCollection($tests))
@@ -145,10 +154,35 @@ class TestsController extends Controller
         //
     }
 
-    public function countPriorities()
+    public function countPriorities(Request $request)
     {
-        $prioritiesCount = Priority::withCount(['tests' => function ($tests) {
-            $tests->whereHas('state', function ($state) {
+        $dates = array($request->input('startedAt'), $request->input('endedAt'));
+        $provinceIds = explode(",", $request->input('provinces'));
+
+        $prioritiesCount = Priority::withCount(['tests' => function ($tests) use ($provinceIds, $dates) {
+            $tests->date($dates)
+                ->provinces($provinceIds)
+                ->whereHas('state', function ($state) {
+                    $state->where('code', '=', 'NOT_ASSIGNED');
+                });
+        }])->get();
+
+        return (new PriorityCollection($prioritiesCount))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ])
+            ->response()->setStatusCode(200);
+    }
+
+    public function countAllPriorities(Request $request)
+    {
+        $provinceIds = explode(",", $request->input('provinces'));
+        $prioritiesCount = Priority::withCount(['tests' => function ($tests) use ($provinceIds) {
+            $tests->provinces($provinceIds)->whereHas('state', function ($state) {
                 $state->where('code', '=', 'NOT_ASSIGNED');
             });
         }])->get();
@@ -162,6 +196,23 @@ class TestsController extends Controller
                 ]
             ])
             ->response()->setStatusCode(200);
+    }
+
+    public function countAllTests(Request $request)
+    {
+        $dates = array($request->input('startedAt'), $request->input('endedAt'));
+        $provinceIds = explode(",", $request->input('provinces'));
+
+        $countTests = Test::provinces($provinceIds)->date($dates)->get();
+
+        return response()->json([
+            'msg' => [
+                'summary' => 'success',
+                'detail' => '',
+                'code' => '200'
+            ],
+            'data' => $countTests->count()
+        ]);
     }
 
     private function saveUser(Request $request)
@@ -290,7 +341,7 @@ class TestsController extends Controller
         ]);
 
         Mail::to($request->input('email'))
-            ->send(new TransactionalCodeMailable(
+            ->send(new TransactionalCodeTestMailable(
                 'Información Código de Seguridad',
                 json_encode(['user' => $request->all(), 'token' => $token])
             ));

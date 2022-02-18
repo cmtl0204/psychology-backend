@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Core\CatalogueController;
 use App\Http\Controllers\V1\Psychology\QuestionsController;
 use App\Http\Controllers\V1\Psychology\TestsController;
+use App\Http\Controllers\V1\Psychology\InstitutionsController;
 
 /***********************************************************************************************************************
  * CATALOGUES
@@ -35,22 +36,31 @@ Route::prefix('catalogue/{catalogue}')->group(function () {
 /***********************************************************************************************************************
  * INSTITUTIONS
  **********************************************************************************************************************/
+Route::controller(InstitutionsController::class)->group(function () {
+    Route::prefix('institutions/{institution}')->group(function () {
+        Route::post('/assignment-tests', 'assignmentTests');
+    });
+
+    Route::prefix('institutions')->group(function () {
+        Route::get('/all', 'all');
+    });
+});
 
 /***********************************************************************************************************************
  * TESTS
  **********************************************************************************************************************/
 Route::controller(TestsController::class)->group(function () {
     Route::prefix('tests/{test}')->group(function () {
-        Route::patch('/xyz', 'xyz');
+
     });
 
     Route::prefix('tests')->group(function () {
-        Route::post('/generate-transactional-code', 'generateTransactionalCode');
-        Route::post('/verify-transactional-code', 'verifyTransactionalCode');
         Route::get('/count-priorities', 'countPriorities');
+        Route::get('/count-all-priorities', 'countAllPriorities');
+        Route::get('/count-all-tests', 'countAllTests');
     });
 });
-Route::apiResource('tests', TestsController::class);
+Route::apiResource('tests', TestsController::class)->except('store');
 
 /***********************************************************************************************************************
  * QUESTIONS
@@ -61,11 +71,11 @@ Route::controller(QuestionsController::class)->group(function () {
     });
 
     Route::prefix('questions')->group(function () {
-        Route::get('/all', 'all');
+
     });
 });
 
-Route::apiResource('questions', QuestionsController::class);
+//Route::apiResource('questions', QuestionsController::class);
 
 /***********************************************************************************************************************
  * USERS

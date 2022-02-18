@@ -245,24 +245,28 @@ class PsychologySeeder extends Seeder
         Answer::factory(4)->sequence(
             [
                 'question_id' => 1,
+                'class' => 'p-button-info',
                 'score' => 1,
                 'order' => 1,
                 'value' => 'SI',
             ],
             [
                 'question_id' => 1,
+                'class' => 'p-button-help',
                 'score' => 0,
                 'order' => 2,
                 'value' => 'NO',
             ],
             [
                 'question_id' => 2,
+                'class' => 'p-button-info',
                 'score' => 1,
                 'order' => 1,
                 'value' => 'SI',
             ],
             [
                 'question_id' => 2,
+                'class' => 'p-button-help',
                 'score' => 0,
                 'order' => 2,
                 'value' => 'NO',
@@ -273,24 +277,28 @@ class PsychologySeeder extends Seeder
             Answer::factory(4)->sequence(
                 [
                     'question_id' => $question->id,
+                    'class' => 'p-button-info',
                     'order' => 1,
                     'score' => 0,
                     'value' => 'Para nada',
                 ],
                 [
                     'question_id' => $question->id,
+                    'class' => 'p-button-help',
                     'order' => 2,
                     'score' => 1,
                     'value' => 'Varios días (entre 1 a 6 días)',
                 ],
                 [
                     'question_id' => $question->id,
+                    'class' => 'p-button-warning',
                     'order' => 3,
                     'score' => 2,
                     'value' => 'La mitad de los días o más (entre 7 y 11 días)',
                 ],
                 [
                     'question_id' => $question->id,
+                    'class' => 'p-button-secondary',
                     'order' => 4,
                     'score' => 3,
                     'value' => 'Casi todos los días (12 días o más)',
@@ -302,18 +310,21 @@ class PsychologySeeder extends Seeder
             Answer::factory(3)->sequence(
                 [
                     'question_id' => $question->id,
+                    'class' => 'p-button-info',
                     'order' => 1,
                     'score' => 0,
                     'value' => 'Nunca',
                 ],
                 [
                     'question_id' => $question->id,
+                    'class' => 'p-button-help',
                     'order' => 2,
                     'score' => 1,
                     'value' => 'Algunas veces',
                 ],
                 [
                     'question_id' => $question->id,
+                    'class' => 'p-button-warning',
                     'order' => 3,
                     'score' => 2,
                     'value' => 'Frecuentemente',
@@ -325,12 +336,14 @@ class PsychologySeeder extends Seeder
             Answer::factory(2)->sequence(
                 [
                     'question_id' => $question->id,
+                    'class' => 'p-button-info',
                     'order' => 1,
                     'score' => 1,
                     'value' => 'SI',
                 ],
                 [
                     'question_id' => $question->id,
+                    'class' => 'p-button-help',
                     'order' => 2,
                     'score' => 0,
                     'value' => 'NO',

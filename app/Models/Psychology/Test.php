@@ -99,6 +99,34 @@ class Test extends Model
             return $query->select($fields);
         }
     }
+
+    public function scopeDate($query, $dates)
+    {
+        if ($dates) {
+            return $query->whereBetween('tests.created_at', $dates);
+        }
+    }
+
+    public function scopeProvinces($query, $provinces)
+    {
+        if ($provinces[0] !== '') {
+            return $query->whereIn('province_id', $provinces);
+        }
+    }
+
+    public function scopeStates($query, $states)
+    {
+        if ($states[0] !== '') {
+            return $query->whereIn('state_id', $states);
+        }
+    }
+
+    public function scopePriorities($query, $priorities)
+    {
+        if ($priorities[0] !== '') {
+            return $query->whereIn('priority_id', $priorities);
+        }
+    }
 }
 
 

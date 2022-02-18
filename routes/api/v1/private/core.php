@@ -38,29 +38,6 @@ Route::prefix('user/{user}')->group(function () {
 });
 
 /***********************************************************************************************************************
- * INSTITUTIONS
- **********************************************************************************************************************/
-Route::apiResource('institutions', InstitutionController::class);
-
-Route::prefix('institution')->group(function () {
-    Route::get('catalogue', [InstitutionController::class, 'catalogue']);
-});
-
-Route::prefix('institution/{institution}')->group(function () {
-    Route::get('careers', [InstitutionController::class, 'careers']);
-});
-
-/***********************************************************************************************************************
- * CAREERS
- **********************************************************************************************************************/
-Route::apiResource('careers', CareerController::class);
-
-Route::prefix('career')->group(function () {
-    Route::get('catalogue', [CareerController::class, 'catalogue']);
-});
-
-
-/***********************************************************************************************************************
  * FILES
  **********************************************************************************************************************/
 Route::apiResource('files', FileController::class)->except(['index', 'store']);
