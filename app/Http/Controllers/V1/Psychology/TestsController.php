@@ -36,19 +36,21 @@ class TestsController extends Controller
      */
     public function index(Request $request)
     {
-        $sorts = explode(',', $request->input('sort'));
         $dates = array($request->input('startedAt'), $request->input('endedAt'));
         $provinceIds = explode(",", $request->input('provinces'));
         $states = explode(",", $request->input('states'));
         $priorities = explode(",", $request->input('priorities'));
 
         $tests = Test::select('tests.*')
+            ->where(function ($query) use ($request) {
+                $query->code($request->input('search'))->user($request->input('search'));
+            })
             ->provinces($provinceIds)
             ->date($dates)
             ->states($states)
             ->priorities($priorities)
-            ->join('psychology.states', 'states.id', '=', 'tests.state_id')->orderBy('order')
-            ->join('psychology.priorities', 'priorities.id', '=', 'tests.priority_id')->orderBy('level')
+//            ->join('psychology.states', 'states.id', '=', 'tests.state_id')->orderBy('order')
+//            ->join('psychology.priorities', 'priorities.id', '=', 'tests.priority_id')->orderBy('level')
             ->orderByDesc('created_at')
             ->paginate($request->input('per_page'));
 
@@ -99,13 +101,13 @@ class TestsController extends Controller
         if ($test->age < 18) {
             Mail::to($agent->email)
                 ->send(new TestYoungerResultsMailable(
-                    'ChatBot-Esquel Resultados del Test',
+                    'ChatBot-Esquel Resultados del Tests',
                     json_encode(['user' => $user, 'agent' => $agent, 'test' => $test])
                 ));
         } else {
             Mail::to($user->email)
                 ->send(new TestResultsMailable(
-                    'ChatBot-Esquel Resultados del Test',
+                    'ChatBot-Esquel Resultados del Tests',
                     json_encode(['user' => $user, 'test' => $test])
                 ));
         }
@@ -147,11 +149,38 @@ class TestsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse|\Illuminate\Http\Response|object
      */
-    public function destroy($id)
+    public function destroy(Test $test)
     {
-        //
+        $test->delete();
+
+        return (new TestResource($test))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Test Eliminado',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ])
+            ->response()->setStatusCode(201);
+    }
+
+    public function destroys(Request $request)
+    {
+        $tests = Test::whereIn('id', $request->input('ids'))->get();
+
+        Test::destroy($request->input('ids'));
+
+        return (new TestCollection($tests))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Usuarios Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ])
+            ->response()->setStatusCode(201);
     }
 
     public function countPriorities(Request $request)

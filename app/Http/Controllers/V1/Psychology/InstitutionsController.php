@@ -46,6 +46,7 @@ class InstitutionsController extends Controller
 
             $assignment->institution()->associate($institution);
             $assignment->test()->associate($test);
+            $assignment->user()->associate($request->user());
             $assignment->started_at = now();
             $assignment->save();
         }

@@ -36,19 +36,19 @@ class PsychologySeeder extends Seeder
                 'code' => 'NOT_ASSIGNED',
                 'name' => 'SIN ASIGNAR',
                 'order' => 1,
-                'type' => 'App/Models/Psychology/Test'
+                'type' => 'App/Models/Psychology/Tests'
             ],
             [
                 'code' => 'ASSIGNED',
                 'name' => 'ASIGNADO',
                 'order' => 2,
-                'type' => 'App/Models/Psychology/Test'
+                'type' => 'App/Models/Psychology/Tests'
             ],
             [
                 'code' => 'FINISHED',
                 'name' => 'CERRADO',
                 'order' => 3,
-                'type' => 'App/Models/Psychology/Test'
+                'type' => 'App/Models/Psychology/Tests'
             ]
         )->create();
     }

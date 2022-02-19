@@ -6,12 +6,18 @@ use App\Models\Authentication\User;
 use App\Models\Core\Location;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as Auditing;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Test extends Model
+class Test extends Model implements Auditable
 {
     use HasFactory;
+    use Auditing;
+    use SoftDeletes;
 
     protected $table = 'psychology.tests';
+
     protected $fillable = [
         'terms_conditions',
         'type',
@@ -125,6 +131,24 @@ class Test extends Model
     {
         if ($priorities[0] !== '') {
             return $query->whereIn('priority_id', $priorities);
+        }
+    }
+
+    public function scopeCode($query, $code)
+    {
+        if ($code) {
+            return $query->orWhere('tests.code', 'iLike', "%$code%");
+        }
+    }
+
+    public function scopeUser($query, $user)
+    {
+        if ($user) {
+            return $query->orWhereHas('user', function ($q) use ($user) {
+                $q->where('username', 'iLike', "%$user%")
+                    ->orWhere('name', 'iLike', "%$user%")
+                    ->orWhere('lastname', 'iLike', "%$user%");
+            });
         }
     }
 }

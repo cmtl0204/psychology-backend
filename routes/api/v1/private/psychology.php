@@ -58,6 +58,7 @@ Route::controller(TestsController::class)->group(function () {
         Route::get('/count-priorities', 'countPriorities');
         Route::get('/count-all-priorities', 'countAllPriorities');
         Route::get('/count-all-tests', 'countAllTests');
+        Route::patch('/destroys', 'destroys');
     });
 });
 Route::apiResource('tests', TestsController::class)->except('store');

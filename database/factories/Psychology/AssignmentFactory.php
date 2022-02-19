@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Psychology;
 
+use App\Models\Authentication\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Psychology\Assignment;
 
@@ -14,12 +15,14 @@ class AssignmentFactory extends Factory
      */
 
     protected $model = Assignment::class;
+
     public function definition()
     {
         return [
-            'ended_at'=>$this->faker->dateTime(),
-            'observations'=>$this->faker->sentences(),
-            'started_at'=>$this->faker->dateTime(),
+            'user_id' => $this->faker->randomElement(User::get()),
+            'ended_at' => $this->faker->dateTime(),
+            'observations' => $this->faker->sentences(),
+            'started_at' => $this->faker->dateTime(),
         ];
     }
 }

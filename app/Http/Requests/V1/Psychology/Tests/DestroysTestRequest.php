@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\V1\Psychology;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePreguntaRequest extends FormRequest
+class DestroysTestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StorePreguntaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class StorePreguntaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'ids' => ['required'],
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'ids' => 'ID`s de test',
         ];
     }
 }

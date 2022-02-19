@@ -25,6 +25,9 @@ class CreatePsychologyAssignmentsTable extends Migration
                 $table->foreignId('test_id')
                     ->constrained('psychology.tests');
 
+                $table->foreignId('user_id')
+                    ->constrained('authentication.users');
+
                 $table->date('ended_at')
                 ->nullable();
 
