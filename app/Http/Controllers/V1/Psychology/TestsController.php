@@ -71,18 +71,18 @@ class TestsController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return JsonResponse|\Illuminate\Http\Response|object
      */
-    public function store(Request $request)
+    public function saveChat(Request $request)
     {
         $user = $this->saveUser($request);
+        $province = Location::find($request->input('patient.province.id'));
         $agent = null;
         $test = new Test();
         $test->canton()->associate(Location::find($request->input('patient.canton.id')));
-        $test->province()->associate(Location::find($request->input('patient.province.id')));
+        $test->province()->associate($province);
         $test->state()->associate(State::find(1));
         $test->user()->associate($user);
 
         $test->age = $request->input('patient.age');
-        $test->code = $request->input('patient.username');
         $test->terms_conditions = true;
         $test->type = $request->input('type');
         $test->save();
@@ -90,10 +90,11 @@ class TestsController extends Controller
         $score = $this->saveResults($request, $test);
 
         $test->priority()->associate($this->generatePriority($request, $test, $user));
+        $test->code = $province->code . '-' . $test->id . '-' . $request->input('patient.username');
         $test->score = $score;
         $test->save();
 
-        if ($request->has('agent.identification')) {
+        if ($test->age < 18) {
             $agent = $this->saveAgent($request, $test);
         }
 
@@ -126,11 +127,19 @@ class TestsController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse|\Illuminate\Http\Response|object
      */
-    public function show($id)
+    public function show(Test $test)
     {
-        //
+        return (new TestResource($test))
+            ->additional([
+                'msg' => [
+                    'summary' => 'success',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ])
+            ->response()->setStatusCode(200);
     }
 
     /**
@@ -181,6 +190,22 @@ class TestsController extends Controller
                 ]
             ])
             ->response()->setStatusCode(201);
+    }
+
+    public function close(Request $request, Test $test)
+    {
+        $test->state()->associate(State::firstWhere('code', 'FINISHED'));
+        $test->save();
+
+        return (new TestResource($test))
+            ->additional([
+                'msg' => [
+                    'summary' => 'El caso fue cerrado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ])
+            ->response()->setStatusCode(200);
     }
 
     public function countPriorities(Request $request)
@@ -249,9 +274,9 @@ class TestsController extends Controller
         $user = User::firstWhere('username', $request->input('patient.username'));
         $user = $user ? $user : new User();
         $user->name = $request->input('patient.name');
+        $user->email = $request->input('patient.email');
         $user->lastname = $request->input('patient.lastname');
         $user->username = $request->input('patient.username');
-        $user->email = $request->input('patient.email');
         $user->phone = $request->input('patient.phone');
         $user->password = $request->input('patient.username');
         $user->save();

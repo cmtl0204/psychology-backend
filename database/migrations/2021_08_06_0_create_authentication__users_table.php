@@ -50,8 +50,7 @@ class CreateAuthenticationUsersTable extends Migration
             $table->date('birthdate')
                 ->nullable();
 
-            $table->string('email')
-                ->unique();
+            $table->string('email');
 
             $table->timestamp('email_verified_at')
                 ->nullable();

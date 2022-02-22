@@ -36,7 +36,8 @@ class CreatePsychologyTestsTable extends Migration
 
             $table->integer('age');
 
-            $table->string('code');
+            $table->string('code')
+                ->nullable();
 
             $table->integer('score')
                 ->unsigned()

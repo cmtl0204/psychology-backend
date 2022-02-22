@@ -5,6 +5,7 @@ use App\Http\Controllers\V1\Core\CatalogueController;
 use App\Http\Controllers\V1\Psychology\QuestionsController;
 use App\Http\Controllers\V1\Psychology\TestsController;
 use App\Http\Controllers\V1\Psychology\InstitutionsController;
+use App\Http\Controllers\V1\Psychology\ReportsController;
 
 /***********************************************************************************************************************
  * CATALOGUES
@@ -51,7 +52,7 @@ Route::controller(InstitutionsController::class)->group(function () {
  **********************************************************************************************************************/
 Route::controller(TestsController::class)->group(function () {
     Route::prefix('tests/{test}')->group(function () {
-
+        Route::patch('/close', 'close');
     });
 
     Route::prefix('tests')->group(function () {
@@ -79,5 +80,8 @@ Route::controller(QuestionsController::class)->group(function () {
 //Route::apiResource('questions', QuestionsController::class);
 
 /***********************************************************************************************************************
- * USERS
+ * REPORTS
  **********************************************************************************************************************/
+Route::prefix('reports')->group(function () {
+    Route::get('/tests/{test}/results', [ReportsController::class, 'resultsTest']);
+});

@@ -26,6 +26,7 @@ class CreatePsychologyAssignmentsTable extends Migration
                     ->constrained('psychology.tests');
 
                 $table->foreignId('user_id')
+                    ->comment('Para saber quien asignó')
                     ->constrained('authentication.users');
 
                 $table->date('ended_at')

@@ -59,9 +59,19 @@ class Test extends Model implements Auditable
         return $this->hasMany(Answer::class);
     }
 
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
+
     public function assignment()
     {
         return $this->hasOne(Assignment::class);
+    }
+
+    public function agent()
+    {
+        return $this->hasOne(Agent::class);
     }
 
     //Calcula la nota obtenida por el test

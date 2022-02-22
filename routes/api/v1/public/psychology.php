@@ -17,6 +17,7 @@ Route::controller(TestsController::class)->group(function () {
     });
 
     Route::prefix('tests')->group(function () {
+        Route::post('/chat', 'saveChat');
         Route::post('/generate-transactional-code', 'generateTransactionalCode');
         Route::post('/verify-transactional-code', 'verifyTransactionalCode');
     });
