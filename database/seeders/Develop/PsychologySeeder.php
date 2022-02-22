@@ -384,8 +384,10 @@ class PsychologySeeder extends Seeder
 
     private function createTests()
     {
-        foreach (User::get() as $user) {
-            Test::factory()->create(['user_id' => $user->id]);
+        for ($i = 1; $i <= 10; $i++) {
+            foreach (User::get() as $user) {
+                Test::factory()->create(['user_id' => $user->id]);
+            }
         }
     }
 
