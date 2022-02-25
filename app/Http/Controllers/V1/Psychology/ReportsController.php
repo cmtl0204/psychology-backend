@@ -13,6 +13,8 @@ class ReportsController extends Controller
     public function resultsTest(Test $test)
     {
         $data = new TestResource($test);
+//        return $data;
+
         $pdf = \PDF::loadView('reports.test.results', ['data' => $data]);
         return $pdf->stream('resultado-' . $data->username . '.pdf');
     }

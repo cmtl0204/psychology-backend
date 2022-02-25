@@ -1,8 +1,9 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Psychology;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Psychology\Agent;
 
 class AgentFactory extends Factory
 {
@@ -11,6 +12,7 @@ class AgentFactory extends Factory
      *
      * @return array
      */
+    protected $model = Agent::class;
     public function definition()
     {
         return [

@@ -7,7 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TestYoungerResultsMailable extends Mailable
+class TestYoungerHighIntensityResultsMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,7 +32,7 @@ class TestYoungerResultsMailable extends Mailable
             }
         }
 
-        return $this->view('mails.psychology.test-younger-results')
+        return $this->view('mails.psychology.test-younger-high-intensity-results')
             ->with(['data' => json_decode($this->data), 'system' => $this->system]);
     }
 }

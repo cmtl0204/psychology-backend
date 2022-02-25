@@ -51,8 +51,8 @@ class Handler extends ExceptionHandler
                 return response()->json([
                     'data' => $e->getMessage(),
                     'msg' => [
-                        'summary' => 'Su dirección de correo electrónico no está verificada',
-                        'detail' => 'Por favor revise su correo o haga click en Enviar para recibir una notificación',
+                        'summary' => 'No tiene permisos para realizar esta acción',
+                        'detail' => '',
                         'code' => '403-email'
                     ]], 403);
             }

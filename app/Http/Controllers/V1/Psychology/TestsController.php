@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Authentication\GenerateTransactionalCodeAuthRequest;
 use App\Http\Requests\V1\Authentication\VerifyTransactionalCodeAuthRequest;
 use App\Http\Resources\V1\Psychology\PriorityCollection;
+use App\Mail\Psychology\TestResultsHighIntensityMailable;
+use App\Mail\Psychology\TestYoungerHighIntensityResultsMailable;
 use App\Mail\Psychology\TransactionalCodeTestMailable;
 use App\Mail\Psychology\TestResultsMailable;
 use App\Mail\Psychology\TestYoungerResultsMailable;
@@ -26,9 +28,19 @@ use App\Models\Core\Location;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Mail\Psychology\HighIntensityMailable;
+use Spatie\Permission\Models\Role;
 
 class TestsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:update-tests')->only(['update']);
+        $this->middleware('permission:delete-tests')->only(['destroy', 'destroys']);
+        $this->middleware('permission:view-tests')->only(['index', 'show']);
+
+        $this->middleware('permission:update-assignments')->only(['close']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -88,9 +100,9 @@ class TestsController extends Controller
         $test->save();
 
         $score = $this->saveResults($request, $test);
-
-        $test->priority()->associate($this->generatePriority($request, $test, $user));
-        $test->code = $province->code . '-' . $test->id . '-' . $request->input('patient.username');
+        $code = $province->code . '-' . $test->id . '-' . $request->input('patient.username');
+        $test->priority()->associate($this->generatePriority($request, $test, $user, $code));
+        $test->code = $code;
         $test->score = $score;
         $test->save();
 
@@ -98,19 +110,34 @@ class TestsController extends Controller
             $agent = $this->saveAgent($request, $test);
         }
 
-
         if ($test->age < 18) {
-            Mail::to($agent->email)
-                ->send(new TestYoungerResultsMailable(
-                    'ChatBot-Esquel Resultados del Tests',
-                    json_encode(['user' => $user, 'agent' => $agent, 'test' => $test])
-                ));
+            if ($test->priority->level === 1) {
+                Mail::to($agent->email)
+                    ->send(new TestYoungerHighIntensityResultsMailable(
+                        'Gracias por participar | TEMI, te escucha',
+                        json_encode(['user' => $user, 'agent' => $agent, 'test' => $test])
+                    ));
+            } else {
+                Mail::to($agent->email)
+                    ->send(new TestYoungerResultsMailable(
+                        'Gracias por participar | TEMI, te escucha',
+                        json_encode(['user' => $user, 'agent' => $agent, 'test' => $test])
+                    ));
+            }
         } else {
-            Mail::to($user->email)
-                ->send(new TestResultsMailable(
-                    'ChatBot-Esquel Resultados del Tests',
-                    json_encode(['user' => $user, 'test' => $test])
-                ));
+            if ($test->priority->level === 1) {
+                Mail::to($user->email)
+                    ->send(new TestResultsHighIntensityMailable(
+                        'Gracias por participar | TEMI, te escucha',
+                        json_encode(['user' => $user, 'test' => $test])
+                    ));
+            } else {
+                Mail::to($user->email)
+                    ->send(new TestResultsMailable(
+                        'Gracias por participar | TEMI, te escucha',
+                        json_encode(['user' => $user, 'test' => $test])
+                    ));
+            }
         }
         return (new TestResource($test))
             ->additional([
@@ -269,122 +296,6 @@ class TestsController extends Controller
         ]);
     }
 
-    private function saveUser(Request $request)
-    {
-        $user = User::firstWhere('username', $request->input('patient.username'));
-        $user = $user ? $user : new User();
-        $user->name = $request->input('patient.name');
-        $user->email = $request->input('patient.email');
-        $user->lastname = $request->input('patient.lastname');
-        $user->username = $request->input('patient.username');
-        $user->phone = $request->input('patient.phone');
-        $user->password = $request->input('patient.username');
-        $user->save();
-
-        return $user;
-    }
-
-    private function saveResults(Request $request, Test $test)
-    {
-        $results = $request->input('results');
-        $score = 0;
-        foreach ($results as $result) {
-            $newResult = new Result();
-            $answer = Answer::find($result['answer']['id']);
-            $question = Question::find($result['question']['id']);
-            $newResult->answer()->associate($answer);
-            $newResult->question()->associate($question);
-            $newResult->test()->associate($test);
-            $newResult->created_at = $result['registeredAt'];
-            $newResult->updated_at = $result['registeredAt'];
-            $newResult->save();
-            $score += $result['answer']['score'];
-        }
-        return $score;
-    }
-
-    private function saveAgent(Request $request, Test $test)
-    {
-        $agent = new Agent();
-        $agent->test()->associate($test);
-        $agent->email = $request->input('agent.email');
-        $agent->identification = $request->input('agent.identification');
-        $agent->lastname = $request->input('agent.lastname');
-        $agent->name = $request->input('agent.name');
-        $agent->phone = $request->input('agent.phone');
-        $agent->save();
-        return $agent;
-    }
-
-    private function generatePriority(Request $request, Test $test, User $user)
-    {
-        $results = $request->input('results');
-        $duelScore = 0;
-        $phq9AScore = 0;
-        $score = 0;
-        $level = 1;
-        foreach ($results as $result) {
-            $score += $result['answer']['score'];
-
-            if ($result['question']['type'] === 'duel') {
-                $duelScore = $result['answer']['score'];
-            }
-            if ($result['question']['type'] === 'phq9a' && $result['question']['order'] === 9) {
-                $phq9AScore = $result['answer']['score'];
-            }
-        }
-        switch ($test->type) {
-            case 'phq9a':
-            {
-                if ($score >= 0 && $score <= 4) {
-                    $level = 4;
-                    if ($duelScore > 0) {
-                        $level = 3;
-                    }
-                }
-                if ($score >= 5 && $score <= 9) {
-                    $level = 3;
-                }
-                if ($score >= 10 && $score <= 19) {
-                    $level = 2;
-                }
-                if (($score >= 20 && $score <= 27) || $phq9AScore > 0) {
-                    $level = 1;
-                    Mail::to($user->email)
-                        ->send(new HighIntensityMailable(
-                            'ChatBot-Esquel Alta Intensidad',
-                            json_encode(['user' => $user, 'test' => $test])
-                        ));
-                }
-                break;
-            }
-
-            case 'psc17':
-            {
-                if ($score >= 0 && $score <= 13) {
-                    $level = 4;
-                    if ($duelScore > 0) {
-                        $level = 3;
-                    }
-                }
-                if ($score >= 14 && $score <= 21) {
-                    $level = 2;
-                }
-                if ($score >= 22 && $score <= 34) {
-                    $level = 1;
-                    Mail::to($user->email)
-                        ->send(new HighIntensityMailable(
-                            'Notificación de test',
-                            json_encode(['user' => $user, 'test' => $test])
-                        ));
-                }
-                break;
-            }
-        }
-
-        return Priority::firstWhere('level', $level);
-    }
-
     public function generateTransactionalCode(GenerateTransactionalCodeAuthRequest $request)
     {
         $token = mt_rand(1000, 9999);
@@ -470,5 +381,125 @@ class TestsController extends Controller
                 'code' => '404'
             ]], 404);
 
+    }
+
+    private function saveUser(Request $request)
+    {
+        $user = User::firstWhere('username', $request->input('patient.username'));
+        $user = $user ? $user : new User();
+        $user->name = $request->input('patient.name');
+        $user->email = $request->input('patient.email');
+        $user->lastname = $request->input('patient.lastname');
+        $user->username = $request->input('patient.username');
+        $user->phone = $request->input('patient.phone');
+        $user->password = $request->input('patient.username');
+        $user->save();
+
+        return $user;
+    }
+
+    private function saveResults(Request $request, Test $test)
+    {
+        $results = $request->input('results');
+        $score = 0;
+        foreach ($results as $result) {
+            $newResult = new Result();
+            $answer = Answer::find($result['answer']['id']);
+            $question = Question::find($result['question']['id']);
+            $newResult->answer()->associate($answer);
+            $newResult->question()->associate($question);
+            $newResult->test()->associate($test);
+            $newResult->created_at = $result['registeredAt'];
+            $newResult->updated_at = $result['registeredAt'];
+            $newResult->save();
+            $score += $result['answer']['score'];
+        }
+        return $score;
+    }
+
+    private function saveAgent(Request $request, Test $test)
+    {
+        $agent = new Agent();
+        $agent->test()->associate($test);
+        $agent->email = $request->input('agent.email');
+        $agent->identification = $request->input('agent.identification');
+        $agent->lastname = $request->input('agent.lastname');
+        $agent->name = $request->input('agent.name');
+        $agent->phone = $request->input('agent.phone');
+        $agent->save();
+        return $agent;
+    }
+
+    private function generatePriority(Request $request, Test $test, User $user, $code)
+    {
+        $results = $request->input('results');
+        $duelScore = 0;
+        $phq9AScore = 0;
+        $score = 0;
+        $level = 1;
+        foreach ($results as $result) {
+            $score += $result['answer']['score'];
+
+            if ($result['question']['type'] === 'duel') {
+                $duelScore = $result['answer']['score'];
+            }
+            if ($result['question']['type'] === 'phq9a' && $result['question']['order'] === 9) {
+                $phq9AScore = $result['answer']['score'];
+            }
+        }
+        switch ($test->type) {
+            case 'phq9a':
+            {
+                if ($score >= 0 && $score <= 4) {
+                    $level = 4;
+                    if ($duelScore > 0) {
+                        $level = 3;
+                    }
+                }
+                if ($score >= 5 && $score <= 9) {
+                    $level = 3;
+                }
+                if ($score >= 10 && $score <= 19) {
+                    $level = 2;
+                }
+                if (($score >= 20 && $score <= 27) || $phq9AScore > 0) {
+                    $level = 1;
+                }
+                break;
+            }
+
+            case 'psc17':
+            {
+                if ($score >= 0 && $score <= 13) {
+                    $level = 4;
+                    if ($duelScore > 0) {
+                        $level = 3;
+                    }
+                }
+                if ($score >= 14 && $score <= 21) {
+                    $level = 2;
+                }
+                if ($score >= 22 && $score <= 34) {
+                    $level = 1;
+                }
+                break;
+            }
+        }
+
+        $emails = User::select('email')->whereHas('roles', function ($roles) {
+            $roles->where('name', 'support');
+        })->get();
+
+//        $level = 1;
+
+        if ($level === 1) {
+            Mail::to($emails)
+                ->send(new HighIntensityMailable(
+                    'REDFLAG | TEMI, te escucha',
+                    json_encode(['user' => $user, 'code' => $code])
+                ));
+        }
+
+        return Priority::firstWhere('level', $level);
     }
 }

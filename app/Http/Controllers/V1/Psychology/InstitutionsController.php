@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 
 class InstitutionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:store-assignments')->only(['assignmentTests']);
+    }
+
     public function all()
     {
         $institutions = Institution::get();
@@ -54,11 +59,11 @@ class InstitutionsController extends Controller
         return (new AssignmentResource($assignment))
             ->additional([
                 'msg' => [
-                    'summary' => 'success',
-                    'detail' => '',
-                    'code' => '200'
+                    'summary' => 'Se asignó correctamente',
+                    'detail' => $institution->short_name,
+                    'code' => '201'
                 ]
             ])
-            ->response()->setStatusCode(200);
+            ->response()->setStatusCode(201);
     }
 }

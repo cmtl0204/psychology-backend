@@ -49,6 +49,7 @@ class AuthenticationSeeder extends Seeder
 
         $this->createStates();
     }
+
     private function createSystem()
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
@@ -63,12 +64,17 @@ class AuthenticationSeeder extends Seeder
             'state' => true
         ]);
     }
+
     private function createMenus()
     {
-        $menus = Menu::factory(4)->create(['router_link' => null]);
-        foreach ($menus as $menu) {
-            $menuTests = Menu::factory(5)->create(['parent_id' => $menu->id]);
-        }
+        $menus = Menu::factory(2)->sequence(
+            [
+                'router_link' => null
+            ]
+        )->create();
+//        foreach ($menus as $menu) {
+//            $menuTests = Menu::factory(5)->create(['parent_id' => $menu->id]);
+//        }
     }
 
     private function createUsers()
@@ -119,16 +125,10 @@ class AuthenticationSeeder extends Seeder
     private function createRoles()
     {
         Role::create(['name' => 'admin']);
+        Role::create(['name' => 'support']);
+        Role::create(['name' => 'viewer']);
+        Role::create(['name' => 'patient']);
         Role::create(['name' => 'guest']);
-        Role::create(['name' => 'professional']);
-        Role::create(['name' => 'teacher']);
-        Role::create(['name' => 'public_company']);
-        Role::create(['name' => 'private_company']);
-        Role::create(['name' => 'training_company']);
-        Role::create(['name' => 'external_student']);
-        Role::create(['name' => 'internal_student']);
-        Role::create(['name' => 'senecyt_staff']);
-        Role::create(['name' => 'gad']);
     }
 
     private function createPermissions()
@@ -138,42 +138,37 @@ class AuthenticationSeeder extends Seeder
         Permission::create(['name' => 'update-users']);
         Permission::create(['name' => 'delete-users']);
 
-        Permission::create(['name' => 'download-files']);
-        Permission::create(['name' => 'upload-files']);
-        Permission::create(['name' => 'read-files']);
-        Permission::create(['name' => 'write-files']);
-        Permission::create(['name' => 'delete-files']);
+        Permission::create(['name' => 'view-tests']);
+        Permission::create(['name' => 'store-tests']);
+        Permission::create(['name' => 'update-tests']);
+        Permission::create(['name' => 'delete-tests']);
 
-        Permission::create(['name' => 'view-professionals']);
-        Permission::create(['name' => 'store-professionals']);
-        Permission::create(['name' => 'update-professionals']);
-        Permission::create(['name' => 'delete-professionals']);
+        Permission::create(['name' => 'store-assignments']);
+        Permission::create(['name' => 'update-assignments']);
     }
 
     private function assignRolePermissions()
     {
         $role = Role::firstWhere('name', 'admin');
-        $roleProfessional = Role::firstWhere('name', 'professional');
+        $roleSupport = Role::firstWhere('name', 'support');
+        $roleViewer = Role::firstWhere('name', 'viewer');
+
         $role->syncPermissions(Permission::get());
-        $roleProfessional->syncPermissions(Permission::where('name', 'like', '%professionals%')->get());
+
+        $roleSupport->syncPermissions(Permission::where('name', 'like', '%tests%')
+            ->orWhere('name', 'like', '%assignments%')->get());
+
+        $roleViewer->syncPermissions(['view-tests']);
     }
 
     private function assignUserRoles()
     {
-
-        $roles = Role::all();
-        $user = User::find(1);
-        $user->assignRole('admin');
-
-        for ($i = 6; $i <= 35; $i++) {
-            $user = User::find($i);
-            $user->assignRole('teacher');
-        }
-
-        for ($i = 36; $i <= 85; $i++) {
-            $user = User::find($i);
-            $user->assignRole(rand(0, $roles->count() - 1));
-        }
+        $userAdmin = User::find(1);
+        $userSupport = User::find(2);
+        $userViewer = User::find(3);
+        $userAdmin->assignRole('admin');
+        $userSupport->assignRole('support');
+        $userViewer->assignRole('viewer');
     }
 
     private function createLocationCatalogues()

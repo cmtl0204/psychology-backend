@@ -9,24 +9,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Resultados</title>
     <style>
-
+        .column-right {
+            padding-left: 10px;
+        }
+        .column-left {
+            padding-left: 5px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
 <div class="content">
-    <div class="row">
-        <div class="col-12 text-center">
-{{--            <img src="{!! asset('images/logo.png') !!}" alt="logo PNG alternativa">--}}
-        </div>
-    </div>
     @yield('content')
-    <footer class="text-center text-muted">
-        <hr size="3">
-        <small><b>Nota de descargo:</b></small>
-        <small>La información contenida en este documento es responsabilidad única del titular.</small>
-        <small>Cualquier alteración de dicha información puede ocasionar sanciones.
-        </small>
-    </footer>
 </div>
 </body>
 </html>

@@ -1,68 +1,78 @@
 @extends('reports.index')
 @section('content')
+    <br>
+    <br>
     <div class="row">
-        <div class="col-12 text-muted ">
-            <h5 class="text-center">Reporte de resultados de tamizaje de Chatbot: TEMI, te escuch</h5>
+        <div class="col-2">
+            <img src="{!! public_path('images/esquel.jpg') !!}" width="200px" alt="Imagen PNG alternativa">
+        </div>
+        <div class="col-2">
+            <img src="{!! public_path('images/oxigeno.png') !!}" width="200px" alt="Imagen PNG alternativa">
+        </div>
+        <div class="col-2">
+            <img src="{!! public_path('images/usaid.png') !!}" width="200px" alt="Imagen PNG alternativa">
+        </div>
+        <div class="col-12">
             <br>
-            <div class="text-center">
-                {{--                <img src="{!! asset('qr/'.$data->id.'.png') !!}" alt="Imagen PNG alternativa">--}}
-            </div>
+            <h4 class="text-center">Reporte de resultados de tamizaje de Chatbot: TEMI, te escucha</h4>
         </div>
     </div>
+    <br>
+    <br>
     <div class="row">
         <div class="col-10 offset-1">
             <table border="1">
                 <tr>
-                    <th width="70%">Número de Chatbot:</th>
-                    <td width="30%">{{$data->code}}</td>
+                    <th width="250px" class="column-left">Número de Chatbot:</th>
+                    <td width="350px" class="column-right">{{$data->code}}</td>
                 </tr>
                 <tr>
-                    <th>Nombres Completos:</th>
-                    <td>{{$data->user->name}} {{$data->user->lastname}}</td>
+                    <th class="column-left">Nombres Completos:</th>
+                    <td class="column-right">{{$data->user->name}} {{$data->user->lastname}}</td>
                 </tr>
                 <tr>
-                    <th>Cédula:</th>
-                    <td>{{$data->user->username}}</td>
+                    <th class="column-left">Cédula:</th>
+                    <td class="column-right">{{$data->user->username}}</td>
                 </tr>
                 <tr>
-                    <th>Edad:</th>
-                    <td>{{$data->age}}</td>
+                    <th class="column-left">Edad:</th>
+                    <td class="column-right">{{$data->age}}</td>
                 </tr>
                 <tr>
-                    <th>Fecha de registro:</th>
-                    <td>{{$data->createdAt}}</td>
+                    <th class="column-left">Fecha de registro:</th>
+                    <td class="column-right">{{$data->created_at}}</td>
                 </tr>
                 <tr>
-                    <th>Nombres de representante:</th>
+                    <th class="column-left">Nombres de representante:</th>
                     @if($data->age<18)
-                        <td>{{$data->agent->name}} {{$data->agent->lastname}}</td>
+                        <td class="column-right">{{$data->agent->name}} {{$data->agent->lastname}}</td>
                     @else
-                        <td>{{$data->user->name}} {{$data->user->lastname}}</td>
+                        <td class="column-right">No Aplica</td>
                     @endif
                 </tr>
                 <tr>
-                    <th>Teléfono de contacto:</th>
+                    <th class="column-left">Teléfono de contacto:</th>
                     @if($data->age<18)
-                        <td>{{$data->agent->phone}}</td>
+                        <td class="column-right">{{$data->agent->phone}}</td>
                     @else
-                        <td>{{$data->user->phone}}</td>
+                        <td class="column-right">{{$data->user->phone}}</td>
                     @endif
                 </tr>
                 <tr>
-                    <th>Correo electrónico:</th>
+                    <th class="column-left">Correo electrónico:</th>
                     @if($data->age<18)
-                        <td>{{$data->agent->email}}</td>
+                        <td class="column-right">{{$data->agent->email}}</td>
                     @else
-                        <td>{{$data->user->email}}</td>
+                        <td class="column-right">{{$data->user->email}}</td>
                     @endif
                 </tr>
                 <tr>
-                    <th>Provincia:</th>
-                    <td>{{$data->province->name}}</td>
+                    <th class="column-left">Provincia:</th>
+                    <td class="column-right">{{$data->province->name}}</td>
                 </tr>
                 <tr>
-                    <th>Cantón:</th>
-                    <td>{{$data->canton->name}}</td>
+                    <th class="column-left">Cantón:</th>
+                    <td class="column-right">{{$data->canton->name}}</td>
                 </tr>
             </table>
         </div>
@@ -70,29 +80,182 @@
     <br>
     <div class="row">
         <div class="col-10 offset-1">
-            - Resultados
+            <h4>- Resultados:</h4>
         </div>
     </div>
-    <br>
     <div class="row">
         <div class="col-10 offset-1">
             <table border="1">
                 <tr>
-                    <th>Tests Aplicados:</th>
-                    <td>PHQ-2 - {{$data->type}}</td>
+                    <th width="250px" class="column-left">Tests Aplicados:</th>
+                    <td width="350px" class="column-right">PHQ-2 - {{strtoupper($data->type)}}</td>
                 </tr>
                 <tr>
-                    <th>Puntuación Total:</th>
-                    <td>{{$data->score}}</td>
+                    <th class="column-left">Puntuación Total:</th>
+                    <td class="column-right">{{$data->score}}</td>
                 </tr>
                 <tr>
-                    <th>Severidad:
+                    <th class="column-left">Severidad:
                         (Ver cuadro de interpretación
                         al final del reporte)
                     </th>
-                    <td>{{$data->priority->name}}</td>
+                    <td class="column-right">{{$data->priority->name}}</td>
                 </tr>
             </table>
         </div>
     </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-10 offset-1">
+            <h4>- Desglose de resultados:</h4>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-10 offset-1">
+            <h5>PHQ-2:</h5>
+        </div>
+    </div>
+
+    {{--Table PHQ2--}}
+    <div class="row">
+        <div class="col-10 offset-1">
+            <table border="1">
+                @foreach($data->results as $result)
+                    @if($result->question->type=='phq2')
+                        <tr>
+                            <td width="350px" class="column-left">{{$result->question->value}}</td>
+                            <td width="200" class="column-right">{{$result->answer->value}}</td>
+                        </tr>
+                    @endif
+                @endforeach
+            </table>
+        </div>
+    </div>
+    <br>
+    <br>
+    {{--Type Test--}}
+    <div class="row">
+        <div class="col-10 offset-1">
+            <h5>{{strtoupper($data->type)}}:</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-10 offset-1">
+            <table border="1">
+                @foreach($data->results as $result)
+                    @if($result->question->type!='phq2a')
+                        <tr>
+                            <td width="350px" class="column-left">{{$result->question->value}}</td>
+                            <td width="200" class="column-right">{{$result->answer->value}}</td>
+                        </tr>
+                    @endif
+                @endforeach
+            </table>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    {{--Interpretation Range--}}
+    <div class="row">
+        <div class="col-10 offset-1">
+            <h5>- Rangos de interpretación:</h5>
+        </div>
+    </div>
+    <br>
+    @if($data->type=='phq9a')
+        <div class="row">
+            <div class="col-10 offset-1">
+                <h5>PHQ-9A (Presencia de sintomatología depresiva)</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1">
+                <table border="1">
+                    <tr>
+                        <th width="250px">Puntuación</th>
+                        <th width="350px" class="column-right">Severidad</th>
+                    </tr>
+                    <tr>
+                        <th width="250px" class="column-left">0-4 puntos</th>
+                        <td width="350px" class="column-right">No presenta sintomatología</td>
+                    </tr>
+                    <tr>
+                        <th width="250px" class="column-left">5-9 puntos</th>
+                        <td width="350px" class="column-right">Baja intensidad en sintomatología</td>
+                    </tr>
+                    <tr>
+                        <th width="250px" class="column-left">10-19 puntos</th>
+                        <td width="350px" class="column-right">Media - moderada intensidad en sintomatología</td>
+                    </tr>
+                    <tr>
+                        <th width="250px" class="column-left">20-27 puntos</th>
+                        <td width="350px" class="column-right">Alta intensidad en sintomatología</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br>
+    @endif
+    @if($data->type=='psc17')
+        <div class="row">
+            <div class="col-10 offset-1">
+                <h5>PSC - 17 (Presencia de sintomatología depresiva o ansiosa)</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1">
+                <table border="1">
+                    <tr>
+                        <th width="250px">Puntuación</th>
+                        <th width="350px" class="column-right">Severidad</th>
+                    </tr>
+                    <tr>
+                        <th width="250px" class="column-left">0-4 puntos</th>
+                        <td width="350px" class="column-right">No presenta sintomatología</td>
+                    </tr>
+                    <tr>
+                        <th width="250px" class="column-left">5-9 puntos</th>
+                        <td width="350px" class="column-right">Baja intensidad en sintomatología</td>
+                    </tr>
+                    <tr>
+                        <th width="250px" class="column-left">10-19 puntos</th>
+                        <td width="350px" class="column-right">Media - moderada intensidad en sintomatología</td>
+                    </tr>
+                    <tr>
+                        <th width="250px" class="column-left">20-27 puntos</th>
+                        <td width="350px" class="column-right">Alta intensidad en sintomatología</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br>
+    @endif
+    <div class="row">
+        <div class="col-10 offset-1">
+            <p style="text-align: justify">Le agradecemos su participación en el presente Chatbot. Recuerda que si
+                cuentas con
+                alguna problemática de salud mental o deseas contactarte con un psicólogo, puedes hacer
+                uso de nuestros servicios de atención psicológica gratuita cuando lo desees. Un psicólogo o
+                psicóloga se comunicará contigo en estos días. Recuerda que tu bienestar es una prioridad.</p>
+            <br>
+            <p style="text-align: justify">
+                Para mayor información sobre los resultados, por favor ponerse en contacto con Psc. Samia
+                García, al correo electrónico <b style="color: blue">sgarcia@esquel.org.ec</b>
+            </p>
+            <br>
+            <p style="text-align: justify;color: blue">
+                Programa desarrollado por el Área de Salud y Desarrollo y el Área de Tecnologías Cívicas
+                de Fundación Esquel con el apoyo de USAID y el aval del Ministerio de Salud Pública
+            </p>
+        </div>
+    </div>
+
 @endsection

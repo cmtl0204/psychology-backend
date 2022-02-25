@@ -39,7 +39,7 @@ Route::prefix('catalogue/{catalogue}')->group(function () {
  **********************************************************************************************************************/
 Route::controller(InstitutionsController::class)->group(function () {
     Route::prefix('institutions/{institution}')->group(function () {
-        Route::post('/assignment-tests', 'assignmentTests');
+        Route::post('/tests', 'assignmentTests');
     });
 
     Route::prefix('institutions')->group(function () {

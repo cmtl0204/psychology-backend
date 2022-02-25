@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\V1\Psychology;
+namespace App\Http\Requests\V1\Psychology\Tests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

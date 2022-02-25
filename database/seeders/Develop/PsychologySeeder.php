@@ -23,10 +23,10 @@ class PsychologySeeder extends Seeder
         $this->createQuestions();
         $this->createAnswers();
         $this->createInstitutions();
-        $this->createTests();
-        $this->createResultsPHQ9A();
-        $this->createResultsPSC17();
-        $this->createAssignments();
+//        $this->createTests();
+//        $this->createResultsPHQ9A();
+//        $this->createResultsPSC17();
+//        $this->createAssignments();
     }
 
     private function createStates()
@@ -354,30 +354,54 @@ class PsychologySeeder extends Seeder
 
     private function createInstitutions()
     {
-        Institution::factory(4)->sequence(
+        Institution::factory(8)->sequence(
             [
                 'code' => 'ABC1',
-                'name' => 'INSTITUTO SUPERIOR TECNOLOGICO DE TURISMO Y PATRIMONIO YAVIRAC',
-                'short_name' => 'YAVIRAC',
-                'acronym' => 'ISTY'
+                'name' => 'ORGAEPSI',
+                'short_name' => 'ORGAEPSI',
+                'acronym' => 'ORGAEPSI'
             ],
             [
                 'code' => 'ABC2',
-                'name' => 'INSTITUTO SUPERIOR TECNOLOGICO BENITO JUAREZ',
-                'short_name' => 'BENITO JUAREZ',
-                'acronym' => 'ISTBJ'
+                'name' => 'PUCE',
+                'short_name' => 'PUCE',
+                'acronym' => 'PUCE'
             ],
             [
                 'code' => 'ABC3',
-                'name' => 'INSTITUTO SUPERIOR TECNOLOGICO GRAN COLOMBIA',
-                'short_name' => 'GRAN COLOMBIA',
-                'acronym' => 'ISTGC'
+                'name' => 'SEK',
+                'short_name' => 'SEK',
+                'acronym' => 'SEK'
             ],
             [
                 'code' => 'ABC4',
-                'name' => 'INSTITUTO SUPERIOR TECNOLOGICO 24 DE MAYO',
-                'short_name' => '24 DE MAYO',
-                'acronym' => 'IST24M'
+                'name' => 'INDOAMERICA',
+                'short_name' => 'INDOAMERICA',
+                'acronym' => 'INDOAMERICA'
+            ],
+            [
+                'code' => 'ABC5',
+                'name' => 'ESPOCH',
+                'short_name' => 'ESPOCH',
+                'acronym' => 'ESPOCH'
+            ],
+            [
+                'code' => 'ABC6',
+                'name' => 'UNACH',
+                'short_name' => 'UNACH',
+                'acronym' => 'UNACH'
+            ],
+            [
+                'code' => 'ABC7',
+                'name' => 'MSP',
+                'short_name' => 'MSP',
+                'acronym' => 'MSP'
+            ],
+            [
+                'code' => 'ABC8',
+                'name' => 'OTROS',
+                'short_name' => 'OTROS',
+                'acronym' => 'OTROS'
             ],
         )->create();
     }
