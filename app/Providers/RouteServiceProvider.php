@@ -53,15 +53,15 @@ class RouteServiceProvider extends ServiceProvider
         $path = "routes/$prefix/private";
 
         Route::prefix($prefix)
-            ->middleware(['api', 'auth:sanctum'])
+            ->middleware(['api', 'auth:sanctum', 'verify_user_suspended'])
             ->group(base_path("${path}/authentication.php"));
 
         Route::prefix($prefix)
-            ->middleware(['api', 'auth:sanctum'])
+            ->middleware(['api', 'auth:sanctum', 'verify_user_suspended'])
             ->group(base_path("${path}/core.php"));
 
         Route::prefix($prefix)
-            ->middleware(['api', 'auth:sanctum'])
+            ->middleware(['api', 'auth:sanctum', 'verify_user_suspended'])
             ->group(base_path("${path}/psychology.php"));
     }
 

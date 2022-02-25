@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1\Core\Users;
 
+use App\Http\Resources\V1\Authentication\RoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\V1\Core\Catalogues\CatalogueResource;
 Use App\Http\Resources\V1\Core\EmailResource;
@@ -27,6 +28,7 @@ class UserResource extends JsonResource
             'birthdate' => $this->birthdate,
             'emails' => EmailResource::collection($this->emails),
             'phones' => PhoneResource::collection($this->phones),
+            'roles' => RoleResource::collection($this->roles),
             'identificationType' => CatalogueResource::make($this->identificationType),
             'sex' => CatalogueResource::make($this->sex),
             'gender' => CatalogueResource::make($this->gender),
@@ -35,6 +37,7 @@ class UserResource extends JsonResource
             'civilStatus' => CatalogueResource::make($this->civilStatus),
             'emailVerifiedAt' => $this->email_verified_at,
             'passwordChanged' => $this->password_changed,
+            'suspended' => $this->suspended,
             'updatedAt' => $this->updated_at,
         ];
     }

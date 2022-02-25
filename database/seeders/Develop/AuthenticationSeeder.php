@@ -25,7 +25,7 @@ class AuthenticationSeeder extends Seeder
      */
     public function run()
     {
-        $this->createMenus();
+
         $this->createSystem();
 
         $this->createLocationCatalogues();
@@ -43,6 +43,7 @@ class AuthenticationSeeder extends Seeder
 
         $this->createUsers();
         $this->createRoles();
+        $this->createMenus();
         $this->createPermissions();
         $this->assignRolePermissions();
         $this->assignUserRoles();
@@ -69,7 +70,22 @@ class AuthenticationSeeder extends Seeder
     {
         $menus = Menu::factory(2)->sequence(
             [
-                'router_link' => null
+                'role_id' => 1,
+                'icon' => 'pi pi-users',
+                'label' => 'Administración Usuarios',
+                'router_link' => '/user-administration'
+            ],
+            [
+                'role_id' => 2,
+                'icon' => 'pi pi-book',
+                'label' => 'Tests',
+                'router_link' => '/test'
+            ],
+            [
+                'role_id' => 3,
+                'icon' => 'pi pi-book',
+                'label' => 'Tests',
+                'router_link' => '/test'
             ]
         )->create();
 //        foreach ($menus as $menu) {
@@ -127,8 +143,8 @@ class AuthenticationSeeder extends Seeder
         Role::create(['name' => 'admin']);
         Role::create(['name' => 'support']);
         Role::create(['name' => 'viewer']);
-        Role::create(['name' => 'patient']);
-        Role::create(['name' => 'guest']);
+//        Role::create(['name' => 'patient']);
+//        Role::create(['name' => 'guest']);
     }
 
     private function createPermissions()

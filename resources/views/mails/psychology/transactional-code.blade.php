@@ -7,7 +7,7 @@
             <p>El código de seguridad para realizar su Test es: <b>{{$data->token}}</b></p>
             <br>
             <p>Este código de seguridad tiene tiempo de duración de
-                <b>2 min.</b>
+                <b>{{\App\Models\Authentication\User::DECAY_MINUTES_TRANSACTIONAL_CODE}} min.</b>
                 y es válido por
                 <b>una sola ocasión</b>.
             </p>

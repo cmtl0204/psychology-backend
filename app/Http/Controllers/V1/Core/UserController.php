@@ -42,6 +42,9 @@ class UserController extends Controller
             ->lastname($request->input('search'))
             ->name($request->input('search'))
             ->username($request->input('search'))
+            ->whereHas('roles', function ($roles) {
+                $roles->where('name', 'admin')->orWhere('name', 'support')->orWhere('name', 'viewer');
+            })->orderByDesc('created_at')
             ->paginate($request->input('per_page'));
 
         return (new UserCollection($users))
@@ -100,6 +103,7 @@ class UserController extends Controller
 
         DB::transaction(function () use ($request, $user) {
             $user->save();
+            $user->assignRole($request->input('role.name'));
             $user->addPhones($request->input('phones'));
             $user->addEmails($request->input('emails'));
         });
@@ -107,8 +111,8 @@ class UserController extends Controller
         return (new UserResource($user))
             ->additional([
                 'msg' => [
-                    'summary' => 'Usuario Creado',
-                    'detail' => '',
+                    'summary' => 'La contraseña es ' . $request->input('password'),
+                    'detail' => 'Usuario Creado',
                     'code' => '200'
                 ]
             ])
@@ -144,8 +148,10 @@ class UserController extends Controller
         $user->email = $request->input('email');
 
         $user->save();
-        $user->addPhones($request->input('phones'));
-        $user->addEmails($request->input('emails'));
+        $user->syncRoles($request->input('role.name'));
+
+//        $user->addPhones($request->input('phones'));
+//        $user->addEmails($request->input('emails'));
 
         return (new UserResource($user))
             ->additional([
@@ -203,6 +209,56 @@ class UserController extends Controller
             ->additional([
                 'msg' => [
                     'summary' => 'Usuarios Eliminados',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ])
+            ->response()->setStatusCode(201);
+    }
+
+    public function suspend(Request $request, User $user)
+    {
+        if ($request->user()->id === $user->id) {
+            return response()->json([
+                'msg' => [
+                    'summary' => 'Error al suspender',
+                    'detail' => 'El usuario se encuentra logueado',
+                    'code' => '400'
+                ],
+            ], 400);
+        }
+
+        $user->update(['suspended' => true]);
+
+        return (new UserResource($user))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Usuario Suspendido',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ])
+            ->response()->setStatusCode(201);
+    }
+
+    public function reactive(Request $request, User $user)
+    {
+        if ($request->user()->id === $user->id) {
+            return response()->json([
+                'msg' => [
+                    'summary' => 'Error al reactivar',
+                    'detail' => 'El usuario se encuentra logueado',
+                    'code' => '400'
+                ],
+            ], 400);
+        }
+
+        $user->update(['suspended' => false]);
+
+        return (new UserResource($user))
+            ->additional([
+                'msg' => [
+                    'summary' => 'Usuario Reactivado',
                     'detail' => '',
                     'code' => '201'
                 ]

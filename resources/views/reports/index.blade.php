@@ -16,6 +16,9 @@
             padding-left: 5px;
             text-align: left;
         }
+        .text-priority-1{
+            color: red;
+        }
     </style>
 </head>
 <body>

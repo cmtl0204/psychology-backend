@@ -18,6 +18,11 @@ class CreateAuthenticationMenusTable extends Migration
                 ->comment('Un menu puede tener menus hijos')
                 ->constrained('authentication.menus');
 
+            $table->foreignId('role_id')
+                ->nullable()
+                ->comment('Un menu puede tener menus hijos')
+                ->constrained('authentication.roles');
+
             $table->text('color')
                 ->comment('color en hexadecimal')
                 ->default('#9c9c9c');

@@ -9,14 +9,14 @@ use App\Http\Controllers\V1\Core\CareerController;
 /***********************************************************************************************************************
  * USERS
  **********************************************************************************************************************/
-Route::apiResource('users', UserController::class);
-
 Route::prefix('user')->group(function () {
     Route::patch('catalogue', [UserController::class, 'catalogue']);
     Route::patch('destroys', [UserController::class, 'destroys']);
 });
 
-Route::prefix('user/{user}')->group(function () {
+Route::prefix('users/{user}')->group(function () {
+    Route::patch('suspend', [UserController::class, 'suspend']);
+    Route::patch('reactive', [UserController::class, 'reactive']);
     Route::prefix('file')->group(function () {
         Route::get('{file}/download', [UserController::class, 'downloadFile']);
         Route::get('', [UserController::class, 'indexFiles']);
@@ -36,6 +36,8 @@ Route::prefix('user/{user}')->group(function () {
         Route::patch('', [UserController::class, 'destroyImages']);
     });
 });
+
+Route::apiResource('users', UserController::class);
 
 /***********************************************************************************************************************
  * FILES

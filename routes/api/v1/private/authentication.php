@@ -6,6 +6,10 @@ use App\Http\Controllers\V1\Authentication\RoleController;
 use App\Http\Controllers\V1\Authentication\PermissionController;
 use App\Http\Controllers\V1\Authentication\MenuController;
 
+Route::prefix('menus')->group(function () {
+    Route::get('catalogue/{role}', [MenuController::class, 'catalogue']);
+});
+
 Route::apiResource('menus', MenuController::class);
 
 Route::prefix('auth')->group(function () {
@@ -18,11 +22,17 @@ Route::prefix('auth')->group(function () {
     Route::post('verify-transactional-code', [AuthController::class, 'verifyTransactionalCode']);
 });
 
-Route::prefix('role/{role}')->group(function () {
+Route::prefix('roles/{role}')->group(function () {
     Route::post('give-permissions', [RoleController::class, 'givePermissions']);
     Route::post('sync-permissions', [RoleController::class, 'syncPermissions']);
     Route::patch('revoke-permissions', [RoleController::class, 'revokePermissions']);
 });
+
+Route::prefix('roles')->group(function () {
+    Route::get('catalogue', [RoleController::class, 'catalogue']);
+});
+
+
 
 Route::prefix('permission/{permission}')->group(function () {
     Route::post('assign-roles', [PermissionController::class, 'assignRoles']);

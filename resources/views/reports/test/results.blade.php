@@ -1,17 +1,30 @@
 @extends('reports.index')
+
 @section('content')
     <br>
-    <br>
     <div class="row">
-        <div class="col-2">
-            <img src="{!! public_path('images/esquel.jpg') !!}" width="200px" alt="Imagen PNG alternativa">
+        <div class="col-11 offset-1">
+            <table>
+                <tr>
+                    <td>
+                        <img src="{!! public_path('images/pdf/bot.png') !!}" width="200px" alt="Imagen PNG alternativa">
+                    </td>
+                    <td>
+                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}" width="200px"
+                             alt="Imagen PNG alternativa">
+                    </td>
+                    <td>
+                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}" width="200px"
+                             alt="Imagen PNG alternativa">
+                    </td>
+                    <td>
+                        <img src="{!! public_path('images/pdf/usaid.png') !!}" width="200px"
+                             alt="Imagen PNG alternativa">
+                    </td>
+                </tr>
+            </table>
         </div>
-        <div class="col-2">
-            <img src="{!! public_path('images/oxigeno.png') !!}" width="200px" alt="Imagen PNG alternativa">
-        </div>
-        <div class="col-2">
-            <img src="{!! public_path('images/usaid.png') !!}" width="200px" alt="Imagen PNG alternativa">
-        </div>
+        <br>
         <div class="col-12">
             <br>
             <h4 class="text-center">Reporte de resultados de tamizaje de Chatbot: TEMI, te escucha</h4>
@@ -133,7 +146,30 @@
             </table>
         </div>
     </div>
-    <br>
+    {{--Header--}}
+    <div class="row">
+        <div class="col-11 offset-1">
+            <table>
+                <tr>
+                    <td>
+                        <img src="{!! public_path('images/pdf/bot.png') !!}" width="200px" alt="Imagen PNG alternativa">
+                    </td>
+                    <td>
+                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}" width="200px"
+                             alt="Imagen PNG alternativa">
+                    </td>
+                    <td>
+                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}" width="200px"
+                             alt="Imagen PNG alternativa">
+                    </td>
+                    <td>
+                        <img src="{!! public_path('images/pdf/usaid.png') !!}" width="200px"
+                             alt="Imagen PNG alternativa">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <br>
     {{--Type Test--}}
     <div class="row">
@@ -141,7 +177,6 @@
             <h5>{{strtoupper($data->type)}}:</h5>
         </div>
     </div>
-
     <div class="row">
         <div class="col-10 offset-1">
             <table border="1">
@@ -157,11 +192,30 @@
         </div>
     </div>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    {{--Header--}}
+    <div class="row">
+        <div class="col-11 offset-1">
+            <table>
+                <tr>
+                    <td>
+                        <img src="{!! public_path('images/pdf/bot.png') !!}" width="200px" alt="Imagen PNG alternativa">
+                    </td>
+                    <td>
+                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}" width="200px"
+                             alt="Imagen PNG alternativa">
+                    </td>
+                    <td>
+                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}" width="200px"
+                             alt="Imagen PNG alternativa">
+                    </td>
+                    <td>
+                        <img src="{!! public_path('images/pdf/usaid.png') !!}" width="200px"
+                             alt="Imagen PNG alternativa">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <br>
     {{--Interpretation Range--}}
     <div class="row">
@@ -181,23 +235,32 @@
                 <table border="1">
                     <tr>
                         <th width="250px">Puntuación</th>
-                        <th width="350px" class="column-right">Severidad</th>
+                        <th width="350px" class="column-right">Severidad {{$data->priority->level==0}}</th>
                     </tr>
                     <tr>
                         <th width="250px" class="column-left">0-4 puntos</th>
-                        <td width="350px" class="column-right">No presenta sintomatología</td>
+                        <td width="350px"
+                            @class(['column-right','text-priority-1'=>$data->priority->level===4])>
+                            No presenta sintomatología
+                        </td>
                     </tr>
                     <tr>
                         <th width="250px" class="column-left">5-9 puntos</th>
-                        <td width="350px" class="column-right">Baja intensidad en sintomatología</td>
+                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===3])>
+                            Baja intensidad en sintomatología
+                        </td>
                     </tr>
                     <tr>
                         <th width="250px" class="column-left">10-19 puntos</th>
-                        <td width="350px" class="column-right">Media - moderada intensidad en sintomatología</td>
+                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===2])>
+                            Media - moderada intensidad en sintomatología
+                        </td>
                     </tr>
                     <tr>
                         <th width="250px" class="column-left">20-27 puntos</th>
-                        <td width="350px" class="column-right">Alta intensidad en sintomatología</td>
+                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===1])>
+                            Alta intensidad en sintomatología
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -215,23 +278,33 @@
                 <table border="1">
                     <tr>
                         <th width="250px">Puntuación</th>
-                        <th width="350px" class="column-right">Severidad</th>
+                        <th width="350px" class="column-right">
+                            Severidad
+                        </th>
                     </tr>
                     <tr>
-                        <th width="250px" class="column-left">0-4 puntos</th>
-                        <td width="350px" class="column-right">No presenta sintomatología</td>
+                        <th width="250px" class="column-left">0-13 puntos</th>
+                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===4])>
+                            No presenta sintomatología
+                        </td>
+                    </tr>
+{{--                    <tr>--}}
+{{--                        <th width="250px" class="column-left">14-21 puntos</th>--}}
+{{--                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===3])>--}}
+{{--                            Baja intensidad en sintomatología--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+                    <tr>
+                        <th width="250px" class="column-left">14-21 puntos</th>
+                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===2])>
+                            Media - moderada intensidad en sintomatología
+                        </td>
                     </tr>
                     <tr>
-                        <th width="250px" class="column-left">5-9 puntos</th>
-                        <td width="350px" class="column-right">Baja intensidad en sintomatología</td>
-                    </tr>
-                    <tr>
-                        <th width="250px" class="column-left">10-19 puntos</th>
-                        <td width="350px" class="column-right">Media - moderada intensidad en sintomatología</td>
-                    </tr>
-                    <tr>
-                        <th width="250px" class="column-left">20-27 puntos</th>
-                        <td width="350px" class="column-right">Alta intensidad en sintomatología</td>
+                        <th width="250px" class="column-left">22-34 puntos</th>
+                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===1])>
+                            Alta intensidad en sintomatología
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -257,5 +330,4 @@
             </p>
         </div>
     </div>
-
 @endsection

@@ -38,7 +38,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     const MAX_ATTEMPTS = 3;
     const DECAY_MINUTES_PASSWORD_FORGOT = 10;
     const DECAY_MINUTES_USER_UNLOCK = 10;
-    const DECAY_MINUTES_TRANSACTIONAL_CODE = 2;
+    const DECAY_MINUTES_TRANSACTIONAL_CODE = 10;
     /**
      * The attributes that are mass assignable.
      *
@@ -55,6 +55,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         'lastname',
         'email',
         'phone',
+        'suspended',
         'email_verified_at',
         'password_changed',
         'max_attempts',
@@ -80,7 +81,6 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     ];
 
     // Relationships
-
     public function bloodType()
     {
         return $this->belongsTo(Catalogue::class);
@@ -129,21 +129,6 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     public function sex()
     {
         return $this->belongsTo(Catalogue::class);
-    }
-
-    public function authority()
-    {
-        return $this->hasOne(Authority::class);
-    }
-
-    public function instructor()
-    {
-        $this->hasOne(Instructor::class);
-    }
-
-    public function participant()
-    {
-        $this->hasOne(Participant::class);
     }
 
     // Scopes

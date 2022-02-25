@@ -70,6 +70,9 @@ class CreateAuthenticationUsersTable extends Migration
             $table->string('phone')
                 ->nullable();
 
+            $table->boolean('suspended')
+                ->default(false);
+
             $table->string('username')
                 ->unique();
         });
