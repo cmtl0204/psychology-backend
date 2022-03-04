@@ -120,7 +120,7 @@
     <br>
     <br>
     <div class="row">
-        <div class="col-10 offset-1">
+        <div class="col-5    offset-1">
             <h4>- Desglose de resultados:</h4>
         </div>
     </div>

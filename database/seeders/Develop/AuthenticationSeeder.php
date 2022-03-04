@@ -49,6 +49,7 @@ class AuthenticationSeeder extends Seeder
         $this->assignUserRoles();
 
         $this->createStates();
+        $this->deleteLocations();
     }
 
     private function createSystem()
@@ -122,7 +123,7 @@ class AuthenticationSeeder extends Seeder
                 ]
             );
         Email::factory(2)->for($userFactory, 'emailable')->create();
-        for ($i = 1; $i <= 84; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             $userFactory = User::factory()
                 ->create([
                     'identification_type_id' => $identificationTypes[rand(0, $identificationTypes->count() - 1)],
@@ -714,6 +715,13 @@ class AuthenticationSeeder extends Seeder
         DB::select("insert into core.locations(type_id,parent_id,code,name) values(3,273,'9001','LAS GOLONDRINAS');");
         DB::select("insert into core.locations(type_id,parent_id,code,name) values(3,273,'9002','MANGA DEL CURA');");
         DB::select("insert into core.locations(type_id,parent_id,code,name) values(3,273,'9003','EL PIEDRERO');");
+    }
+
+    private function deleteLocations()
+    {
+        DB::table('core.locations')->update(['deleted_at' => '2022-03-03']);
+        DB::table('core.locations')->whereIn('id', [250, 252, 254, 265, 266])->update(['deleted_at' => null]);
+        DB::table('core.locations')->whereIn('parent_id', [250, 252, 254, 265, 266])->update(['deleted_at' => null]);
     }
 
     private function createIdentificationTypeCatalogues()
