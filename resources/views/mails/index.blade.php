@@ -15,7 +15,7 @@
 <body>
 <div class="content">
     <div class="row">
-        <div class="col-10 offset-2">
+        <div class="col-10 offset-1">
             <img
                 src="{{$message->embed(asset('images/email/banner.png'))}}"
                 alt="Imagen PNG alternativa">
