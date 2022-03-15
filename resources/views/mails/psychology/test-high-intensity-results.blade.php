@@ -10,10 +10,6 @@
                 profesional de salud mental se estará contactando al número de teléfono proporcionado para que puedas
                 conocer y acceder a nuestros servicios.
             </p>
-            <p>
-                <b>Para ingresar a ver los resultados de tu Chatbot</b>, te pedimos acceder al siguiente enlace:
-                <a href="https://www.esquel.org.ec/es/conocenos-liderazgos.html">https://www.esquel.org.ec/es/conocenos-liderazgos.html</a>
-            </p>
         </div>
     </div>
 @endsection

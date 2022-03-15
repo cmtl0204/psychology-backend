@@ -61,7 +61,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $user = User::where('username', $request->input('username'))
-            ->orWhere('email', $request->input('email'))->first();
+            ->orWhere('email', $request->input('username'))->first();
 
         if (isset($user) && $user->username === $request->input('username')) {
             return (new UserResource($user))

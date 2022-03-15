@@ -10,10 +10,6 @@
             <p>Recuerda que este es un servicio gratuito de salud mental y que TEMI, te escucha estará disponible para
                 ti cuando lo necesites.
             </p>
-            <p>
-                <b>Para ingresar a ver los resultados de tu Chatbot</b>, te pedimos acceder al siguiente enlace:
-                <a href="https://www.esquel.org.ec/es/conocenos-liderazgos.html">https://www.esquel.org.ec/es/conocenos-liderazgos.html</a>
-            </p>
         </div>
     </div>
 @endsection

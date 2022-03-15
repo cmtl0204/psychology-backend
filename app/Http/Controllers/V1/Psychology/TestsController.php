@@ -111,29 +111,29 @@ class TestsController extends Controller
         }
 
         if ($test->age < 18) {
-            if ($test->priority->level === 1) {
-                Mail::to($agent->email)
-                    ->send(new TestYoungerHighIntensityResultsMailable(
-                        'Gracias por participar | TEMI, te escucha',
-                        json_encode(['user' => $user, 'agent' => $agent, 'test' => $test])
-                    ));
-            } else {
+            if ($test->priority->level === 4) {
                 Mail::to($agent->email)
                     ->send(new TestYoungerResultsMailable(
                         'Gracias por participar | TEMI, te escucha',
                         json_encode(['user' => $user, 'agent' => $agent, 'test' => $test])
                     ));
+            } else {
+                Mail::to($agent->email)
+                    ->send(new TestYoungerHighIntensityResultsMailable(
+                        'Gracias por participar | TEMI, te escucha',
+                        json_encode(['user' => $user, 'agent' => $agent, 'test' => $test])
+                    ));
             }
         } else {
-            if ($test->priority->level === 1) {
+            if ($test->priority->level === 4) {
                 Mail::to($user->email)
-                    ->send(new TestResultsHighIntensityMailable(
+                    ->send(new TestResultsMailable(
                         'Gracias por participar | TEMI, te escucha',
                         json_encode(['user' => $user, 'test' => $test])
                     ));
             } else {
                 Mail::to($user->email)
-                    ->send(new TestResultsMailable(
+                    ->send(new TestResultsHighIntensityMailable(
                         'Gracias por participar | TEMI, te escucha',
                         json_encode(['user' => $user, 'test' => $test])
                     ));
@@ -468,7 +468,7 @@ class TestsController extends Controller
                 if ($score >= 0 && $score <= 4) {
                     $level = 4;
                     if ($duelScore > 0) {
-                        $level = 3;
+                        $level = 2;
                     }
                 }
                 if ($score >= 5 && $score <= 9) {
@@ -488,7 +488,7 @@ class TestsController extends Controller
                 if ($score >= 0 && $score <= 13) {
                     $level = 4;
                     if ($duelScore > 0) {
-                        $level = 3;
+                        $level = 2;
                     }
                 }
                 if ($score >= 14 && $score <= 21) {

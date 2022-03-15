@@ -58,11 +58,11 @@ class AuthenticationSeeder extends Seeder
 
         System::factory()->create([
             'code' => $catalogues['system']['code'],
-            'name' => 'Esquel - ChatBot',
-            'acronym' => 'Esquel',
+            'name' => 'ChatBot - TEMI',
+            'acronym' => 'TEMI',
             'version' => '2.2.3',
-            'redirect' => 'http://localhost:4200/#',
-            'date' => '2022-02-15',
+            'redirect' => 'https://temi.esquel.org.ec/#',
+            'date' => '2022-03-15',
             'state' => true
         ]);
     }

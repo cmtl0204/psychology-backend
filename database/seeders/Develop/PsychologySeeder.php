@@ -23,10 +23,10 @@ class PsychologySeeder extends Seeder
         $this->createQuestions();
         $this->createAnswers();
         $this->createInstitutions();
-//        $this->createTests();
-//        $this->createResultsPHQ9A();
-//        $this->createResultsPSC17();
-//        $this->createAssignments();
+        $this->createTests();
+        $this->createResultsPHQ9A();
+        $this->createResultsPSC17();
+        $this->createAssignments();
     }
 
     private function createStates()
@@ -87,7 +87,7 @@ class PsychologySeeder extends Seeder
             [
                 'order' => 2,
                 'type' => 'phq2',
-                'value' => 'En las últimas dos semanas, ¿Has perdido el interés o placer en hacer cosas que te hacían sentir bien?',
+                'value' => 'En las últimas dos semanas, ¿Has perdido el interés o placer en hacer cosas que antes te hacían sentir bien?',
             ]
         )->create();
 
@@ -96,7 +96,7 @@ class PsychologySeeder extends Seeder
             [
                 'order' => 1,
                 'type' => 'phq9a',
-                'value' => 'Si has perdido el interés, las ganas o el placer en hacer las cosas, ayúdame a saber ¿Cuánto días te has sentido así en las últimas dos semanas?',
+                'value' => 'Si has perdido el interés, las ganas o el placer en hacer las cosas que te gustaban, ayúdame a saber ¿Cuánto días te has sentido así en las últimas dos semanas?',
             ],
             [
                 'order' => 2,
@@ -136,7 +136,7 @@ class PsychologySeeder extends Seeder
             [
                 'order' => 9,
                 'type' => 'phq9a',
-                'value' => '¿Has tenido pensamientos de que sería mejor estar muerto/a o has querido hacerte daño de alguna forma?',
+                'value' => '¿Has tenido pensamientos de que sería mejor estar muerto/a o has querido hacerte daño de alguna forma en las últimas dos semanas?',
             ]
         )->create();
 
@@ -234,7 +234,7 @@ class PsychologySeeder extends Seeder
             [
                 'order' => 1,
                 'type' => 'duel',
-                'value' => 'Durante la pandemia, ¿alguna persona importante de tu entorno ha fallecido?',
+                'value' => 'Durante la pandemia, ¿alguna persona importante de tu entorno familiar o social ha fallecido?',
             ]
         )->create();
     }
@@ -245,28 +245,28 @@ class PsychologySeeder extends Seeder
         Answer::factory(4)->sequence(
             [
                 'question_id' => 1,
-                'class' => 'p-button-info',
+                'class' => 'p-button-info p-button-text',
                 'score' => 1,
                 'order' => 1,
                 'value' => 'SI',
             ],
             [
                 'question_id' => 1,
-                'class' => 'p-button-help',
+                'class' => 'p-button-help p-button-text',
                 'score' => 0,
                 'order' => 2,
                 'value' => 'NO',
             ],
             [
                 'question_id' => 2,
-                'class' => 'p-button-info',
+                'class' => 'p-button-info p-button-text',
                 'score' => 1,
                 'order' => 1,
                 'value' => 'SI',
             ],
             [
                 'question_id' => 2,
-                'class' => 'p-button-help',
+                'class' => 'p-button-help p-button-text',
                 'score' => 0,
                 'order' => 2,
                 'value' => 'NO',
@@ -277,28 +277,28 @@ class PsychologySeeder extends Seeder
             Answer::factory(4)->sequence(
                 [
                     'question_id' => $question->id,
-                    'class' => 'p-button-info',
+                    'class' => 'p-button-info p-button-text',
                     'order' => 1,
                     'score' => 0,
                     'value' => 'Para nada',
                 ],
                 [
                     'question_id' => $question->id,
-                    'class' => 'p-button-help',
+                    'class' => 'p-button-help p-button-text',
                     'order' => 2,
                     'score' => 1,
                     'value' => 'Varios días (entre 1 a 6 días)',
                 ],
                 [
                     'question_id' => $question->id,
-                    'class' => 'p-button-warning',
+                    'class' => 'p-button-warning p-button-text',
                     'order' => 3,
                     'score' => 2,
                     'value' => 'La mitad de los días o más (entre 7 y 11 días)',
                 ],
                 [
                     'question_id' => $question->id,
-                    'class' => 'p-button-secondary',
+                    'class' => 'p-button-secondary p-button-text',
                     'order' => 4,
                     'score' => 3,
                     'value' => 'Casi todos los días (12 días o más)',
@@ -310,21 +310,21 @@ class PsychologySeeder extends Seeder
             Answer::factory(3)->sequence(
                 [
                     'question_id' => $question->id,
-                    'class' => 'p-button-info',
+                    'class' => 'p-button-info p-button-text',
                     'order' => 1,
                     'score' => 0,
                     'value' => 'Nunca',
                 ],
                 [
                     'question_id' => $question->id,
-                    'class' => 'p-button-help',
+                    'class' => 'p-button-help p-button-text',
                     'order' => 2,
                     'score' => 1,
                     'value' => 'Algunas veces',
                 ],
                 [
                     'question_id' => $question->id,
-                    'class' => 'p-button-warning',
+                    'class' => 'p-button-warning p-button-text',
                     'order' => 3,
                     'score' => 2,
                     'value' => 'Frecuentemente',
@@ -336,14 +336,14 @@ class PsychologySeeder extends Seeder
             Answer::factory(2)->sequence(
                 [
                     'question_id' => $question->id,
-                    'class' => 'p-button-info',
+                    'class' => 'p-button-info p-button-text',
                     'order' => 1,
                     'score' => 1,
                     'value' => 'SI',
                 ],
                 [
                     'question_id' => $question->id,
-                    'class' => 'p-button-help',
+                    'class' => 'p-button-help p-button-text',
                     'order' => 2,
                     'score' => 0,
                     'value' => 'NO',
