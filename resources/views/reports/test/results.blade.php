@@ -7,18 +7,18 @@
             <table>
                 <tr>
                     <td>
-                        <img src="{!! public_path('images/pdf/bot.png') !!}" width="200px" alt="Imagen PNG alternativa">
+                        <img src="{!! public_path('images/pdf/bot.png') !!}" alt="Imagen PNG alternativa">
                     </td>
                     <td>
-                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}" width="200px"
+                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}"
                              alt="Imagen PNG alternativa">
                     </td>
                     <td>
-                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}" width="200px"
+                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}"
                              alt="Imagen PNG alternativa">
                     </td>
                     <td>
-                        <img src="{!! public_path('images/pdf/usaid.png') !!}" width="200px"
+                        <img src="{!! public_path('images/pdf/usaid.png') !!}"
                              alt="Imagen PNG alternativa">
                     </td>
                 </tr>
@@ -152,18 +152,18 @@
             <table>
                 <tr>
                     <td>
-                        <img src="{!! public_path('images/pdf/bot.png') !!}" width="200px" alt="Imagen PNG alternativa">
+                        <img src="{!! public_path('images/pdf/bot.png') !!}" alt="Imagen PNG alternativa">
                     </td>
                     <td>
-                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}" width="200px"
+                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}"
                              alt="Imagen PNG alternativa">
                     </td>
                     <td>
-                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}" width="200px"
+                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}"
                              alt="Imagen PNG alternativa">
                     </td>
                     <td>
-                        <img src="{!! public_path('images/pdf/usaid.png') !!}" width="200px"
+                        <img src="{!! public_path('images/pdf/usaid.png') !!}"
                              alt="Imagen PNG alternativa">
                     </td>
                 </tr>
@@ -198,18 +198,18 @@
             <table>
                 <tr>
                     <td>
-                        <img src="{!! public_path('images/pdf/bot.png') !!}" width="200px" alt="Imagen PNG alternativa">
+                        <img src="{!! public_path('images/pdf/bot.png') !!}" alt="Imagen PNG alternativa">
                     </td>
                     <td>
-                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}" width="200px"
+                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}"
                              alt="Imagen PNG alternativa">
                     </td>
                     <td>
-                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}" width="200px"
+                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}"
                              alt="Imagen PNG alternativa">
                     </td>
                     <td>
-                        <img src="{!! public_path('images/pdf/usaid.png') !!}" width="200px"
+                        <img src="{!! public_path('images/pdf/usaid.png') !!}"
                              alt="Imagen PNG alternativa">
                     </td>
                 </tr>
@@ -288,12 +288,12 @@
                             No presenta sintomatología
                         </td>
                     </tr>
-{{--                    <tr>--}}
-{{--                        <th width="250px" class="column-left">14-21 puntos</th>--}}
-{{--                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===3])>--}}
-{{--                            Baja intensidad en sintomatología--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
+                    {{--                    <tr>--}}
+                    {{--                        <th width="250px" class="column-left">14-21 puntos</th>--}}
+                    {{--                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===3])>--}}
+                    {{--                            Baja intensidad en sintomatología--}}
+                    {{--                        </td>--}}
+                    {{--                    </tr>--}}
                     <tr>
                         <th width="250px" class="column-left">14-21 puntos</th>
                         <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===2])>

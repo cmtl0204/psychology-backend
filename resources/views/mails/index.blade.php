@@ -52,15 +52,12 @@
                <div class="col-12">
                    <img
                        src="{{$message->embed(asset('images/email/esquel.jpg'))}}"
-                       width="200px"
                        alt="Imagen PNG ESQUEL">
                    <img
                        src="{{$message->embed(asset('images/email/oxigeno.png'))}}"
-                       width="200px"
                        alt="Imagen PNG OXIGEN">
                    <img
                        src="{{$message->embed(asset('images/email/usaid.png'))}}"
-                       width="200px"
                        alt="Imagen PNG USAID">
                </div>
            </div>
