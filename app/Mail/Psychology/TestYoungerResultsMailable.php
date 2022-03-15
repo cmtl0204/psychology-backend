@@ -16,9 +16,9 @@ class TestYoungerResultsMailable extends Mailable
     private $pathAttaches;
     private $system;
 
-    public function __construct($subject, $data, $pathAttaches = null, $system = null)
+    public function __construct($data, $pathAttaches = null, $system = null)
     {
-        $this->subject = $subject;
+        $this->subject = 'Gracias por participar | TEMI, te escucha';
         $this->data = $data;
         $this->pathAttaches = $pathAttaches;
         $this->system = System::find(1);

@@ -18,7 +18,7 @@ class TransactionalCodeTestMailable extends Mailable
 
     public function __construct($subject, $data, $pathAttaches = null, $system = 1)
     {
-        $this->subject = $subject;
+        $this->subject = 'Código de verificación - Consentimiento Informado | TEMI, te escucha';
         $this->data = $data;
         $this->pathAttaches = $pathAttaches;
         $this->system = System::find($system);

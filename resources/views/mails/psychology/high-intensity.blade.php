@@ -15,15 +15,14 @@
 <body>
 <div class="content">
     <div class="row">
-        <div class="col-7 offset-2">
+        <div class="col-12">
             <img
-                src="{{$message->embed(asset('images/email/bot.png'))}}"
-                alt="Imagen PNG alternativa">
+                src="{{$message->embed(asset('images/email/banner.png'))}}"
+                alt="Imagen banner">
         </div>
     </div>
     <div class="row">
-        <div class="col-6 offset-2 border">
-            {{--            <h5 class="text-center bg-secondary text-white">{{$system->name}}</h5>--}}
+        <div class="col-8 offset-2 border">
             <p class="text-muted">
                 Fecha: <b>{{\Carbon\Carbon::now()->toDateString()}}</b>
                 <b class="ml-2">{{\Carbon\Carbon::now()->toTimeString()}}</b>
@@ -36,8 +35,7 @@
             </p>
             <p class="text-muted">
                 Se han revisado los datos del chatbot #{{$data->code}} presenta signos de alarma que deben ser atendidos
-                de urgencia
-                por un profesional de la salud mental. Por favor revisar los resultados y derivar el caso.
+                de urgencia por un profesional de la salud mental. Por favor revisar los resultados y derivar el caso.
             </p>
             <br>
             <p>
@@ -46,19 +44,10 @@
             <div class="row">
                 <div class="col-12">
                     <img
-                        src="{{$message->embed(asset('images/email/esquel.jpg'))}}"
-                        alt="Imagen PNG ESQUEL">
-                    <img
-                        src="{{$message->embed(asset('images/email/oxigeno.png'))}}"
-                        alt="Imagen PNG OXIGEN">
-                    <img
-                        src="{{$message->embed(asset('images/email/usaid.png'))}}"
-                        alt="Imagen PNG USAID">
+                        src="{{$message->embed(asset('images/email/bot.jpg'))}}"
+                        alt="Imagen TEMI">
                 </div>
             </div>
-            {{--            <h6 class="text-center bg-secondary text-white">&copy; {{(new \Carbon\Carbon($system->date))->format('Y')}}--}}
-            {{--                Todos los--}}
-            {{--                derechos reservados. {{$system->acronym}} v{{$system->version}}</h6>--}}
         </div>
     </div>
 </div>

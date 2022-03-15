@@ -3,23 +3,11 @@
 @section('content')
     <br>
     <div class="row">
-        <div class="col-11 offset-1">
+        <div class="col-12">
             <table>
                 <tr>
                     <td>
-                        <img src="{!! public_path('images/pdf/bot.png') !!}" alt="Imagen PNG alternativa">
-                    </td>
-                    <td>
-                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}"
-                             alt="Imagen PNG alternativa">
-                    </td>
-                    <td>
-                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}"
-                             alt="Imagen PNG alternativa">
-                    </td>
-                    <td>
-                        <img src="{!! public_path('images/pdf/usaid.png') !!}"
-                             alt="Imagen PNG alternativa">
+                        <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner">
                     </td>
                 </tr>
             </table>
@@ -148,23 +136,11 @@
     </div>
     {{--Header--}}
     <div class="row">
-        <div class="col-11 offset-1">
+        <div class="col-12">
             <table>
                 <tr>
                     <td>
-                        <img src="{!! public_path('images/pdf/bot.png') !!}" alt="Imagen PNG alternativa">
-                    </td>
-                    <td>
-                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}"
-                             alt="Imagen PNG alternativa">
-                    </td>
-                    <td>
-                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}"
-                             alt="Imagen PNG alternativa">
-                    </td>
-                    <td>
-                        <img src="{!! public_path('images/pdf/usaid.png') !!}"
-                             alt="Imagen PNG alternativa">
+                        <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner">
                     </td>
                 </tr>
             </table>
@@ -194,23 +170,11 @@
     <br>
     {{--Header--}}
     <div class="row">
-        <div class="col-11 offset-1">
+        <div class="col-12">
             <table>
                 <tr>
                     <td>
-                        <img src="{!! public_path('images/pdf/bot.png') !!}" alt="Imagen PNG alternativa">
-                    </td>
-                    <td>
-                        <img src="{!! public_path('images/pdf/esquel.jpg') !!}"
-                             alt="Imagen PNG alternativa">
-                    </td>
-                    <td>
-                        <img src="{!! public_path('images/pdf/oxigeno.png') !!}"
-                             alt="Imagen PNG alternativa">
-                    </td>
-                    <td>
-                        <img src="{!! public_path('images/pdf/usaid.png') !!}"
-                             alt="Imagen PNG alternativa">
+                        <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner">
                     </td>
                 </tr>
             </table>

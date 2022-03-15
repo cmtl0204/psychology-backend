@@ -15,16 +15,14 @@
 <body>
 <div class="content">
     <div class="row">
-        <div class="col-7 offset-2">
+        <div class="col-12">
             <img
-                src="{{$message->embed(asset('images/email/bot.png'))}}"
-                width="180px"
-                height="100px"
+                src="{{$message->embed(asset('images/email/banner.png'))}}"
                 alt="Imagen PNG alternativa">
         </div>
     </div>
     <div class="row">
-        <div class="col-6 offset-2 border">
+        <div class="col-8 offset-2 border">
             <p class="text-muted">
                 Fecha: <b>{{\Carbon\Carbon::now()->toDateString()}}</b>
                 <b class="ml-2">{{\Carbon\Carbon::now()->toTimeString()}}</b>
@@ -33,7 +31,7 @@
                 Hola, <b>{{$data->user->name}} {{$data->user->lastname}}</b>
             </p>
             <p class="text-muted">
-                Gracias por participar | TEMI, te escucha
+                ¡Gracias por participar en TEMI, te escucha!
             </p>
             <br>
             @yield('content')
@@ -51,14 +49,8 @@
            <div class="row">
                <div class="col-12">
                    <img
-                       src="{{$message->embed(asset('images/email/esquel.jpg'))}}"
-                       alt="Imagen PNG ESQUEL">
-                   <img
-                       src="{{$message->embed(asset('images/email/oxigeno.png'))}}"
-                       alt="Imagen PNG OXIGEN">
-                   <img
-                       src="{{$message->embed(asset('images/email/usaid.png'))}}"
-                       alt="Imagen PNG USAID">
+                       src="{{$message->embed(asset('images/email/bot.png'))}}"
+                       alt="Imagen TEMI">
                </div>
            </div>
 {{--            <h6 class="text-center bg-secondary text-white">&copy; {{(new \Carbon\Carbon($system->date))->format('Y')}}--}}
