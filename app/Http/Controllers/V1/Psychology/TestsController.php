@@ -114,13 +114,11 @@ class TestsController extends Controller
             if ($test->priority->level === 4) {
                 Mail::to($agent->email)
                     ->send(new TestYoungerResultsMailable(
-                        'Gracias por participar | TEMI, te escucha',
                         json_encode(['user' => $user, 'agent' => $agent, 'test' => $test])
                     ));
             } else {
                 Mail::to($agent->email)
                     ->send(new TestYoungerHighIntensityResultsMailable(
-                        'Gracias por participar | TEMI, te escucha',
                         json_encode(['user' => $user, 'agent' => $agent, 'test' => $test])
                     ));
             }
@@ -128,13 +126,11 @@ class TestsController extends Controller
             if ($test->priority->level === 4) {
                 Mail::to($user->email)
                     ->send(new TestResultsMailable(
-                        'Gracias por participar | TEMI, te escucha',
                         json_encode(['user' => $user, 'test' => $test])
                     ));
             } else {
                 Mail::to($user->email)
                     ->send(new TestResultsHighIntensityMailable(
-                        'Gracias por participar | TEMI, te escucha',
                         json_encode(['user' => $user, 'test' => $test])
                     ));
             }
@@ -307,7 +303,6 @@ class TestsController extends Controller
 
         Mail::to($request->input('email'))
             ->send(new TransactionalCodeTestMailable(
-                'Información Código de Seguridad',
                 json_encode(['user' => $request->all(), 'token' => $token])
             ));
 
@@ -510,7 +505,6 @@ class TestsController extends Controller
         if ($level === 1) {
             Mail::to($emails)
                 ->send(new HighIntensityMailable(
-                    'REDFLAG | TEMI, te escucha',
                     json_encode(['user' => $user, 'code' => $code])
                 ));
         }
