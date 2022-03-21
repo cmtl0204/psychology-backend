@@ -20,19 +20,17 @@ use Maatwebsite\Excel\Events\AfterSheet;
 class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings, WithEvents, WithTitle
 {
     private $testType;
-    private $startDate;
-    private $endDate;
+    private $dates;
 
-    public function __construct($testType, $startDate, $endDate)
+    public function __construct($testType, $dates)
     {
         $this->testType = $testType;
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
+        $this->dates = $dates;
     }
 
     public function collection()
     {
-        return new TestCollection(Test::whereBetween('created_at', $this->startDate, $this->endDate)->where('type', $this->testType)
+        return new TestCollection(Test::whereBetween('created_at', $this->dates)->where('type', $this->testType)
             ->orWhere('type', 'duel')
             ->orWhere('type', 'phq2')
             ->get());
