@@ -69,7 +69,7 @@ class AuthenticationSeeder extends Seeder
 
     private function createMenus()
     {
-        $menus = Menu::factory(2)->sequence(
+        $menus = Menu::factory(3)->sequence(
             [
                 'role_id' => 1,
                 'icon' => 'pi pi-users',

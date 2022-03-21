@@ -160,7 +160,7 @@
                     @if($result->question->type!='phq2a')
                         <tr>
                             <td width="350px" class="column-left">{{$result->question->value}}</td>
-                            <td width="200" class="column-right">{{$result->answer->value}}</td>
+                            <td width="200px" class="column-right">{{$result->answer->value}}</td>
                         </tr>
                     @endif
                 @endforeach
@@ -231,7 +231,8 @@
         </div>
         <br>
     @endif
-    @if($data->type=='psc17')
+    @if($data->type=='psc17
+')
         <div class="row">
             <div class="col-10 offset-1">
                 <h5>PSC - 17 (Presencia de sintomatología depresiva o ansiosa)</h5>
