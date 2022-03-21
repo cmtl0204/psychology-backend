@@ -20,23 +20,22 @@ use Maatwebsite\Excel\Events\AfterSheet;
 class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings, WithEvents, WithTitle
 {
     private $testType;
+    private $startDate;
+    private $endDate;
 
-    public function __construct($testType)
+    public function __construct($testType, $startDate, $endDate)
     {
         $this->testType = $testType;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
     }
 
     public function collection()
     {
-        return new TestCollection(Test::where('type', $this->testType)
+        return new TestCollection(Test::whereBetween('created_at', $this->startDate, $this->endDate)->where('type', $this->testType)
             ->orWhere('type', 'duel')
             ->orWhere('type', 'phq2')
             ->get());
-
-//        return view('reports.test.results-excel', [
-//            'testsPhq9a' => new TestCollection(Test::where('type', '<>', 'psc17')->get()),
-//            'testsPsc17' => new TestCollection(Test::where('type', '<>', 'phq9a')->get())
-//        ]);
     }
 
     public function map($row): array
