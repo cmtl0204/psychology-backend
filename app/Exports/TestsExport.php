@@ -44,12 +44,12 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
         $rows = [
             $row->code,
             $row->user ? $row->user->name : '',
-            $row->province->name,
-            $row->canton->name,
+            $row->province ? $row->province->name : '',
+            $row->canton ? $row->canton->name : '',
             $row->assignment ? $row->assignment->institution->name : '',
-            $row->priority->name,
+            $row->priority ? $row->priority->name : '',
             $row->score,
-            $row->state->name,
+            $row->state ? $row->state->name : '',
             $row->created_at
         ];
         $resultsRows = [];
