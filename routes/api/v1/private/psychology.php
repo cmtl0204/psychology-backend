@@ -69,7 +69,7 @@ Route::apiResource('tests', TestsController::class)->except('store');
  **********************************************************************************************************************/
 Route::controller(QuestionsController::class)->group(function () {
     Route::prefix('questions/{question}')->group(function () {
-        Route::patch('/xyz', 'xyz');
+
     });
 
     Route::prefix('questions')->group(function () {
@@ -84,5 +84,5 @@ Route::controller(QuestionsController::class)->group(function () {
  **********************************************************************************************************************/
 Route::prefix('reports')->group(function () {
     Route::get('/tests/{test}/results', [ReportsController::class, 'resultsTest']);
-    Route::get('/tests/results', [ReportsController::class, 'resultsTests']);
+    Route::post('/tests/results', [ReportsController::class, 'resultsTests']);
 });
