@@ -253,7 +253,9 @@ class UserController extends Controller
             ], 400);
         }
 
-        $user->update(['suspended' => false]);
+        $user->max_attempts = User::MAX_ATTEMPTS;
+        $user->suspended = false;
+        $user->save();
 
         return (new UserResource($user))
             ->additional([

@@ -253,7 +253,7 @@ class AuthController extends Controller
         }
 
         $user->password = $request->input('password');
-        $user->max_attempts = 3;// esto es temporal
+        $user->max_attempts = User::MAX_ATTEMPTS;// esto es temporal
         $user->save();
 
         $passwordReset->update(['used' => true]);
