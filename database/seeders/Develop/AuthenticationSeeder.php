@@ -61,7 +61,7 @@ class AuthenticationSeeder extends Seeder
             'name' => 'ChatBot - TEMI',
             'acronym' => 'TEMI',
             'version' => '2.2.3',
-            'redirect' => 'https://temi.esquel.org.ec/#',
+            'redirect' => 'https://temi.esquel.org.ec/#/',
             'date' => '2022-03-15',
             'state' => true
         ]);
