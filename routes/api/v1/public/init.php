@@ -28,3 +28,12 @@ Route::get('init', function () {
         ]
     ]);
 });
+
+Route::get('down', function () {
+    Artisan::call('down');
+    return response()->json([
+        'msg' => [
+            'El sistema se encuentra en mantenimiento'
+        ]
+    ]);
+});
