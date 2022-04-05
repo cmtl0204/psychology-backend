@@ -30,7 +30,8 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
 
     public function collection()
     {
-        return new TestCollection(Test::whereBetween('created_at', $this->dates)->where('type', $this->testType)
+        return new TestCollection(Test::whereBetween('created_at', $this->dates)
+            ->where('type', $this->testType)
             ->orWhere('type', 'duel')
             ->orWhere('type', 'phq2')
             ->get());
@@ -40,7 +41,12 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
     {
         $rows = [
             $row->code,
-            $row->user ? $row->user->name : '',
+            $row->user ? $row->user->username: '',
+            $row->user ? $row->user->lastname.' '.$row->user->name : '',
+            $row->user ? $row->user->phone: '',
+            $row->agent ? $row->agent->username: '',
+            $row->agent ? $row->agent->lastname.' '.$row->agent->name : '',
+            $row->agent ? $row->agent->phone: '',
             $row->province ? $row->province->name : '',
             $row->canton ? $row->canton->name : '',
             $row->assignment ? $row->assignment->institution->name : '',
@@ -66,7 +72,12 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
 
         $headers = [
             'Test',
+            'Cédula Usuario',
             'Usuario',
+            'Teléfono Usuario',
+            'Cédula Representante Legal',
+            'Representante Legal',
+            'Teléfono Representante Legal',
             'Provincia',
             'Cantón',
             'Institución',
