@@ -100,7 +100,7 @@ class TestsController extends Controller
         $test->save();
 
         $score = $this->saveResults($request, $test);
-        $code = $province->code . '-' . $test->id . '-' . $request->input('patient.username');
+        $code = $province->code . '-' . $test->id;
         $test->priority()->associate($this->generatePriority($request, $test, $user, $code));
         $test->code = $code;
         $test->score = $score;
