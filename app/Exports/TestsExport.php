@@ -44,7 +44,7 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
             $row->user ? $row->user->username: '',
             $row->user ? $row->user->lastname.' '.$row->user->name : '',
             $row->user ? $row->user->phone: '',
-            $row->agent ? $row->agent->username: '',
+            $row->agent ? $row->agent->identification: '',
             $row->agent ? $row->agent->lastname.' '.$row->agent->name : '',
             $row->agent ? $row->agent->phone: '',
             $row->province ? $row->province->name : '',
