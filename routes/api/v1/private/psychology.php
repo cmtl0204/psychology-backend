@@ -53,6 +53,7 @@ Route::controller(InstitutionsController::class)->group(function () {
 Route::controller(TestsController::class)->group(function () {
     Route::prefix('tests/{test}')->group(function () {
         Route::patch('/close', 'close');
+        Route::patch('/priorities/{priority}', 'updatePriority');
     });
 
     Route::prefix('tests')->group(function () {

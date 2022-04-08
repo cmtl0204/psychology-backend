@@ -1,4 +1,0 @@
-[ZoneTransfer]
-ZoneId=3
-ReferrerUrl=http://www.esquel.org.ec/phppgadmin/all_db.php?subject=server&action=export&server=localhost%3A5432%3Aallow
-HostUrl=http://www.esquel.org.ec/phppgadmin/dbexport.php

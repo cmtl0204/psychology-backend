@@ -106,12 +106,12 @@ class PsychologySeeder extends Seeder
             [
                 'order' => 3,
                 'type' => 'phq9a',
-                'value' => '¿Has tenido problemas para dormir o mantenerte dormido/a, o duermes demasiado?',
+                'value' => 'En las últimas dos semanas, ¿Has tenido problemas para dormir o duermes demasiado, debido a tu estado emocional?',
             ],
             [
                 'order' => 4,
                 'type' => 'phq9a',
-                'value' => '¿Has sentido poco apetito o has estado comiendo en exceso?',
+                'value' => 'En las últimas dos semanas, ¿Has sentido poco apetito o has estado comiendo en exceso, debido a tu estado emocional?',
             ],
             [
                 'order' => 5,
@@ -131,7 +131,7 @@ class PsychologySeeder extends Seeder
             [
                 'order' => 8,
                 'type' => 'phq9a',
-                'value' => '¿Has sentado muy tranquilo/a  que los demás se han dado cuenta, o has estado muy intraquilo/a que las demás personas han podido notarlo?',
+                'value' => '¿Has estado muy tranquilo/a que los demás se han dado cuenta, o has estado muy intraquilo/a que las demás personas han podido notarlo?',
             ],
             [
                 'order' => 9,

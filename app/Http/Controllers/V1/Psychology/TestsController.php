@@ -231,6 +231,22 @@ class TestsController extends Controller
             ->response()->setStatusCode(200);
     }
 
+    public function updatePriority(Request $request, Test $test,Priority $priority)
+    {
+        $test->priority()->associate($priority);
+        $test->save();
+
+        return (new TestResource($test))
+            ->additional([
+                'msg' => [
+                    'summary' => 'La prioridad fue actualizada',
+                    'detail' => '',
+                    'code' => '201'
+                ]
+            ])
+            ->response()->setStatusCode(201);
+    }
+
     public function countPriorities(Request $request)
     {
         $dates = array($request->input('startedAt'), $request->input('endedAt'));
