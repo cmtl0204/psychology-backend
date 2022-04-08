@@ -39,6 +39,7 @@ class TestsController extends Controller
         $this->middleware('permission:view-tests')->only(['index', 'show']);
 
         $this->middleware('permission:update-assignments')->only(['close']);
+        $this->middleware('permission:update-priorities-tests')->only(['updatePriority']);
     }
 
     /**

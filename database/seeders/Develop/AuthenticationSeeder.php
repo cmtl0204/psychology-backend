@@ -162,6 +162,7 @@ class AuthenticationSeeder extends Seeder
 
         Permission::create(['name' => 'store-assignments']);
         Permission::create(['name' => 'update-assignments']);
+        Permission::create(['name' => 'update-priorities-tests']);
     }
 
     private function assignRolePermissions()
