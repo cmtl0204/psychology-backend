@@ -19,9 +19,29 @@
         </div>
     </div>
     <br>
+    <div class="row">
+        <div class="col-12">
+            <h4>1. Sobre TEMI, te escucha</h4>
+            <p>TEMI, te escucha es una servicio de tamizaje gratuito en salud mental facilitado a través de una página
+                web que permite levantar indicadores sobre el estado de salud mental del usuario participante. El
+                servicio es parte del programa de salud mental del proyecto “Oxígeno para Salvar Vidas” implementado por
+                Fundación Esquel con el apoyo de USAID para dar respuesta a las necesidades de salud mental causadas por
+                la pandemia por COVID-19 en población adolescente del país.</p>
+            <p>
+                El servicio de tamizaje es un <b>dispositivo de prevención secundaria</b>, es decir que a través de la
+                aplicación y llenado del participante de herramientas de identificación de indicadores sobre su estado
+                de ánimo, se busca prevenir la presencia de posibles problemáticas de salud mental. <b>La información
+                detallada en el presente reporte busca informarle a usted y al usuario participante sobre su estado de
+                salud mental en las últimas dos semanas de manera exploratoria. El presente reporte no refleja de
+                ninguna manera un diagnóstico definitivo.</b>
+            </p>
+        </div>
+    </div>
+    <br>
     <br>
     <div class="row">
         <div class="col-10 offset-1">
+            <h4>2. Datos informativos</h4>
             <table border="1">
                 <tr>
                     <th width="250px" class="column-left">Número de Chatbot:</th>
@@ -81,7 +101,7 @@
     <br>
     <div class="row">
         <div class="col-10 offset-1">
-            <h4>- Resultados:</h4>
+            <h4>2. Datos informativos</h4>
         </div>
     </div>
     <div class="row">
@@ -109,7 +129,7 @@
     <br>
     <div class="row">
         <div class="col-5    offset-1">
-            <h4>- Desglose de resultados:</h4>
+            <h4>4. Desglose de resultados:</h4>
         </div>
     </div>
     <br>
@@ -184,7 +204,7 @@
     {{--Interpretation Range--}}
     <div class="row">
         <div class="col-10 offset-1">
-            <h5>- Rangos de interpretación:</h5>
+            <h4 class="items">5. Rangos de interpretación:</h4>
         </div>
     </div>
     <br>

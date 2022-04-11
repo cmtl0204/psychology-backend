@@ -19,6 +19,9 @@
         .text-priority-1{
             color: red;
         }
+        .items{
+            color: blue;
+        }
     </style>
 </head>
 <body>

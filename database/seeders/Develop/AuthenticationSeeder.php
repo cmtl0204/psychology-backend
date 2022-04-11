@@ -174,7 +174,8 @@ class AuthenticationSeeder extends Seeder
         $role->syncPermissions(Permission::get());
 
         $roleSupport->syncPermissions(Permission::where('name', 'like', '%tests%')
-            ->orWhere('name', 'like', '%assignments%')->get());
+            ->orWhere('name', 'like', '%assignments%')
+            ->orWhere('name', 'like', '%priorities%')->get());
 
         $roleViewer->syncPermissions(['view-tests']);
     }
