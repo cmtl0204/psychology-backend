@@ -69,7 +69,7 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
             ->where('type', $this->testType)
             ->orWhere('type', 'duel')
             ->orWhere('type', 'phq2')
-            ->orderBY('order')
+            ->orderBY('id')
             ->get()->pluck('value')->toArray();
 
         $headers = [
