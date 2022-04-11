@@ -232,7 +232,7 @@ class TestsController extends Controller
             ->response()->setStatusCode(200);
     }
 
-    public function updatePriority(Request $request, Test $test,Priority $priority)
+    public function updatePriority(Request $request, Test $test, Priority $priority)
     {
         $test->priority()->associate($priority);
         $test->save();
@@ -489,7 +489,10 @@ class TestsController extends Controller
                 if ($score >= 10 && $score <= 19) {
                     $level = 2;
                 }
-                if (($score >= 20 && $score <= 27) || $phq9AScore > 0) {
+                if ($score >= 20 && $score <= 27) {
+                    $level = 1;
+                }
+                if ($score >= 10 && $phq9AScore > 0) {
                     $level = 1;
                 }
                 break;
