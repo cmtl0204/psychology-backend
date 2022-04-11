@@ -33,4 +33,14 @@ class Agent extends Model implements Auditable
     {
         $this->attributes['lastname'] = trim(strtoupper($value));
     }
+
+    public function getNameAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
+    public function getLastnameAttribute($value)
+    {
+        return strtoupper($value);
+    }
 }
