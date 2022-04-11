@@ -14,8 +14,23 @@ class Agent extends Model implements Auditable
 
     protected $table = 'psychology.agents';
 
+    protected $fillable = [
+        'name',
+        'lastname',
+    ];
+
     public function test()
     {
         return $this->belongsTo(Test::class);
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = trim(strtoupper($value));
+    }
+
+    public function setLastnameAttribute($value)
+    {
+        $this->attributes['lastname'] = trim(strtoupper($value));
     }
 }
