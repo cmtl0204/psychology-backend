@@ -1,33 +1,24 @@
 @extends('reports.index')
 
 @section('content')
-    <br>
+    <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner">
+
     <div class="row">
         <div class="col-12">
-            <table>
-                <tr>
-                    <td>
-                        <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <br>
-        <div class="col-12">
             <br>
-            <h4 class="text-center">Reporte de resultados de tamizaje de Chatbot: TEMI, te escucha</h4>
+            <h5 class="text-center items">Reporte de resultados de tamizaje de Chatbot: TEMI, te escucha</h5>
         </div>
     </div>
     <br>
     <div class="row">
-        <div class="col-12">
-            <h4>1. Sobre TEMI, te escucha</h4>
-            <p>TEMI, te escucha es una servicio de tamizaje gratuito en salud mental facilitado a través de una página
+        <div class="col-10 offset-1">
+            <h5 class="items">1. Sobre TEMI, te escucha</h5>
+            <p style="text-align: justify">TEMI, te escucha es una servicio de tamizaje gratuito en salud mental facilitado a través de una página
                 web que permite levantar indicadores sobre el estado de salud mental del usuario participante. El
                 servicio es parte del programa de salud mental del proyecto “Oxígeno para Salvar Vidas” implementado por
                 Fundación Esquel con el apoyo de USAID para dar respuesta a las necesidades de salud mental causadas por
                 la pandemia por COVID-19 en población adolescente del país.</p>
-            <p>
+            <p style="text-align: justify">
                 El servicio de tamizaje es un <b>dispositivo de prevención secundaria</b>, es decir que a través de la
                 aplicación y llenado del participante de herramientas de identificación de indicadores sobre su estado
                 de ánimo, se busca prevenir la presencia de posibles problemáticas de salud mental. <b>La información
@@ -42,7 +33,7 @@
     <br>
     <div class="row">
         <div class="col-10 offset-1">
-            <h4>2. Datos informativos</h4>
+            <h5 class="items">2. Datos informativos</h5>
             <table border="1">
                 <tr>
                     <th width="250px" class="column-left">Número de Chatbot:</th>
@@ -100,9 +91,12 @@
         </div>
     </div>
     <br>
+    <br>
+    <br>
+    <br>
     <div class="row">
         <div class="col-10 offset-1">
-            <h4>2. Datos informativos</h4>
+            <h5 class="items">3. Resultados</h5>
         </div>
     </div>
     <div class="row">
@@ -129,8 +123,8 @@
     <br>
     <br>
     <div class="row">
-        <div class="col-5    offset-1">
-            <h4>4. Desglose de resultados:</h4>
+        <div class="col-5 offset-1">
+            <h5 class="items">4. Desglose de resultados:</h5>
         </div>
     </div>
     <br>
@@ -205,7 +199,7 @@
     {{--Interpretation Range--}}
     <div class="row">
         <div class="col-10 offset-1">
-            <h4 class="items">5. Rangos de interpretación:</h4>
+            <h5 class="items">5. Rangos de interpretación:</h5>
         </div>
     </div>
     <br>

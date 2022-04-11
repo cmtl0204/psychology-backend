@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-<div class="content">
+<div>
     @yield('content')
 </div>
 </body>

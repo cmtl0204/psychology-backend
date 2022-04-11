@@ -479,12 +479,12 @@ class TestsController extends Controller
             {
                 if ($score >= 0 && $score <= 4) {
                     $level = 4;
-                    if ($duelScore > 0) {
-                        $level = 2;
-                    }
                 }
                 if ($score >= 5 && $score <= 9) {
                     $level = 3;
+                    if ($duelScore > 0) {
+                        $level = 2;
+                    }
                 }
                 if ($score >= 10 && $score <= 19) {
                     $level = 2;
