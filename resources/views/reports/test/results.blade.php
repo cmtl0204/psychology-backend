@@ -31,9 +31,10 @@
                 El servicio de tamizaje es un <b>dispositivo de prevención secundaria</b>, es decir que a través de la
                 aplicación y llenado del participante de herramientas de identificación de indicadores sobre su estado
                 de ánimo, se busca prevenir la presencia de posibles problemáticas de salud mental. <b>La información
-                detallada en el presente reporte busca informarle a usted y al usuario participante sobre su estado de
-                salud mental en las últimas dos semanas de manera exploratoria. El presente reporte no refleja de
-                ninguna manera un diagnóstico definitivo.</b>
+                    detallada en el presente reporte busca informarle a usted y al usuario participante sobre su estado
+                    de
+                    salud mental en las últimas dos semanas de manera exploratoria. El presente reporte no refleja de
+                    ninguna manera un diagnóstico definitivo.</b>
             </p>
         </div>
     </div>
@@ -298,20 +299,20 @@
     @endif
     <div class="row">
         <div class="col-10 offset-1">
-            <p style="text-align: justify">Le agradecemos su participación en el presente Chatbot. Recuerda que si
-                cuentas con
-                alguna problemática de salud mental o deseas contactarte con un psicólogo, puedes hacer
-                uso de nuestros servicios de atención psicológica gratuita cuando lo desees. Un psicólogo o
-                psicóloga se comunicará contigo en estos días. Recuerda que tu bienestar es una prioridad.</p>
+            <p style="text-align: justify">Le agradecemos su participación en TEMI, te escucha. Recuerda que si
+                presentas sintomatología depresiva o ansiosa según este reporte exploratorio puedes hacer uso de
+                nuestros servicios de atención psicológica gratuitos cuando lo desees. Un psicólogo o psicóloga se
+                comunicará contigo en los próximos días en un rango de 72 horas. Recuerda que tu bienestar es una
+                prioridad.</p>
             <br>
             <p style="text-align: justify">
-                Para mayor información sobre los resultados, por favor ponerse en contacto con Psc. Samia
-                García, al correo electrónico <b style="color: blue">sgarcia@esquel.org.ec</b>
+                Para mayor información sobre los resultados, por favor ponerse en contacto con Psc. Samia García, al
+                correo electrónico <b style="color: blue">sgarcia@esquel.org.ec</b>
             </p>
             <br>
             <p style="text-align: justify;color: blue">
-                Programa desarrollado por el Área de Salud y Desarrollo y el Área de Tecnologías Cívicas
-                de Fundación Esquel con el apoyo de USAID y el aval del Ministerio de Salud Pública
+                Programa desarrollado por el Área de Salud y Desarrollo y el Área de Tecnologías Cívicas de Fundación
+                Esquel con el apoyo de USAID y la autorización del Ministerio de Salud Pública
             </p>
         </div>
     </div>

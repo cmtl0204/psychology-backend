@@ -40,21 +40,21 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
     public function map($row): array
     {
         $rows = [
+            $row->created_at,
             $row->code,
             $row->user ? $row->user->username: '',
             $row->user ? $row->user->lastname.' '.$row->user->name : '',
-            $row->age,
-            $row->user ? $row->user->phone: '',
-            $row->agent ? $row->agent->identification: '',
-            $row->agent ? $row->agent->lastname.' '.$row->agent->name : '',
-            $row->agent ? $row->agent->phone: '',
             $row->province ? $row->province->name : '',
             $row->canton ? $row->canton->name : '',
-            $row->assignment ? $row->assignment->institution->name : '',
-            $row->priority ? $row->priority->name : '',
+            $row->agent ? $row->agent->lastname.' '.$row->agent->name : '',
+            $row->agent ? $row->agent->phone: '',
+            $row->user ? $row->user->phone: '',
+            $row->agent ? $row->agent->identification: '',
+            $row->age,
             $row->score,
+            $row->priority ? $row->priority->name : '',
+            $row->assignment ? $row->assignment->institution->name : '',
             $row->state ? $row->state->name : '',
-            $row->created_at
         ];
         $resultsRows = [];
         foreach ($row->results as $result) {
@@ -69,24 +69,25 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
             ->where('type', $this->testType)
             ->orWhere('type', 'duel')
             ->orWhere('type', 'phq2')
+            ->orderBY('order')
             ->get()->pluck('value')->toArray();
 
         $headers = [
+            'Fecha',
             'Test',
             'Cédula Usuario',
             'Usuario',
             'Edad Usuario',
-            'Teléfono Usuario',
-            'Cédula Representante Legal',
-            'Representante Legal',
-            'Teléfono Representante Legal',
             'Provincia',
             'Cantón',
-            'Institución',
-            'Prioridad',
+            'Representante Legal',
+            'Teléfono Representante Legal',
+            'Teléfono Usuario',
+            'Cédula Representante Legal',
             'Puntaje',
+            'Prioridad',
+            'Institución',
             'Estado',
-            'Fecha'
         ];
 
         return array_merge($headers, $questions);
