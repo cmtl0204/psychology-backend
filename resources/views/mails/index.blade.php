@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-8 offset-2 border">
+        <div class="col-10 offset-2 border">
             <p class="text-muted">
                 Fecha: <b>{{\Carbon\Carbon::now()->toDateString()}}</b>
                 <b class="ml-2">{{\Carbon\Carbon::now()->toTimeString()}}</b>
@@ -46,16 +46,13 @@
             <p>
                 Fundación Esquel
             </p>
-           <div class="row">
-               <div class="col-12">
-                   <img
-                       src="{{$message->embed(asset('images/email/bot.png'))}}"
-                       alt="Imagen TEMI">
-               </div>
-           </div>
-{{--            <h6 class="text-center bg-secondary text-white">&copy; {{(new \Carbon\Carbon($system->date))->format('Y')}}--}}
-{{--                Todos los--}}
-{{--                derechos reservados. {{$system->acronym}} v{{$system->version}}</h6>--}}
+            <div class="row">
+                <div class="col-12">
+                    <img
+                        src="{{$message->embed(asset('images/email/bot.png'))}}"
+                        alt="Imagen TEMI">
+                </div>
+            </div>
         </div>
     </div>
 </div>

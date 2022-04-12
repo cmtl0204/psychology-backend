@@ -6,16 +6,19 @@
     <div class="row">
         <div class="col-12">
             <br>
-            <h5 class="text-center items">Reporte de resultados de tamizaje de Chatbot: TEMI, te escucha</h5>
+            <h4 class="text-center items">Reporte de resultados de tamizaje de Chatbot: TEMI, te escucha</h4>
         </div>
     </div>
     <br>
     <div class="row">
         <div class="col-10 offset-1">
-            <h5 class="items">1. Sobre TEMI, te escucha</h5>
-            <p style="text-align: justify">TEMI, te escucha es una servicio de tamizaje gratuito en salud mental facilitado a través de una página
+            <h5 class="items">1. Sobre TEMI, te escucha:</h5>
+            <p style="text-align: justify">TEMI, te escucha es un servicio de tamizaje gratuito en salud mental
+                facilitado a través de una página
                 web que permite levantar indicadores sobre el estado de salud mental del usuario participante. El
-                servicio es parte del programa de salud mental del proyecto “Oxígeno para Salvar Vidas” implementado por
+                servicio es parte del programa de salud mental del proyecto
+                <span style="font-style: oblique">“Oxígeno para Salvar Vidas”</span>
+                implementado por
                 Fundación Esquel con el apoyo de USAID para dar respuesta a las necesidades de salud mental causadas por
                 la pandemia por COVID-19 en población adolescente del país.</p>
             <p style="text-align: justify">
@@ -30,13 +33,12 @@
         </div>
     </div>
     <br>
-    <br>
     <div class="row">
         <div class="col-10 offset-1">
-            <h5 class="items">2. Datos informativos</h5>
+            <h5 class="items">2. Datos informativos:</h5>
             <table border="1">
                 <tr>
-                    <th width="250px" class="column-left">Número de Chatbot:</th>
+                    <th width="300px" class="column-left">Número de Chatbot:</th>
                     <td width="350px" class="column-right">{{$data->code}}</td>
                 </tr>
                 <tr>
@@ -91,19 +93,16 @@
         </div>
     </div>
     <br>
-    <br>
-    <br>
-    <br>
     <div class="row">
         <div class="col-10 offset-1">
-            <h5 class="items">3. Resultados</h5>
+            <h5 class="items">3. Resultados:</h5>
         </div>
     </div>
     <div class="row">
         <div class="col-10 offset-1">
             <table border="1">
                 <tr>
-                    <th width="250px" class="column-left">Tests Aplicados:</th>
+                    <th width="300px" class="column-left">Tests Aplicados:</th>
                     <td width="350px" class="column-right">PHQ-2 - {{strtoupper($data->type)}}</td>
                 </tr>
                 <tr>
@@ -120,14 +119,24 @@
             </table>
         </div>
     </div>
-    <br>
-    <br>
+    <hr>
+    {{--Header--}}
+    <div class="row">
+        <div class="col-12">
+            <table>
+                <tr>
+                    <td>
+                        <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <div class="row">
         <div class="col-5 offset-1">
             <h5 class="items">4. Desglose de resultados:</h5>
         </div>
     </div>
-    <br>
     <div class="row">
         <div class="col-10 offset-1">
             <h5>PHQ-2:</h5>
@@ -141,28 +150,16 @@
                 @foreach($data->results as $result)
                     @if($result->question->type=='phq2')
                         <tr>
-                            <td width="350px" class="column-left">{{$result->question->value}}</td>
-                            <td width="200" class="column-right">{{$result->answer->value}}</td>
+                            <td width="400px" class="column-left">{{$result->question->value}}</td>
+                            <td width="250px" class="column-right">{{$result->answer->value}}</td>
                         </tr>
                     @endif
                 @endforeach
             </table>
         </div>
     </div>
-    {{--Header--}}
-    <div class="row">
-        <div class="col-12">
-            <table>
-                <tr>
-                    <td>
-                        <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner">
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <br>
     {{--Type Test--}}
+    <br>
     <div class="row">
         <div class="col-10 offset-1">
             <h5>{{strtoupper($data->type)}}:</h5>
@@ -174,15 +171,15 @@
                 @foreach($data->results as $result)
                     @if($result->question->type!='phq2a')
                         <tr>
-                            <td width="350px" class="column-left">{{$result->question->value}}</td>
-                            <td width="200px" class="column-right">{{$result->answer->value}}</td>
+                            <td width="400px" class="column-left">{{$result->question->value}}</td>
+                            <td width="250px" class="column-right">{{$result->answer->value}}</td>
                         </tr>
                     @endif
                 @endforeach
             </table>
         </div>
     </div>
-    <br>
+    <hr>
     {{--Header--}}
     <div class="row">
         <div class="col-12">
@@ -195,7 +192,6 @@
             </table>
         </div>
     </div>
-    <br>
     {{--Interpretation Range--}}
     <div class="row">
         <div class="col-10 offset-1">
@@ -214,30 +210,30 @@
                 <table border="1">
                     <tr>
                         <th width="250px">Puntuación</th>
-                        <th width="350px" class="column-right">Severidad {{$data->priority->level==0}}</th>
+                        <th width="400px" class="column-right">Severidad {{$data->priority->level==0}}</th>
                     </tr>
                     <tr>
-                        <th width="250px" class="column-left">0-4 puntos</th>
-                        <td width="350px"
+                        <th class="column-left text-center">0-4 puntos</th>
+                        <td
                             @class(['column-right','text-priority-1'=>$data->priority->level===4])>
                             No presenta sintomatología
                         </td>
                     </tr>
                     <tr>
-                        <th width="250px" class="column-left">5-9 puntos</th>
-                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===3])>
+                        <th class="column-left text-center">5-9 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===3])>
                             Baja intensidad en sintomatología
                         </td>
                     </tr>
                     <tr>
-                        <th width="250px" class="column-left">10-19 puntos</th>
-                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===2])>
+                        <th class="column-left text-center">10-19 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===2])>
                             Media - moderada intensidad en sintomatología
                         </td>
                     </tr>
                     <tr>
-                        <th width="250px" class="column-left">20-27 puntos</th>
-                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===1])>
+                        <th class="column-left text-center">20-27 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===1])>
                             Alta intensidad en sintomatología
                         </td>
                     </tr>
@@ -246,8 +242,7 @@
         </div>
         <br>
     @endif
-    @if($data->type=='psc17
-')
+    @if($data->type=='psc17')
         <div class="row">
             <div class="col-10 offset-1">
                 <h5>PSC - 17 (Presencia de sintomatología depresiva o ansiosa)</h5>
@@ -258,31 +253,25 @@
                 <table border="1">
                     <tr>
                         <th width="250px">Puntuación</th>
-                        <th width="350px" class="column-right">
+                        <th width="400px" class="column-right">
                             Severidad
                         </th>
                     </tr>
                     <tr>
-                        <th width="250px" class="column-left">0-13 puntos</th>
-                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===4])>
+                        <th class="column-left text-center">0-13 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===4])>
                             No presenta sintomatología
                         </td>
                     </tr>
-                    {{--                    <tr>--}}
-                    {{--                        <th width="250px" class="column-left">14-21 puntos</th>--}}
-                    {{--                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===3])>--}}
-                    {{--                            Baja intensidad en sintomatología--}}
-                    {{--                        </td>--}}
-                    {{--                    </tr>--}}
                     <tr>
-                        <th width="250px" class="column-left">14-21 puntos</th>
-                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===2])>
+                        <th class="column-left text-center">14-21 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===2])>
                             Media - moderada intensidad en sintomatología
                         </td>
                     </tr>
                     <tr>
-                        <th width="250px" class="column-left">22-34 puntos</th>
-                        <td width="350px" @class(['column-right','text-priority-1'=>$data->priority->level===1])>
+                        <th class="column-left text-center">22-34 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===1])>
                             Alta intensidad en sintomatología
                         </td>
                     </tr>
@@ -304,7 +293,7 @@
                 correo electrónico <b style="color: blue">sgarcia@esquel.org.ec</b>
             </p>
             <br>
-            <p style="text-align: justify;color: blue">
+            <p style="text-align: right;color: #085EB9;font-style: oblique">
                 Programa desarrollado por el Área de Salud y Desarrollo y el Área de Tecnologías Cívicas de Fundación
                 Esquel con el apoyo de USAID y la autorización del Ministerio de Salud Pública
             </p>

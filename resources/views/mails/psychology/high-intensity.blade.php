@@ -17,12 +17,11 @@
     <div class="row">
         <div class="col-12">
             <img
-                src="{{$message->embed(asset('images/email/banner.png'))}}"
-                alt="Imagen banner">
+                src="{{$message->embed(asset('images/email/banner.png'))}}" alt="Imagen banner">
         </div>
     </div>
     <div class="row">
-        <div class="col-8 offset-2 border">
+        <div class="col-12 border">
             <p class="text-muted">
                 Fecha: <b>{{\Carbon\Carbon::now()->toDateString()}}</b>
                 <b class="ml-2">{{\Carbon\Carbon::now()->toTimeString()}}</b>

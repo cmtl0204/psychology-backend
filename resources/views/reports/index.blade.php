@@ -9,24 +9,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Resultados</title>
     <style>
+        hr {
+            page-break-after: always;
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            margin: 0;
+        }
+        body {
+            font-family: "Times New Roman", serif;
+            margin: 0mm 0mm 0mm 0mm;
+        }
         .column-right {
             padding-left: 10px;
         }
+
         .column-left {
             padding-left: 5px;
             text-align: left;
         }
-        .text-priority-1{
+
+        .text-priority-1 {
             color: red;
         }
-        .items{
-            color: blue;
+
+        .items {
+            color: #085EB9;
         }
     </style>
 </head>
 <body>
-<div>
-    @yield('content')
-</div>
+
+@yield('content')
+
 </body>
 </html>
