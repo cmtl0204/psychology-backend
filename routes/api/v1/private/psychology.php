@@ -53,12 +53,14 @@ Route::controller(InstitutionsController::class)->group(function () {
 Route::controller(TestsController::class)->group(function () {
     Route::prefix('tests/{test}')->group(function () {
         Route::patch('/close', 'close');
+        Route::delete('/assignments', 'destroyAssignment');
         Route::patch('/priorities/{priority}', 'updatePriority');
     });
 
     Route::prefix('tests')->group(function () {
         Route::get('/count-priorities', 'countPriorities');
         Route::get('/count-all-priorities', 'countAllPriorities');
+        Route::get('/count-tests-priorities', 'countTestsByPriorities');
         Route::get('/count-all-tests', 'countAllTests');
         Route::patch('/destroys', 'destroys');
     });

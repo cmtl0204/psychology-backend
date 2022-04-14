@@ -136,7 +136,7 @@ class PsychologySeeder extends Seeder
             [
                 'order' => 9,
                 'type' => 'phq9a',
-                'value' => '¿Has tenido pensamientos de que sería mejor estar muerto/a o has querido hacerte daño de alguna forma en las últimas dos semanas?',
+                'value' => '¿En las últimas dos semanas, has tenido pensamientos de quitarte la vida o has querido hacerte daño de alguna forma?',
             ]
         )->create();
 

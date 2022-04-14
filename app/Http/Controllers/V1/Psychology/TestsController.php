@@ -232,6 +232,23 @@ class TestsController extends Controller
             ->response()->setStatusCode(200);
     }
 
+    public function destroyAssignment(Request $request, Test $test)
+    {
+        $test->state()->associate(State::firstWhere('code', 'NOT_ASSIGNED'));
+        $test->assignment()->delete();
+        $test->save();
+
+        return (new TestResource($test))
+            ->additional([
+                'msg' => [
+                    'summary' => 'El caso fue cerrado',
+                    'detail' => '',
+                    'code' => '200'
+                ]
+            ])
+            ->response()->setStatusCode(200);
+    }
+
     public function updatePriority(Request $request, Test $test, Priority $priority)
     {
         $test->priority()->associate($priority);
@@ -298,6 +315,24 @@ class TestsController extends Controller
         $provinceIds = explode(",", $request->input('provinces'));
 
         $countTests = Test::provinces($provinceIds)->date($dates)->get();
+
+        return response()->json([
+            'msg' => [
+                'summary' => 'success',
+                'detail' => '',
+                'code' => '200'
+            ],
+            'data' => $countTests->count()
+        ]);
+    }
+
+    public function countTestsByPriorities(Request $request)
+    {
+        $dates = array($request->input('startedAt'), $request->input('endedAt'));
+        $provinceIds = explode(",", $request->input('provinces'));
+        $priorityIds = explode(",", $request->input('priorities'));
+
+        $countTests = Test::priorities($priorityIds)->provinces($provinceIds)->date($dates)->get();
 
         return response()->json([
             'msg' => [
