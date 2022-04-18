@@ -241,12 +241,12 @@ class TestsController extends Controller
         return (new TestResource($test))
             ->additional([
                 'msg' => [
-                    'summary' => 'El caso fue cerrado',
+                    'summary' => 'La asignación se quitó correctamente',
                     'detail' => '',
-                    'code' => '200'
+                    'code' => '201'
                 ]
             ])
-            ->response()->setStatusCode(200);
+            ->response()->setStatusCode(201);
     }
 
     public function updatePriority(Request $request, Test $test, Priority $priority)
