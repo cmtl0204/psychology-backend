@@ -54,17 +54,18 @@ class TestsController extends Controller
         $states = explode(",", $request->input('states'));
         $priorities = explode(",", $request->input('priorities'));
 
-        $tests = Test::select('tests.*')
-            ->where(function ($query) use ($request) {
-                $query->code($request->input('search'))->user($request->input('search'));
-            })
-            ->provinces($provinceIds)
-            ->date($dates)
-            ->states($states)
-            ->priorities($priorities)
-//            ->join('psychology.states', 'states.id', '=', 'tests.state_id')->orderBy('order')
-//            ->join('psychology.priorities', 'priorities.id', '=', 'tests.priority_id')->orderBy('level')
-            ->orderByDesc('created_at')
+        $tests = Test::where(function ($query) use ($request) {
+            $query->code($request->input('search'))->user($request->input('search'));
+        });
+        if ($request->input('search') == null) {
+            $tests = $tests->
+            provinces($provinceIds)
+                ->date($dates)
+                ->states($states)
+                ->priorities($priorities);
+        }
+        $tests = $tests->
+        orderByDesc('created_at')
             ->paginate($request->input('per_page'));
 
         return (new TestCollection($tests))
