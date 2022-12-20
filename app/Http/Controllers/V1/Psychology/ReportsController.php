@@ -36,7 +36,7 @@ class ReportsController extends Controller
 
 //        return \Excel::download(new TestsMultiSheetExport($request->input('dates')), now() . '-tests.xlsx');
 //        Mail::to('cesar.tamayo0204@gmail.com');
-        SendReport::dispatch($request->input('dates'),$request->user());
+//        SendReport::dispatch($request->input('dates'),$request->user());
         return response()->json([
             'data' => true,
             'msg' => [
