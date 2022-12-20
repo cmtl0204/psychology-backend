@@ -30,7 +30,7 @@ class ReportsController extends Controller
 
     public function resultsTests(Request $request)
     {
-        $tests = Test::get();
+//        $tests = Test::get();
 //        return new TestCollection($tests);
 //        return $this->excel->download(new TestsMultiSheetExport($request->input('dates')), now() . '-tests.xlsx');
 
