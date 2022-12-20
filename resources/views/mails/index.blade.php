@@ -16,9 +16,10 @@
 <div class="content">
     <div class="row">
         <div class="col-10 offset-2">
-            <img
-                src="{{$message->embed(asset('images/email/banner.png'))}}"
-                alt="Imagen PNG alternativa">
+            {{--            <img--}}
+            {{--                src="{{$message->embed(asset('images/email/banner.png'))}}"--}}
+            {{--                alt="Imagen PNG alternativa">--}}
+            <img src="{!! asset('images/email/banner.png') !!}" alt="Imagen banner">
         </div>
     </div>
     <div class="row">
@@ -48,9 +49,10 @@
             </p>
             <div class="row">
                 <div class="col-12">
-                    <img
-                        src="{{$message->embed(asset('images/email/bot.png'))}}"
-                        alt="Imagen TEMI">
+{{--                    <img--}}
+{{--                        src="{{$message->embed(asset('images/email/bot.png'))}}"--}}
+{{--                        alt="Imagen TEMI">--}}
+                    <img src="{!! asset('images/email/bot.png') !!}" alt="Imagen banner">
                 </div>
             </div>
         </div>
