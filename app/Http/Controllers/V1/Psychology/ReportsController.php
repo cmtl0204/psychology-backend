@@ -40,8 +40,8 @@ class ReportsController extends Controller
         return response()->json([
             'data' => true,
             'msg' => [
-                'summary' => 'El reporte fue enviad a su correo electrónico',
-                'detail' => 'Revise su correo por favor',
+                'summary' => 'El reporte llegará a su correo electrónico',
+                'detail' => 'Revise su correo en unos minutos por favor',
                 'code' => '201'
             ]], 200);
 //        return $this->excel->download((new TestsMultiSheetExport)->queue('test.xlsx'), now() . '-tests.xlsx');
