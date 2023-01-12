@@ -140,6 +140,55 @@ class PsychologySeeder extends Seeder
             ]
         )->create();
 
+        //PHQ9 adult
+        Question::factory(9)->sequence(
+            [
+                'order' => 1,
+                'type' => 'phq9',
+                'value' => 'Si has perdido el interés, las ganas o el placer en hacer las cosas que te gustaban, ayúdame a saber ¿Cuántos días te has sentido así en las últimas dos semanas?',
+            ],
+            [
+                'order' => 2,
+                'type' => 'phq9',
+                'value' => 'Si te has sentido desanimado, deprimido o triste/sin esperanza, ayúdame a saber ¿Cuántos días te has sentido así en las últimas dos semanas?',
+            ],
+            [
+                'order' => 3,
+                'type' => 'phq9',
+                'value' => 'En las últimas dos semanas, ¿Has tenido problemas para dormir o duermes demasiado, debido a tu estado emocional?',
+            ],
+            [
+                'order' => 4,
+                'type' => 'phq9',
+                'value' => 'En las últimas dos semanas, ¿Has sentido poco apetito o has estado comiendo en exceso, debido a tu estado emocional?',
+            ],
+            [
+                'order' => 5,
+                'type' => 'phq9',
+                'value' => '¿Te has sentido cansado o con poca energía?',
+            ],
+            [
+                'order' => 6,
+                'type' => 'phq9',
+                'value' => '¿Te sientes mal por tí mismo/a, o has sentido que eres un/a fracasado/a, o que le has fallado a tu familia o a tí mismo?',
+            ],
+            [
+                'order' => 7,
+                'type' => 'phq9',
+                'value' => '¿Tienes problemas para concentrarte en cosas tales como tareas laborales o académicas o actividades cotidianas?',
+            ],
+            [
+                'order' => 8,
+                'type' => 'phq9',
+                'value' => '¿Has tenido cambios repentinos en tu estado de ánimo que te han generado intraquilidad y que además las demás personas han podido notarlo?',
+            ],
+            [
+                'order' => 9,
+                'type' => 'phq9',
+                'value' => 'En las últimas dos semanas, ¿has tenido pensamientos de quitarte la vida o has querido hacerte daño de alguna forma?',
+            ]
+        )->create();
+
         //PSC17
         Question::factory(17)->sequence(
             [
@@ -229,6 +278,75 @@ class PsychologySeeder extends Seeder
             ]
         )->create();
 
+        //SRQ18
+        Question::factory(13)->sequence(
+            [
+                'order' => 1,
+                'type' => 'srq18',
+                'value' => '¿Has tenido o tienes dolores de cabeza?',
+            ],
+            [
+                'order' => 2,
+                'type' => 'srq18',
+                'value' => '¿Has aumentado o disminuido su apetito?',
+            ],
+            [
+                'order' => 3,
+                'type' => 'srq18',
+                'value' => '¿Duermes mucho o duermes muy poco?',
+            ],
+            [
+                'order' => 4,
+                'type' => 'srq18',
+                'value' => '¿Te has sentido nervioso/a o tenso/a?',
+            ],
+            [
+                'order' => 5,
+                'type' => 'srq18',
+                'value' => '¿Has tenido tantas preocupaciones que se te hace dificil pensar con claridad?',
+            ],
+            [
+                'order' => 6,
+                'type' => 'srq18',
+                'value' => '¿Te has sentido muy triste?',
+            ],
+            [
+                'order' => 7,
+                'type' => 'srq18',
+                'value' => '¿Has llorado frecuentemente?',
+            ],
+            [
+                'order' => 8,
+                'type' => 'srq18',
+                'value' => '¿Te cuesta disfrutar de tus actividades diarias?',
+            ],
+            [
+                'order' => 9,
+                'type' => 'srq18',
+                'value' => '¿Has disminuido tu rendimiento en el trabajo, estudios o tus actividades cotidianas?',
+            ],
+            [
+                'order' => 10,
+                'type' => 'srq18',
+                'value' => '¿Has perdido el interés en las cosas que realizas diariamente?',
+            ],
+            [
+                'order' => 11,
+                'type' => 'srq18',
+                'value' => '¿Te sientes cansado/a, agotado/a con frecuencia?',
+            ],
+            [
+                'order' => 12,
+                'type' => 'srq18',
+                'value' => '¿Has tenido la idea de acabar con tu vida?',
+            ],
+            [
+                'order' => 13,
+                'type' => 'srq18',
+                'value' => '¿Has sentido usted que una o varias personas han tratado de hacerte daño?',
+            ],
+        )->create();
+
         //DUEL
         Question::factory(1)->sequence(
             [
@@ -306,6 +424,39 @@ class PsychologySeeder extends Seeder
             )->create();
         }
 
+        foreach (Question::where('type', 'phq9')->get() as $question) {
+            Answer::factory(4)->sequence(
+                [
+                    'question_id' => $question->id,
+                    'class' => 'p-button-info p-button-text',
+                    'order' => 1,
+                    'score' => 0,
+                    'value' => 'Para nada',
+                ],
+                [
+                    'question_id' => $question->id,
+                    'class' => 'p-button-help p-button-text',
+                    'order' => 2,
+                    'score' => 1,
+                    'value' => 'Varios días (entre 1 a 6 días)',
+                ],
+                [
+                    'question_id' => $question->id,
+                    'class' => 'p-button-warning p-button-text',
+                    'order' => 3,
+                    'score' => 2,
+                    'value' => 'La mitad de los días o más (entre 7 y 11 días)',
+                ],
+                [
+                    'question_id' => $question->id,
+                    'class' => 'p-button-secondary p-button-text',
+                    'order' => 4,
+                    'score' => 3,
+                    'value' => 'Casi todos los días (12 días o más)',
+                ]
+            )->create();
+        }
+
         foreach (Question::where('type', 'psc17')->get() as $question) {
             Answer::factory(3)->sequence(
                 [
@@ -329,6 +480,25 @@ class PsychologySeeder extends Seeder
                     'score' => 2,
                     'value' => 'Frecuentemente',
                 ]
+            )->create();
+        }
+
+        foreach (Question::where('type', 'srq18')->get() as $question) {
+            Answer::factory(2)->sequence(
+                [
+                    'question_id' => $question->id,
+                    'class' => 'p-button-info p-button-text',
+                    'score' => 1,
+                    'order' => 1,
+                    'value' => 'SI',
+                ],
+                [
+                    'question_id' => $question->id,
+                    'class' => 'p-button-help p-button-text',
+                    'score' => 0,
+                    'order' => 2,
+                    'value' => 'NO',
+                ],
             )->create();
         }
 

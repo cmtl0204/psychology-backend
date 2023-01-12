@@ -21,7 +21,7 @@ class CreatePsychologyQuestionsTable extends Migration
             $table->integer('order')
                 ->nullable();
 
-            $table->enum('type', ['phq2', 'phq9a', 'psc17', 'duel']);
+            $table->enum('type', ['phq2', 'phq9a', 'psc17','srq18','phq9', 'duel']);
 
             $table->text('value')
                 ->comment('El texto de la pregunta');
