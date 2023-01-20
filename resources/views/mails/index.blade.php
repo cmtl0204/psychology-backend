@@ -39,7 +39,7 @@
             <br>
             <p>
                 Si cuentas con alguna pregunta o duda, por favor comunícate al siguiente correo
-                <b style="color: blue">sgarcia@esquel.org.ec.</b>
+                <b style="color: blue">fundacion@esquel.org.ec</b>
             </p>
             <p>
                 Saludos cordiales,

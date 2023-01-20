@@ -37,6 +37,10 @@
                 de urgencia por un profesional de la salud mental. Por favor revisar los resultados y derivar el caso.
             </p>
             <br>
+            <br>
+            <p>
+                Saludos cordiales,
+            </p>
             <p>
                 Fundación Esquel
             </p>

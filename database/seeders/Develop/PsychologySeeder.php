@@ -23,10 +23,10 @@ class PsychologySeeder extends Seeder
         $this->createQuestions();
         $this->createAnswers();
         $this->createInstitutions();
-        $this->createTests();
-        $this->createResultsPHQ9A();
-        $this->createResultsPSC17();
-        $this->createAssignments();
+//        $this->createTests();
+//        $this->createResultsPHQ9A();
+//        $this->createResultsPSC17();
+//        $this->createAssignments();
     }
 
     private function createStates()
@@ -348,13 +348,13 @@ class PsychologySeeder extends Seeder
         )->create();
 
         //DUEL
-        Question::factory(1)->sequence(
-            [
-                'order' => 1,
-                'type' => 'duel',
-                'value' => 'Durante la pandemia, ¿alguna persona importante de tu entorno familiar o social ha fallecido?',
-            ]
-        )->create();
+//        Question::factory(1)->sequence(
+//            [
+//                'order' => 1,
+//                'type' => 'duel',
+//                'value' => 'Durante la pandemia, ¿alguna persona importante de tu entorno familiar o social ha fallecido?',
+//            ]
+//        )->create();
     }
 
     private function createAnswers()
@@ -502,24 +502,24 @@ class PsychologySeeder extends Seeder
             )->create();
         }
 
-        foreach (Question::where('type', 'duel')->get() as $question) {
-            Answer::factory(2)->sequence(
-                [
-                    'question_id' => $question->id,
-                    'class' => 'p-button-info p-button-text',
-                    'order' => 1,
-                    'score' => 1,
-                    'value' => 'SI',
-                ],
-                [
-                    'question_id' => $question->id,
-                    'class' => 'p-button-help p-button-text',
-                    'order' => 2,
-                    'score' => 0,
-                    'value' => 'NO',
-                ]
-            )->create();
-        }
+//        foreach (Question::where('type', 'duel')->get() as $question) {
+//            Answer::factory(2)->sequence(
+//                [
+//                    'question_id' => $question->id,
+//                    'class' => 'p-button-info p-button-text',
+//                    'order' => 1,
+//                    'score' => 1,
+//                    'value' => 'SI',
+//                ],
+//                [
+//                    'question_id' => $question->id,
+//                    'class' => 'p-button-help p-button-text',
+//                    'order' => 2,
+//                    'score' => 0,
+//                    'value' => 'NO',
+//                ]
+//            )->create();
+//        }
     }
 
     private function createInstitutions()
@@ -578,7 +578,7 @@ class PsychologySeeder extends Seeder
 
     private function createTests()
     {
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             foreach (User::get() as $user) {
                 Test::factory()->create(['user_id' => $user->id]);
             }

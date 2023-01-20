@@ -103,7 +103,12 @@ class TestsController extends Controller
 
         $score = $this->saveResults($request, $test);
         $code = $province->code . '-' . $test->id;
-        $test->priority()->associate($this->generatePriority($request, $test, $user, $code));
+        if ($test->age < 18) {
+            $test->priority()->associate($this->generatePriority($request, $test, $user, $code));
+        } else {
+            $test->priority()->associate($this->generatePriority18($request, $test, $user, $code));
+        }
+
         $test->code = $code;
         $test->score = $score;
         $test->save();
@@ -137,6 +142,7 @@ class TestsController extends Controller
                     ));
             }
         }
+
         return (new TestResource($test))
             ->additional([
                 'msg' => [
@@ -543,6 +549,83 @@ class TestsController extends Controller
                     $level = 2;
                 }
                 if ($score >= 22 && $score <= 34) {
+                    $level = 1;
+                }
+                break;
+            }
+        }
+
+        $emails = User::select('email')->whereHas('roles', function ($roles) {
+            $roles->where('name', 'support');
+        })->get();
+
+//        $level = 1;
+
+        if ($level === 1) {
+            Mail::to($emails)
+                ->send(new HighIntensityMailable(
+                    json_encode(['user' => $user, 'code' => $code])
+                ));
+        }
+
+        return Priority::firstWhere('level', $level);
+    }
+
+    private function generatePriority18(Request $request, Test $test, User $user, $code)
+    {
+        $results = $request->input('results');
+        $srq18 = 0;
+        $phq9Score = 0;
+        $score = 0;
+        $level = 1;
+        foreach ($results as $result) {
+            $score += $result['answer']['score'];
+
+            if ($result['question']['type'] === 'srq18' &&
+                ($result['question']['order'] === 12 || $result['question']['order'] === 13)) {
+                $srq18 += $result['answer']['score'];
+            }
+            if ($result['question']['type'] === 'phq9' && $result['question']['order'] === 9) {
+                $phq9Score = $result['answer']['score'];
+            }
+        }
+
+        switch ($test->type) {
+            case 'phq9':
+            {
+                if ($score >= 0 && $score <= 4) {
+                    $level = 4;
+                }
+                if ($score >= 5 && $score <= 9) {
+                    $level = 3;
+                }
+                if ($score >= 10 && $score <= 19) {
+                    $level = 2;
+                }
+                if ($score >= 20 && $score <= 27) {
+                    $level = 1;
+                }
+                if ($score >= 5 && $phq9Score > 0) {
+                    $level = 1;
+                }
+                break;
+            }
+
+            case 'srq18':
+            {
+                if ($score >= 0 && $score <= 4) {
+                    $level = 4;
+                }
+                if ($score >= 5 && $score <= 7) {
+                    $level = 3;
+                }
+                if ($score >= 8 && $score <= 11) {
+                    $level = 2;
+                }
+                if ($score >= 12 && $score <= 13) {
+                    $level = 1;
+                }
+                if ($score >= 5 && $srq18 > 0) {
                     $level = 1;
                 }
                 break;
