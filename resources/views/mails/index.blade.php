@@ -52,7 +52,7 @@
 {{--                    <img--}}
 {{--                        src="{{$message->embed(asset('images/email/bot.png'))}}"--}}
 {{--                        alt="Imagen TEMI">--}}
-                    <img src="{!! asset('images/email/bot.png') !!}" alt="Imagen banner">
+                    <img src="{!! asset('images/email/footer.png') !!}" alt="Imagen banner">
                 </div>
             </div>
         </div>

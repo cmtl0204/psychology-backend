@@ -45,7 +45,7 @@ class CreatePsychologyTestsTable extends Migration
 
             $table->boolean('terms_conditions');
 
-            $table->enum('type', ['phq9a', 'psc17']);
+            $table->enum('type', ['phq9a', 'psc17', 'srq18', 'phq9']);
         });
     }
 

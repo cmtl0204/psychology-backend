@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col-12">
                     <img
-                        src="{{$message->embed(asset('images/email/bot.png'))}}"
+                        src="{{$message->embed(asset('images/email/footer.png'))}}"
                         alt="Imagen TEMI">
                 </div>
             </div>
