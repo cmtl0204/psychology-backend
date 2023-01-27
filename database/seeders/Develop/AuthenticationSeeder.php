@@ -49,7 +49,7 @@ class AuthenticationSeeder extends Seeder
         $this->assignUserRoles();
 
         $this->createStates();
-        $this->deleteLocations();
+//        $this->deleteLocations();
     }
 
     private function createSystem()

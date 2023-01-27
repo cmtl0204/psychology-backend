@@ -37,13 +37,17 @@
                 de urgencia por un profesional de la salud mental. Por favor revisar los resultados y derivar el caso.
             </p>
             <br>
+            <br>
+            <p>
+                Saludos cordiales,
+            </p>
             <p>
                 Fundación Esquel
             </p>
             <div class="row">
                 <div class="col-12">
                     <img
-                        src="{{$message->embed(asset('images/email/bot.png'))}}"
+                        src="{{$message->embed(asset('images/email/footer.png'))}}"
                         alt="Imagen TEMI">
                 </div>
             </div>
