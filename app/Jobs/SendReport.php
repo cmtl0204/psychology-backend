@@ -37,8 +37,8 @@ class SendReport implements ShouldQueue
      */
     public function handle()
     {
-//        \Excel::store(new TestsMultiSheetExport($this->dates), 'reporte_tests.xlsx', 'private');
-        (new TestsMultiSheetExport($this->dates))->store('tests.xlsx');
+        \Excel::store(new TestsMultiSheetExport($this->dates), 'reporte_tests.xlsx', 'private');
+//        (new TestsMultiSheetExport($this->dates))->store('tests.xlsx');
 //        \Excel::store((new TestsMultiSheetExport($this->dates))->('reporte_tests.xlsx'), 'private');
 //        $a = new TestsMultiSheetExport($this->dates);
         $email = new TestResultsExcelMailable(json_encode(['user' => $this->auth]));
