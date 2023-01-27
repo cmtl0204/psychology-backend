@@ -23,10 +23,10 @@ class PsychologySeeder extends Seeder
         $this->createQuestions();
         $this->createAnswers();
         $this->createInstitutions();
-//        $this->createTests();
-//        $this->createResultsPHQ9A();
-//        $this->createResultsPSC17();
-//        $this->createAssignments();
+        $this->createTests();
+        $this->createResultsPHQ9A();
+        $this->createResultsPSC17();
+        $this->createAssignments();
     }
 
     private function createStates()

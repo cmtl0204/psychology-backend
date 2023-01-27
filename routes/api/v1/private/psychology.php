@@ -55,6 +55,7 @@ Route::controller(TestsController::class)->group(function () {
         Route::patch('/close', 'close');
         Route::delete('/assignments', 'destroyAssignment');
         Route::patch('/priorities/{priority}', 'updatePriority');
+        Route::post('/observations', 'saveObservations');
     });
 
     Route::prefix('tests')->group(function () {

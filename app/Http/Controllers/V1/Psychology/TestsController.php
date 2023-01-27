@@ -56,7 +56,9 @@ class TestsController extends Controller
 
         $tests = Test::where(function ($query) use ($request) {
             $query->code($request->input('search'))->user($request->input('search'));
-        });
+        })
+            ->age($request->input('age'));
+
         if ($request->input('search') == null) {
             $tests = $tests->
             provinces($provinceIds)
@@ -465,6 +467,14 @@ class TestsController extends Controller
         $user->save();
 
         return $user;
+    }
+
+    public function saveObservations(Request $request, Test $test)
+    {
+        $test->observations = $request->input('test.observations');
+        $test->save();
+
+        return $test;
     }
 
     private function saveResults(Request $request, Test $test)

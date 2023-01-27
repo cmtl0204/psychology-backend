@@ -22,9 +22,15 @@ class ReportsController extends Controller
     public function resultsTest(Test $test)
     {
         $data = new TestResource($test);
+        $sessions = 0;
+
+        if ($data->observations) {
+            $sessions = sizeof(json_decode($data->observations));
+        }
+
 //        return $data;
 
-        $pdf = \PDF::loadView('reports.test.results', ['data' => $data]);
+        $pdf = \PDF::loadView('reports.test.results', ['data' => $data, 'sessions' => $sessions]);
         return $pdf->stream('resultado-' . $data->username . '.pdf');
     }
 
@@ -36,7 +42,7 @@ class ReportsController extends Controller
 
 //        return \Excel::download(new TestsMultiSheetExport($request->input('dates')), now() . '-tests.xlsx');
 //        Mail::to('cesar.tamayo0204@gmail.com');
-        SendReport::dispatch($request->input('dates'),$request->user());
+        SendReport::dispatch($request->input('dates'), $request->user());
         return response()->json([
             'data' => true,
             'msg' => [

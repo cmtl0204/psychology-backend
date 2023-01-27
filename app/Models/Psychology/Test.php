@@ -161,6 +161,18 @@ class Test extends Model implements Auditable
             });
         }
     }
+
+    public function scopeAge($query, $age)
+    {
+        if ($age) {
+            if ($age == 18) {
+                return $query->where('age', '>=', 18);
+            } else {
+                return $query->where('age', '<', 18);
+            }
+
+        }
+    }
 }
 
 

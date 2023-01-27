@@ -36,7 +36,7 @@
         }
 
         .items {
-            color: #085EB9;
+            color: #607126;
         }
     </style>
 </head>

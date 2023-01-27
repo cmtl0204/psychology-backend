@@ -1,8 +1,9 @@
 @extends('reports.index')
 
 @section('content')
-    <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner">
-
+    <div class="text-right">
+        <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner" width="150px" height="50px">
+    </div>
     <div class="row">
         <div class="col-12">
             <br>
@@ -10,29 +11,34 @@
         </div>
     </div>
     <br>
+    {{-- 1. --}}
     <div class="row">
         <div class="col-10 offset-1">
             <h5 class="items">1. Sobre TEMI, te escucha:</h5>
-            <p style="text-align: justify">TEMI, te escucha es un servicio de tamizaje gratuito en salud mental
-                facilitado a través de una página
-                web que permite levantar indicadores sobre el estado de salud mental del usuario participante. El
-                servicio es parte del programa de salud mental del proyecto
-                <span style="font-style: oblique">“Oxígeno para Salvar Vidas”</span>
-                implementado por
-                Fundación Esquel con el apoyo de USAID para dar respuesta a las necesidades de salud mental causadas por
-                la pandemia por COVID-19 en población adolescente del país.</p>
+            <p style="text-align: justify"><b>TEMI, te escucha</b> es un servicio de tamizaje gratuito en salud mental
+                facilitado a través de una página web que permite levantar indicadores sobre el estado de salud mental
+                del usuario participante. El servicio es parte del componente de salud mental del área de Salud y
+                Desarrollo de Fundación Esquel como una respuesta a las necesidades de salud mental en población
+                adolescente y adulta del país.
+            </p>
             <p style="text-align: justify">
                 El servicio de tamizaje es un <b>dispositivo de prevención secundaria</b>, es decir que a través de la
                 aplicación y llenado del participante de herramientas de identificación de indicadores sobre su estado
-                de ánimo, se busca prevenir la presencia de posibles problemáticas de salud mental. <b>La información
-                    detallada en el presente reporte busca informarle a usted y al usuario participante sobre su estado
-                    de
-                    salud mental en las últimas dos semanas de manera exploratoria. El presente reporte no refleja de
-                    ninguna manera un diagnóstico definitivo.</b>
+                de ánimo, se busca <b>prevenir</b> la presencia y cronificación de posibles problemáticas de salud
+                mental.
+            </p>
+            <p style="text-align: justify">
+                <b>
+                    La información detallada en el presente reporte busca informarle a usted y al usuario participante
+                    sobre su estado de salud mental en las últimas dos semanas de manera exploratoria. El presente
+                    reporte no refleja de ninguna manera un diagnóstico definitivo.
+                </b>
             </p>
         </div>
     </div>
     <br>
+
+    {{-- 2. --}}
     <div class="row">
         <div class="col-10 offset-1">
             <h5 class="items">2. Datos informativos:</h5>
@@ -93,6 +99,8 @@
         </div>
     </div>
     <br>
+
+    {{-- 3. --}}
     <div class="row">
         <div class="col-10 offset-1">
             <h5 class="items">3. Resultados:</h5>
@@ -121,16 +129,8 @@
     </div>
     <hr>
     {{--Header--}}
-    <div class="row">
-        <div class="col-12">
-            <table>
-                <tr>
-                    <td>
-                        <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner">
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <div class="text-right">
+        <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner" width="150px" height="50px">
     </div>
     <div class="row">
         <div class="col-5 offset-1">
@@ -158,6 +158,7 @@
             </table>
         </div>
     </div>
+
     {{--Type Test--}}
     <br>
     <div class="row">
@@ -180,17 +181,10 @@
         </div>
     </div>
     <hr>
+
     {{--Header--}}
-    <div class="row">
-        <div class="col-12">
-            <table>
-                <tr>
-                    <td>
-                        <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner">
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <div class="text-right">
+        <img src="{!! public_path('images/pdf/banner.png') !!}" alt="Imagen banner" width="150px" height="50px">
     </div>
     {{--Interpretation Range--}}
     <div class="row">
@@ -280,23 +274,140 @@
         </div>
         <br>
     @endif
+    @if($data->type=='phq9')
+        <div class="row">
+            <div class="col-10 offset-1">
+                <h5>PHQ - 9A (Presencia de sintomatología depresiva)</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1">
+                <table border="1">
+                    <tr>
+                        <th width="250px">Puntuación</th>
+                        <th width="400px" class="column-right">
+                            Severidad
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="column-left text-center">0-4 puntos</th>
+                        <td
+                            @class(['column-right','text-priority-1'=>$data->priority->level===4])>
+                            No presenta sintomatología
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="column-left text-center">5-9 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===3])>
+                            Baja intensidad en sintomatología
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="column-left text-center">10-19 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===2])>
+                            Media - moderada intensidad en sintomatología
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="column-left text-center">20-27 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===1])>
+                            Alta intensidad en sintomatología
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br>
+    @endif
+    @if($data->type=='srq18')
+        <div class="row">
+            <div class="col-10 offset-1">
+                <h5>SRQ - 18 (Presencia de sintomatología depresiva o ansiosa)</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1">
+                <table border="1">
+                    <tr>
+                        <th width="250px">Puntuación</th>
+                        <th width="400px" class="column-right">
+                            Severidad
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="column-left text-center">0-4 puntos</th>
+                        <td
+                            @class(['column-right','text-priority-1'=>$data->priority->level===4])>
+                            No presenta sintomatología
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="column-left text-center">5-7 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===3])>
+                            Baja intensidad en sintomatología
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="column-left text-center">8-11 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===2])>
+                            Media - moderada intensidad en sintomatología
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="column-left text-center">12-13 puntos</th>
+                        <td @class(['column-right','text-priority-1'=>$data->priority->level===1])>
+                            Alta intensidad en sintomatología
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br>
+    @endif
+
+    {{-- 6. --}}
     <div class="row">
         <div class="col-10 offset-1">
-            <p style="text-align: justify">Le agradecemos su participación en TEMI, te escucha. Recuerda que si
-                presentas sintomatología depresiva o ansiosa según este reporte exploratorio puedes hacer uso de
-                nuestros servicios de atención psicológica gratuitos cuando lo desees. Un psicólogo o psicóloga se
-                comunicará contigo en los próximos días en un rango de 72 horas. Recuerda que tu bienestar es una
-                prioridad.</p>
-            <br>
-            <p style="text-align: justify">
-                Para mayor información sobre los resultados, por favor ponerse en contacto con Psc. Samia García, al
-                correo electrónico <b style="color: blue">sgarcia@esquel.org.ec</b>
+            <h5 class="items">6. Atenciones psicológicas:</h5>
+            <p style="text-align: justify">El servicio cuenta con un primer momento de identificación y tamizaje de
+                necesidades de salud mental en las áreas de depresión y ansiedad, a través de la aplicación de los
+                instrumentos PHQ-2, PHQ-9 y SRQ-18 mediante el Chatbot. En función de los resultados, se asigna la
+                atención psicológica gratuita en las estrategias de intervención de: <b>Primeros Auxilios Psicológicos o
+                    Contención Emocional que van de 1 a 7 sesiones</b>, previo a las autorización del participante y en
+                el caso
+                de menores de edad, previa la autorización de los representantes legales y la firma del consentimiento
+                informado correspondiente.
             </p>
-            <br>
-            <p style="text-align: right;color: #085EB9;font-style: oblique">
-                Programa desarrollado por el Área de Salud y Desarrollo y el Área de Tecnologías Cívicas de Fundación
-                Esquel con el apoyo de USAID y la autorización del Ministerio de Salud Pública
+            <p style="text-align: justify">
+                En caso de ser parte del servicio de atención psicológica, el presente apartado incluye el número de
+                sesiones en que el participante ha asistido.
+            </p>
+            <p style="text-align: justify">
+                En este sentido, a través del presente se corrobora que el <b>paciente referido ha asistido a un total
+                    de {{$sessions}} sesiones de atención psicológica
+                    según la estrategia de intervención asignada.</b>
             </p>
         </div>
     </div>
+    <br>
+
+    {{-- 7. --}}
+    <div class="row">
+        <div class="col-10 offset-1">
+            <h5 class="items">7. Acciones:</h5>
+            <p style="text-align: justify">Se ha extendido el presente reporte de tamizaje y atención psicológica por
+                solicitud propia del participante para que pueda hacer uso del mismo según desee bajo su responsabilidad
+                personal.
+            </p>
+            <p style="text-align: justify">
+                Para mayor información sobre los resultados, por favor ponerse en contacto el Fundación Esquel a través
+                del siguiente correo electrónico: <a>fundacion@esquel.org.ec</a>
+            </p>
+            <p style="text-align: right; color: #085EB9">
+                Servicio desarrollado por el Área de Salud y Desarrollo y el Área de Tecnologías Cívicas de Fundación
+                Esquel con la autorización del Ministerio de Salud Pública
+            </p>
+        </div>
+    </div>
+    <br>
 @endsection

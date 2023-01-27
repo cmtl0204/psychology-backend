@@ -39,6 +39,9 @@ class CreatePsychologyTestsTable extends Migration
             $table->string('code')
                 ->nullable();
 
+            $table->json('observations')
+                ->nullable();
+
             $table->integer('score')
                 ->unsigned()
                 ->default(0);

@@ -32,6 +32,7 @@ class TestResource extends JsonResource
             'score' => $this->score,
             'termsConditions' => $this->terms_conditions,
             'type' => strtoupper($this->type),
+            'observations' => json_decode($this->observations),
             'createdAt' => (Carbon::create($this->created_at))->toDateString(),
         ];
     }
