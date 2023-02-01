@@ -279,8 +279,8 @@ class TestsController extends Controller
         $dates = array($request->input('startedAt'), $request->input('endedAt'));
         $provinceIds = explode(",", $request->input('provinces'));
 
-        $prioritiesCount = Priority::withCount(['tests' => function ($tests) use ($provinceIds, $dates) {
-            $tests->date($dates)
+        $prioritiesCount = Priority::withCount(['tests' => function ($tests) use ($request, $provinceIds, $dates) {
+            $tests->age($request->input('age'))->date($dates)
                 ->provinces($provinceIds)
                 ->whereHas('state', function ($state) {
                     $state->where('code', '=', 'NOT_ASSIGNED');
@@ -301,8 +301,8 @@ class TestsController extends Controller
     public function countAllPriorities(Request $request)
     {
         $provinceIds = explode(",", $request->input('provinces'));
-        $prioritiesCount = Priority::withCount(['tests' => function ($tests) use ($provinceIds) {
-            $tests->provinces($provinceIds)->whereHas('state', function ($state) {
+        $prioritiesCount = Priority::withCount(['tests' => function ($tests) use ($request,$provinceIds) {
+            $tests->age($request->input('age'))->provinces($provinceIds)->whereHas('state', function ($state) {
                 $state->where('code', '=', 'NOT_ASSIGNED');
             });
         }])->get();
@@ -323,7 +323,7 @@ class TestsController extends Controller
         $dates = array($request->input('startedAt'), $request->input('endedAt'));
         $provinceIds = explode(",", $request->input('provinces'));
 
-        $countTests = Test::provinces($provinceIds)->date($dates)->get();
+        $countTests = Test::provinces($provinceIds)->date($dates)->age($request->input('age'))->get();
 
         return response()->json([
             'msg' => [
@@ -341,7 +341,7 @@ class TestsController extends Controller
         $provinceIds = explode(",", $request->input('provinces'));
         $priorityIds = explode(",", $request->input('priorities'));
 
-        $countTests = Test::priorities($priorityIds)->provinces($provinceIds)->date($dates)->get();
+        $countTests = Test::priorities($priorityIds)->provinces($provinceIds)->date($dates)->age($request->input('age'))->get();
 
         return response()->json([
             'msg' => [

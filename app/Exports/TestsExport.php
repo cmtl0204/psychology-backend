@@ -30,11 +30,12 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
 
     public function collection()
     {
-        return new TestCollection(Test::whereBetween('created_at', $this->dates)
-            ->where('type', $this->testType)
-            ->orWhere('type', 'duel')
-            ->orWhere('type', 'phq2')
-            ->get());
+        return new TestCollection(
+            Test::whereBetween('created_at', $this->dates)
+                ->where('type', $this->testType)
+                ->orWhere('type', 'phq2')
+                ->get()
+        );
     }
 
     public function map($row): array
@@ -42,14 +43,14 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
         $rows = [
             $row->created_at,
             $row->code,
-            $row->user ? $row->user->username: '',
-            $row->user ? $row->user->lastname.' '.$row->user->name : '',
+            $row->user ? $row->user->username : '',
+            $row->user ? $row->user->lastname . ' ' . $row->user->name : '',
             $row->province ? $row->province->name : '',
             $row->canton ? $row->canton->name : '',
-            $row->agent ? $row->agent->lastname.' '.$row->agent->name : '',
-            $row->agent ? $row->agent->phone: '',
-            $row->user ? $row->user->phone: '',
-            $row->agent ? $row->agent->identification: '',
+            $row->agent ? $row->agent->lastname . ' ' . $row->agent->name : '',
+            $row->agent ? $row->agent->phone : '',
+            $row->user ? $row->user->phone : '',
+            $row->agent ? $row->agent->identification : '',
             $row->age,
             $row->score,
             $row->priority ? $row->priority->name : '',
@@ -67,7 +68,6 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
     {
         $questions = Question::select('value')
             ->where('type', $this->testType)
-            ->orWhere('type', 'duel')
             ->orWhere('type', 'phq2')
             ->orderBY('id')
             ->get()->pluck('value')->toArray();
@@ -97,7 +97,7 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getStyle('A1:AC1')->applyFromArray([
+                $event->sheet->getStyle('A1:AD1')->applyFromArray([
                     'font' => [
                         'bold' => true
                     ]
@@ -108,7 +108,17 @@ class TestsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
 
     public function title(): string
     {
-        return $this->testType == 'phq9a' ? 'PHQ-9A' : 'PSC-17';
+        switch ($this->testType) {
+            case 'phq9a':
+                return 'PHQ - 9A';
+            case 'psc17':
+                return 'PSC - 17';
+            case 'phq9':
+                return 'PHQ-9A';
+            case 'srq18':
+                return 'SRQ - 18';
+            default:
+                return 'Sin Nombre';
+        }
     }
-
 }

@@ -19,6 +19,8 @@ class TestsMultiSheetExport implements WithMultipleSheets
 
         $sheets[] = new TestsExport('phq9a', $this->dates);
         $sheets[] = new TestsExport('psc17', $this->dates);
+        $sheets[] = new TestsExport('phq9', $this->dates);
+        $sheets[] = new TestsExport('srq18', $this->dates);
         return $sheets;
     }
 }
