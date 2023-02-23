@@ -24,7 +24,7 @@ Route::get('init', function () {
     return response()->json([
         'msg' => [
             'Los esquemas fueron creados correctamente.',
-            'Las migraciones fueron creadas correctamente'
+            'Las migraciones fueron creadas correctamente.'
         ]
     ]);
 });
