@@ -301,7 +301,7 @@ class TestsController extends Controller
     public function countAllPriorities(Request $request)
     {
         $provinceIds = explode(",", $request->input('provinces'));
-        $prioritiesCount = Priority::withCount(['tests' => function ($tests) use ($request,$provinceIds) {
+        $prioritiesCount = Priority::withCount(['tests' => function ($tests) use ($request, $provinceIds) {
             $tests->age($request->input('age'))->provinces($provinceIds)->whereHas('state', function ($state) {
                 $state->where('code', '=', 'NOT_ASSIGNED');
             });
@@ -460,9 +460,9 @@ class TestsController extends Controller
         $user = $user ? $user : new User();
         $user->name = $request->input('patient.name');
         $user->email = $request->input('patient.email');
-        $user->lastname = $request->input('patient.lastname');
-        $user->username = $request->input('patient.username');
-        $user->phone = $request->input('patient.phone');
+        $user->lastname = strtoupper($request->input('patient.lastname'));
+        $user->username = strtoupper($request->input('patient.username'));
+        $user->phone = '09' . $request->input('patient.phone');
         $user->password = $request->input('patient.username');
         $user->save();
 
@@ -502,9 +502,9 @@ class TestsController extends Controller
         $agent->test()->associate($test);
         $agent->email = $request->input('agent.email');
         $agent->identification = $request->input('agent.identification');
-        $agent->lastname = $request->input('agent.lastname');
-        $agent->name = $request->input('agent.name');
-        $agent->phone = $request->input('agent.phone');
+        $agent->lastname = strtoupper($request->input('agent.lastname'));
+        $agent->name = strtoupper($request->input('agent.name'));
+        $agent->phone = '09' . $request->input('agent.phone');
         $agent->save();
         return $agent;
     }
