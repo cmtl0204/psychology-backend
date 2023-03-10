@@ -646,6 +646,8 @@ class TestsController extends Controller
             $roles->where('name', 'support');
         })->get();
 
+        logger($emails);
+        logger($level);
 //        $level = 1;
 
         if ($level === 1) {
